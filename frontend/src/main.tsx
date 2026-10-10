@@ -1,10 +1,11 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { MotionConfig } from "framer-motion";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ApiError } from "./api/client";
 import { App } from "./App";
 import { config } from "./config";
-import "./styles/global.css";
+import "./styles/index.css";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,7 +33,10 @@ void enableMocks().then(() => {
   createRoot(root).render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <App />
+        {/* Vengeance UI motion follows the OS "reduce motion" setting. */}
+        <MotionConfig reducedMotion="user">
+          <App />
+        </MotionConfig>
       </QueryClientProvider>
     </StrictMode>,
   );

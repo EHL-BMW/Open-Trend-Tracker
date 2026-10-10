@@ -4,6 +4,32 @@ import { afterAll, afterEach, beforeAll } from "vitest";
 import { resetMockDb } from "../mocks/handlers";
 import { server } from "../mocks/node";
 
+// jsdom has no IntersectionObserver (framer-motion's whileInView needs one). Report everything as visible.
+if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
+  class VisibleObserver {
+    constructor(private readonly callback: IntersectionObserverCallback) {}
+    observe(target: Element) {
+      const rect = target.getBoundingClientRect();
+      this.callback(
+        [{ target, isIntersecting: true, intersectionRatio: 1, intersectionRect: rect } as IntersectionObserverEntry],
+        this as unknown as IntersectionObserver,
+      );
+    }
+    unobserve() {}
+    disconnect() {}
+    takeRecords() {
+      return [];
+    }
+  }
+  Object.assign(window, { IntersectionObserver: VisibleObserver });
+}
+
+// jsdom does not implement media playback.
+if (typeof HTMLMediaElement !== "undefined") {
+  HTMLMediaElement.prototype.play = () => Promise.resolve();
+  HTMLMediaElement.prototype.pause = () => {};
+}
+
 // jsdom has <dialog> but not its modal API.
 if (typeof HTMLDialogElement !== "undefined" && !HTMLDialogElement.prototype.showModal) {
   HTMLDialogElement.prototype.showModal = function showModal(this: HTMLDialogElement) {

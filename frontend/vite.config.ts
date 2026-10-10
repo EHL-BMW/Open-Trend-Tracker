@@ -1,5 +1,6 @@
 import { rmSync } from "node:fs";
 import { resolve } from "node:path";
+import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { loadEnv, type Plugin } from "vite";
 import { defineConfig } from "vitest/config";
@@ -20,7 +21,8 @@ export default defineConfig(({ mode }) => {
   const backend = env.VITE_DEV_BACKEND_URL;
 
   return {
-    plugins: [react(), dropMockWorker(env.VITE_USE_MOCKS !== "true")],
+    plugins: [react(), tailwindcss(), dropMockWorker(env.VITE_USE_MOCKS !== "true")],
+    resolve: { alias: { "@": resolve(__dirname, "src") } },
     server: {
       port: 5173,
       proxy: backend ? { "/api": { target: backend, changeOrigin: true } } : undefined,

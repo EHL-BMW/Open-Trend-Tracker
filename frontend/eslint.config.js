@@ -26,6 +26,16 @@ export default tseslint.config(
     },
   },
   {
+    // Vendored Vengeance UI components: kept close to upstream.
+    files: ["src/components/ui/**"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off",
+      "no-console": "off",
+      "react-refresh/only-export-components": "off",
+      "react-hooks/exhaustive-deps": "off",
+    },
+  },
+  {
     files: ["src/**/*.test.{ts,tsx}", "src/test/**", "src/mocks/**"],
     rules: { "@typescript-eslint/no-non-null-assertion": "off" },
   },

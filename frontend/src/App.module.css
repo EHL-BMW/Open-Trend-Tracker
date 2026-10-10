@@ -1,4 +1,5 @@
 .page {
+  scroll-margin-top: 52px;
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 22px 80px;
@@ -8,7 +9,7 @@
   padding: 48px 0 28px;
 }
 
-.hero h1 {
+.hero h2 {
   font: 700 clamp(30px, 5vw, 48px) / 1.08 var(--font-display);
   letter-spacing: -0.025em;
   margin: 0;

@@ -5,6 +5,7 @@ import type { AnalysisRun } from "./api/types";
 import { StateMessage } from "./components/common/StateMessage";
 import { TrendForecast } from "./components/forecast/TrendForecast";
 import { Inspector, InspectorPlaceholder } from "./components/inspector/Inspector";
+import { HeroVideo, PLANNER_ID } from "./components/hero/HeroVideo";
 import { NavBar } from "./components/layout/NavBar";
 import { Orbit, OrbitPlaceholder } from "./components/orbit/Orbit";
 import { ReasoningSheet } from "./components/reasoning/ReasoningSheet";
@@ -32,7 +33,8 @@ export function App() {
   return (
     <>
       <NavBar mockMode={config.useMocks} canReset={false} canRun={false} running={false} runHint="Waiting for data" />
-      <main className={styles.page}>
+      <HeroVideo />
+      <main id={PLANNER_ID} className={styles.page}>
         <Hero />
         {catalog.isError ? (
           <div className="card">
@@ -125,7 +127,8 @@ function Planner() {
         runHint={hasActiveSource ? "Run analysis (Ctrl/⌘ + Enter)" : "Switch on at least one weighted source"}
         onRun={handleRun}
       />
-      <main className={styles.page}>
+      <HeroVideo />
+      <main id={PLANNER_ID} className={styles.page}>
         <Hero />
         <div className={styles.grid}>
           <div className={styles.leftCol}>
@@ -159,7 +162,7 @@ function Planner() {
 function Hero() {
   return (
     <header className={styles.hero}>
-      <h1>The product management universe.</h1>
+      <h2>The product management universe.</h2>
       <p>
         Choose what informs the decision. Tap a source to switch it on or off, tune its weight, or refine its filters.
       </p>

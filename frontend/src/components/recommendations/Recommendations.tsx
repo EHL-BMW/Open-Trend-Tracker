@@ -1,7 +1,10 @@
 import type { CSSProperties } from "react";
 import type { AnalysisRun, Recommendation, Spec } from "../../api/types";
 import { categoryColor } from "../../domain/categories";
+import { RollingNumber } from "../common/RollingNumber";
 import { StateMessage } from "../common/StateMessage";
+import AnimatedTooltip from "../ui/animated-tooltip";
+import GlowBorderCard from "../ui/glow-border-card";
 import styles from "./Recommendations.module.css";
 
 interface Props {
@@ -50,39 +53,77 @@ export function Recommendations({ run, stale, running, error, canRun, onRun, onE
         </div>
       )}
 
-      <div className={`card ${styles.list} ${run && (stale || running) ? styles.dimmed : ""}`}>
-        {!run ? (
-          <StateMessage
-            title={running ? "Running analysis…" : "No analysis yet"}
-            action={
-              !running && (
-                <button type="button" className="btn-primary" onClick={onRun} disabled={!canRun}>
-                  Run analysis
-                </button>
-              )
-            }
-          >
-            Choose sources, weights and filters above, then run the analysis to get the Top 5 with their reasoning.
-          </StateMessage>
-        ) : run.recommendations.length === 0 ? (
-          <StateMessage title="No recommendations for these settings">
-            Switch on more sources or select more filter values, then run again.
-          </StateMessage>
-        ) : (
-          <ol className={styles.items}>
-            {run.recommendations.map((rec) => (
-              <RecommendationRow key={rec.id} rec={rec} onExplain={() => onExplain(rec.id)} />
-            ))}
-          </ol>
-        )}
-      </div>
+      {run && run.recommendations.length > 0 ? (
+        <ol className={`${styles.items} ${stale || running ? styles.dimmed : ""}`}>
+          {run.recommendations.map((rec) => (
+            <RecommendationRow key={rec.id} rec={rec} onExplain={() => onExplain(rec.id)} />
+          ))}
+        </ol>
+      ) : (
+        <div className={`card ${styles.list}`}>
+          {!run ? (
+            <StateMessage
+              title={running ? "Running analysis…" : "No analysis yet"}
+              action={
+                !running && (
+                  <button type="button" className="btn-primary" onClick={onRun} disabled={!canRun}>
+                    Run analysis
+                  </button>
+                )
+              }
+            >
+              Choose sources, weights and filters above, then run the analysis to get the Top 5 with their reasoning.
+            </StateMessage>
+          ) : (
+            <StateMessage title="No recommendations for these settings">
+              Switch on more sources or select more filter values, then run again.
+            </StateMessage>
+          )}
+        </div>
+      )}
     </section>
   );
 }
 
+/** Calm blue glow for the top pick (Vengeance GlowBorderCard). */
+const TOP_PICK_GLOW = [
+  "#0071e3",
+  "#2b8cff",
+  "#5ac8fa",
+  "#0a84ff",
+  "#64d2ff",
+  "#0071e3",
+  "#3a7bd5",
+  "#5ac8fa",
+  "#2b8cff",
+  "#0071e3",
+];
+
 function RecommendationRow({ rec, onExplain }: { rec: Recommendation; onExplain: () => void }) {
+  const body = <RecommendationBody rec={rec} onExplain={onExplain} />;
+  if (rec.rank !== 1) return <li className={`${styles.rec} ${styles.card}`}>{body}</li>;
   return (
-    <li className={styles.rec}>
+    <li className={styles.featured}>
+      <GlowBorderCard
+        className={styles.glow}
+        width="100%"
+        aspectRatio="auto"
+        borderRadius="22px"
+        borderWidth="0.45em"
+        blurAmount="0.7em"
+        inset="-0.2em"
+        animationDuration={7}
+        gradientColors={TOP_PICK_GLOW}
+      >
+        <div className={styles.rec}>{body}</div>
+      </GlowBorderCard>
+    </li>
+  );
+}
+
+function RecommendationBody({ rec, onExplain }: { rec: Recommendation; onExplain: () => void }) {
+  return (
+    <>
       <span className={`${styles.rank} ${rec.rank === 1 ? styles.first : ""} num`} aria-label={`Rank ${rec.rank}`}>
         {rec.rank}
       </span>
@@ -95,7 +136,9 @@ function RecommendationRow({ rec, onExplain }: { rec: Recommendation; onExplain:
       </div>
       <div className={styles.side}>
         <span className={styles.score}>
-          <b className="num">{rec.score.toFixed(1)}</b>
+          <b className="num">
+            <RollingNumber value={rec.score} decimals={1} />
+          </b>
           <small>/ 100</small>
         </span>
         <button type="button" className="btn-tinted" onClick={onExplain} aria-label={`Show reasoning for ${rec.title}`}>
@@ -107,7 +150,7 @@ function RecommendationRow({ rec, onExplain }: { rec: Recommendation; onExplain:
           <SpecChip key={`${spec.category}-${i}`} spec={spec} />
         ))}
       </ul>
-    </li>
+    </>
   );
 }
 
@@ -117,8 +160,25 @@ function SpecChip({ spec }: { spec: Spec }) {
       className={`${styles.spec} ${styles[spec.kind]}`}
       style={{ "--c": categoryColor(spec.category) } as CSSProperties}
     >
-      <b>{spec.label}</b>
+      <AnimatedTooltip content={chipHint(spec)} variant="indis" accentColor="var(--blue)" triggerClassName="">
+        <b>{spec.label}</b>
+      </AnimatedTooltip>
       <span>{spec.text}</span>
     </li>
   );
+}
+
+/** Plain-language meaning of each chip, shown in its tooltip. */
+function chipHint(spec: Spec): string {
+  if (spec.kind === "missing") return "No matching records in this source, so it adds nothing to the score.";
+  switch (spec.category) {
+    case "sales":
+      return "Sales evidence: model lines and powertrains where this sells.";
+    case "customer":
+      return "Customer evidence: how often customers raise it as a pain point or praise it.";
+    case "features":
+      return "BMW today: what existing BMW cars already offer. Context only, not weighted.";
+    case "trends":
+      return "Trend forecast from China EV bestsellers. An assumption, not evidence.";
+  }
 }

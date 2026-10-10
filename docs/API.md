@@ -1,4 +1,4 @@
-# Series Improvement Planner – API contract (v1)
+# OpenTT – API contract (v1)
 
 The frontend is a pure client: it loads the filter catalog, sends the PM's weights and filter selections, and renders
 what the backend computes (ranking, reasoning, graph data, flags). **All scoring happens in the backend.**

@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import type { WeightedKey } from "../../domain/categories";
 import { usePlanner } from "../../state/PlannerContext";
+import { RollingNumber } from "../common/RollingNumber";
 import styles from "./Inspector.module.css";
 
 interface Props {
@@ -20,7 +21,9 @@ export function WeightSlider({ categoryKey, label, effective, disabled }: Props)
   return (
     <div className={styles.sliderWrap}>
       <div className={styles.sliderTop}>
-        <b className="num">{value}%</b>
+        <b className="num">
+          <RollingNumber value={value} suffix="%" />
+        </b>
         <small>{on ? `${(effective * 100).toFixed(1)}% effective` : "Frozen"}</small>
       </div>
       <input

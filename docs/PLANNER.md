@@ -1,4 +1,4 @@
-# Series Improvement Planner
+# OpenTT – Series Improvement Planner
 
 Tool for BMW product managers to improve an existing model series. The PM chooses which sources inform the decision
 (Sales, Customer, Trends / Competition, Features / Engineering), sets their weights and filters, and gets a Top 5 of
@@ -55,6 +55,35 @@ npm run dev            # http://localhost:5173 against the built-in mock backend
 | `VITE_USE_MOCKS`       | `false`   | `true` serves the API from the in-browser mock backend     |
 | `VITE_DEV_BACKEND_URL` | –         | Dev server only: target for the `/api` proxy               |
 | `BACKEND_URL`          | –         | Docker only: where nginx forwards `/api/` (runtime, no rebuild) |
+
+### Intro video
+
+The page opens with a full-screen intro video; the planner starts below it. The video is fixed:
+
+- `frontend/public/media/hero.mp4`: "BMW M3 Driving on Scenic Street at Dusk" by CALI_ MEDIA _ on Pexels
+  (https://www.pexels.com/video/30604039/), 1920×1080, muted loop.
+- `frontend/public/media/hero-poster.jpg`: still frame of the same clip, shown before the video loads.
+
+Licence: [Pexels License](https://www.pexels.com/license/), free to use and modify, no attribution required; the clip
+may not be sold unaltered. It is not official BMW footage. The video can be paused (button bottom right) and does not
+autoplay for users who prefer reduced motion.
+
+### UI components (Vengeance UI)
+
+A few animated components come from [Vengeance UI](https://www.vengenceui.com) (MIT, © Ashutoshx7), copied into
+`frontend/src/components/ui/` the shadcn way (we own the code; licence in `LICENSE-vengeance-ui.txt`):
+
+| Component         | Used for                                          |
+| ----------------- | ------------------------------------------------- |
+| Stagger Text      | "OpenTT" headline and tagline reveal in the intro |
+| Animated Button   | "Run analysis" in the header                      |
+| Animated Number   | Rolling weight percentage and recommendation scores |
+| Glow Border Card  | The top-ranked recommendation                     |
+| Animated Tooltip  | Explanations on the evidence chips                |
+
+They need Tailwind CSS v4 (loaded without its CSS reset, so the rest of the app keeps its CSS-Modules styling) and
+framer-motion. Motion follows the OS "reduce motion" setting. To add another component, copy it from the site into
+`src/components/ui/` and import `cn` from `@/lib/utils`.
 
 ### Docker
 

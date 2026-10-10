@@ -96,7 +96,7 @@ Here is the **distilled requirements specification for your hackathon project**â
 
 ---
 
-## Series Improvement Planner (frontend)
+## OpenTT â€“ Series Improvement Planner (frontend)
 
 PM tool that turns Sales, Customer, Trends / Competition and Features / Engineering data into a weighted, explainable
 Top 5 of improvements for an existing BMW model series, with every recommendation traced back to its source records.
