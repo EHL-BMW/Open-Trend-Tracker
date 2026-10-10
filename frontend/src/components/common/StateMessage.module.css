@@ -1,0 +1,35 @@
+.root {
+  padding: 44px 24px;
+  text-align: center;
+  color: var(--label-2);
+}
+
+.compact {
+  padding: 16px 4px;
+}
+
+.title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--label);
+  letter-spacing: -0.02em;
+}
+
+.compact .title {
+  font-size: 14px;
+}
+
+.body {
+  margin: 6px auto 0;
+  max-width: 440px;
+  font-size: 14px;
+}
+
+.error .title {
+  color: var(--danger);
+}
+
+.action {
+  margin-top: 16px;
+}

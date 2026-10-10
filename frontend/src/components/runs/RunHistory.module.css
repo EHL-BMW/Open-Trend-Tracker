@@ -1,0 +1,79 @@
+.title {
+  font: 700 26px/1.15 var(--font-display);
+  letter-spacing: -0.02em;
+  margin: 56px 0 6px;
+}
+
+.sub {
+  color: var(--label-2);
+  margin: 0 0 18px;
+  font-size: 15px;
+}
+
+.card {
+  overflow: hidden;
+}
+
+.scroll {
+  overflow-x: auto;
+  padding: 4px 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 11px 16px;
+  vertical-align: top;
+}
+
+th {
+  color: var(--label-2);
+  font-weight: 500;
+  font-size: 12.5px;
+}
+
+tbody td {
+  border-top: 1px solid var(--sep);
+}
+
+tbody tr[aria-current="true"] td {
+  background: color-mix(in srgb, var(--blue) 6%, transparent);
+}
+
+code {
+  font: 12px var(--font-mono);
+  background: var(--fill);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.top {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.action {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.current {
+  font-size: 13px;
+  color: var(--label-2);
+}
+
+.loading {
+  display: grid;
+  gap: 10px;
+  padding: 18px;
+}
+
+.loading > div {
+  height: 18px;
+}

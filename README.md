@@ -93,3 +93,20 @@ Here is the **distilled requirements specification for your hackathon project**â
 1. **Live Demo**: A working, interactive prototype demonstrating the end-to-end workflow (Ingestion $\rightarrow$ Signal Extraction $\rightarrow$ Requirement Derivation $\rightarrow$ Prioritization $\rightarrow$ PM Interaction $\rightarrow$ Audit Trail).
 2. **Pitch Deck**: Presentation covering the problem, solution architecture, PM workflow, and business impact.
 3. **GitHub Repository**: Clean, well-documented source code.
+
+---
+
+## Series Improvement Planner (frontend)
+
+PM tool that turns Sales, Customer, Trends / Competition and Features / Engineering data into a weighted, explainable
+Top 5 of improvements for an existing BMW model series, with every recommendation traced back to its source records.
+
+- Code: [`frontend/`](frontend/) (React + TypeScript + Vite, runs against a built-in mock backend)
+- Guide and setup: [`docs/PLANNER.md`](docs/PLANNER.md)
+- API contract for the backend: [`docs/API.md`](docs/API.md)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
