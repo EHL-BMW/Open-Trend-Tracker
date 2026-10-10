@@ -1,0 +1,22 @@
+[project]
+name = "ott-backend"
+version = "0.1.0"
+description = "Open-Trend-Tracker backend: unify heterogeneous vehicle data into one hierarchical, quantifiable structure"
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi",
+    "openpyxl",
+    "pandas",
+    "pypdf[crypto]",
+    "pydantic>=2",
+    "uvicorn",
+]
+
+[dependency-groups]
+dev = ["pytest", "httpx2"]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
