@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BMW EV End-to-End Pipeline: From Raw Data to Strategic End-Product</title>
+  <meta name="description" content="Seamless End-to-End Walkthrough: From 53 BMW EV/PHEV models across customer study intersections to the 7-domain sentiment pipeline and concrete engineering action items.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Dedicated Pipeline Storyboard Styles */
+    .story-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 30px 24px 80px 24px;
+    }
+
+    .pipeline-hero {
+      background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.85) 100%);
+      border: 1px solid rgba(0, 210, 255, 0.25);
+      border-radius: 20px;
+      padding: 36px 40px;
+      margin-bottom: 36px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 30px rgba(0, 210, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pipeline-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, rgba(0, 102, 177, 0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .hero-badge-strip {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .badge-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .badge-bmw-blue {
+      background: rgba(0, 102, 177, 0.2);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+    }
+
+    .badge-emerald {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+    }
+
+    .badge-purple {
+      background: rgba(168, 85, 247, 0.15);
+      color: #c084fc;
+      border: 1px solid rgba(192, 132, 252, 0.4);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+      margin-bottom: 12px;
+    }
+
+    .hero-title .glow {
+      color: #00d2ff;
+      text-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+    }
+
+    .hero-lead {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      max-width: 950px;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .hero-action-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-hero {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, #0066B1, #0284c7);
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+    }
+
+    .btn-hero-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(2, 132, 199, 0.5);
+    }
+
+    .btn-hero-secondary {
+      background: rgba(15, 23, 42, 0.8);
+      color: #e2e8f0;
+      border: 1px solid var(--border-medium);
+    }
+
+    .btn-hero-secondary:hover {
+      background: rgba(30, 41, 59, 0.9);
+      color: #ffffff;
+      border-color: #38bdf8;
+    }
+
+    /* Process Stepper Navigator */
+    .stepper-nav {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+
+    .step-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-card:hover {
+      background: rgba(30, 41, 59, 0.85);
+      border-color: rgba(0, 210, 255, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    .step-num {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(0, 210, 255, 0.15);
+      color: #00d2ff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(0, 210, 255, 0.3);
+    }
+
+    .step-card:nth-child(2) .step-num { background: rgba(168, 85, 247, 0.15); color: #c084fc; border-color: rgba(192, 132, 252, 0.4); }
+    .step-card:nth-child(3) .step-num { background: rgba(59, 130, 246, 0.15); color: #60a5fa; border-color: rgba(96, 165, 250, 0.4); }
+    .step-card:nth-child(4) .step-num { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border-color: rgba(251, 191, 36, 0.4); }
+    .step-card:nth-child(5) .step-num { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(52, 211, 153, 0.4); }
+
+    .step-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .step-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #ffffff;
+      white-space: nowrap;
+    }
+
+    /* Phase Section Wrapper */
+    .phase-section {
+      background: rgba(14, 20, 36, 0.7);
+      border: 1px solid var(--border-subtle);
+      border-radius: 18px;
+      padding: 32px 36px;
+      margin-bottom: 36px;
+      position: relative;
+    }
+
+    .phase-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .phase-title-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .phase-badge-num {
+      background: linear-gradient(135deg, #00d2ff, #0066B1);
+      color: #ffffff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .phase-heading {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .phase-desc {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    /* Metric Cards Grid */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+
+    .metric-card {
+      background: rgba(21, 29, 51, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .metric-card.highlight {
+      border-color: rgba(0, 210, 255, 0.35);
+      background: linear-gradient(180deg, rgba(21, 29, 51, 0.8) 0%, rgba(14, 20, 36, 0.8) 100%);
+    }
+
+    .metric-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .metric-val {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .metric-sub {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Funnel Box */
+    .funnel-container {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .funnel-steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1.2fr;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .funnel-box {
+      background: rgba(30, 41, 59, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: center;
+    }
+
+    .funnel-box.eliminated {
+      border-color: rgba(239, 68, 68, 0.35);
+      background: rgba(239, 68, 68, 0.06);
+    }
+
+    .funnel-box.accepted {
+      border-color: rgba(16, 185, 129, 0.5);
+      background: rgba(16, 185, 129, 0.08);
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
+    }
+
+    .funnel-arrow {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Domain Grid */
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .domain-card {
+      background: rgba(21, 29, 51, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 20px;
+      transition: all 0.2s ease;
+    }
+
+    .domain-card:hover {
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(26, 36, 64, 0.75);
+    }
+
+    .domain-card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .domain-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    .domain-badge.pos { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(52, 211, 153, 0.3); }
+    .domain-badge.mid { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.3); }
+    .domain-badge.neg { background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(248, 113, 113, 0.3); }
+
+    .domain-card-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 4px;
+    }
+
+    .domain-aspect {
+      font-size: 0.8rem;
+      color: #38bdf8;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .domain-stats-row {
+      display: flex;
+      justify-content: space-between;
+      background: rgba(15, 23, 42, 0.6);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+    }
+
+    .domain-detail-list {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Math Formula Cards */
+    .formula-card {
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.88rem;
+      color: #38bdf8;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    /* Clean Styled Data Table */
+    .data-table-clean {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .data-table-clean th {
+      background: #0f172a;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 16px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .data-table-clean td {
+      padding: 14px 16px;
+      font-size: 0.85rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      vertical-align: middle;
+    }
+
+    .data-table-clean tr:last-child td {
+      border-bottom: none;
+    }
+
+    .data-table-clean tr:hover td {
+      background: rgba(30, 41, 59, 0.4);
+    }
+
+    .net-badge {
+      display: inline-block;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+    }
+
+    .net-pos { background: rgba(16, 185, 129, 0.2); color: #34d399; }
+    .net-mid { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+    .net-neg { background: rgba(239, 68, 68, 0.2); color: #f87171; }
+
+    /* Code Terminal Box */
+    .code-terminal {
+      background: #090d16;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: #94a3b8;
+      line-height: 1.5;
+      max-height: 400px;
+      overflow-y: auto;
+      margin-bottom: 24px;
+    }
+
+    .code-terminal .term-green { color: #34d399; }
+    .code-terminal .term-cyan { color: #38bdf8; }
+    .code-terminal .term-yellow { color: #fbbf24; }
+    .code-terminal .term-red { color: #f87171; }
+    .code-terminal .term-white { color: #ffffff; font-weight: 600; }
+
+    @media (max-width: 900px) {
+      .stepper-nav {
+        grid-template-columns: 1fr;
+      }
+      .funnel-steps {
+        grid-template-columns: 1fr;
+      }
+      .funnel-arrow {
+        transform: rotate(90deg);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-layout">
+    <div class="story-container">
+      
+      <!-- Top Navigation & Return Link -->
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+        <a href="index.html" class="btn btn-secondary" style="display:inline-flex; align-items:center; gap:8px;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+          Back to Interactive Vehicle Explorer
+        </a>
+        <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+          <a href="china_megatrends.html" class="btn" style="background:rgba(239, 68, 68, 0.15); border:1px solid rgba(239, 68, 68, 0.4); color:#fca5a5; font-size:0.8rem; display:inline-flex; align-items:center; gap:6px;">
+            <span style="display:inline-block; width:7px; height:7px; border-radius:50%; background:#ef4444; box-shadow:0 0 6px #ef4444;"></span>
+            📡 China Megatrends Radar
+          </a>
+          <a href="BMW_EV_Technology_Domains_Analysis_Report.pdf" download="BMW_EV_Technology_Domains_Analysis_Report.pdf" class="btn btn-outline" style="font-size:0.8rem;">
+            📄 Tech Domains Report (PDF)
+          </a>
+          <a href="BMW_Technology_Domains_Ranking_and_Methodology.pdf" download="BMW_Technology_Domains_Ranking_and_Methodology.pdf" class="btn btn-primary" style="font-size:0.8rem;">
+            📊 Methodology Report (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Hero Header -->
+      <section class="pipeline-hero">
+        <div class="hero-top-row">
+          <div class="hero-badge-strip">
+            <span class="badge-pill badge-bmw-blue">BMW Group Fleet Intelligence</span>
+            <span class="badge-pill badge-emerald">Evidence-Backed Study</span>
+            <span class="badge-pill badge-purple">End-to-End Pipeline</span>
+          </div>
+          <span style="font-size:0.85rem; color:#94a3b8; font-weight:500;">Version 2.4.0 • Effective: October 2026</span>
+        </div>
+
+        <h1 class="hero-title">
+          From Raw Data to <span class="glow">Strategic End-Product</span>
+        </h1>
+        <p class="hero-lead">
+          The end-to-end journey of our data intelligence track: How we inventoried <strong>53 electrified BMW models</strong>, matched them against empirical customer studies, structured them across <strong>7 technology domains</strong>, and applied a rigorous <strong>Net Sentiment & Severity mathematical model</strong> to establish prioritized engineering action items.
+        </p>
+
+        <div class="hero-action-buttons">
+          <a href="#phase-1" class="btn-hero btn-hero-secondary">01 Fleet Census</a>
+          <a href="#phase-2" class="btn-hero btn-hero-secondary">02 Cohort Matching</a>
+          <a href="#phase-3" class="btn-hero btn-hero-secondary">03 7 Tech Domains</a>
+          <a href="#phase-4" class="btn-hero btn-hero-secondary">04 Mathematical Modeling</a>
+          <a href="#phase-5" class="btn-hero btn-hero-primary">05 End-Product & Pipeline</a>
+        </div>
+      </section>
+
+      <!-- Stepper Quick Navigator -->
+      <nav class="stepper-nav" aria-label="Pipeline Stages">
+        <a href="#phase-1" class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-info">
+            <span class="step-tag">Raw Data</span>
+            <span class="step-title">53 BMW EV/PHEVs</span>
+          </div>
+        </a>
+        <a href="#phase-2" class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-info">
+            <span class="step-tag">Filtering</span>
+            <span class="step-title">16 Matched Models</span>
+          </div>
+        </a>
+        <a href="#phase-3" class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-info">
+            <span class="step-tag">Architecture</span>
+            <span class="step-title">7 Tech Domains</span>
+          </div>
+        </a>
+        <a href="#phase-4" class="step-card">
+          <div class="step-num">4</div>
+          <div class="step-info">
+            <span class="step-tag">Analytics</span>
+            <span class="step-title">Net Sentiment Math</span>
+          </div>
+        </a>
+        <a href="#phase-5" class="step-card">
+          <div class="step-num">5</div>
+          <div class="step-info">
+            <span class="step-tag">Deliverables</span>
+            <span class="step-title">Engineering Backlog</span>
+          </div>
+        </a>
+      </nav>
+
+      <!-- PHASE 1: BMW EV & PHEV CATALOG (THE RAW DATA) -->
+      <section id="phase-1" class="phase-section">
+        <div class="phase-header">
+          <div class="phase-title-group">
+            <span class="phase-badge-num">PHASE 01</span>
+            <h2 class="phase-heading">The Empirical Baseline: Complete BMW EV & PHEV Catalog</h2>
+          </div>
+          <span class="badge badge-cyan">ADAC Autokatalog + Official Price Lists</span>
+        </div>
+        <p class="phase-desc">
+          Our starting point was the exhaustive census of all battery-electric (BEV) and plug-in hybrid (PHEV) vehicles produced by BMW for Europe and global markets. Leveraging official ADAC specifications and price list equipment catalogs, technical metrics were enriched with standard and optional equipment across <strong>Interior, Exterior, and Driver Assistance</strong>.
+        </p>
+
+        <div class="grid-4">
+          <div class="metric-card highlight">
+            <span class="metric-label">Inventoried Models</span>
+            <div class="metric-val">53</div>
+            <span class="metric-sub">100% of electrified BMW portfolio (iX1, i4, i5, i7, iX, 3–7 Series PHEVs)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Powertrain Split</span>
+            <div class="metric-val" style="color:#38bdf8;">28 BEV / 25 PHEV</div>
+            <span class="metric-sub">Pure Battery Electrics & High-Voltage Plug-in Hybrids</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Battery Capacities</span>
+            <div class="metric-val" style="color:#34d399;">14.9 – 105.2 kWh</div>
+            <span class="metric-sub">From 225xe (14.9 kWh) to long-range SAV iX xDrive50</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">Range Spectrum</span>
+            <div class="metric-val" style="color:#a855f7;">283 – 630 km</div>
+            <span class="metric-sub">Official WLTP range across all vehicle lines</span>
+          </div>
+        </div>
+
+        <div style="background:rgba(15, 23, 42, 0.6); padding:16px 20px; border-radius:12px; border:1px solid rgba(255, 255, 255, 0.08); font-size:0.85rem; color:#cbd5e1; line-height:1.6;">
+          <strong style="color:#ffffff;">Official Price List Attributes Tracked Per Model:</strong><br/>
+          • <strong>Interior:</strong> BMW Curved Display (12,3" + 14,9"), BMW Interaction Bar, Veganza-Kunstleder vs. Leder Merino, Bowers & Wilkins Diamond Surround Sound, Panoramadach Sky Lounge, 31,3" Theatre Screen (i7).<br/>
+          • <strong>Exterior:</strong> BMW Kidney Grille Iconic Glow, Adaptive LED / Matrix-Licht, bündige Türgriffe, automatische Komfort-Türen (i7), berührungslose Heckklappe.<br/>
+          • <strong>Driver Assistance:</strong> Driving Assistant Professional, Highway Assistant (Hands-free L2+ bis 130 km/h mit Blick-Spurwechsel), Parking Assistant Professional (Remote Control per Smartphone).
+        </div>
+      </section>
+
+      <!-- PHASE 2: DATA MATCHING & CLEANING -->
+      <section id="phase-2" class="phase-section">
+        <div class="phase-header">
+          <div class="phase-title-group">
+            <span class="phase-badge-num">PHASE 02</span>
+            <h2 class="phase-heading">Cohort Intersection: Alignment with Customer Studies & Cleaning</h2>
+          </div>
+          <span class="badge badge-purple">100% Strict ICE & F70 Exclusion</span>
+        </div>
+        <p class="phase-desc">
+          To accurately correlate real customer friction points with electrified architectures, we aligned the 53 catalog vehicles with empirical customer studies from <code>F70_G60_G68_G70_customer_studies.xlsx</code> and detailed feedback logs. Strict methodological cleaning was essential to eliminate distortion caused by internal combustion powertrains.
+        </p>
+
+        <!-- Funnel Visualization -->
+        <div class="funnel-container">
+          <div class="funnel-steps">
+            <div class="funnel-box">
+              <span class="metric-label">Total Survey Pool</span>
+              <div style="font-size:1.4rem; font-weight:800; color:#ffffff; margin:4px 0;">9,695 Records</div>
+              <span style="font-size:0.75rem; color:#94a3b8;">G60 (5 Series) + G70 (7 Series) Raw Data</span>
+            </div>
+            <div class="funnel-arrow">➔</div>
+            <div class="funnel-box eliminated">
+              <span class="metric-label" style="color:#f87171;">Eliminated Combustion ICE</span>
+              <div style="font-size:1.4rem; font-weight:800; color:#f87171; margin:4px 0;">- 5.724 ICE</div>
+              <span style="font-size:0.75rem; color:#fca5a5;">520i, 520d, 740i etc. 100% Excluded</span>
+            </div>
+            <div class="funnel-arrow">➔</div>
+            <div class="funnel-box accepted">
+              <span class="metric-label" style="color:#34d399;">Verified Electrified Cohort</span>
+              <div style="font-size:1.4rem; font-weight:800; color:#34d399; margin:4px 0;">16 Models / 3,971 Records</div>
+              <span style="font-size:0.75rem; color:#6ee7b7;">Pure i5, i7, 5 Series PHEV, 7 Series PHEV Cohorts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-4">
+          <div class="metric-card">
+            <span class="metric-label">i5 BEV (G60 / G61)</span>
+            <div class="metric-val" style="color:#38bdf8;">1.763 Feedback Cases</div>
+            <span class="metric-sub">6 Matched Models (eDrive40 & M60 Limousine + Touring)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">i7 BEV (G70)</span>
+            <div class="metric-val" style="color:#00d2ff;">1.347 Feedback Cases</div>
+            <span class="metric-sub">3 Matched Models (eDrive50, xDrive60, M70)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">5er PHEV (G60)</span>
+            <div class="metric-val" style="color:#a855f7;">474 Feedback Cases</div>
+            <span class="metric-sub">5 Matched Models (530e, 550e Limousine + Touring)</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-label">7er PHEV (G70)</span>
+            <div class="metric-val" style="color:#ec4899;">387 Feedback Cases</div>
+            <span class="metric-sub">2 Matched Models (750e, M760e xDrive)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 3: THE 7 TECHNOLOGY DOMAINS -->
+      <section id="phase-3" class="phase-section">
+        <div class="phase-header">
+          <div class="phase-title-group">
+            <span class="phase-badge-num">PHASE 03</span>
+            <h2 class="phase-heading">The 7 Technology Domains (Architecture & MECE Validation)</h2>
+          </div>
+          <span class="badge badge-emerald">NEV / SDV Industry Standard</span>
+        </div>
+        <p class="phase-desc">
+          Classification follows internationally recognized automotive benchmark domains (Dongchedi, CPCA, McKinsey Connected Vehicle). The 7 domains are <strong>strictly MECE</strong> (Mutually Exclusive, Collectively Exhaustive), providing sharp separation between physical actuators, in-cabin software, and off-board connectivity.
+        </p>
+
+        <div class="domain-grid">
+          <!-- 1 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge neg">Prio 1 Backlog</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">16,65 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">⚡ 1. Energy & Charging</div>
+            <div class="domain-aspect">补能体验、续航管理、对外供电</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>125</strong></span>
+              <span>Friction: <strong>315</strong></span>
+              <span>Net: <strong style="color:#f87171;">-43,2%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> Ladeerlebnis, Vorkonditionierung, reale Reichweite, 400V Ladekurve.<br/>
+              • <strong>Friction:</strong> Bis zu 35% Winter-Reichweiteneinbruch; Kaltladen mit nur 60 kW bei Fremdsäulen.
+            </p>
+          </div>
+
+          <!-- 2 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge mid">Lowest Defect Rate</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">8,14 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">🛡️ 2. Driving Assistance</div>
+            <div class="domain-aspect">城市/高速辅助、泊车、人车交接</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>68</strong></span>
+              <span>Friction: <strong>154</strong></span>
+              <span>Net: <strong style="color:#f87171;">-38,7%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> Highway Assistant (L2+ Hands-Free), Parking Pro, Handoff.<br/>
+              • <strong>Friction:</strong> Sehr geringe Fehlerrate (nur 11% Defect); Kritik betrifft fast rein EU GSR2-Warnbongs.
+            </p>
+          </div>
+
+          <!-- 3 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge neg">Highest Severity (2.03)</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">15,64 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">🖥️ 3. Digital Cockpit & AI</div>
+            <div class="domain-aspect">显示交互、语音助手、娱乐</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>153</strong></span>
+              <span>Friction: <strong>296</strong></span>
+              <span>Net: <strong style="color:#f87171;">-31,8%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> BMW OS 8.5/9, QuickSelect, Theatre Screen, NLU Sprachassistent.<br/>
+              • <strong>Friction:</strong> Verlust physischer Klimatasten; Menüverschachtelung lenkt während Fahrt ab.
+            </p>
+          </div>
+
+          <!-- 4 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge neg">Critical Friction (-76.7%)</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">11,21 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">📱 4. Connected Ecosystem</div>
+            <div class="domain-aspect">手机与车互联、远程服务、OTA</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>28</strong></span>
+              <span>Friction: <strong>212</strong></span>
+              <span>Net: <strong style="color:#f87171;">-76,7%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> My BMW App, Digital Key Plus (UWB), OTA Updates, eSIM 5G.<br/>
+              • <strong>Friction:</strong> Häufige Timeouts bei Fernklimatisierung in Tiefgaragen; CarPlay WLAN-Abbrüche.
+            </p>
+          </div>
+
+          <!-- 5 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge mid">Highest Volume Domain</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">17,28 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">🛋️ 5. Smart Cabin</div>
+            <div class="domain-aspect">温控储物、座椅、空气与舒适</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>257</strong></span>
+              <span>Friction: <strong>327</strong></span>
+              <span>Net: <strong style="color:#fbbf24;">-12,0%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> Veganza-Sitze, 4-Zonen-Klima, Panoramadach, Akustikkomfort.<br/>
+              • <strong>Friction:</strong> Veganza-Kunstleder im Sommer schwitzig; Panoramadach heizt ohne Sonnenrollo auf.
+            </p>
+          </div>
+
+          <!-- 6 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge pos">Brand Moat (+44.7%)</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">Top Score 9.95/10</span>
+            </div>
+            <div class="domain-card-title">🏎️ 6. Vehicle Dynamics & Safety</div>
+            <div class="domain-aspect">驾驶控制、底盘、乘员保护</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>630</strong></span>
+              <span>Friction: <strong>241</strong></span>
+              <span>Net: <strong style="color:#34d399;">+44,7%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> 2-Achs-Luftfederung, Integral-Aktivlenkung, Rekuperationsstufen.<br/>
+              • <strong>Strength:</strong> Die einzige positiv bewertete Domäne! Herausragende Fahrwerks- und Lenkpräzision.
+            </p>
+          </div>
+
+          <!-- 7 -->
+          <div class="domain-card">
+            <div class="domain-card-head">
+              <span class="domain-badge mid">High Severity (2.07)</span>
+              <span style="font-size:0.75rem; color:#94a3b8;">17,07 % of All Cases</span>
+            </div>
+            <div class="domain-card-title">🚪 7. Smart Exterior</div>
+            <div class="domain-aspect">智能灯光、车门、空气动力学</div>
+            <div class="domain-stats-row">
+              <span>Likes: <strong>224</strong></span>
+              <span>Friction: <strong>323</strong></span>
+              <span>Net: <strong style="color:#fbbf24;">-18,1%</strong></span>
+            </div>
+            <p class="domain-detail-list">
+              • <strong>Focus:</strong> Automatiktüren i7, berührungslose Heckklappe (Kick-Sensor), bündige Griffe.<br/>
+              • <strong>Friction:</strong> i7-Türen stoppen in Parkhäusern zu früh; Heckklappen-Fußsensor unzuverlässig.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- PHASE 4: MATHEMATICAL MODELING & SENTIMENT ANALYTICS -->
+      <section id="phase-4" class="phase-section">
+        <div class="phase-header">
+          <div class="phase-title-group">
+            <span class="phase-badge-num">PHASE 04</span>
+            <h2 class="phase-heading">Mathematical Modeling & Analytics (Likes vs. Friction)</h2>
+          </div>
+          <span class="badge badge-cyan">Net Sentiment & Severity Formula</span>
+        </div>
+        <p class="phase-desc">
+          To make customer sentiment objectively quantifiable, we formulated a rigorous mathematical model. It cleanly separates positive customer praise (<em>Likes</em>) from real dissatisfaction (<em>Friction</em>) and weights complaint severity according to automotive FMEA principles.
+        </p>
+
+        <!-- Math Formulas -->
+        <div class="grid-3">
+          <div class="formula-card">
+            <strong style="color:#ffffff;">1. Net Sentiment Score (%):</strong><br/>
+            Net = [ ( Likes - Friction ) / ( Likes + Friction ) ] * 100%<br/><br/>
+            <span style="font-size:0.75rem; color:#94a3b8;">Scale from +100% to -100%. Positive = Net customer advocacy; Negative = Friction predominates.</span>
+          </div>
+
+          <div class="formula-card">
+            <strong style="color:#ffffff;">2. Average Severity Score:</strong><br/>
+            Severity = [ 3*Defect + 2*DiffToUse + 1*Wants ] / Friction<br/><br/>
+            <span style="font-size:0.75rem; color:#94a3b8;">Weights: Defect = 3 (Hardware), Difficult to Use = 2 (UX), Wants = 1 (Wish). Scale 1.00 – 3.00.</span>
+          </div>
+
+          <div class="formula-card">
+            <strong style="color:#ffffff;">3. Priority Backlog Index:</strong><br/>
+            Prio Index = Friction_Volume * Severity<br/><br/>
+            <span style="font-size:0.75rem; color:#94a3b8;">Multiplicative priority index for the engineering pipeline to pinpoint the highest-leverage fixes.</span>
+          </div>
+        </div>
+
+        <!-- Full Results Table -->
+        <table class="data-table-clean">
+          <thead>
+            <tr>
+              <th>Rank & Domain</th>
+              <th>Praise (Likes)</th>
+              <th>Friction (Complaints)</th>
+              <th>Evaluated Universe</th>
+              <th>Net Sentiment</th>
+              <th>Avg. Severity</th>
+              <th>Dominant Friction Point</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>🟢 1. Vehicle Dynamics & Safety</strong></td>
+              <td style="color:#34d399; font-weight:700;">630</td>
+              <td>241</td>
+              <td>871</td>
+              <td><span class="net-badge net-pos">+44,7 %</span></td>
+              <td>1,93</td>
+              <td>PHEV Kickdown-Ruck & B-Modus Rekuperation</td>
+            </tr>
+            <tr>
+              <td><strong>🟡 2. Smart Cabin</strong></td>
+              <td>257</td>
+              <td>327</td>
+              <td>584</td>
+              <td><span class="net-badge net-mid">-12,0 %</span></td>
+              <td>1,87</td>
+              <td>Veganza-Atmungsaktivität & Panoramadach-Hitze</td>
+            </tr>
+            <tr>
+              <td><strong>🟡 3. Smart Exterior</strong></td>
+              <td>224</td>
+              <td>323</td>
+              <td>547</td>
+              <td><span class="net-badge net-mid">-18,1 %</span></td>
+              <td>1,93</td>
+              <td>Automatiktüren i7 stoppen zu früh; Kick-Sensor</td>
+            </tr>
+            <tr>
+              <td><strong>🔴 4. Digital Cockpit & AI</strong></td>
+              <td>153</td>
+              <td>296</td>
+              <td>449</td>
+              <td><span class="net-badge net-neg">-31,8 %</span></td>
+              <td><strong>2,03</strong></td>
+              <td>OS 8.5 Menütiefe; fehlende physische Klimatasten</td>
+            </tr>
+            <tr>
+              <td><strong>🔴 5. Driving Assistance</strong></td>
+              <td>68</td>
+              <td>154</td>
+              <td>222</td>
+              <td><span class="net-badge net-neg">-38,7 %</span></td>
+              <td>1,94</td>
+              <td>EU GSR2 Tempolimit-Bongs; Remote-Parken Abbrüche</td>
+            </tr>
+            <tr>
+              <td><strong>🔴 6. Energy & Charging</strong></td>
+              <td>125</td>
+              <td>315</td>
+              <td>440</td>
+              <td><span class="net-badge net-neg">-43,2 %</span></td>
+              <td>1,94</td>
+              <td>Winterreichweite & Kaltladen ohne Pre-Conditioning</td>
+            </tr>
+            <tr>
+              <td><strong>🔴 7. Connected Ecosystem</strong></td>
+              <td>28</td>
+              <td style="color:#f87171; font-weight:700;">212</td>
+              <td>240</td>
+              <td><span class="net-badge net-neg">-76,7 %</span></td>
+              <td>2,00</td>
+              <td>My BMW App Timeouts in Tiefgaragen; CarPlay Abbrüche</td>
+            </tr>
+            <tr style="background:rgba(15, 23, 42, 0.7); font-weight:700;">
+              <td>Total Universe / Weighted Average</td>
+              <td style="color:#34d399;">1.491</td>
+              <td style="color:#f87171;">1.892</td>
+              <td>3.383</td>
+              <td><span class="net-badge net-mid">-11,8 %</span></td>
+              <td>1,95</td>
+              <td>53.2% of all complaints are UX hurdles!</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- The Big Paradox Callout -->
+        <div style="background:rgba(0, 102, 177, 0.15); border:1px solid rgba(56, 189, 248, 0.35); border-radius:12px; padding:20px 24px; font-size:0.9rem; line-height:1.6; color:#e0f2fe;">
+          <strong style="color:#ffffff; font-size:1rem;">💡 The Fundamental Paradox of the BMW Customer Study:</strong><br/>
+          • <strong>Hardware & Mechanics are World-Class:</strong> With 9.95/10 satisfaction and +44.7% Net Sentiment, chassis engineering on i5 and i7 represents the gold standard.<br/>
+          • <strong>The Achilles Heel is Software & Ergonomics:</strong> Over <strong>53% of all complaints</strong> are not hardware breakdowns (`Defect`), but `Difficult to Use` (UX friction). The vehicles are mechanically sound – customers are frustrated by nested touchscreen menus, oversensitive door sensors, and hidden battery thermal preconditioning toggles!
+        </div>
+      </section>
+
+      <!-- PHASE 5: THE ACTIONABLE END PRODUCT -->
+      <section id="phase-5" class="phase-section">
+        <div class="phase-header">
+          <div class="phase-title-group">
+            <span class="phase-badge-num">PHASE 05</span>
+            <h2 class="phase-heading">The End-Product: Priority Engineering Backlog & Deliverables</h2>
+          </div>
+          <span class="badge badge-emerald">Ready for Production Pipeline</span>
+        </div>
+        <p class="phase-desc">
+          The final deliverable of our intelligence track: An automated pipeline converting raw customer feedback into a prioritized <strong>Engineering Backlog</strong>, complete with verbatim quotes and concrete architectural action items.
+        </p>
+
+        <!-- Priority Backlog Table -->
+        <table class="data-table-clean">
+          <thead>
+            <tr>
+              <th>Prio</th>
+              <th>Domain & Component</th>
+              <th>Cases</th>
+              <th>Severity</th>
+              <th>Prio Score</th>
+              <th>Customer Verbatim Quote</th>
+              <th>Recommended Engineering Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span style="background:#ef4444; color:#fff; font-weight:800; padding:2px 8px; border-radius:4px; font-size:0.75rem;">01</span></td>
+              <td><strong>Energy & Charging</strong><br/><span style="color:#94a3b8; font-size:0.75rem;">Electric Range</span></td>
+              <td>97</td>
+              <td>2</td>
+              <td><strong>194</strong></td>
+              <td style="font-style:italic; font-size:0.8rem; color:#cbd5e1;">"for a newly developed EV platform, winter range drops too much on the Autobahn..."</td>
+              <td style="color:#38bdf8; font-size:0.8rem;">Add manual battery pre-heat button in QuickSelect dock; dynamic cold-weather SoC buffer in native nav.</td>
+            </tr>
+            <tr>
+              <td><span style="background:#ef4444; color:#fff; font-weight:800; padding:2px 8px; border-radius:4px; font-size:0.75rem;">02</span></td>
+              <td><strong>Energy & Charging</strong><br/><span style="color:#94a3b8; font-size:0.75rem;">Public Charging DC</span></td>
+              <td>64</td>
+              <td>2</td>
+              <td><strong>128</strong></td>
+              <td style="font-style:italic; font-size:0.8rem; color:#cbd5e1;">"charger was not in native nav, so battery was cold and charged at only 60 kW..."</td>
+              <td style="color:#38bdf8; font-size:0.8rem;">Enable automatic pre-conditioning for 3rd-party charging hubs; smooth out charging curve drop above 60% SoC.</td>
+            </tr>
+            <tr>
+              <td><span style="background:#f59e0b; color:#fff; font-weight:800; padding:2px 8px; border-radius:4px; font-size:0.75rem;">03</span></td>
+              <td><strong>Smart Exterior</strong><br/><span style="color:#94a3b8; font-size:0.75rem;">Body Equipment / Spaltmaße</span></td>
+              <td>60</td>
+              <td>2</td>
+              <td><strong>120</strong></td>
+              <td style="font-style:italic; font-size:0.8rem; color:#cbd5e1;">"wind noise at A-pillar on Autobahn; flush door handles ice over in winter..."</td>
+              <td style="color:#38bdf8; font-size:0.8rem;">Patch door handle heating and de-icing logic via OTA; refine A-pillar weather-strip sealing geometry.</td>
+            </tr>
+            <tr>
+              <td><span style="background:#f59e0b; color:#fff; font-weight:800; padding:2px 8px; border-radius:4px; font-size:0.75rem;">04</span></td>
+              <td><strong>Digital Cockpit & AI</strong><br/><span style="color:#94a3b8; font-size:0.75rem;">ConnectedDrive & OS 8.5</span></td>
+              <td>39</td>
+              <td>3</td>
+              <td><strong>117</strong></td>
+              <td style="font-style:italic; font-size:0.8rem; color:#cbd5e1;">"having had 7 BMWs before, missing physical buttons for climate is dangerous while driving..."</td>
+              <td style="color:#38bdf8; font-size:0.8rem;">Pin persistent docking tray for climate controls; reduce voice assistant latency below 800ms.</td>
+            </tr>
+            <tr>
+              <td><span style="background:#3b82f6; color:#fff; font-weight:800; padding:2px 8px; border-radius:4px; font-size:0.75rem;">05</span></td>
+              <td><strong>Vehicle Dynamics</strong><br/><span style="color:#94a3b8; font-size:0.75rem;">Drivetrain PHEV</span></td>
+              <td>45</td>
+              <td>2</td>
+              <td><strong>90</strong></td>
+              <td style="font-style:italic; font-size:0.8rem; color:#cbd5e1;">"kickdown in hybrid mode has a noticeable lag and jerk when the engine engages..."</td>
+              <td style="color:#38bdf8; font-size:0.8rem;">Smooth e-motor torque delivery ramp during combustion engine engagement via software calibration.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Live Terminal Code Snippet Box -->
+        <h3 style="font-size:1.05rem; font-weight:700; color:#ffffff; margin-bottom:12px;">Live Python Pipeline Output (`run_pipeline.py`):</h3>
+        <div class="code-terminal">
+<span class="term-cyan">================================================================================</span><br/>
+<span class="term-white">🚀 STARTING BMW EV/PHEV TECHNOLOGY SENTIMENT & COMPLAINT PIPELINE</span><br/>
+<span class="term-cyan">================================================================================</span><br/>
+📦 Pipeline Version:        2.4.0<br/>
+📊 Dataset Scope:            16 Matched BMW BEV & PHEV Models (100% ICE & F70 excluded)<br/>
+🔢 Total Feedback Analyzed:  3,971 Records (1,491 Likes + 1,892 Complaints)<br/>
+--------------------------------------------------------------------------------<br/>
+🏆 DOMAIN SENTIMENT RANKING:<br/>
+<span class="term-green">🟢 Vehicle Dynamics & Safety |   876 | Likes:  630 | Friction:  241 | Net:  +44.7% | Sev: 1.93</span><br/>
+<span class="term-yellow">🟡 Smart Cabin               |   584 | Likes:  257 | Friction:  327 | Net:  -12.0% | Sev: 1.87</span><br/>
+<span class="term-yellow">🟡 Smart Exterior            |   548 | Likes:  224 | Friction:  323 | Net:  -18.1% | Sev: 1.93</span><br/>
+<span class="term-red">🔴 Digital Cockpit & AI      |   450 | Likes:  153 | Friction:  296 | Net:  -31.8% | Sev: 2.03</span><br/>
+<span class="term-red">🔴 Driving Assistance        |   224 | Likes:   68 | Friction:  154 | Net:  -38.7% | Sev: 1.94</span><br/>
+<span class="term-red">🔴 Energy & Charging         |   440 | Likes:  125 | Friction:  315 | Net:  -43.2% | Sev: 1.94</span><br/>
+<span class="term-red">🔴 Connected Ecosystem       |   240 | Likes:   28 | Friction:  212 | Net:  -76.7% | Sev: 2.00</span><br/>
+--------------------------------------------------------------------------------<br/>
+🚗 COHORT DISTRIBUTION OF COMPLAINTS:<br/>
+i5 BEV (G60/G61) :  855 Cases ( 45.2%) ██████████████████<br/>
+i7 BEV (G70)     :  639 Cases ( 33.8%) █████████████<br/>
+5 Series PHEV    :  221 Cases ( 11.7%) ████<br/>
+7 Series PHEV    :  177 Cases (  9.4%) ███<br/>
+<span class="term-green">✅ PIPELINE EXECUTION COMPLETED SUCCESSFULLY (Exit Code 0)</span>
+        </div>
+
+        <!-- Download Deliverables Box -->
+        <h3 style="font-size:1.05rem; font-weight:700; color:#ffffff; margin-bottom:14px;">Generated Pipeline Deliverables (1-Click Download):</h3>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:14px;">
+          <a href="BMW_EV_Technology_Domains_Analysis_Report.pdf" download="BMW_EV_Technology_Domains_Analysis_Report.pdf" class="metric-card" style="text-decoration:none; border-color:rgba(2, 132, 199, 0.4);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="metric-label" style="color:#38bdf8;">PDF Report (4 Pages)</span>
+              <span>📄</span>
+            </div>
+            <strong style="color:#ffffff; font-size:1rem; margin-bottom:4px;">Technology Domains Report</strong>
+            <span class="metric-sub">Exhaustive analysis across all 7 domains with verbatims and cohort splits.</span>
+          </a>
+
+          <a href="BMW_Technology_Domains_Ranking_and_Methodology.pdf" download="BMW_Technology_Domains_Ranking_and_Methodology.pdf" class="metric-card" style="text-decoration:none; border-color:rgba(16, 185, 129, 0.4);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="metric-label" style="color:#34d399;">PDF Report (2 Pages)</span>
+              <span>📊</span>
+            </div>
+            <strong style="color:#ffffff; font-size:1rem; margin-bottom:4px;">Methodology & Ranking Report</strong>
+            <span class="metric-sub">Mathematical formulations for Net Sentiment, Severity weighting, and data provenance.</span>
+          </a>
+
+          <a href="bmw_ev_technology_sentiment_pipeline.json" download="bmw_ev_technology_sentiment_pipeline.json" class="metric-card" style="text-decoration:none; border-color:rgba(168, 85, 247, 0.4);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="metric-label" style="color:#c084fc;">JSON Pipeline Export</span>
+              <span>💾</span>
+            </div>
+            <strong style="color:#ffffff; font-size:1rem; margin-bottom:4px;">Sentiment Pipeline JSON</strong>
+            <span class="metric-sub">Hierarchical schema for REST APIs, LLM RAG pipelines, and automated downstream processing.</span>
+          </a>
+
+          <a href="bmw_ev_technology_domain_records.csv" download="bmw_ev_technology_domain_records.csv" class="metric-card" style="text-decoration:none; border-color:rgba(245, 158, 11, 0.4);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+              <span class="metric-label" style="color:#fbbf24;">CSV Dataset (1,892 Records)</span>
+              <span>📋</span>
+            </div>
+            <strong style="color:#ffffff; font-size:1rem; margin-bottom:4px;">Record-Level Complaints CSV</strong>
+            <span class="metric-sub">All 1,892 individual complaint records with severity scores and customer quotes.</span>
+          </a>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</body>
+</html>

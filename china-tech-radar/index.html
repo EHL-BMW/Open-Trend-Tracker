@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Top 500 Bestselling EV & PHEV Cars in Europe | Evidence-Backed Automotive Catalog</title>
+  <meta name="description" content="Comprehensive ranking and technical catalog of the Top 500 bestselling EV, BEV, and PHEV passenger cars in Europe. Evidence-backed market statistics mapped to ADAC Autokatalog specifications.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+    <!-- Header & Hero -->
+    <header class="app-header">
+      <div class="header-container">
+        <!-- Market Intelligence Region Selector -->
+        <div class="market-selector-container">
+          <div class="market-switch" role="tablist" aria-label="Select Market Region">
+            <button id="market-toggle-eu" class="market-toggle-btn active" data-market="EU" role="tab" aria-selected="true">
+              <span class="market-flag">🇪🇺</span>
+              <div class="market-btn-text">
+                <span class="market-name">Europe Top 500</span>
+                <span class="market-subtext">ADAC • JATO • ACEA (All Brands)</span>
+              </div>
+            </button>
+            <button id="market-toggle-cn" class="market-toggle-btn" data-market="CN" role="tab" aria-selected="false">
+              <span class="market-flag">🇨🇳</span>
+              <div class="market-btn-text">
+                <span class="market-name">China Top 500</span>
+                <span class="market-subtext">Dongchedi • CPCA (Domestic & JV Brands)</span>
+              </div>
+            </button>
+            <button id="market-toggle-bmw" class="market-toggle-btn" data-market="BMW" role="tab" aria-selected="false">
+              <span class="market-flag">🇩🇪</span>
+              <div class="market-btn-text">
+                <span class="market-name">BMW Fleet (53 Models)</span>
+                <span class="market-subtext">All BMW BEVs & PHEVs • Price Lists</span>
+              </div>
+            </button>
+            <a href="bmw_pipeline_story.html" class="market-toggle-btn" style="text-decoration:none;border-color:rgba(0, 210, 255, 0.4);background:rgba(0, 102, 177, 0.2);" title="Explore the complete End-to-End Pipeline Storyboard">
+              <span class="market-flag">🚀</span>
+              <div class="market-btn-text">
+                <span class="market-name" style="color:#00d2ff;">End-to-End Pipeline</span>
+                <span class="market-subtext">From Raw Data to End-Product</span>
+              </div>
+            </a>
+            <a href="china_megatrends.html" class="market-toggle-btn" style="text-decoration:none;border-color:rgba(239, 68, 68, 0.4);background:rgba(239, 68, 68, 0.15);" title="Scraped & statistically quantified Chinese EV-tech news trends">
+              <span class="market-flag">📡</span>
+              <div class="market-btn-text">
+                <span class="market-name" style="color:#f87171;">China Megatrends</span>
+                <span class="market-subtext">Live Tech & News Radar</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="brand-badge-group">
+          <span class="badge badge-pulse" id="header-badge-region">European Market Intelligence</span>
+          <span class="badge badge-cyan" id="header-badge-sources">ACEA • JATO • KBA • ADAC</span>
+        </div>
+        <h1 class="main-title" id="header-main-title">
+          Top 500 Bestselling <span class="gradient-text">EV & PHEV</span> Cars in Europe
+        </h1>
+        <p class="subtitle" id="header-subtitle">
+          Evidence-backed registration data across all brands in Europe (EU 27 + EFTA + UK), fully mapped with <strong>ADAC Autokatalog</strong> technical specifications, battery sizes, WLTP range, and direct model links.
+        </p>
+        
+        <!-- KPI Dashboard Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <span class="stat-label">Total Models Ranked</span>
+            <div class="stat-value" id="kpi-total-models">500</div>
+            <span class="stat-sub" id="kpi-sub-models">Across 65+ European brands</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label" id="kpi-label-volume">Total European Deliveries</span>
+            <div class="stat-value text-cyan" id="kpi-total-volume">4,188,985</div>
+            <span class="stat-sub" id="kpi-sub-volume">Annual units registered in Europe</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Powertrain Breakdown</span>
+            <div class="stat-value" id="kpi-powertrain-split">338 BEV / 162 PHEV</div>
+            <span class="stat-sub" id="kpi-bev-pct">68% Pure Electric • 32% Plug-in</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label" id="kpi-label-metrics">Average Range & Price</span>
+            <div class="stat-value text-emerald" id="kpi-avg-metrics">480 km • 68,765 €</div>
+            <span class="stat-sub" id="kpi-sub-metrics">WLTP Electric BEV Range • Avg Base Price</span>
+          </div>
+        </div>
+
+        <!-- Quick Export Bar -->
+        <div class="export-actions">
+          <button id="btn-export-csv" class="btn btn-primary" title="Download Top 500 CSV">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span id="btn-export-csv-label">Export CSV Dataset</span>
+          </button>
+          <button id="btn-export-json" class="btn btn-secondary" title="Download Top 500 JSON">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span id="btn-export-json-label">Export JSON</span>
+          </button>
+          <button id="btn-export-matching" class="btn btn-outline" style="display:none;" title="Download BMW EV vs Customer Complaints Matching CSV">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span id="btn-export-matching-label">Export Matching & Study CSV</span>
+          </button>
+          <a id="btn-export-pdf" href="BMW_EV_Technology_Domains_Analysis_Report.pdf" download="BMW_EV_Technology_Domains_Analysis_Report.pdf" class="btn btn-primary" style="display:none;background:linear-gradient(135deg, #1e40af, #2563eb);box-shadow:0 2px 10px rgba(37,99,235,0.3);" title="Download Official Technology Domains PDF Study Report">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <span>Tech Domains PDF Report</span>
+          </a>
+          <a id="btn-export-pipeline-csv" href="bmw_ev_technology_domain_records.csv" download="bmw_ev_technology_domain_records.csv" class="btn btn-secondary" style="display:none;" title="Download Pipeline Ready Record-Level CSV (1,892 complaints)">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <span>Pipeline CSV</span>
+          </a>
+          <a id="btn-catalog-link" href="https://www.adac.de/rund-ums-fahrzeug/autokatalog/marken-modelle/?sort=SORTING_DESC" target="_blank" rel="noopener noreferrer" class="btn btn-outline" title="Open Catalog">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span id="btn-catalog-label">ADAC Autokatalog (Zulassungen absteigend)</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Controls & Filters Section -->
+    <main class="main-content">
+      <section class="controls-card">
+        <div class="search-row">
+          <div class="search-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="search" id="input-search" placeholder="Search by brand, model, trim (e.g., Tesla, Model Y, Long Range, eDrive20, Kuga)..." autocomplete="off" aria-label="Search vehicles">
+            <span class="search-count" id="search-result-count">Showing 500 of 500</span>
+          </div>
+        </div>
+
+        <div class="filter-row">
+          <!-- Powertrain Filter -->
+          <div class="filter-group">
+            <label class="filter-label">Powertrain</label>
+            <div class="pill-group" role="radiogroup" aria-label="Powertrain selection">
+              <button class="pill active" data-filter-powertrain="ALL">All (500)</button>
+              <button class="pill" data-filter-powertrain="BEV">BEV Only (Pure Electric)</button>
+              <button class="pill" data-filter-powertrain="PHEV">PHEV Only (Plug-in)</button>
+            </div>
+          </div>
+
+          <!-- Brand Dropdown Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-brand">Brand</label>
+            <select id="select-brand" class="custom-select" aria-label="Filter by brand">
+              <option value="ALL">All Brands (500 Models)</option>
+            </select>
+          </div>
+
+          <!-- Body Type Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-body">Body Type</label>
+            <select id="select-body" class="custom-select" aria-label="Filter by body type">
+              <option value="ALL">All Body Types</option>
+              <option value="SUV">SUV / Crossover</option>
+              <option value="Kompakt">Kompakt / Hatchback</option>
+              <option value="Limousine">Limousine / Sedan</option>
+              <option value="Kombi">Kombi / Estate</option>
+              <option value="Kleinwagen">Kleinwagen / City Car</option>
+              <option value="Coupe">Coupe / Gran Coupe</option>
+              <option value="Van">Van / Minivan</option>
+            </select>
+          </div>
+
+          <!-- Drivetrain Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-drive">Drivetrain</label>
+            <select id="select-drive" class="custom-select" aria-label="Filter by drivetrain">
+              <option value="ALL">All (AWD, RWD, FWD)</option>
+              <option value="AWD">AWD (All-Wheel Drive)</option>
+              <option value="RWD">RWD (Rear-Wheel Drive)</option>
+              <option value="FWD">FWD (Front-Wheel Drive)</option>
+            </select>
+          </div>
+
+          <!-- Towing Capacity Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-towing">Towing (Anhängelast)</label>
+            <select id="select-towing" class="custom-select" aria-label="Filter by towing capacity">
+              <option value="0">Any Towing Capacity</option>
+              <option value="1000">≥ 1.000 kg gebremst</option>
+              <option value="1500">≥ 1.500 kg gebremst</option>
+              <option value="2000">≥ 2.000 kg gebremst</option>
+            </select>
+          </div>
+
+          <!-- Equipment / Preisliste Features Filter -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-equipment">Preisliste Features</label>
+            <select id="select-equipment" class="custom-select" aria-label="Filter by equipment">
+              <option value="ALL">All Equipment</option>
+              <option value="heatpump">Wärmepumpe Serienmäßig</option>
+              <option value="frunk">Mit Frunk (Frontkofferraum > 0L)</option>
+              <option value="fast18">Ultra-Fast 10-80% ≤ 20 Min</option>
+            </select>
+          </div>
+
+          <!-- Sort Selector -->
+          <div class="filter-group">
+            <label class="filter-label" for="select-sort">Sort Order</label>
+            <select id="select-sort" class="custom-select" aria-label="Sort vehicles">
+              <option value="rank-asc">Sales Rank (Highest Sales First)</option>
+              <option value="sales-desc">European Deliveries (Desc)</option>
+              <option value="price-asc">Base Price (Lowest First)</option>
+              <option value="price-desc">Base Price (Highest First)</option>
+              <option value="range-desc">WLTP Electric Range (Highest First)</option>
+              <option value="power-desc">System Power (Highest PS/kW First)</option>
+              <option value="dc-desc">Fast Charging DC (Fastest First)</option>
+              <option value="accel-asc">Acceleration 0-100 (Fastest First)</option>
+              <option value="towing-desc">Towing Capacity (Highest First)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Range and Price Sliders -->
+        <div class="sliders-row">
+          <div class="slider-box">
+            <div class="slider-header">
+              <span>Max Price (€ Grundpreis)</span>
+              <strong id="display-max-price">No Limit</strong>
+            </div>
+            <input type="range" id="range-max-price" min="15000" max="300000" step="5000" value="300000">
+          </div>
+          <div class="slider-box">
+            <div class="slider-header">
+              <span>Min WLTP Electric Range (km)</span>
+              <strong id="display-min-range">Any Range</strong>
+            </div>
+            <input type="range" id="range-min-range" min="0" max="800" step="25" value="0">
+          </div>
+          <button id="btn-reset-filters" class="btn btn-sm btn-outline">Reset Filters</button>
+        </div>
+      </section>
+
+      <!-- Data Table Card -->
+      <section class="table-card">
+        <div class="table-header-bar">
+          <div class="table-title">
+            <h2>Ranked European Registry</h2>
+            <span class="live-status">● Live Filtered</span>
+          </div>
+          <div class="table-pagination-info" id="pagination-info">
+            Showing 1 - 500 of 500 cars
+          </div>
+        </div>
+
+        <!-- BMW Customer Study Quick Filter Bar (Only active in BMW mode) -->
+        <div id="bmw-study-filter-bar" class="bmw-study-filter-bar hidden">
+          <div class="study-bar-header">
+            <div class="study-bar-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60a5fa" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>BMW Customer Study Explorer: <strong>16 Matched Electrified Models</strong> (100% ICE & F70 Excluded)</span>
+            </div>
+            <div class="study-bar-actions" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+              <a href="bmw_pipeline_story.html" class="btn-pdf-inline" style="background:linear-gradient(135deg, #0284c7, #2563eb);box-shadow:0 2px 8px rgba(37,99,235,0.3);border:1px solid rgba(56, 189, 248, 0.4);" title="Explore the complete End-to-End Pipeline Storyboard">
+                🚀 Pipeline Storyboard
+              </a>
+              <a href="BMW_EV_Technology_Domains_Analysis_Report.pdf" download="BMW_EV_Technology_Domains_Analysis_Report.pdf" class="btn-pdf-inline" style="background:#0f172a;border:1px solid #334155;" title="Technology Domains Benchmark PDF Report">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Tech Domains PDF (4 S.)
+              </a>
+              <a href="BMW_Technology_Domains_Ranking_and_Methodology.pdf" download="BMW_Technology_Domains_Ranking_and_Methodology.pdf" class="btn-pdf-inline" style="background:#0f172a;border:1px solid #334155;" title="Methodology & Ranking PDF Report">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Methodik PDF (2 S.)
+              </a>
+              <a href="bmw_ev_technology_domain_records.csv" download="bmw_ev_technology_domain_records.csv" class="btn-pdf-inline" style="background:#0f172a;border:1px solid #334155;" title="Download Pipeline Ready Record-Level CSV">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                Pipeline CSV (1.892 Records)
+              </a>
+            </div>
+          </div>
+          <div class="study-filter-chips">
+            <button class="study-chip active" data-study-filter="ALL">All 53 BMW Models</button>
+            <button class="study-chip highlight-matched" data-study-filter="MATCHED">🎯 Nur Gematchte Modelle (16)</button>
+            <button class="study-chip" data-study-filter="G60_BEV">⚡ i5 BEV (6)</button>
+            <button class="study-chip" data-study-filter="G60_PHEV">🔋 5er PHEV (5)</button>
+            <button class="study-chip" data-study-filter="G70_BEV">👑 i7 BEV (3)</button>
+            <button class="study-chip" data-study-filter="G70_PHEV">💎 7er PHEV (2)</button>
+            <button class="study-chip" data-study-filter="UNSTUDIED">⚪ Außerhalb Studie (37)</button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table id="vehicles-table">
+            <thead>
+              <tr>
+                <th class="col-rank sortable" data-sort-key="rank">Rank</th>
+                <th class="col-car sortable" data-sort-key="model">Brand & Model</th>
+                <th class="col-powertrain sortable" data-sort-key="powertrain">Type</th>
+                <th class="col-sales sortable" data-sort-key="sales_units"><span id="th-label-sales">European Sales / Yr</span></th>
+                <th class="col-share sortable" data-sort-key="market_share_pct"><span id="th-label-share">Market Share</span></th>
+                <th class="col-price sortable" data-sort-key="base_price_eur"><span id="th-label-price">ADAC Price</span></th>
+                <th class="col-range sortable" data-sort-key="electric_range_km"><span id="th-label-range">WLTP Range</span></th>
+                <th class="col-battery sortable" data-sort-key="battery_capacity_kwh">Battery</th>
+                <th class="col-power sortable" data-sort-key="power_ps">Power</th>
+                <th class="col-drive sortable" data-sort-key="drivetrain">Drive</th>
+                <th class="col-towing sortable" data-sort-key="towing_capacity_kg"><span id="th-label-towing">Towing</span></th>
+                <th class="col-dc sortable" data-sort-key="charging_speed"><span id="th-label-dc">DC Fast</span></th>
+                <th class="col-charge sortable" data-sort-key="charging_time_10_80_min">10-80%</th>
+                <th class="col-highlights"><span id="th-label-highlights">Preisliste Highlights</span></th>
+                <th class="col-actions"><span id="th-label-actions">Catalog Link</span></th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Dynamically rendered rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty state message if search yields no result -->
+        <div id="empty-state" class="empty-state hidden">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+          <h3>No matching vehicles found</h3>
+          <p>Try adjusting your search query, filters, or reset sliders to view all 500 models.</p>
+          <button id="btn-empty-reset" class="btn btn-primary">Reset Filters</button>
+        </div>
+      </section>
+
+      <!-- Methodology & Evidence Explanation Card -->
+      <section class="methodology-card">
+        <h3 id="methodology-title">Ranking Methodology & Evidence Criteria</h3>
+        <div class="methodology-grid" id="methodology-grid">
+          <!-- Populated dynamically by app.js based on market -->
+        </div>
+      </section>
+    </main>
+
+    <!-- Detail Modal -->
+    <div id="detail-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-card">
+        <button id="modal-close-btn" class="modal-close" aria-label="Close dialog">&times;</button>
+        <div class="modal-header">
+          <div class="modal-badge-row">
+            <span id="modal-rank-badge" class="badge badge-rank">#1</span>
+            <span id="modal-type-badge" class="badge badge-cyan">BEV</span>
+            <span id="modal-segment-badge" class="badge badge-dark">D-Segment</span>
+          </div>
+          <h2 id="modal-title" class="modal-heading">Tesla Model Y</h2>
+          <p id="modal-variant" class="modal-subheading">Long Range AWD (78.1 kWh)</p>
+        </div>
+        
+        <!-- Modal Tab Navigation -->
+        <div class="modal-tabs" role="tablist">
+          <button class="modal-tab-btn active" data-tab="usps">🌟 Price List USPs</button>
+          <button class="modal-tab-btn" data-tab="interior">🛋️ Interior & Infotainment</button>
+          <button class="modal-tab-btn" data-tab="exterior">🏎️ Exterior & Lighting</button>
+          <button class="modal-tab-btn" data-tab="assistance">🛡️ Driver Assistance (ADAS)</button>
+          <button class="modal-tab-btn" data-tab="practicality">⚡ Dimensions & Everyday Utility</button>
+          <button class="modal-tab-btn" data-tab="specs">📊 Technical Specifications</button>
+          <button class="modal-tab-btn" data-tab="feedback" id="modal-tab-feedback-btn">💬 Customer Study & Complaints</button>
+        </div>
+
+        <div class="modal-body">
+          <!-- Tab 1: Unique Selling Points -->
+          <div id="tab-pane-usps" class="modal-tab-pane active">
+            <div class="pane-header">
+              <h3>Unique Selling Points (Official Price List Highlights)</h3>
+              <p>Key technological differentiators and standard/optional equipment highlights from the manufacturer.</p>
+            </div>
+            <div id="modal-usps-list" class="features-list">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Tab 2: Interior Highlights -->
+          <div id="tab-pane-interior" class="modal-tab-pane">
+            <div class="pane-header">
+              <h3>Interior, Infotainment & Cabin Comfort</h3>
+              <p>Curved displays, premium audio, seating ergonomics, multi-zone climate, and lounge ambiance.</p>
+            </div>
+            <div id="modal-interior-list" class="features-list">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Tab 3: Exterior Highlights -->
+          <div id="tab-pane-exterior" class="modal-tab-pane">
+            <div class="pane-header">
+              <h3>Exterior Design & Lighting Technology</h3>
+              <p>Adaptive LED/Laser matrix headlights, active aerodynamics, lightweight aero wheels, and exterior styling packages.</p>
+            </div>
+            <div id="modal-exterior-list" class="features-list">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Tab 4: Driver Assistance Highlights -->
+          <div id="tab-pane-assistance" class="modal-tab-pane">
+            <div class="pane-header">
+              <h3>Driver Assistance Systems & Active Safety (ADAS)</h3>
+              <p>Level 2/2+ motorway hands-free assistant, automated parking assistants, 360° surround cameras, and proactive collision mitigation.</p>
+            </div>
+            <div id="modal-assistance-list" class="features-list">
+              <!-- Dynamically rendered -->
+            </div>
+          </div>
+
+          <!-- Tab 5: Practicality & Everyday -->
+          <div id="tab-pane-practicality" class="modal-tab-pane">
+            <div class="pane-header">
+              <h3>Everyday Practicality, Dimensions & Fast Charging</h3>
+              <p>Official price list metrics for braked towing capacity, luggage volume, and DC fast-charging duration.</p>
+            </div>
+            <div class="modal-specs-grid">
+              <div class="modal-spec-item">
+                <span class="spec-label">Braked Towing Capacity</span>
+                <strong class="spec-val text-cyan" id="modal-towing">1.600 kg</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Front Trunk (Frunk)</span>
+                <strong class="spec-val text-emerald" id="modal-frunk">117 Liter</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Cargo Trunk Volume (VDA)</span>
+                <strong class="spec-val" id="modal-trunk">854 – 2.158 L</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Heat Pump</span>
+                <strong class="spec-val" id="modal-heatpump">Serienmäßig</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">10 - 80% DC Charging Time</span>
+                <strong class="spec-val text-cyan" id="modal-chargetime">25 Min</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Head-Up Display</span>
+                <strong class="spec-val" id="modal-hud">Standard / Available</strong>
+              </div>
+            </div>
+            <div class="audio-highlight-card">
+              <div class="audio-title">Premium Audio Specification:</div>
+              <strong id="modal-audio" class="audio-val">Harman Kardon Surround Sound System</strong>
+            </div>
+          </div>
+
+          <!-- Tab 6: Technical Specs -->
+          <div id="tab-pane-specs" class="modal-tab-pane">
+            <div class="modal-specs-grid">
+              <div class="modal-spec-item">
+                <span class="spec-label">European Sales Volume</span>
+                <strong class="spec-val text-cyan" id="modal-sales">94,800 units / yr</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">European Market Share</span>
+                <strong class="spec-val" id="modal-share">3.25%</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Base Price (ADAC)</span>
+                <strong class="spec-val text-emerald" id="modal-price">54,990 €</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">WLTP Electric Range</span>
+                <strong class="spec-val" id="modal-range">533 km</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Battery Capacity</span>
+                <strong class="spec-val" id="modal-battery">78.1 kWh Net</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Max Power</span>
+                <strong class="spec-val" id="modal-power">378 kW (514 PS)</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Drive Configuration</span>
+                <strong class="spec-val" id="modal-drive">AWD (Dual Motor)</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">DC Fast Charging</span>
+                <strong class="spec-val" id="modal-dc">250 kW Peak</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">0 - 100 km/h</span>
+                <strong class="spec-val" id="modal-accel">5.0 s</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Top Speed</span>
+                <strong class="spec-val" id="modal-topspeed">217 km/h</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">WLTP Efficiency</span>
+                <strong class="spec-val" id="modal-efficiency">16.9 kWh/100km</strong>
+              </div>
+              <div class="modal-spec-item">
+                <span class="spec-label">Body Architecture</span>
+                <strong class="spec-val" id="modal-bodytype">SUV</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tab 7: Customer Feedback & Studies -->
+          <div id="tab-pane-feedback" class="modal-tab-pane">
+            <div class="pane-header">
+              <h3>Customer Studies & Verified Complaints</h3>
+              <p>Empirische Kundenzufriedenheit und Mängelanalysen aus verifizierten BMW Customer Studies (G60 / G70). ICE & F70 strikt exkludiert.</p>
+            </div>
+            <div id="modal-feedback-content">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <div class="modal-evidence-box">
+            <span class="evidence-title">Registration & Catalog Evidence Source:</span>
+            <p id="modal-evidence" class="evidence-text">JATO Dynamics Europe (Full Year Official Registrations) & ACEA • Synchronized with ADAC Autokatalog</p>
+          </div>
+        </div>
+
+        <div class="modal-footer" id="modal-footer-container">
+          <a id="modal-adac-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary full-width">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            <span id="modal-adac-label">View Full Model on ADAC Autokatalog</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-container">
+        <p id="footer-text">© 2026 EV & NEV Automotive Intelligence Catalog • Top 500 Bestselling Registry</p>
+        <p class="footer-sub" id="footer-subtext">Cross-referenced with ACEA, JATO Dynamics, KBA Kraftfahrt-Bundesamt, Dataforce, ADAC, 懂车帝 Dongchedi, 乘联会 CPCA, and 汽车之家 Autohome.</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Load data.js (Europe), data_china.js (China), and data_bmw.js (BMW) -->
+  <script src="data.js"></script>
+  <script src="data_china.js"></script>
+  <script src="data_bmw.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

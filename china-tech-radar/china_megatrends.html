@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>China EV-Tech Trend Radar | BMW Product Management</title>
+  <meta name="description" content="Scraped and statistically quantified technology trends from Chinese news, mapped to BMW EV customer-feedback domains.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&family=Noto+Sans+SC:wght@400;500&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070a12;
+      --panel: rgba(15, 20, 33, 0.8);
+      --line: rgba(255, 255, 255, 0.07);
+      --text: #f1f5f9;
+      --muted: #8b97ab;
+      --accent: #38bdf8;
+      --up: #34d399;
+      --down: #f87171;
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--text);
+      font-family: 'Inter', 'Noto Sans SC', sans-serif; -webkit-font-smoothing: antialiased;
+      background-image: radial-gradient(circle at 85% -10%, rgba(56,189,248,0.10), transparent 45%);
+    }
+    .page { max-width: 1180px; margin: 0 auto; padding: 22px 28px 80px; }
+    a { color: inherit; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .cn { font-family: 'Noto Sans SC', sans-serif; color: var(--muted); font-weight: 400; }
+
+    nav { display: flex; gap: 10px; font-size: 0.8rem; color: var(--muted); padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 34px; }
+    nav a { text-decoration: none; color: #cbd5e1; } nav a:hover { color: var(--accent); }
+
+    header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; margin-bottom: 36px; }
+    h1 { font-family: 'Outfit', sans-serif; font-size: 2.2rem; letter-spacing: -0.02em; margin: 0 0 8px; }
+    h1 span { background: linear-gradient(120deg, #38bdf8, #818cf8); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sub { color: var(--muted); margin: 0; max-width: 620px; font-size: 0.92rem; line-height: 1.5; }
+    .meta { font-size: 0.78rem; color: var(--muted); margin-top: 12px; display: flex; gap: 14px; flex-wrap: wrap; }
+    .meta b { color: var(--text); font-weight: 600; }
+    .btn { background: rgba(56,189,248,0.12); border: 1px solid rgba(56,189,248,0.35); color: var(--accent);
+      padding: 9px 16px; border-radius: 9px; font: 600 0.8rem 'Inter'; cursor: pointer; transition: all .2s var(--ease); }
+    .btn:hover { background: rgba(56,189,248,0.22); color: #fff; }
+    .btn:disabled { opacity: .5; cursor: wait; }
+
+    h2 { font-family: 'Outfit', sans-serif; font-size: 1.05rem; font-weight: 700; margin: 0 0 4px; }
+    .section { margin-bottom: 44px; }
+    .section-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; gap: 12px; flex-wrap: wrap; }
+    .hint { font-size: 0.78rem; color: var(--muted); }
+
+    /* Top signals */
+    .signals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .signals { grid-template-columns: 1fr; } }
+    .sig { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px;
+      transition: transform .3s var(--ease), border-color .3s; animation: rise .5s var(--ease) both; }
+    .sig:hover { transform: translateY(-2px); border-color: rgba(56,189,248,0.3); }
+    .sig .rank { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+    .sig .name { font-weight: 600; font-size: 1rem; margin: 6px 0 2px; }
+    .sig .big { font-family: 'JetBrains Mono', monospace; font-size: 2rem; font-weight: 700; margin: 14px 0 2px; }
+    .sig .facts { font-size: 0.78rem; color: var(--muted); line-height: 1.6; }
+    .sig .bmw { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); font-size: 0.8rem; line-height: 1.5; }
+    @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    /* Map */
+    .map { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+    .map svg { width: 100%; height: auto; display: block; }
+    .map text { font-family: 'Inter', sans-serif; }
+    .dot { transition: transform .2s var(--ease); cursor: pointer; transform-box: fill-box; transform-origin: center; }
+    .pt:hover .dot { transform: scale(1.25); }
+    .pt .hl { opacity: 0; transition: opacity .15s; pointer-events: none; }
+    .pt:hover .hl { opacity: 1; }
+    .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.74rem; color: var(--muted); padding: 8px 8px 2px; }
+    .legend i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+
+    /* Table */
+    .table { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--panel); }
+    .row, .thead { display: grid; grid-template-columns: 34px minmax(200px, 2.2fr) 1.3fr 110px 64px 72px 96px 64px 90px; gap: 10px; align-items: center; padding: 12px 18px; }
+    .thead { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: .06em; border-bottom: 1px solid var(--line); }
+    details { border-bottom: 1px solid var(--line); }
+    details:last-child { border-bottom: none; }
+    summary { list-style: none; cursor: pointer; transition: background .2s; }
+    summary::-webkit-details-marker { display: none; }
+    summary:hover { background: rgba(255,255,255,0.025); }
+    details[open] summary { background: rgba(56,189,248,0.05); }
+    .row { font-size: 0.84rem; }
+    .num { font-family: 'JetBrains Mono', monospace; text-align: right; }
+    .pill { font-size: 0.7rem; font-weight: 600; padding: 3px 8px; border-radius: 99px; text-align: center; white-space: nowrap; }
+    .pill.Accelerating { background: rgba(52,211,153,0.12); color: var(--up); }
+    .pill.Cooling { background: rgba(248,113,113,0.12); color: var(--down); }
+    .pill.Stable { background: rgba(148,163,184,0.12); color: #cbd5e1; }
+    .dom { font-size: 0.76rem; color: #cbd5e1; display: flex; align-items: center; gap: 6px; }
+    .dom i { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .prio { height: 6px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
+    .prio div { height: 100%; background: linear-gradient(90deg, #0ea5e9, #818cf8); border-radius: 3px; }
+    .detail { padding: 4px 18px 20px 62px; display: grid; grid-template-columns: 2fr 1fr; gap: 28px; font-size: 0.8rem; animation: rise .35s var(--ease); }
+    @media (max-width: 900px) {
+      .thead { display: none; }
+      .row { grid-template-columns: 28px 1fr 80px 90px; }
+      .row > .hide-sm { display: none; }
+      .detail { grid-template-columns: 1fr; padding-left: 18px; }
+    }
+    .detail h3 { font-size: 0.7rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin: 0 0 8px; font-weight: 600; }
+    .detail ul { list-style: none; margin: 0; padding: 0; }
+    .detail li { padding: 6px 0; border-bottom: 1px dashed var(--line); line-height: 1.45; }
+    .detail li a { text-decoration: none; } .detail li a:hover { color: var(--accent); }
+    .detail li span { color: var(--muted); font-size: 0.72rem; }
+    .stat-line { color: var(--muted); line-height: 1.8; }
+    .stat-line b { color: var(--text); font-weight: 500; }
+
+    /* Method */
+    .method { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 4px 20px; }
+    .method summary { padding: 14px 0; font-weight: 600; font-size: 0.88rem; }
+    .method ol { margin: 0 0 18px; padding-left: 18px; color: #cbd5e1; font-size: 0.82rem; line-height: 1.7; }
+    .method code { font-family: 'JetBrains Mono', monospace; font-size: 0.76rem; color: var(--accent); }
+
+    .toast { position: fixed; bottom: 22px; right: 22px; background: #0f172a; border: 1px solid var(--accent); padding: 11px 16px;
+      border-radius: 10px; font-size: 0.8rem; opacity: 0; transform: translateY(8px); transition: all .3s var(--ease); pointer-events: none; max-width: 420px; }
+    .toast.show { opacity: 1; transform: none; }
+    .empty { padding: 60px; text-align: center; color: var(--muted); }
+  </style>
+</head>
+<body>
+<div class="page">
+  <nav>
+    <a href="index.html">← EV Market Overview</a><span>/</span>
+    <a href="bmw_pipeline_story.html">Pipeline Story</a><span>/</span>
+    <span style="color:#fff">China Trend Radar</span>
+  </nav>
+
+  <header>
+    <div>
+      <h1>China EV-Tech <span>Trend Radar</span></h1>
+      <p class="sub">Which technologies Chinese media is covering, how fast coverage is growing, and how each one maps to BMW customer pain.</p>
+      <div class="meta" id="meta"></div>
+    </div>
+    <button class="btn" id="refresh-btn" onclick="refreshData()">↻ Re-scrape now</button>
+  </header>
+
+  <main id="app"><div class="empty">Loading…</div></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="china_tech_trends_data.js"></script>
+<script>
+  const DOMAIN_COLORS = {
+    'Energy & Charging': '#38bdf8',
+    'Driving Assistance': '#a78bfa',
+    'Digital Cockpit & AI': '#fbbf24',
+    'Connected Ecosystem': '#f472b6',
+    'Vehicle Dynamics & Safety': '#34d399',
+    'Smart Cabin': '#fb923c',
+    'Smart Exterior': '#94a3b8',
+  };
+  const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fmtPct = v => (v > 0 ? '+' : '') + Math.round(v) + '%';
+  const fmtP = p => p < 0.001 ? 'p < 0.001' : 'p = ' + p.toFixed(3);
+
+  function sparkline(arr, color, w = 104, h = 26) {
+    const max = Math.max(...arr, 1);
+    const step = w / (arr.length - 1);
+    const pts = arr.map((v, i) => `${(i * step).toFixed(1)},${(h - 2 - (v / max) * (h - 4)).toFixed(1)}`).join(' ');
+    return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="${color}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+  }
+
+  function renderMeta(d) {
+    document.getElementById('meta').innerHTML =
+      `<span>Last scrape <b>${esc(d.generated_at)}</b></span>` +
+      `<span><b>${d.totals.articles.toLocaleString()}</b> articles</span>` +
+      `<span><b>${d.totals.outlets}</b> Chinese outlets</span>` +
+      `<span><b>${d.totals.topics}</b> tech topics</span>` +
+      `<span><b>${d.window.weeks}</b> weeks (${esc(d.window.start)} → ${esc(d.window.end)})</span>`;
+  }
+
+  function renderSignals(d) {
+    // Top 3: highest priority among statistically significant accelerators; fall back to priority
+    const acc = d.topics.filter(t => t.signal === 'Accelerating');
+    const pick = (acc.length >= 3 ? acc : d.topics).slice(0, 3);
+    return `<section class="section">
+      <div class="section-head"><div><h2>Top 3 signals</h2><div class="hint">Highest priority score among topics with statistically significant growth</div></div></div>
+      <div class="signals">${pick.map((t, i) => {
+        const dom = d.bmw_domains[t.bmw_domain] || {};
+        const col = t.momentum_pct_change >= 0 ? 'var(--up)' : 'var(--down)';
+        return `<article class="sig" style="animation-delay:${i * 80}ms">
+          <div class="rank">#${i + 1} · Priority ${t.priority}</div>
+          <div class="name">${esc(t.label_en)} <span class="cn">${esc(t.label_cn)}</span></div>
+          <div class="big" style="color:${col}">${fmtPct(t.momentum_pct_change)}</div>
+          <div class="facts">relative share of voice, last ${d.window.recent_weeks} wks vs prior ${d.window.weeks - d.window.recent_weeks} (${fmtP(t.p_momentum)})<br>
+            ${t.volume_recent} articles · ${t.breadth_outlets} outlets</div>
+          <div class="bmw"><span style="color:${DOMAIN_COLORS[t.bmw_domain]}">●</span> Linked BMW domain: <b>${esc(t.bmw_domain)}</b><br>
+            <span class="hint">${dom.complaints ?? '–'} customer complaints · top: ${esc((dom.top_components || '').split(';')[0])}</span></div>
+        </article>`;
+      }).join('')}</div>
+    </section>`;
+  }
+
+  const SHORT = {
+    solid_state: 'Solid-state battery', sodium_ion: 'Sodium-ion', ultra_charging: '5C / MW charging', hv_800v: '800V & SiC',
+    battery_swap: 'Battery swap', v2g: 'V2G', e2e_vla: 'End-to-end / VLA', urban_noa: 'Urban NOA', l3_autonomy: 'L3 autonomy',
+    lidar: 'LiDAR', robotaxi: 'Robotaxi', adas_chips: 'ADAS chips', cockpit_llm: 'Cockpit AI', central_compute: 'Central compute',
+    phone_car_eco: 'Phone-car ecosystem', ota: 'OTA', steer_by_wire: 'Steer-by-wire', active_suspension: 'Active suspension',
+    giga_casting: 'Giga-casting', smart_seats: 'Smart seats', smart_lighting: 'Smart exterior',
+  };
+
+  function renderMap(d) {
+    const W = 1100, H = 420, P = { l: 56, r: 24, t: 24, b: 40 };
+    const ts = d.topics;
+    const xs = ts.map(t => Math.log10(t.volume_recent + 1));
+    const ys = ts.map(t => Math.log2(t.momentum));
+    const xMin = Math.min(...xs) - 0.1, xMax = Math.max(...xs) + 0.1;
+    const yAbs = Math.max(1, ...ys.map(Math.abs)) * 1.15;
+    const X = v => P.l + (v - xMin) / (xMax - xMin) * (W - P.l - P.r);
+    const Y = v => P.t + (yAbs - v) / (2 * yAbs) * (H - P.t - P.b);
+
+    // Only significant movers get a permanent label; collision-avoided.
+    const placed = [];
+    const labelPos = (cx, cy, r, text) => {
+      const w = text.length * 6.6, h = 14;
+      const right = cx < W * 0.78;
+      const x0 = right ? cx + r + 6 : cx - r - 6 - w;
+      let y = cy + 4;
+      for (let k = 0; k < 8; k++) {
+        const hit = placed.some(b => x0 < b.x + b.w && x0 + w > b.x && Math.abs(y - b.y) < h);
+        if (!hit) break;
+        y += (k % 2 ? -1 : 1) * h * (k + 1);
+      }
+      placed.push({ x: x0, y, w });
+      return { x: right ? cx + r + 6 : cx - r - 6, y, anchor: right ? 'start' : 'end' };
+    };
+
+    const order = ts.map((t, i) => i).sort((a, b) => (ts[a].signal === 'Stable') - (ts[b].signal === 'Stable'));
+    const dots = order.map(i => {
+      const t = ts[i];
+      const cx = X(xs[i]), cy = Y(ys[i]);
+      const r = 5 + t.bmw_exposure * 7;
+      const c = DOMAIN_COLORS[t.bmw_domain] || '#94a3b8';
+      const sig = t.signal !== 'Stable';
+      const name = SHORT[t.id] || t.label_en;
+      const lp = sig ? labelPos(cx, cy, r, name) : { x: cx + r + 6, y: cy + 4, anchor: cx < W * 0.78 ? 'start' : 'end' };
+      if (!sig && lp.anchor === 'end') lp.x = cx - r - 6;
+      return `<g class="pt" onclick="openTopic('${t.id}')">
+        <circle class="dot" cx="${cx}" cy="${cy}" r="${r}" fill="${c}" fill-opacity="${sig ? 0.9 : 0.18}" stroke="${c}" stroke-opacity="${sig ? 1 : 0.45}" stroke-width="1.2">
+          <title>${esc(t.label_en)}: ${t.volume_recent} articles, ${fmtPct(t.momentum_pct_change)} (${fmtP(t.p_momentum)})</title></circle>
+        <text class="${sig ? '' : 'hl'}" x="${lp.x}" y="${lp.y}" text-anchor="${lp.anchor}" font-size="12" fill="${sig ? '#e2e8f0' : '#94a3b8'}" font-weight="${sig ? 500 : 400}">${esc(name)}</text></g>`;
+    }).join('');
+
+    const yTicks = [-1, 0, 1].filter(v => Math.abs(v) <= yAbs).map(v =>
+      `<text x="${P.l - 10}" y="${Y(v) + 4}" font-size="10.5" fill="#475569" text-anchor="end">${v === 0 ? '0%' : fmtPct((2 ** v - 1) * 100)}</text>
+       ${v === 0 ? `<line x1="${P.l}" x2="${W - P.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="rgba(255,255,255,0.12)"/>` : ''}`).join('');
+    const xTicks = [10, 30, 100, 300, 1000].filter(v => Math.log10(v + 1) >= xMin && Math.log10(v + 1) <= xMax).map(v =>
+      `<text x="${X(Math.log10(v + 1))}" y="${H - P.b + 20}" font-size="10.5" fill="#475569" text-anchor="middle">${v}</text>`).join('');
+    const q = (x, y, txt, anchor) => `<text x="${x}" y="${y}" font-size="10" fill="#334155" font-weight="700" letter-spacing="1.5" text-anchor="${anchor}">${txt}</text>`;
+    const used = [...new Set(ts.map(t => t.bmw_domain))];
+
+    return `<section class="section">
+      <div class="section-head"><div><h2>Trend map</h2><div class="hint">Right = more coverage · Up = gaining share · Size = BMW customer pain · Only significant moves are labelled (hover for the rest)</div></div></div>
+      <div class="map"><svg viewBox="0 0 ${W} ${H}">
+        ${yTicks}${xTicks}
+        ${q(P.l + 6, P.t + 8, 'EMERGING', 'start')}${q(W - P.r - 6, P.t + 8, 'MAINSTREAMING', 'end')}
+        ${q(P.l + 6, H - P.b - 8, 'FADING', 'start')}${q(W - P.r - 6, H - P.b - 8, 'COOLING', 'end')}
+        ${dots}
+      </svg>
+      <div class="legend">${used.map(k => `<span><i style="background:${DOMAIN_COLORS[k]}"></i>${k}</span>`).join('')}</div></div>
+    </section>`;
+  }
+
+  function renderTable(d) {
+    const rows = d.topics.map((t, i) => {
+      const c = DOMAIN_COLORS[t.bmw_domain] || '#94a3b8';
+      const dom = d.bmw_domains[t.bmw_domain] || {};
+      const delta = t.momentum_pct_change;
+      return `<details id="topic-${t.id}">
+        <summary class="row">
+          <span class="mono hint">${i + 1}</span>
+          <span><b style="font-weight:600">${esc(t.label_en)}</b><br><span class="cn" style="font-size:.76rem">${esc(t.label_cn)}</span></span>
+          <span class="dom hide-sm"><i style="background:${c}"></i>${esc(t.bmw_domain)}</span>
+          <span class="hide-sm">${sparkline(t.weekly_share, c)}</span>
+          <span class="num">${t.volume_recent}</span>
+          <span class="num" style="color:${delta >= 0 ? 'var(--up)' : 'var(--down)'}">${fmtPct(delta)}</span>
+          <span class="pill ${t.signal}">${t.signal}</span>
+          <span class="num hide-sm">${t.breadth_outlets}</span>
+          <span class="hide-sm"><div class="prio"><div style="width:${t.priority}%"></div></div><span class="mono hint" style="font-size:.7rem">${t.priority}</span></span>
+        </summary>
+        <div class="detail">
+          <div>
+            <h3>Latest Chinese headlines</h3>
+            <ul>${t.headlines.length ? t.headlines.map(h =>
+              `<li><a href="${esc(h.link)}" target="_blank" rel="noopener noreferrer">${esc(h.title)} ↗</a><br><span>${esc(h.source)} · ${esc(h.date)}</span></li>`).join('')
+              : '<li><span>No articles in the recent window.</span></li>'}</ul>
+          </div>
+          <div>
+            <h3>Statistics</h3>
+            <div class="stat-line">
+              Relative rate ratio <b>${t.momentum.toFixed(2)}×</b> vs. basket (${fmtP(t.p_momentum)})<br>
+              Mann-Kendall share trend z = <b>${t.mk_z}</b> (${fmtP(t.mk_p)})<br>
+              Sen's slope <b>${t.sens_slope_share_pp_per_week > 0 ? '+' : ''}${t.sens_slope_share_pp_per_week}</b> pp share/week<br>
+              Share of voice <b>${(t.share_of_voice * 100).toFixed(1)}%</b> · Quadrant <b>${t.quadrant}</b>
+              ${t.resolved_quota_days ? `<br><span style="color:#38bdf8; font-size:0.76rem;">⚡ <b>Feed Quota Resolved:</b> ${t.resolved_quota_days} peak day(s) adaptively partitioned across 5 media cohorts (+${t.recovered_quota_articles} unique articles recovered beyond 100-item ceiling)</span>` : (t.saturated_days ? `<br><span style="color:#fbbf24; font-size:0.76rem;">⚠ ${t.saturated_days} day(s) hit 100-item cap; lower bound</span>` : '')}
+            </div>
+            <h3 style="margin-top:16px">Top outlets</h3>
+            <div class="stat-line">${t.top_outlets.map(([s, n]) => `${esc(s)} <b>${n}</b>`).join(' · ') || '–'}</div>
+            <h3 style="margin-top:16px">BMW link</h3>
+            <div class="stat-line"><b>${esc(t.bmw_domain)}</b>: ${dom.complaints ?? '–'} complaints, avg severity ${dom.avg_severity ?? '–'}<br>${esc(dom.top_components || '')}</div>
+            <h3 style="margin-top:16px">Query</h3>
+            <div class="stat-line mono" style="font-size:.72rem">${esc(t.query)}</div>
+          </div>
+        </div>
+      </details>`;
+    }).join('');
+    return `<section class="section">
+      <div class="section-head"><div><h2>All topics, ranked by priority</h2><div class="hint">Click a row to see headlines (with source links), statistics, and the BMW link</div></div></div>
+      <div class="table">
+        <div class="thead"><span>#</span><span>Technology</span><span>BMW domain</span><span>${d.window.weeks}-wk share</span><span style="text-align:right">4 wks</span><span style="text-align:right">Δ</span><span>Signal</span><span style="text-align:right">Outlets</span><span>Priority</span></div>
+        ${rows}
+      </div>
+    </section>`;
+  }
+
+  function renderMethod(d) {
+    const m = d.method;
+    return `<section class="section"><details class="method"><summary>How the numbers are computed ▸</summary><ol>
+      <li><b>Scrape</b>: one Chinese keyword query per topic, run against ${esc(d.source)} in ${d.window.weeks} consecutive 7-day windows. If a window hits the 100-result cap, it is queried day by day. If a single peak day hits the 100-item feed quota, it is dynamically partitioned across 5 media cohorts (Sina, Sohu, Auto specialists, Financial press, Remainder) and sub-split to recover the full census without truncation. Headlines are de-duplicated.</li>
+      <li><b>Momentum</b>: ${esc(m.momentum)} <b>Significance</b>: ${esc(m.p_momentum)}</li>
+      <li><b>Trend</b>: ${esc(m.trend)} <b>Breadth</b>: ${esc(m.breadth)}</li>
+      <li><b>BMW exposure</b>: ${esc(m.exposure)}</li>
+      <li><b>Priority</b>: ${esc(m.priority)} <b>Signal</b>: ${esc(m.signal)}</li>
+      <li><b>Quota resolution</b>: ${esc(m.quota_resolution || 'Adaptive multi-tier domain & keyword partitioning')}</li>
+      <li><b>Raw data</b>: <code>china_tech_trends_articles.csv</code> (every article) · <code>china_tech_trends.json</code> (metrics) · re-run with <code>python3 scrape_china_tech_trends.py</code></li>
+      <li><b>Caveat</b>: this measures media attention, not technical maturity. Volumes come from the news index and are approximate. Read it as a signal of direction.</li>
+    </ol></details></section>`;
+  }
+
+  function render(d) {
+    if (!d || !d.topics) { document.getElementById('app').innerHTML = '<div class="empty">No data yet. Run <code>python3 scrape_china_tech_trends.py</code></div>'; return; }
+    renderMeta(d);
+    document.getElementById('app').innerHTML = renderSignals(d) + renderMap(d) + renderTable(d) + renderMethod(d);
+  }
+
+  function openTopic(id) {
+    const el = document.getElementById('topic-' + id);
+    if (!el) return;
+    el.open = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function toast(msg, ms = 4000) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('show'), ms);
+  }
+
+  async function refreshData() {
+    const btn = document.getElementById('refresh-btn');
+    btn.disabled = true; btn.textContent = '↻ Scraping…';
+    try {
+      const r = await fetch('/api/refresh-trends', { method: 'POST' });
+      if (!r.ok) throw new Error('no api');
+      const fresh = await fetch('china_tech_trends.json?t=' + Date.now()).then(x => x.json());
+      window.CHINA_TRENDS = fresh; render(fresh);
+      toast('Updated with the latest Chinese coverage.');
+    } catch (e) {
+      toast('Live re-scrape needs the local server: python3 trends_server.py (or run python3 scrape_china_tech_trends.py)', 6000);
+    } finally {
+      btn.disabled = false; btn.textContent = '↻ Re-scrape now';
+    }
+  }
+
+  render(window.CHINA_TRENDS);
+</script>
+</body>
+</html>

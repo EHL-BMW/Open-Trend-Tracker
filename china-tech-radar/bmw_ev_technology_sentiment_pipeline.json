@@ -1,0 +1,697 @@
+{
+  "metadata": {
+    "pipeline_version": "2.4.0",
+    "dataset_name": "BMW Electrified Fleet Customer Voice & Technology Domain Benchmark",
+    "scope": "16 Matched BMW BEV & PHEV Models (i5 Sedan/Touring, i7, 5er PHEV, 7er PHEV; 100% ICE & F70 excluded)",
+    "total_feedback_records": 3971,
+    "total_classified_feedback": 3383,
+    "total_likes_praise": 1491,
+    "total_complaints_friction": 1892,
+    "cohorts": [
+      "i5 BEV",
+      "i7 BEV",
+      "5er PHEV",
+      "7er PHEV"
+    ],
+    "severity_scoring_model": {
+      "Defect": {
+        "weight": 3,
+        "definition": "Hardware malfunction or functional breakdown"
+      },
+      "Difficult to Use": {
+        "weight": 2,
+        "definition": "UX, cognitive friction or ergonomic hurdle"
+      },
+      "Wants": {
+        "weight": 1,
+        "definition": "Missing feature or enhancement request"
+      },
+      "Likes": {
+        "weight": 0,
+        "definition": "Positive customer praise / promoter sentiment"
+      }
+    }
+  },
+  "domains": [
+    {
+      "domain_id": "smart_cabin",
+      "domain_name": "Smart Cabin",
+      "aspect": {
+        "cn": "温控储物、座椅、空气与舒适",
+        "en": "Thermal control, Storage, Smart seating, Air & Comfort",
+        "de": "Thermalkomfort, Sitze, Akustik & Raumkomfort"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 584,
+        "likes_count": 257,
+        "complaints_count": 327,
+        "complaint_ratio_pct": 55.99,
+        "defect_count": 70,
+        "difficult_to_use_count": 146,
+        "wants_count": 111,
+        "defect_rate_pct": 21.41,
+        "difficult_to_use_rate_pct": 44.65,
+        "wants_rate_pct": 33.94,
+        "avg_severity_score": 1.87,
+        "net_sentiment_score": -12.0
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 144,
+        "i7_bev": 108,
+        "5er_phev": 36,
+        "7er_phev": 39
+      },
+      "system_layer_split": {
+        "software_ux_count": 264,
+        "software_ux_pct": 45.2,
+        "hardware_physical_count": 155,
+        "hardware_physical_pct": 26.5
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "Transition to synthetic Veganza upholstery reduces breathability compared to Merino leather; elimination of mechanical sunblind on panoramic roof causes greenhouse heating.",
+        "recommended_pipeline_action": "Increase perforation density and active ventilation CFM on Veganza trims; upgrade low-emissivity glass coating on fixed panoramic roofs.",
+        "key_praise_summary": "Superb NVH acoustic isolation at 130-160 km/h; comfortable rear lounge seating on i7.",
+        "key_pain_point_summary": "Veganza thermal perspiration in summer; complex touch-slider air vents replacing physical dials."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Interior design",
+          "likes_count": 59,
+          "sample_verbatim": "Customer mentioned the cabin design and said it looks very nice."
+        },
+        {
+          "component": "Interior comfort",
+          "likes_count": 54,
+          "sample_verbatim": "Customer stated he prefers the comfort of the BMW when compared with the Tesla."
+        },
+        {
+          "component": "Seats",
+          "likes_count": 37,
+          "sample_verbatim": "pros: front seat is wider than i thought, very convenient and clean with no oil smell, comfy ride, nice design. cons: touch-style emergency "
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Seats",
+          "complaints_count": 39,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "the interior feels like a step down from the previous model in both materials and equipment.\n\nno full leather on the dash, no stitched leath"
+        },
+        {
+          "component": "Panorama glass roof",
+          "complaints_count": 21,
+          "primary_feedback_type": "Wants",
+          "sample_verbatim": "Customer stated he wished there had been an option for a sunroof that opens. Customer stated this was not available to him when he placed th"
+        },
+        {
+          "component": "Vehicle, climatization",
+          "complaints_count": 17,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated the Climate Control system feels complicated. Customer stated the Climate Control screen has a lot of clutter. Customer stat"
+        },
+        {
+          "component": "Center console, front",
+          "complaints_count": 15,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated the center console feels too small. Writer asked what she typically stores in it, and Customer replied that she usually keep"
+        }
+      ]
+    },
+    {
+      "domain_id": "smart_exterior",
+      "domain_name": "Smart Exterior",
+      "aspect": {
+        "cn": "智能灯光、车门、空气动力学",
+        "en": "Smart lighting, Powered doors, Aerodynamics & Body",
+        "de": "Smarte Karosserie, Automatiktüren & Aerodynamik"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 547,
+        "likes_count": 224,
+        "complaints_count": 323,
+        "complaint_ratio_pct": 59.05,
+        "defect_count": 77,
+        "difficult_to_use_count": 148,
+        "wants_count": 98,
+        "defect_rate_pct": 23.84,
+        "difficult_to_use_rate_pct": 45.82,
+        "wants_rate_pct": 30.34,
+        "avg_severity_score": 1.93,
+        "net_sentiment_score": -18.1
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 150,
+        "i7_bev": 94,
+        "5er_phev": 41,
+        "7er_phev": 38
+      },
+      "system_layer_split": {
+        "software_ux_count": 250,
+        "software_ux_pct": 45.7,
+        "hardware_physical_count": 87,
+        "hardware_physical_pct": 15.9
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "Ultrasonic proximity sensors for i7 powered doors have ultra-conservative abort thresholds against curbs and parking pillars; mechanical clutching lacks effortless manual bypass.",
+        "recommended_pipeline_action": "Recalibrate ultrasonic threshold algorithms for close-proximity objects; introduce low-resistance electro-mechanical freewheeling in manual door override.",
+        "key_praise_summary": "Iconic front grill presence, solid body panel fit, and aerodynamic exterior profile.",
+        "key_pain_point_summary": "i7 automated door aborts in tight garages; rear trunk kick sensor fails on ~30% of attempts."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Exterior design",
+          "likes_count": 105,
+          "sample_verbatim": "Customer stated they enjoy this sedan much more than their previous SUV and commented that they have always preferred sedans."
+        },
+        {
+          "component": "Body equipment, overall technology",
+          "likes_count": 78,
+          "sample_verbatim": "Customer stated the technology is excellent and, up to now, has been intuitive to operate."
+        },
+        {
+          "component": "Exterior",
+          "likes_count": 10,
+          "sample_verbatim": "Customer stated he had been considering an i4, but ended up liking the larger size of the i5 more."
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Body equipment, overall technology",
+          "complaints_count": 60,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated he keeps running into various small issues while learning how the electronics work. Customer stated he either solves them hi"
+        },
+        {
+          "component": "non-contact trunk lid opening",
+          "complaints_count": 24,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "I had a minor problem with Trunk/hatch/tailgate - Touch-free sensor doesn't work consistently/DTU: \"Hard to figure out the exact place and m"
+        },
+        {
+          "component": "Door, open / close",
+          "complaints_count": 22,
+          "primary_feedback_type": "Wants",
+          "sample_verbatim": "Customer asked whether the i5 doors use a cable-driven door pull so you can get out if the battery dies. Writer advised that when the vehicl"
+        },
+        {
+          "component": "Exterior",
+          "complaints_count": 17,
+          "primary_feedback_type": "Defect",
+          "sample_verbatim": "Customer stated the vehicle feels unusually long. Customer stated he is fortunate that it fits in his garage, as it almost did not fit. Cust"
+        }
+      ]
+    },
+    {
+      "domain_id": "energy_and_charging",
+      "domain_name": "Energy & Charging",
+      "aspect": {
+        "cn": "补能体验、续航管理、对外供电",
+        "en": "Charging experience, Range management, V2X/Power supply",
+        "de": "Ladeerlebnis, Vorkonditionierung & Reichweitenprognose"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 440,
+        "likes_count": 125,
+        "complaints_count": 315,
+        "complaint_ratio_pct": 71.59,
+        "defect_count": 53,
+        "difficult_to_use_count": 189,
+        "wants_count": 73,
+        "defect_rate_pct": 16.83,
+        "difficult_to_use_rate_pct": 60.0,
+        "wants_rate_pct": 23.17,
+        "avg_severity_score": 1.94,
+        "net_sentiment_score": -43.2
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 167,
+        "i7_bev": 101,
+        "5er_phev": 26,
+        "7er_phev": 21
+      },
+      "system_layer_split": {
+        "software_ux_count": 223,
+        "software_ux_pct": 50.7,
+        "hardware_physical_count": 36,
+        "hardware_physical_pct": 8.2
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "CLAR platform 400V battery thermal inertia without predictive pre-conditioning triggers severe cold-charging throttle (drops from 205 kW to 60 kW). Real-world winter range deviates up to 35% from WLTP.",
+        "recommended_pipeline_action": "Expose manual battery pre-conditioning toggle in OS QuickSelect bar; integrate dynamic low-temperature buffer into SoC routing algorithms.",
+        "key_praise_summary": "High DC peak charging speeds (>200 kW) during warm seasons; smooth regenerative coasting in adaptive mode.",
+        "key_pain_point_summary": "Winter range drop and charge flap freezing / delayed cable release."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Electric Range",
+          "likes_count": 53,
+          "sample_verbatim": "Customer stated the car suits their 20-mile daily commute well and works with their home charging arrangement."
+        },
+        {
+          "component": "Wallbox, charging / home charging",
+          "likes_count": 21,
+          "sample_verbatim": "Customer stated the vehicle is simple for him to charge at home."
+        },
+        {
+          "component": "Charge high-voltage battery",
+          "likes_count": 13,
+          "sample_verbatim": "Customer mentioned she is happy with the battery on her hybrid vehicle."
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Electric Range",
+          "complaints_count": 97,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "for a car on a newly developed model platform, the range should have been much better. i have to drive very slowly to get a sensible distanc"
+        },
+        {
+          "component": "Public charging / external providers",
+          "complaints_count": 64,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated that some drivers keep their vehicles plugged in at Electrify America chargers even after charging is complete, which is fru"
+        },
+        {
+          "component": "Charge high-voltage battery",
+          "complaints_count": 43,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer reported the vehicle has inconsistent scheduled charging, with the car often ignoring the programmed 8:30 PM time slot. Customer no"
+        },
+        {
+          "component": "Opening/closing charging socket cover",
+          "complaints_count": 22,
+          "primary_feedback_type": "Defect",
+          "sample_verbatim": "I had a serious problem with Charging door/cap - Hard to open/close: \"You tap on the door to open the car, and at times I have to tap it mor"
+        }
+      ]
+    },
+    {
+      "domain_id": "digital_cockpit_and_ai",
+      "domain_name": "Digital Cockpit & AI",
+      "aspect": {
+        "cn": "显示交互、语音助手、娱乐",
+        "en": "Display & Interaction, Voice assistant, In-cabin entertainment",
+        "de": "Display-HMI, Sprachbedienung (IPA) & Infotainment"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 449,
+        "likes_count": 153,
+        "complaints_count": 296,
+        "complaint_ratio_pct": 65.92,
+        "defect_count": 72,
+        "difficult_to_use_count": 162,
+        "wants_count": 62,
+        "defect_rate_pct": 24.32,
+        "difficult_to_use_rate_pct": 54.73,
+        "wants_rate_pct": 20.95,
+        "avg_severity_score": 2.03,
+        "net_sentiment_score": -31.8
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 125,
+        "i7_bev": 114,
+        "5er_phev": 34,
+        "7er_phev": 23
+      },
+      "system_layer_split": {
+        "software_ux_count": 340,
+        "software_ux_pct": 75.7,
+        "hardware_physical_count": 22,
+        "hardware_physical_pct": 4.9
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "BMW OS 8.5/9 removed physical HVAC controls and favourite buttons, shifting micro-climate controls 2-3 levels deep into touch menus, increasing driver cognitive load.",
+        "recommended_pipeline_action": "Implement persistent customized climate bar on display bottom; deploy on-edge Small Language Model (SLM) to reduce IPA voice assistant response latency below 800ms.",
+        "key_praise_summary": "Stunning Curved Display resolution; immersive Bowers & Wilkins 4D Diamond Surround Sound.",
+        "key_pain_point_summary": "Cluttered QuickSelect widgets obscuring map; lack of physical buttons for primary functions."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Ambient light",
+          "likes_count": 25,
+          "sample_verbatim": "Customer stated that they really love the ambient lighting in the vehicle."
+        },
+        {
+          "component": "ConnectedDrive and Infotainment, overall technology",
+          "likes_count": 20,
+          "sample_verbatim": "really sharp-looking car with some imprssive features. versus my old 2018 540i, there are definitely some nice upgrades. i do miss having th"
+        },
+        {
+          "component": "Touch screen, operation",
+          "likes_count": 18,
+          "sample_verbatim": "Customer stated the vehicle's touchscreen is excellent."
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "ConnectedDrive and Infotainment, overall technology",
+          "complaints_count": 39,
+          "primary_feedback_type": "Defect",
+          "sample_verbatim": "Customer stated that in the last few weeks he has experienced a few tech problems with the vehicle. Customer stated the first problem was th"
+        },
+        {
+          "component": "Audio mode, sound",
+          "complaints_count": 28,
+          "primary_feedback_type": "Defect",
+          "sample_verbatim": "the interior hard plastics creak a lot and feel low quality. my car also has some fit and finish problems, like the driver side front window"
+        },
+        {
+          "component": "Navigation",
+          "complaints_count": 26,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "fantastic to drive. smooth and quick. cabin is quiet and very comfortable. tech is mostly straightforward to learn. i really like the digita"
+        },
+        {
+          "component": "Touch screen, operation",
+          "complaints_count": 24,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "pros: front seat is wider than i thought, very convenient and clean with no oil smell, comfy ride, nice design. cons: touch-style emergency "
+        }
+      ]
+    },
+    {
+      "domain_id": "vehicle_dynamics_and_safety",
+      "domain_name": "Vehicle Dynamics & Safety",
+      "aspect": {
+        "cn": "驾驶控制、底盘、乘员保护",
+        "en": "Drive control, Chassis dynamics, Occupant protection",
+        "de": "Antriebsregelung, Fahrwerk & Insassenschutz"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 871,
+        "likes_count": 630,
+        "complaints_count": 241,
+        "complaint_ratio_pct": 27.67,
+        "defect_count": 44,
+        "difficult_to_use_count": 136,
+        "wants_count": 61,
+        "defect_rate_pct": 18.26,
+        "difficult_to_use_rate_pct": 56.43,
+        "wants_rate_pct": 25.31,
+        "avg_severity_score": 1.93,
+        "net_sentiment_score": 44.7
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 102,
+        "i7_bev": 76,
+        "5er_phev": 37,
+        "7er_phev": 26
+      },
+      "system_layer_split": {
+        "software_ux_count": 303,
+        "software_ux_pct": 34.8,
+        "hardware_physical_count": 134,
+        "hardware_physical_pct": 15.4
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "PHEV ICE start-up during kickdown experiences mild clutch jerk during torque handover; one-pedal adaptive recuperation decelerates unexpectedly approaching roundabouts.",
+        "recommended_pipeline_action": "Harmonize electric motor torque ramp-down during ICE ignition transition; provide haptic steering feedback when adaptive recuperation engages.",
+        "key_praise_summary": "Unrivalled 9.95/10 ride quality: benchmark chassis poise, agile steering feel, and zero roll.",
+        "key_pain_point_summary": "PHEV kickdown transition jerk; inconsistent deceleration in adaptive regen mode."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Drivetrain",
+          "likes_count": 260,
+          "sample_verbatim": "Customer stated that even though the vehicle is electric, it still delivers the kind of performance he would expect from a BMW."
+        },
+        {
+          "component": "Handling / Riding",
+          "likes_count": 178,
+          "sample_verbatim": "Customer stated she is pleased with the vehicle's handling characteristics."
+        },
+        {
+          "component": "Drive, driving dynamics and chassis, overall technology",
+          "likes_count": 92,
+          "sample_verbatim": "feels very high quality, has great tech, fun to drive and really comfortable."
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Drivetrain",
+          "complaints_count": 45,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "it would help to clearly know the range in different driving conditions. performance versus temperature should be shown as well. there seems"
+        },
+        {
+          "component": "My Modes / driving experience",
+          "complaints_count": 29,
+          "primary_feedback_type": "Wants",
+          "sample_verbatim": "Customer was unsure how the various modes operate and what their purposes are. Writer explained that personal mode functions as the standard"
+        },
+        {
+          "component": "Brake Energy Regeneration / recuperation",
+          "complaints_count": 19,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated he would like the vehicle to retain B Mode as the default setting."
+        },
+        {
+          "component": "Wheels / tires",
+          "complaints_count": 16,
+          "primary_feedback_type": "Wants",
+          "sample_verbatim": "i've had the car for about 4 months and i'm splitting my thoughts into pros and cons.\n\npros:\n- driving dynamics: really strong acceleration "
+        }
+      ]
+    },
+    {
+      "domain_id": "connected_ecosystem",
+      "domain_name": "Connected Ecosystem",
+      "aspect": {
+        "cn": "手机与车互联、远程服务、OTA",
+        "en": "Smartphone integration, Remote telematics, OTA updates",
+        "de": "Smartphone-Integration, Remote-Services & OTA"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 240,
+        "likes_count": 28,
+        "complaints_count": 212,
+        "complaint_ratio_pct": 88.33,
+        "defect_count": 43,
+        "difficult_to_use_count": 125,
+        "wants_count": 44,
+        "defect_rate_pct": 20.28,
+        "difficult_to_use_rate_pct": 58.96,
+        "wants_rate_pct": 20.75,
+        "avg_severity_score": 2.0,
+        "net_sentiment_score": -76.7
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 93,
+        "i7_bev": 80,
+        "5er_phev": 23,
+        "7er_phev": 16
+      },
+      "system_layer_split": {
+        "software_ux_count": 204,
+        "software_ux_pct": 85.0,
+        "hardware_physical_count": 4,
+        "hardware_physical_pct": 1.7
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "Telematics Control Unit (TCU) enters deep sleep in underground concrete structures, causing My BMW App cloud command timeouts; 5G eSIM network handshakes fail on roaming.",
+        "recommended_pipeline_action": "Implement local BLE fall-back pairing for My BMW App remote climatization; streamline carrier profile eSIM auto-provisioning.",
+        "key_praise_summary": "Digital Key Plus Ultra-Wideband (UWB) hands-free phone unlocking; remote 3D view camera surround.",
+        "key_pain_point_summary": "My BMW App 'Vehicle Unreachable' timeouts in underground garages; CarPlay audio dropouts."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Digital Key",
+          "likes_count": 9,
+          "sample_verbatim": "fantastic to drive. smooth and quick. cabin is quiet and very comfortable. tech is mostly straightforward to learn. i really like the digita"
+        },
+        {
+          "component": "My BMW App / MINI App",
+          "likes_count": 6,
+          "sample_verbatim": "Customer stated he appreciates using the app to see when the vehicle has finished charging, noting that the car often charges quicker than h"
+        },
+        {
+          "component": "Apple CarPlay",
+          "likes_count": 3,
+          "sample_verbatim": "Customer stated she feels very confident and comfortable using Apple Carplay."
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Apple CarPlay",
+          "complaints_count": 31,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated wireless CarPlay will occasionally not connect. Customer stated he has had to reboot the phone, remove it from iDrive, then "
+        },
+        {
+          "component": "Personal eSIM",
+          "complaints_count": 27,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "overall the car feels basically well built, but the price is still too high for what you actually get. there are several areas where it seem"
+        },
+        {
+          "component": "My BMW App / MINI App",
+          "complaints_count": 24,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer reported that the charging history shown in the app is occasionally off by a block or two. Customer noted this only seems to happen"
+        },
+        {
+          "component": "Mobile device, wireless charging",
+          "complaints_count": 19,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "I had a problem with Wireless charging pad - Broken/works inconsistently: \"Wireless charging pad is placed ackwsrdly and the phone charges s"
+        }
+      ]
+    },
+    {
+      "domain_id": "driving_assistance",
+      "domain_name": "Driving Assistance",
+      "aspect": {
+        "cn": "城市/高速辅助、泊车、人车交接",
+        "en": "Highway/City pilot, Automated parking, Driver-vehicle handover",
+        "de": "City/Highway Pilot, Parken & Fahrerübergabe"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 222,
+        "likes_count": 68,
+        "complaints_count": 154,
+        "complaint_ratio_pct": 69.37,
+        "defect_count": 33,
+        "difficult_to_use_count": 78,
+        "wants_count": 43,
+        "defect_rate_pct": 21.43,
+        "difficult_to_use_rate_pct": 50.65,
+        "wants_rate_pct": 27.92,
+        "avg_severity_score": 1.94,
+        "net_sentiment_score": -38.7
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 66,
+        "i7_bev": 55,
+        "5er_phev": 23,
+        "7er_phev": 10
+      },
+      "system_layer_split": {
+        "software_ux_count": 168,
+        "software_ux_pct": 75.7,
+        "hardware_physical_count": 4,
+        "hardware_physical_pct": 1.8
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "EU GSR2 regulatory speed limit audible chimes trigger immediately at +1 km/h; Parking Assistant Pro disengages when detecting angled curbs.",
+        "recommended_pipeline_action": "Create one-touch steering wheel shortcut to mute GSR2 alerts; enhance curb terrain edge-detection in ultrasonic parking model.",
+        "key_praise_summary": "Highway Assistant Level 2+ hands-free driving with eye-activation lane change is the best-in-class benchmark.",
+        "key_pain_point_summary": "Mandatory GSR2 speed warning bongs; parking app disengagement on gravel/sloped curbs."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Highway assistant",
+          "likes_count": 27,
+          "sample_verbatim": "Customer remarked they are very happy with the self driving function. Customer noted they drive to work four days a week and spend a lot of "
+        },
+        {
+          "component": "Steering and lane guide assist",
+          "likes_count": 6,
+          "sample_verbatim": "Customer commented that the driver assistance features are very helpful."
+        },
+        {
+          "component": "Driver assistance, automated driving, overall technology",
+          "likes_count": 4,
+          "sample_verbatim": "it's a great car, smooth to drive and solidly built, with very good safety features and apple carplay working well. the only real issue is c"
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "Parking Assistant",
+          "complaints_count": 21,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "really sharp-looking car with some imprssive features. versus my old 2018 540i, there are definitely some nice upgrades. i do miss having th"
+        },
+        {
+          "component": "Highway assistant",
+          "complaints_count": 15,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated the Highway Assistant tends to be somewhat jerky when going through a bend, particularly in situations where the vehicle has"
+        },
+        {
+          "component": "Park Distance Control (PDC)",
+          "complaints_count": 10,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "Customer stated he has Park Distance Control configured to come on automatically, but he feels PDC still engages too late. Customer stated h"
+        },
+        {
+          "component": "Driver assistance, automated driving, overall technology",
+          "complaints_count": 8,
+          "primary_feedback_type": "Defect",
+          "sample_verbatim": "Customer stated he would like the car to offer full self-driving functionality, going further than just the handsfree driving on the highway"
+        }
+      ]
+    },
+    {
+      "domain_id": "general_and_services",
+      "domain_name": "General & Services",
+      "aspect": {
+        "cn": "用户手册、售后交车与综合服务",
+        "en": "User manual, Dealership delivery & General service",
+        "de": "Bordbuch, Kundenservice & Händlerkontakt"
+      },
+      "kpi_metrics": {
+        "total_evaluated_volume": 30,
+        "likes_count": 6,
+        "complaints_count": 24,
+        "complaint_ratio_pct": 80.0,
+        "defect_count": 0,
+        "difficult_to_use_count": 23,
+        "wants_count": 1,
+        "defect_rate_pct": 0.0,
+        "difficult_to_use_rate_pct": 95.83,
+        "wants_rate_pct": 4.17,
+        "avg_severity_score": 1.96,
+        "net_sentiment_score": -60.0
+      },
+      "cohort_complaint_distribution": {
+        "i5_bev": 8,
+        "i7_bev": 11,
+        "5er_phev": 1,
+        "7er_phev": 4
+      },
+      "system_layer_split": {
+        "software_ux_count": 18,
+        "software_ux_pct": 60.0,
+        "hardware_physical_count": 2,
+        "hardware_physical_pct": 6.7
+      },
+      "engineering_intelligence": {
+        "root_cause_analysis": "Digital user manual navigation is unintuitive for complex EV features; delivery handovers at dealerships lack deep EV charging onboarding.",
+        "recommended_pipeline_action": "Embed interactive animated tutorials in the central display during first DC charge; standardize EV dealer delivery checklists.",
+        "key_praise_summary": "High dealer professionalism and premium service vehicle availability.",
+        "key_pain_point_summary": "Unanswered technical questions regarding wallbox installation and DC charging limits."
+      },
+      "what_customers_loved": [
+        {
+          "component": "Real Time Traffic Information (RTTI)",
+          "likes_count": 1,
+          "sample_verbatim": "Customer stated she really likes the traffic information she receives, including details about the traffic lights and the school speed."
+        },
+        {
+          "component": "Owner's Manual",
+          "likes_count": 1,
+          "sample_verbatim": "Customer reported they turn to the owners manual quite often and feel it is very helpful."
+        },
+        {
+          "component": "Floor mat",
+          "likes_count": 1,
+          "sample_verbatim": "the way this car rides is incredibly smooth, my family even calls it a \"magic carpet\" ride. i also really like the interior lighting and the"
+        }
+      ],
+      "what_customers_hated": [
+        {
+          "component": "General enquiry: customer feedback",
+          "complaints_count": 15,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "the maple creek dealership basically lied about everything. i told them i didn't want the car until 5/21 and only after all the paperwork wa"
+        },
+        {
+          "component": "Owner's Manual",
+          "complaints_count": 9,
+          "primary_feedback_type": "Difficult to Use",
+          "sample_verbatim": "the ride quality is excellent and the road feedback is great. acceleration responds instantly. interior layout and space feel flawless, and "
+        }
+      ]
+    }
+  ]
+}
