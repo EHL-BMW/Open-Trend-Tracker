@@ -12,9 +12,9 @@ export const ROUTES = {
 export const NAV_ITEMS = [
   { to: ROUTES.newsletter, label: "Newsletter" },
   { to: ROUTES.agent, label: "AI Agent" },
+  { to: ROUTES.featureTrends, label: "Feature Radar" },
   { to: ROUTES.impactForecast, label: "Sales Impact Forecast" },
   { to: ROUTES.planner, label: "Planner" },
-  { to: ROUTES.featureTrends, label: "Feature Radar" },
   { to: ROUTES.howItWorks, label: "How it works" },
   { to: ROUTES.faq, label: "FAQ" },
 ] as const;
