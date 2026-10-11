@@ -1,2 +1,16 @@
 # Data
 data/
+
+# Python
+__pycache__/
+.venv/
+.pytest_cache/
+
+# Node
+node_modules/
+dist/
+
+# Local analysis scratch space (production logic belongs in backend/app/)
+tmp/
+outputs/
+.DS_Store
