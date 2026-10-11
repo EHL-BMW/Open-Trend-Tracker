@@ -7,9 +7,9 @@ window.BMW_DATA = {
   "bev_count": 24,
   "phev_count": 29,
   "sources": [
-    "BMW Group Official Investor Relations & Delivery Statistics",
-    "KBA Kraftfahrt-Bundesamt Neuzulassungen",
-    "ACEA European Automobile Manufacturers' Association",
+    "BMW Group Official Investor Relations & Annual Company Reports (https://www.bmwgroup.com/en/investor-relations/company-reports.html)",
+    "BMW Group Official PressClub Technical Data Sheets & Press Kits (https://www.press.bmwgroup.com)",
+    "KBA Kraftfahrt-Bundesamt Neuzulassungen & ACEA European EV Registrations",
     "ADAC Autokatalog & Offizielle BMW Preislisten"
   ],
   "cars": [
@@ -70,7 +70,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0387532EN/the-all-new-bmw-ix1-and-the-all-new-bmw-x1",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i3",
@@ -129,7 +131,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0285098EN/the-bmw-i3-and-the-bmw-i3s",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X1",
@@ -188,7 +192,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0387532EN/the-all-new-bmw-ix1-and-the-all-new-bmw-x1",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i4",
@@ -247,7 +253,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334000EN/the-first-ever-bmw-i4",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX1",
@@ -306,7 +314,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0387532EN/the-all-new-bmw-ix1-and-the-all-new-bmw-x1",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X5",
@@ -365,7 +375,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0408453EN/the-new-bmw-x5-and-the-new-bmw-x6",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i4",
@@ -424,7 +436,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334000EN/the-first-ever-bmw-i4",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX",
@@ -483,7 +497,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334006EN/the-all-new-bmw-ix",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5",
@@ -603,7 +619,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X1",
@@ -662,7 +680,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0387532EN/the-all-new-bmw-ix1-and-the-all-new-bmw-x1",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX",
@@ -721,7 +741,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334006EN/the-all-new-bmw-ix",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5 Touring",
@@ -841,7 +863,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0439247EN/the-new-bmw-5-series-touring-and-the-new-bmw-i5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i3s",
@@ -900,7 +924,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0285098EN/the-bmw-i3-and-the-bmw-i3s",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er",
@@ -959,7 +985,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "2er Active Tourer",
@@ -1018,7 +1046,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0348744EN/the-all-new-bmw-2-series-active-tourer",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "5er",
@@ -1134,7 +1164,9 @@ window.BMW_DATA = {
           "safety": 9.15,
           "value_for_money": 7.36
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X3",
@@ -1193,7 +1225,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0442345EN/the-all-new-bmw-x3",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i4",
@@ -1252,7 +1286,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334000EN/the-first-ever-bmw-i4",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er Touring",
@@ -1311,7 +1347,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er",
@@ -1370,7 +1408,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX3",
@@ -1429,7 +1469,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0339591EN/the-new-bmw-ix3",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "5er Touring",
@@ -1545,7 +1587,9 @@ window.BMW_DATA = {
           "safety": 9.15,
           "value_for_money": 7.36
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0439247EN/the-new-bmw-5-series-touring-and-the-new-bmw-i5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X5",
@@ -1604,7 +1648,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0408453EN/the-new-bmw-x5-and-the-new-bmw-x6",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er Touring",
@@ -1663,7 +1709,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i4",
@@ -1722,7 +1770,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334000EN/the-first-ever-bmw-i4",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX2",
@@ -1781,7 +1831,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0436444EN/the-all-new-bmw-x2-and-the-first-ever-bmw-ix2",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "2er Active Tourer",
@@ -1840,7 +1892,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0348744EN/the-all-new-bmw-2-series-active-tourer",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5",
@@ -1960,7 +2014,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X3",
@@ -2019,7 +2075,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0442345EN/the-all-new-bmw-x3",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "5er",
@@ -2135,7 +2193,9 @@ window.BMW_DATA = {
           "safety": 9.15,
           "value_for_money": 7.36
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er Touring",
@@ -2194,7 +2254,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX3",
@@ -2253,7 +2315,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0339591EN/the-new-bmw-ix3",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "3er",
@@ -2312,7 +2376,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0393685EN/the-new-bmw-3-series-sedan-and-bmw-3-series-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "5er",
@@ -2428,7 +2494,9 @@ window.BMW_DATA = {
           "safety": 9.15,
           "value_for_money": 7.36
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "5er Touring",
@@ -2544,7 +2612,9 @@ window.BMW_DATA = {
           "safety": 9.15,
           "value_for_money": 7.36
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0439247EN/the-new-bmw-5-series-touring-and-the-new-bmw-i5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX2",
@@ -2603,7 +2673,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0436444EN/the-all-new-bmw-x2-and-the-first-ever-bmw-ix2",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5 Touring",
@@ -2723,7 +2795,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0439247EN/the-new-bmw-5-series-touring-and-the-new-bmw-i5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "X2",
@@ -2782,7 +2856,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0436444EN/the-all-new-bmw-x2-and-the-first-ever-bmw-ix2",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5",
@@ -2902,7 +2978,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0417751EN/the-all-new-bmw-5-series-sedan-and-the-all-new-bmw-i5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i5 Touring",
@@ -3022,7 +3100,9 @@ window.BMW_DATA = {
           "energy_efficiency": 7.45,
           "interior_materials": 7.75
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0439247EN/the-new-bmw-5-series-touring-and-the-new-bmw-i5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i7",
@@ -3145,7 +3225,9 @@ window.BMW_DATA = {
           "luggage_capacity": 7.41,
           "cn_overall": 9.64
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0378873EN/the-all-new-bmw-7-series-and-the-first-ever-bmw-i7",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "iX",
@@ -3204,7 +3286,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0334006EN/the-all-new-bmw-ix",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i7",
@@ -3327,7 +3411,9 @@ window.BMW_DATA = {
           "luggage_capacity": 7.41,
           "cn_overall": 9.64
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0378873EN/the-all-new-bmw-7-series-and-the-first-ever-bmw-i7",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "M5",
@@ -3386,7 +3472,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0442751EN/the-all-new-bmw-m5",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "7er",
@@ -3502,7 +3590,9 @@ window.BMW_DATA = {
           "ride_quality": 9.52,
           "value_for_money": 6.47
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0378873EN/the-all-new-bmw-7-series-and-the-first-ever-bmw-i7",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i8",
@@ -3561,7 +3651,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0276606EN/the-new-bmw-i8-coupe-the-new-bmw-i8-roadster",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "M5 Touring",
@@ -3620,7 +3712,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0444319EN/the-all-new-bmw-m5-touring",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "XM",
@@ -3679,7 +3773,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0403759EN/the-first-ever-bmw-xm",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "7er",
@@ -3795,7 +3891,9 @@ window.BMW_DATA = {
           "ride_quality": 9.52,
           "value_for_money": 6.47
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0378873EN/the-all-new-bmw-7-series-and-the-first-ever-bmw-i7",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i8",
@@ -3854,7 +3952,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0276606EN/the-new-bmw-i8-coupe-the-new-bmw-i8-roadster",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "i7",
@@ -3977,7 +4077,9 @@ window.BMW_DATA = {
           "luggage_capacity": 7.41,
           "cn_overall": 9.64
         }
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0378873EN/the-all-new-bmw-7-series-and-the-first-ever-bmw-i7",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "XM",
@@ -4036,7 +4138,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0403759EN/the-first-ever-bmw-xm",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     },
     {
       "model": "XM",
@@ -4095,7 +4199,9 @@ window.BMW_DATA = {
         "is_matched": false,
         "status": "Not in study sample",
         "note": "Model not part of F70/G60/G68/G70 study cohort"
-      }
+      },
+      "bmw_press_url": "https://www.press.bmwgroup.com/global/article/detail/T0403759EN/the-first-ever-bmw-xm",
+      "sales_evidence_url": "https://www.bmwgroup.com/en/investor-relations/company-reports.html"
     }
   ]
 };

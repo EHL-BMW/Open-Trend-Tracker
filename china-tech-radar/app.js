@@ -728,6 +728,21 @@
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
           </a>
         `;
+      } else if (currentMarket === 'BMW') {
+        actionHtml = `
+          <div style="display:inline-flex;gap:4px;align-items:center;">
+            <a href="${escapeHtml(car.adac_url)}" target="_blank" rel="noopener noreferrer" class="btn-adac-link" title="Open ADAC Autokatalog entry">
+              <span>ADAC</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+            ${car.bmw_press_url ? `
+              <a href="${escapeHtml(car.bmw_press_url)}" target="_blank" rel="noopener noreferrer" class="btn-adac-link" style="background:rgba(28,105,212,0.18);border-color:rgba(28,105,212,0.5);color:#60a5fa;" title="Official BMW Group PressClub Spec Sheet">
+                <span>BMW</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+              </a>
+            ` : ''}
+          </div>
+        `;
       } else {
         actionHtml = `
           <a href="${escapeHtml(car.adac_url)}" target="_blank" rel="noopener noreferrer" class="btn-adac-link" title="Open ADAC Autokatalog entry">
@@ -937,8 +952,31 @@
           汽车之家 Autohome 参数配置
         </a>
       `;
+    } else if (currentMarket === 'BMW') {
+      elements.modalFooterContainer.className = 'modal-footer';
+      elements.modalFooterContainer.style.display = 'grid';
+      elements.modalFooterContainer.style.gridTemplateColumns = '1fr 1fr';
+      elements.modalFooterContainer.style.gap = '10px';
+      elements.modalFooterContainer.innerHTML = `
+        <a id="modal-adac-link" href="${escapeHtml(car.adac_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="text-align:center;justify-content:center;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          ADAC Autokatalog Spec Sheet
+        </a>
+        <a href="${escapeHtml(car.bmw_press_url || 'https://www.press.bmwgroup.com')}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-align:center;justify-content:center;background:rgba(28,105,212,0.2);border-color:rgba(28,105,212,0.5);color:#93c5fd;">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          BMW PressClub Dossier
+        </a>
+        <div style="grid-column: 1 / -1; display:flex; justify-content:space-between; align-items:center; font-size:11px; color:#94a3b8; padding-top:6px; border-top:1px solid rgba(255,255,255,0.06); margin-top:2px;">
+          <span>Sales & Market Share Evidence:</span>
+          <a href="${escapeHtml(car.sales_evidence_url || 'https://www.bmwgroup.com/en/investor-relations/company-reports.html')}" target="_blank" rel="noopener noreferrer" style="color:#38bdf8; text-decoration:underline;">
+            BMW Investor Relations & KBA Zulassungen ↗
+          </a>
+        </div>
+      `;
     } else {
       elements.modalFooterContainer.className = 'modal-footer';
+      elements.modalFooterContainer.style.display = '';
+      elements.modalFooterContainer.style.gridTemplateColumns = '';
       elements.modalFooterContainer.innerHTML = `
         <a id="modal-adac-link" href="${escapeHtml(car.adac_url)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary full-width">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
