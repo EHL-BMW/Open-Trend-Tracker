@@ -17,7 +17,10 @@ from typing import Literal
 from app.paths import RUNTIME_DIR, UNIFIED_DIR, get_openai_api_key, get_openai_model
 from app.services.customer_input import process_document
 from app.services.decision_dashboard import decision_dashboard, save_override
+from app.services.feature_extraction import FeatureExtractionInput, extract_features
 from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
+from app.services.impact_forecast import impact_taxonomy
+from app.services.problem_identification import get_saved_g70_problems, identify_uploaded_problems
 from app.services import gap_agent, planner
 
 app = FastAPI(title="Open-Trend-Tracker")
@@ -100,6 +103,15 @@ def get_forecast_catalog():
         return forecast_catalog()
     except (FileNotFoundError, ValueError) as exc:
         raise HTTPException(503, f"forecast inputs are not ready: {exc}") from exc
+
+
+@app.get("/api/v1/forecast/impact-taxonomy")
+def get_impact_taxonomy():
+    """Category → subcategory → legacy and recent-news feature forecast view."""
+    try:
+        return impact_taxonomy()
+    except (FileNotFoundError, KeyError, ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(503, f"impact forecast inputs are not ready: {exc}") from exc
 
 
 @app.get("/api/forecast/sales")
@@ -252,6 +264,37 @@ class AgentAnalysisRequest(BaseModel):
 class AgentReviewRequest(BaseModel):
     status: Literal["approved", "rejected", "challenged"]
     pm_notes: str | None = None
+
+
+@app.post("/api/v1/agent/feature-extraction")
+def v1_extract_features(req: FeatureExtractionInput):
+    """Extract canonical, traceable China-market vehicle features from one source."""
+    try:
+        return extract_features(req)
+    except RuntimeError as exc:
+        raise HTTPException(503, str(exc)) from exc
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(502, f"feature extraction returned invalid structured output: {exc}") from exc
+
+
+@app.post("/api/v1/agent/problems/identify", status_code=201)
+async def v1_identify_g70_problems(document: UploadFile = File(...)):
+    """Identify problems in an uploaded workbook, save the list, and render its figure."""
+    try:
+        return identify_uploaded_problems(document.filename or "feedback.xlsx", await document.read())
+    except FileNotFoundError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(502, f"problem identification returned invalid structured output: {exc}") from exc
+
+
+@app.get("/api/v1/agent/problems")
+def v1_get_g70_problems():
+    """Return the latest persisted G70 problem analysis for downstream feature views."""
+    try:
+        return get_saved_g70_problems()
+    except FileNotFoundError as exc:
+        raise HTTPException(404, str(exc)) from exc
 
 
 @app.get("/api/v1/agent/status")

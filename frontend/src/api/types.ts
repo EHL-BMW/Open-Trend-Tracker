@@ -14,6 +14,7 @@ import type {
   sourceRecordSchema,
   specSchema,
   technologyForecastSchema,
+  impactForecastSchema,
 } from "./schemas";
 
 export type Catalog = z.infer<typeof catalogSchema>;
@@ -30,3 +31,6 @@ export type Flag = z.infer<typeof flagSchema>;
 export type Recommendation = z.infer<typeof recommendationSchema>;
 export type AnalysisRun = z.infer<typeof analysisRunSchema>;
 export type AnalysisRunSummary = z.infer<typeof analysisRunSummarySchema>;
+export type ImpactForecast = z.infer<typeof impactForecastSchema>;
+export type ImpactCategory = ImpactForecast["categories"][number];
+export type ImpactSubcategory = ImpactCategory["subcategories"][number];

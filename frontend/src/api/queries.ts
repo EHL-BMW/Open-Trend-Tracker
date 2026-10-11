@@ -6,6 +6,7 @@ export const queryKeys = {
   catalog: ["catalog"] as const,
   runs: (limit: number) => ["runs", limit] as const,
   run: (id: string) => ["run", id] as const,
+  impactForecast: ["impact-forecast"] as const,
 };
 
 export const RUN_HISTORY_LIMIT = 20;
@@ -14,6 +15,14 @@ export function useCatalog() {
   return useQuery({
     queryKey: queryKeys.catalog,
     queryFn: ({ signal }) => api.getCatalog(signal),
+    staleTime: 5 * 60_000,
+  });
+}
+
+export function useImpactForecast() {
+  return useQuery({
+    queryKey: queryKeys.impactForecast,
+    queryFn: ({ signal }) => api.getImpactForecast(signal),
     staleTime: 5 * 60_000,
   });
 }

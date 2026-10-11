@@ -170,6 +170,65 @@ export const runListSchema = z.object({
   items: z.array(analysisRunSummarySchema),
 });
 
+/* ---------- GET /forecast/impact-taxonomy ---------- */
+
+const impactPointSchema = z.object({
+  year: z.number().int().min(1).max(4),
+  impact_pct: z.number(),
+  lower_pct: z.number().optional(),
+  upper_pct: z.number().optional(),
+});
+
+const legacyImpactFeatureSchema = z.object({
+  name: z.string(),
+  category: z.string(),
+  models: z.array(z.string()),
+  pair_count: z.number().int().nonnegative(),
+  impact_by_year: z.array(impactPointSchema),
+});
+
+const newsImpactFeatureSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  label_cn: z.string(),
+  category: z.string(),
+  priority: z.number().nullable(),
+  signal: z.string().nullable(),
+  momentum_pct_change: z.number().nullable(),
+  volume_recent: z.number(),
+  breadth_outlets: z.number(),
+  headline: z.string(),
+  headline_url: z.string(),
+});
+
+const impactSubcategorySchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  impact_by_year: z.array(impactPointSchema).nullable(),
+  legacy_features: z.array(legacyImpactFeatureSchema),
+  news_features: z.array(newsImpactFeatureSchema),
+});
+
+const impactCategorySchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  impact_by_year: z.array(impactPointSchema),
+  subcategories: z.array(impactSubcategorySchema),
+});
+
+export const impactForecastSchema = z.object({
+  title: z.string(),
+  as_of: z.string(),
+  horizon_years: z.array(z.number().int()),
+  categories: z.array(impactCategorySchema),
+  legacy_feature_count: z.number().int(),
+  news_feature_count: z.number().int(),
+  method: z.string(),
+  status: z.string(),
+  caveat: z.string(),
+  source_plot: z.string(),
+});
+
 export const apiErrorBodySchema = z.object({
   error: z.object({
     code: z.string(),

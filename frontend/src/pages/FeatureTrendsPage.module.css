@@ -1,0 +1,877 @@
+.page {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 48px;
+  align-items: end;
+  padding: 64px 0 42px;
+}
+
+.eyebrow,
+.kicker {
+  margin: 0 0 9px;
+  color: var(--label-3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  margin: 0;
+  font: 700 clamp(38px, 6vw, 72px) / 0.98 var(--font-display);
+  letter-spacing: -0.045em;
+}
+
+.lead {
+  max-width: 850px;
+  margin: 20px 0 0;
+  color: var(--label-2);
+  font-size: clamp(17px, 2vw, 21px);
+  line-height: 1.5;
+}
+
+.metaPanel {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 2px 12px;
+  min-width: 210px;
+  padding: 18px 20px;
+  border: 1px solid var(--sep);
+  border-radius: 20px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.metaPanel strong {
+  font: 700 24px/1.1 var(--font-rounded);
+  color: var(--blue);
+  text-align: right;
+}
+
+.metaPanel span {
+  color: var(--label-2);
+  align-self: center;
+}
+
+.brandSection {
+  padding: 28px;
+  border: 1px solid var(--sep);
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.sectionHeading,
+.resultsHeader,
+.filterHeader,
+.relatedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.sectionHeading h2,
+.resultsHeader h2,
+.filterHeader h2,
+.relatedHeader h3,
+.chartPanel h3 {
+  margin: 0;
+  font: 700 22px/1.2 var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+.clearButton,
+.filterActions button {
+  border: 1px solid var(--sep);
+  border-radius: 999px;
+  background: var(--fill);
+  padding: 7px 12px;
+  color: var(--label-2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clearButton:hover,
+.filterActions button:hover {
+  color: var(--label);
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--sep));
+}
+
+.brandBubbles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.brandBubble {
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  min-width: 52px;
+  min-height: 52px;
+  display: grid;
+  place-content: center;
+  gap: 2px;
+  padding: 7px;
+  border: 1px solid color-mix(in srgb, var(--blue) 24%, var(--sep));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--blue) 8%, var(--card));
+  color: var(--label);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease);
+}
+
+.brandBubble span {
+  display: block;
+  max-width: calc(var(--bubble-size) - 14px);
+  overflow: hidden;
+  font-size: clamp(8px, calc(var(--bubble-size) / 8), 11px);
+  font-weight: 650;
+  line-height: 1.05;
+  text-overflow: ellipsis;
+}
+
+.brandBubble b {
+  color: var(--blue);
+  font: 700 12px/1 var(--font-rounded);
+}
+
+.brandBubble:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue);
+}
+
+.brandBubbleActive {
+  background: var(--blue);
+  color: var(--on-blue);
+  border-color: var(--blue);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--blue) 30%, transparent);
+}
+
+.brandBubbleActive b {
+  color: var(--on-blue);
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 300px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  margin-top: 28px;
+}
+
+.problemChartSection,
+.problemChartEmpty {
+  padding: 26px;
+  border: 1px solid var(--sep);
+  border-radius: 24px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.problemChartHeading,
+.problemChartEmpty {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.problemChartHeading h2,
+.problemChartEmpty h2 {
+  margin: 0;
+  font: 700 24px/1.2 var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+.problemChartEmpty > p {
+  max-width: 520px;
+  margin: 0;
+  color: var(--label-2);
+  line-height: 1.5;
+}
+
+.problemChart {
+  min-width: 960px;
+  height: 330px;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(64px, 1fr));
+  align-items: stretch;
+  gap: 9px;
+  margin-top: 24px;
+  padding: 12px 10px 0 40px;
+  overflow: hidden;
+  border-left: 1px solid var(--sep);
+  border-bottom: 1px solid var(--sep);
+  background: repeating-linear-gradient(to top, transparent 0, transparent 49px, color-mix(in srgb, var(--sep) 58%, transparent) 50px);
+}
+
+.problemChartSection {
+  overflow-x: auto;
+}
+
+.problemColumn {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 22px 180px minmax(92px, 1fr);
+  align-items: end;
+  gap: 5px;
+  border: 0;
+  background: transparent;
+  color: var(--label);
+  cursor: pointer;
+}
+
+.problemColumn > b {
+  align-self: center;
+  color: var(--label);
+  font: 700 12px/1 var(--font-rounded);
+  text-align: center;
+}
+
+.problemBar {
+  width: 74%;
+  height: var(--bar-height);
+  justify-self: center;
+  align-self: end;
+  border-radius: 7px 7px 2px 2px;
+  background: color-mix(in srgb, var(--blue) var(--bar-density), var(--fill));
+  transition: height 0.25s var(--ease), transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.problemColumn:hover .problemBar,
+.problemColumnActive .problemBar {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px color-mix(in srgb, var(--blue) 28%, transparent);
+}
+
+.problemColumnActive .problemBar {
+  outline: 3px solid color-mix(in srgb, var(--blue) 35%, transparent);
+  outline-offset: 3px;
+}
+
+.problemBarLabel {
+  align-self: start;
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--label-2);
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
+.problemSelection {
+  min-width: 720px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--blue) 8%, var(--fill));
+}
+
+.problemSelection > div:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.problemSelection span {
+  color: var(--label-2);
+  font-size: 11.5px;
+}
+
+.possibleFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.possibleFeatures b {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--blue) 13%, var(--card));
+  color: var(--blue);
+  font-size: 10.5px;
+}
+
+.filters {
+  position: sticky;
+  top: 92px;
+  max-height: calc(100vh - 116px);
+  overflow: auto;
+  padding: 20px;
+  border: 1px solid var(--sep);
+  border-radius: 22px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.filterHeader h2 {
+  font-size: 19px;
+}
+
+.filterHeader > span,
+.resultsHeader > span {
+  color: var(--label-3);
+  font: 600 12px/1 var(--font-mono);
+  white-space: nowrap;
+}
+
+.filterActions {
+  display: flex;
+  gap: 7px;
+  padding: 14px 0 16px;
+  border-bottom: 1px solid var(--sep);
+}
+
+.filterGroup {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--sep);
+}
+
+.filterGroup:last-child {
+  border-bottom: 0;
+}
+
+.categoryToggle,
+.featureToggles label {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.categoryToggle input,
+.featureToggles input {
+  margin: 2px 0 0;
+  accent-color: var(--blue);
+}
+
+.categoryToggle b {
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.categoryDot {
+  width: 9px;
+  height: 9px;
+  margin-top: 4px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.featureToggles {
+  display: grid;
+  gap: 8px;
+  margin: 11px 0 0 22px;
+}
+
+.featureToggles label {
+  color: var(--label-2);
+  font-size: 12.5px;
+  line-height: 1.35;
+}
+
+.results {
+  min-width: 0;
+}
+
+.resultsHeader {
+  padding: 8px 2px 18px;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.featureCard {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 20px;
+  border: 1px solid var(--sep);
+  border-radius: 22px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  color: var(--label);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s var(--ease), border-color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+}
+
+.featureCard:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--blue) 42%, var(--sep));
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.categoryPill {
+  display: inline-flex;
+  width: fit-content;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--category-color) 14%, transparent);
+  color: color-mix(in srgb, var(--category-color) 76%, var(--label));
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.signal {
+  color: var(--label-3);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.signalUp {
+  color: var(--green);
+}
+
+.featureCard h3 {
+  margin: 10px 0 8px;
+  font: 700 22px/1.15 var(--font-display);
+  letter-spacing: -0.022em;
+}
+
+.cardProblemTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.cardProblemTags span {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--amber) 10%, transparent);
+  color: color-mix(in srgb, var(--amber) 78%, var(--label));
+  font-size: 9.5px;
+  line-height: 1.25;
+}
+
+.cardProblemTags .problemTagMuted {
+  background: var(--fill);
+  color: var(--label-3);
+}
+
+.cnLabel {
+  min-height: 20px;
+  margin: 0;
+  color: var(--label-3);
+  font-size: 13px;
+}
+
+.sparkline {
+  width: 100%;
+  height: 76px;
+  margin: 12px 0 7px;
+  overflow: visible;
+}
+
+.noTrend {
+  display: grid;
+  place-items: center;
+  height: 76px;
+  margin: 12px 0 7px;
+  border: 1px dashed var(--sep);
+  border-radius: 12px;
+  color: var(--label-3);
+  font-size: 12px;
+}
+
+.cardStats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--sep);
+  color: var(--label-3);
+  font-size: 11px;
+}
+
+.cardStats b {
+  display: block;
+  color: var(--label);
+  font: 700 18px/1.25 var(--font-rounded);
+}
+
+.cardBrands,
+.brandChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 13px;
+}
+
+.cardBrands span,
+.brandChips span {
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: var(--fill);
+  color: var(--label-2);
+  font-size: 10.5px;
+}
+
+.cardBrands b {
+  margin-left: 3px;
+  color: var(--label);
+}
+
+.itemMetadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 13px;
+}
+
+.itemMetadata > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 4px 8px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 10.5px;
+  line-height: 1.25;
+}
+
+.itemMetadata b {
+  font-size: 9px;
+  letter-spacing: 0.035em;
+  text-transform: uppercase;
+}
+
+.categoryBubble {
+  background: color-mix(in srgb, var(--blue) 10%, transparent);
+  border-color: color-mix(in srgb, var(--blue) 28%, transparent) !important;
+  color: var(--blue);
+}
+
+.brandTag {
+  background: var(--fill);
+  color: var(--label-2);
+}
+
+.problemBubble {
+  background: color-mix(in srgb, var(--amber) 11%, transparent);
+  border-color: color-mix(in srgb, var(--amber) 28%, transparent) !important;
+  color: color-mix(in srgb, var(--amber) 78%, var(--label));
+}
+
+.problemBubbleMuted {
+  background: color-mix(in srgb, var(--fill) 65%, transparent);
+  color: var(--label-3);
+}
+
+.linkedProblems {
+  display: grid;
+  gap: 9px;
+  margin: 22px 0;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--amber) 28%, var(--sep));
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--amber) 6%, var(--card));
+}
+
+.linkedProblems h3 {
+  margin: 0 0 3px;
+  font-size: 17px;
+}
+
+.linkedProblems > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.linkedProblems b { font-size: 13px; }
+.linkedProblems span { color: var(--label-2); font-size: 12px; line-height: 1.4; }
+
+.openHint {
+  margin-top: auto;
+  padding-top: 17px;
+  color: var(--blue);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.emptyState {
+  padding: 72px 24px;
+  border: 1px dashed var(--sep);
+  border-radius: 22px;
+  text-align: center;
+}
+
+.emptyState h3 {
+  margin: 0;
+}
+
+.emptyState p {
+  margin: 7px 0 0;
+  color: var(--label-2);
+}
+
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  justify-items: end;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(8px);
+}
+
+.modal {
+  position: relative;
+  width: min(920px, 94vw);
+  height: 100vh;
+  overflow: auto;
+  padding: 38px clamp(22px, 5vw, 54px) 72px;
+  background: var(--bg);
+  box-shadow: -20px 0 60px rgba(0, 0, 0, 0.22);
+}
+
+.closeButton {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  float: right;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--sep);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--card) 90%, transparent);
+  color: var(--label);
+  font-size: 27px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.modalHeading {
+  padding: 26px 56px 0 0;
+}
+
+.modalHeading h2 {
+  margin: 16px 0 4px;
+  font: 700 clamp(30px, 5vw, 48px) / 1.04 var(--font-display);
+  letter-spacing: -0.038em;
+}
+
+.modalHeading p {
+  margin: 0;
+  color: var(--label-3);
+  font-size: 16px;
+}
+
+.detailStats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.detailStats span {
+  padding: 15px;
+  border: 1px solid var(--sep);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--label-3);
+  font-size: 11px;
+}
+
+.detailStats b {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--label);
+  font: 700 21px/1 var(--font-rounded);
+}
+
+.chartPanel {
+  margin-top: 28px;
+  padding: 22px;
+  border: 1px solid var(--sep);
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.chartPanel h3,
+.relatedHeader h3 {
+  font-size: 18px;
+}
+
+.chartPanel p,
+.relatedHeader p {
+  margin: 4px 0 0;
+  color: var(--label-3);
+  font-size: 12.5px;
+}
+
+.detailChart {
+  width: 100%;
+  height: auto;
+  margin-top: 12px;
+  overflow: visible;
+}
+
+.chartGrid {
+  stroke: var(--sep);
+  stroke-width: 1;
+}
+
+.chartLabel {
+  fill: var(--label-3);
+  font: 11px var(--font-text);
+}
+
+.chartEmpty {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+  margin-top: 14px;
+  border: 1px dashed var(--sep);
+  border-radius: 14px;
+  color: var(--label-3);
+}
+
+.relatedHeader {
+  margin-top: 32px;
+}
+
+.newsList {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.newsItem {
+  padding: 20px;
+  border: 1px solid var(--sep);
+  border-radius: 18px;
+  background: var(--card);
+}
+
+.newsMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 13px;
+  margin-bottom: 8px;
+  color: var(--label-3);
+  font-size: 11px;
+}
+
+.newsMeta strong {
+  color: var(--warn);
+}
+
+.newsTitle {
+  color: var(--label);
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.35;
+  text-decoration: none;
+}
+
+.newsTitle:hover {
+  color: var(--blue);
+}
+
+.newsItem > p {
+  margin: 14px 0 0;
+  color: var(--label-2);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.detailCallout {
+  display: grid;
+  gap: 3px;
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-left: 3px solid var(--blue);
+  border-radius: 0 10px 10px 0;
+  background: color-mix(in srgb, var(--blue) 7%, transparent);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.detailCallout span {
+  color: var(--label-2);
+}
+
+@media (max-width: 1050px) {
+  .workspace {
+    grid-template-columns: 250px minmax(0, 1fr);
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding: 0 16px 72px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 42px;
+  }
+
+  .metaPanel {
+    width: 100%;
+  }
+
+  .brandSection {
+    padding: 20px;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .filters {
+    position: static;
+    max-height: none;
+  }
+
+  .detailStats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .modal {
+    width: 100vw;
+  }
+}
+

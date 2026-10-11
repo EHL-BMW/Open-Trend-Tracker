@@ -6,6 +6,7 @@ import pytest
 from app.services.customer_input import complaint_rows, extract_text, process_document
 from app.services.decision_dashboard import decision_dashboard, quantify_comments, save_override
 from app.services.forecast import engineering_comparison, price_forecast, sales_forecast
+from app.services.impact_forecast import impact_taxonomy
 
 
 def test_customer_text_is_mapped_to_complaint_data_and_plot(tmp_path, monkeypatch):
@@ -53,6 +54,37 @@ def test_forecast_services_are_frontend_ready():
     engineering = engineering_comparison("G60")
     assert engineering["items"]
     assert {row["availability"] for row in engineering["items"]} <= {"standard", "optional", "not_listed"}
+
+
+def test_impact_taxonomy_joins_legacy_forecast_and_recent_news():
+    result = impact_taxonomy()
+    assert result["legacy_feature_count"] == 13
+    assert result["news_feature_count"] == 21
+    assert result["status"] == "scenario_estimate_not_sales_fitted"
+    assert result["categories"][0]["label"] == "Energy & Charging"
+
+    subcategories = [
+        subcategory
+        for category in result["categories"]
+        for subcategory in category["subcategories"]
+    ]
+    assert {feature["name"] for item in subcategories for feature in item["legacy_features"]} == {
+        "900V system + 102 kWh battery",
+        "Charging + battery-swap station network",
+        "World-model ADAS + point-to-point navigation",
+        "5 nm automotive SoC + full-domain E/E architecture",
+        "CDC dampers + hydraulic rear-subframe bushings",
+        "Software-controlled active chassis system",
+        "Dual cushion airbags + seat-integrated belts",
+        "Integrated cabin display + audio entertainment",
+        "Roof center speaker + Dirac RRM audio",
+        "Second-row zero-gravity seats + leg support",
+        "Six-/seven-seat cabin configuration",
+        "ADB matrix headlights + Double-Dash DRL",
+        "New Moon Silver paint + 21-inch wheels",
+    }
+    assert len({feature["id"] for item in subcategories for feature in item["news_features"]}) == 21
+    assert next(item for item in subcategories if item["id"] == "perception_compute")["impact_by_year"] is None
 
 
 def test_chinese_features_join_quantified_comments_and_manual_overrides(tmp_path, monkeypatch):

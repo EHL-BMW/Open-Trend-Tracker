@@ -1,5 +1,5 @@
 import { request } from "./client";
-import { analysisRunSchema, catalogSchema, runListSchema } from "./schemas";
+import { analysisRunSchema, catalogSchema, impactForecastSchema, runListSchema } from "./schemas";
 import type { AnalysisRequest } from "./types";
 
 export const api = {
@@ -14,4 +14,6 @@ export const api = {
 
   getRun: (id: string, signal?: AbortSignal) =>
     request(`/analyses/${encodeURIComponent(id)}`, analysisRunSchema, { signal }),
+
+  getImpactForecast: (signal?: AbortSignal) => request("/forecast/impact-taxonomy", impactForecastSchema, { signal }),
 };
