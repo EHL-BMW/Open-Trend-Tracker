@@ -105,4 +105,10 @@ describe("App", () => {
     renderWithClient(<App />, { route: "/how-it-works" });
     expect(await screen.findByRole("heading", { level: 1, name: "How it works" })).toBeInTheDocument();
   });
+  it("shows the China tech briefing on the Newsletter page", async () => {
+    renderWithClient(<App />, { route: "/newsletter" });
+    expect(await screen.findByRole("heading", { level: 1, name: "China tech briefing" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Megatrends at a glance" })).toBeInTheDocument();
+    expect(screen.getAllByRole("link", { name: /^Read the original/ }).length).toBeGreaterThan(0);
+  });
 });

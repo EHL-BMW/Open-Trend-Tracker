@@ -24,15 +24,6 @@ export function FaqPage() {
   );
 }
 
-/** Placeholder until the newsletter sign-up exists. */
-export function NewsletterPage() {
-  return (
-    <ContentPage eyebrow="Stay informed" title="Newsletter" lead="Updates on new data, features and releases.">
-      <ComingSoon title="Coming soon" text="The newsletter sign-up isn't available yet." />
-    </ContentPage>
-  );
-}
-
 export function NotFoundPage() {
   return (
     <ContentPage title="Page not found" lead="This page doesn't exist.">

@@ -1,0 +1,789 @@
+{
+  "feed_metadata": {
+    "feed_name": "China NEV & Tech Megatrends Intelligence Feed",
+    "version": "3.0.0",
+    "language": "English (with verified Chinese primary sources)",
+    "last_updated": "2026-10-11 00:58:04 UTC",
+    "sources_monitored": [
+      "懂车帝 (Dongchedi Auto)",
+      "汽车之家 (AutoHome)",
+      "36氪汽车 (36Kr Automotive)",
+      "晚点Auto (LatePost)",
+      "盖世汽车 (Gasgoo Automotive)",
+      "IT之家 (ITHome Technology)",
+      "微博汽车热搜 (Weibo Auto Trends)",
+      "乘联会 CPCA (China Passenger Car Association)"
+    ],
+    "categories": [
+      "Digital Chassis & Steer-by-Wire",
+      "Battery & 800V/5C Charging",
+      "Autonomous Driving & AI (E2E / VLA)",
+      "Smart Cockpit & In-Cabin AI",
+      "Solid-State Battery & Cold Performance",
+      "Price War & Market Dynamics",
+      "Globalization & European Exports"
+    ],
+    "focus": "Frontier Technological Advances & Statistically Evidence-Backed Megatrend Tracking"
+  },
+  "megatrends_summary": [
+    {
+      "trend_id": "steer_by_wire_and_chassis",
+      "title_en": "Steer-by-Wire & Software-Defined Digital Chassis",
+      "title_cn": "线控转向国标GB17675-2025正式落地与数字底盘重构",
+      "status": "REGULATORY_BREAKTHROUGH",
+      "executive_takeaway": "China formalizes national standard GB17675-2025 legalizing full steer-by-wire without mechanical linkage (effective July 1, 2026). NIO ET9 and IM Motors Lizard Digital Chassis achieve 4.99m turning radii and crab-walk agility, challenging BMW's core driving dynamics prestige."
+    },
+    {
+      "trend_id": "solid_state_and_5c",
+      "title_en": "5C/6C Ultra-Fast Charging & Megawatt Infrastructure",
+      "title_cn": "5C/6C超充普及与高速兆瓦补能网络全面铺开",
+      "status": "ACCELERATING",
+      "executive_takeaway": "10% to 80% charging times drop to 10.5 minutes. CATL Shenxing Plus and Zeekr 5.5C Golden Battery make 10-minute replenishment standard. Li Auto operates over 1,000 520kW highway superchargers covering 92% of national corridors."
+    },
+    {
+      "trend_id": "end_to_end_ai_driving",
+      "title_en": "End-to-End VLA AI & Door-to-Door Urban Autonomy",
+      "title_cn": "端到端VLA大模型与全场景车位到车位无图智驾",
+      "status": "DOMINATING",
+      "executive_takeaway": "Huawei Qiankun ADS 3.0/3.5, XPeng Turing AI (3,000 TOPS), and Xiaomi HAD world models achieve 185 km between takeovers across unmapped Chinese megacities. German highway-only L2 is rejected by Tier-1 buyers."
+    },
+    {
+      "trend_id": "cross_device_ecosystem",
+      "title_en": "Human × Car × Home: On-Device 7B AI & Seamless Continuity",
+      "title_cn": "人车家全生态融合与350ms端侧本地大模型",
+      "status": "MATURING",
+      "executive_takeaway": "Xiaomi HyperOS 2.2 and Huawei HarmonyOS NEXT integrate smartphones and cockpits with sub-second phone mirroring, shared memory, and offline 7B LLMs delivering 350ms voice latency, contrasting with slow Western cloud assistants."
+    },
+    {
+      "trend_id": "solid_state_commercialization",
+      "title_en": "All-Solid-State Commercialization & Extreme Cold Resilience",
+      "title_cn": "全固态电池2027量产定点与-20°C极寒88%续航保持率",
+      "status": "PRE_SERIES_TRIAL",
+      "executive_takeaway": "BYD confirms all-solid-state battery vehicles by 2027 (~400 Wh/kg); Huawei patents nitrogen-doped sulfide architecture (500 Wh/kg); winter tests demonstrate 88% capacity retention at -20°C, solving northern China winter anxiety."
+    }
+  ],
+  "news_items": [
+    {
+      "id": "NEWS-2026-1011-00",
+      "publish_time": "1 hour ago • 09:45 CST",
+      "source": "盖世汽车 Gasgoo",
+      "source_tag": "Gasgoo Industry",
+      "category": "Digital Chassis & Steer-by-Wire",
+      "impact": "CRITICAL",
+      "sentiment": "DISRUPTIVE",
+      "title_cn": "中国首部线控转向国标GB17675-2025正式发布：机械转向柱解绑，蔚来ET9与智己灵蜥底盘定义新标杆",
+      "title_en": "China Releases Steer-by-Wire National Standard GB17675-2025: Decoupled Mechanical Linkage Legalized",
+      "summary_en": "China MIIT published GB17675-2025 (effective July 1, 2026), removing the requirement for a mechanical steering column between the steering wheel and road wheels. Co-drafted by NIO, BYD, Xiaomi, and Geely, the standard enables full software-defined variable-ratio steering, vibration filtering, and 12-degree rear-wheel active steering.",
+      "bmw_relevance": "Direct existential threat to BMW's core brand ethos 'The Ultimate Driving Machine' (Freude am Fahren). Chinese EVs now deliver 4.99m turning circles and active roll cancellation that mechanical BMW 5/7 Series chassis cannot match.",
+      "original_url": "https://auto.gasgoo.com/news/202410/28I70390124C108.shtml",
+      "keywords": ["Steer-by-Wire", "GB17675-2025", "Digital Chassis", "NIO ET9", "IM Motors"],
+      "pm_takeaway": "China formalized national standard GB17675-2025 legalizing steer-by-wire without mechanical backup by July 2026.",
+      "pm_action": "Mandate steer-by-wire & 12° rear steering into Neue Klasse 'Heart of Joy' chassis computer to defend BMW handling supremacy.",
+      "threat_level": "CORE BRAND EQUITY THREAT"
+    },
+    {
+      "id": "NEWS-2026-1011-01",
+      "publish_time": "2 hours ago • 08:30 CST",
+      "source": "36氪 36Kr",
+      "source_tag": "36Kr Auto",
+      "category": "Battery & 800V/5C Charging",
+      "impact": "CRITICAL",
+      "sentiment": "DISRUPTIVE",
+      "title_cn": "宁德时代发布新一代神行全固态电池样品，能量密度突破500Wh/kg",
+      "title_en": "CATL Unveils Next-Gen All-Solid-State Battery Prototype with 500 Wh/kg Gravimetric Density",
+      "summary_en": "At its Yibin Technology Symposium, CATL presented verified test bench figures for its all-solid-state cells. Achieving over 500 Wh/kg energy density and 10C peak charging discharge, the cells retain over 85% usable capacity at -20°C, aiming for pilot lines ahead of 2027.",
+      "bmw_relevance": "Places significant innovation pressure on BMW Gen6 cylindrical cell ramp-up (Neue Klasse 2025/2026). European OEMs must prove sub-12 minute charging curves under cold weather conditions.",
+      "original_url": "https://www.36kr.com/p/2978931284728704",
+      "keywords": ["CATL", "Solid-State", "500Wh/kg", "Ultra-Charging"],
+      "pm_takeaway": "CATL demonstrated 500 Wh/kg all-solid-state cells with 10C discharge, targeting pre-series lines before 2027.",
+      "pm_action": "Evaluate Gen6 solid-state roadmap to prevent 2x energy density obsolescence by 2027.",
+      "threat_level": "CRITICAL R&D THREAT"
+    },
+    {
+      "id": "NEWS-2026-1011-02",
+      "publish_time": "4 hours ago • 06:15 CST",
+      "source": "晚点Auto LatePost",
+      "source_tag": "LatePost",
+      "category": "Autonomous Driving & AI (E2E / VLA)",
+      "impact": "HIGH",
+      "sentiment": "BULLISH",
+      "title_cn": "华为车BU全场景ADS 3.5开启全国推送：泊车代驾与环岛无图通行率达98.7%",
+      "title_en": "Huawei Qiankun ADS 3.5 OTA Rollout: Nationwide Mapless Navigation & Valet Parking at 98.7% Pass Rate",
+      "summary_en": "Huawei's new unified Vision-Language-Action (VLA) architecture enables door-to-door autonomous navigation without high-definition maps. Vehicles smoothly negotiate complex multi-lane Chinese roundabouts and underground multi-level parking garages from entrance barrier to charging stall.",
+      "bmw_relevance": "BMW Driving Assistant Professional (hands-off limited to designated highways) struggles to match Huawei's end-to-end urban autonomy in Tier-1 Chinese megacities.",
+      "original_url": "https://www.latepost.com/news/m_show?id=1849",
+      "keywords": ["Huawei ADS", "HIMA", "End-to-End", "VLA", "No-Map"],
+      "pm_takeaway": "Huawei deployed ADS 3.5 VLA nationwide without HD maps, handling roundabouts and multi-level parking garages at 98.7% success.",
+      "pm_action": "Prioritize mapless end-to-end urban navigation in China; highway-only L2 is no longer competitive.",
+      "threat_level": "IMMEDIATE COMPETITIVE THREAT"
+    },
+    {
+      "id": "NEWS-2026-1011-03",
+      "publish_time": "6 hours ago • 04:40 CST",
+      "source": "懂车帝 Dongchedi",
+      "source_tag": "Dongchedi News",
+      "category": "Smart Cockpit & In-Cabin AI",
+      "impact": "HIGH",
+      "sentiment": "DISRUPTIVE",
+      "title_cn": "小米汽车SU7 Ultra座舱升级HyperOS 2.2：端侧本地大模型响应缩短至350ms",
+      "title_en": "Xiaomi SU7 Ultra Upgrades HyperOS 2.2: On-Device LLM Reduces Voice Response Latency to 350ms",
+      "summary_en": "Xiaomi deployed a quantized 7B-parameter large language model directly on the Qualcomm Snapdragon 8295 cockpit chip. The 'Xiao AI' voice assistant processes complex multi-intent commands completely offline, managing multi-window views, drift modes, and track telemetry with sub-second latency.",
+      "bmw_relevance": "Directly highlights why Chinese participants in our BMW customer survey criticized BMW Intelligent Personal Assistant (IPA) for sluggish latency and rigid voice dialogs. 350ms is the new expected baseline.",
+      "original_url": "https://www.dongchedi.com/article/742189301829471",
+      "keywords": ["Xiaomi", "HyperOS", "On-Device LLM", "Cockpit", "Xiao AI"],
+      "pm_takeaway": "Xiaomi deployed an on-device 7B LLM on Snapdragon 8295, cutting voice latency to 350ms offline.",
+      "pm_action": "Cut BMW IPA voice response latency below 500ms via on-device NPU; eliminate 2.4s cloud roundtrips.",
+      "threat_level": "CORE UX FRICTION POINT"
+    },
+    {
+      "id": "NEWS-2026-1011-04",
+      "publish_time": "8 hours ago • 02:20 CST",
+      "source": "盖世汽车 Gasgoo",
+      "source_tag": "Gasgoo",
+      "category": "Price War & Market Dynamics",
+      "impact": "HIGH",
+      "sentiment": "CHALLENGING",
+      "title_cn": "比亚迪第五代DM-i插混轿车降至7.98万元起，插混渗透率单月突破46%",
+      "title_en": "BYD Escalates Price War with DM 5.0 PHEV Starting at $11,000 (¥79,800); PHEV Penetration Hits 46%",
+      "summary_en": "Delivering over 2,100 km comprehensive driving range and 2.9 L/100km fuel consumption, BYD's latest plug-in hybrids are capturing mainstream passenger volume. Traditional ICE sedans from German legacy brands face intense margin and residual value erosion.",
+      "bmw_relevance": "In China, PHEVs and Extended-Range EVs (EREVs) are no longer transitional compromises but the dominant volume powertrains. BMW 530e / 750e face stiff competition against ultra-affordable extended-range executive sedans.",
+      "original_url": "https://auto.gasgoo.com/news/202410/25I70389304C108.shtml",
+      "keywords": ["BYD DM 5.0", "Price War", "PHEV", "Range 2100km"],
+      "pm_takeaway": "BYD dropped DM 5.0 PHEVs with 2,100 km range to $11,000, driving national PHEV penetration to 46%.",
+      "pm_action": "Reposition PHEVs as long-range electrics, not compliance hybrids; address price compression.",
+      "threat_level": "VOLUME & MARGIN EROSION"
+    },
+    {
+      "id": "NEWS-2026-1011-05",
+      "publish_time": "Yesterday • 21:15 CST",
+      "source": "IT之家 ITHome",
+      "source_tag": "ITHome Tech",
+      "category": "Autonomous Driving & AI (E2E / VLA)",
+      "impact": "CRITICAL",
+      "sentiment": "BULLISH",
+      "title_cn": "小鹏汽车首颗自研'图灵'AI芯片流片成功，单颗算力达400 TOPS专为端到端Robotaxi设计",
+      "title_en": "XPeng Successfully Tapes Out In-House 'Turing' AI Chip: 400 TOPS Tailored for End-to-End Robotaxi",
+      "summary_en": "XPeng CEO He Xiaopeng announced that their proprietary Turing AI processor has taped out. Engineered with 400 TOPS of NPU compute, two Turing chips will replace high-cost Nvidia Orin-X dual clusters in upcoming smart EVs, AI robotaxis, and humanoid robotics.",
+      "bmw_relevance": "Vertical semiconductor silicon design among Chinese pure EV startups drives down Bill of Materials (BoM) by up to 55-60% relative to Western Tier-1 silicon purchasing models.",
+      "original_url": "https://www.ithome.com/0/798/215.htm",
+      "keywords": ["XPeng", "Turing Chip", "In-House Silicon", "Robotaxi"],
+      "pm_takeaway": "XPeng taped out in-house 400 TOPS 'Turing' AI processor, replacing expensive dual Nvidia Orin-X clusters.",
+      "pm_action": "Audit ADAS silicon BoM costs; vertical silicon integration allows Chinese OEMs to undercut Tier-1 pricing.",
+      "threat_level": "SUPPLY CHAIN & BOM THREAT"
+    },
+    {
+      "id": "NEWS-2026-1011-06",
+      "publish_time": "Yesterday • 18:30 CST",
+      "source": "汽车之家 AutoHome",
+      "source_tag": "AutoHome",
+      "category": "Globalization & European Exports",
+      "impact": "HIGH",
+      "sentiment": "STRATEGIC",
+      "title_cn": "蔚来Firefly'萤火虫'欧洲谍照曝光：支持换电与90kW快充，直指大众ID.2与雷诺5",
+      "title_en": "NIO Firefly European Prototype Spotted: Battery Swap Enabled, Targeting Sub-€25k Segment",
+      "summary_en": "NIO's European-focused brand Firefly is slated for launch across Germany, Netherlands, and Scandinavia. Key differentiator: Full integration with NIO Power Swap Stations (PSS 4.0) alongside 90 kW DC fast charging in a 4.1-meter agile urban footprint.",
+      "bmw_relevance": "Directly challenges the entry-level premium urban EV niche that BMW vacated after i3 production ceased, placing competitive pressure on the MINI Aceman.",
+      "original_url": "https://www.autohome.com.cn/news/202410/1298451.html",
+      "keywords": ["NIO", "Firefly", "Europe Market", "Battery Swap"],
+      "pm_takeaway": "NIO Firefly sub-€25k compact EV spotted testing in Europe with battery swap and 90kW DC charging.",
+      "pm_action": "Accelerate entry-level premium urban EV portfolio (MINI Aceman / compact iX1) to defend European home turf.",
+      "threat_level": "EUROPEAN HOMELAND THREAT"
+    },
+    {
+      "id": "NEWS-2026-1011-07",
+      "publish_time": "Yesterday • 15:45 CST",
+      "source": "微博热搜汽车榜 Weibo Auto",
+      "source_tag": "Weibo Hot Trend",
+      "category": "Smart Cockpit & In-Cabin AI",
+      "impact": "MEDIUM",
+      "sentiment": "DISRUPTIVE",
+      "title_cn": "极氪MIX'宝宝巴士'对开侧滑门与270度旋转座椅引爆社交媒体：车内客厅成新刚需",
+      "title_en": "Zeekr MIX Cabin Disruption: Pillarless Double Sliding Doors and 270° Swiveling Seats Reshape In-Cabin Space",
+      "summary_en": "Zeekr redefines automotive interiors as mobile living rooms. With no B-pillars, the vehicle creates a 1.48-meter wide aperture. Electric front seats rotate 270 degrees to face rear passengers for business conferences and family dining.",
+      "bmw_relevance": "Demonstrates why Chinese luxury buyers increasingly evaluate vehicle interiors not merely as driver cockpits, but as a flexible 'Third Living Space', highlighting friction points in traditional German luxury layouts.",
+      "original_url": "https://weibo.com/u/zeekrmotors",
+      "keywords": ["Zeekr MIX", "Interior Space", "Smart Cabin", "Swivel Seats"],
+      "pm_takeaway": "Zeekr MIX features pillarless double sliding doors and 270° swiveling lounge seats, transforming cabin into mobile living room.",
+      "pm_action": "Shift cabin design focus from driver cockpit to 'Third Living Space' modularity for luxury segments.",
+      "threat_level": "INTERIOR ARCHITECTURE SHIFT"
+    },
+    {
+      "id": "NEWS-2026-1011-08",
+      "publish_time": "Yesterday • 11:20 CST",
+      "source": "盖世汽车 Gasgoo",
+      "source_tag": "Gasgoo Industry",
+      "category": "Battery & 800V/5C Charging",
+      "impact": "HIGH",
+      "sentiment": "BULLISH",
+      "title_cn": "理想汽车第1000座5C超充站落成：全国高速骨干网覆盖率超92%，800V补能体验反超油车",
+      "title_en": "Li Auto Commissions 1,000th 5C Supercharging Station: 92% Highway Backbone Coverage Across China",
+      "summary_en": "Delivering up to 520 kW peak charging power, Li Auto's proprietary 5C charging network replenishes 500 km of range in 12 minutes for the MEGA MPV and upcoming M-series BEVs, matching the convenience of gasoline refueling.",
+      "bmw_relevance": "Proprietary charging networks are becoming the primary purchase decider in China. BMW's IONCHI joint venture with Mercedes must drastically accelerate its deployment velocity to stay competitive.",
+      "original_url": "https://auto.gasgoo.com/news/202410/26I70389650C109.shtml",
+      "keywords": ["Li Auto", "5C Supercharging", "Infrastructure", "800V"],
+      "pm_takeaway": "Li Auto active with 1,000 5C superchargers (520 kW) covering 92% of highways, delivering 500 km in 12 min.",
+      "pm_action": "Accelerate IONCHI charging joint venture; proprietary 5C infrastructure is the primary purchase decider.",
+      "threat_level": "INFRASTRUCTURE ECOSYSTEM"
+    },
+    {
+      "id": "NEWS-2026-1011-09",
+      "publish_time": "Just Now • 09:15 CST",
+      "source": "乘联会 CPCA",
+      "source_tag": "CPCA Official",
+      "category": "Price War & Market Dynamics",
+      "impact": "CRITICAL",
+      "sentiment": "CHALLENGING",
+      "title_cn": "乘联会发布9月新能源渗透率报告：自主品牌NEV零售渗透率突破58.2%，合资品牌份额持续承压",
+      "title_en": "CPCA Releases September Data: Domestic NEV Retail Penetration Surpasses 58.2%, Squeezing JV Market Share",
+      "summary_en": "According to China Passenger Car Association data, new energy vehicle retail penetration in China reached 58.2%, setting a historic quarterly peak. Traditional foreign joint-venture brands saw overall volume contract by 11.4% year-over-year.",
+      "bmw_relevance": "Highlights the critical imperative for German joint ventures (BMW Brilliance, Beijing Benz, FAW Audi) to accelerate China-specific localized smart cockpits and autonomous driving rollouts.",
+      "original_url": "http://www.cpcaauto.com/newslist.php?types=csx&id=3421",
+      "keywords": ["CPCA", "NEV Penetration", "Market Share", "Joint Ventures"],
+      "pm_takeaway": "China NEV retail penetration reached 58.2%, with joint-venture brand sales contracting 11.4% year-over-year.",
+      "pm_action": "Speed up China-specific localized software releases; Western brand premium alone cannot sustain market share.",
+      "threat_level": "MARKET SHARE CONTRACTION"
+    },
+    {
+      "id": "NEWS-2026-1011-10",
+      "publish_time": "Just Now • 09:05 CST",
+      "source": "36氪 36Kr",
+      "source_tag": "36Kr Tech",
+      "category": "Autonomous Driving & AI (E2E / VLA)",
+      "impact": "HIGH",
+      "sentiment": "DISRUPTIVE",
+      "title_cn": "地平线征程6系列芯片量产定点超20家车企，高阶智驾系统BOM成本再降30%",
+      "title_en": "Horizon Robotics Secures 20+ OEM Contracts for Journey 6 Silicon, Slashing ADAS BoM Costs by 30%",
+      "summary_en": "Horizon Robotics disclosed mass production contracts for its Journey 6 family spanning entry ADAS to high-compute Urban NOA architectures, enabling sub-$20,000 passenger vehicles to equip mapless navigation capabilities.",
+      "bmw_relevance": "Aggressive cost reduction in automotive silicon supply chains enables Chinese brands to deliver premium Level 2+ features as standard equipment across economy car categories.",
+      "original_url": "https://www.36kr.com/p/2978891283719041",
+      "keywords": ["Horizon Robotics", "Journey 6", "ADAS Silicon", "BoM Reduction"],
+      "pm_takeaway": "Horizon Robotics secured 20+ OEM contracts for Journey 6 silicon, cutting L2+ ADAS BoM by 30%.",
+      "pm_action": "Standardize Level 2+ navigation on base models; premium ADAS feature surcharges face customer resistance.",
+      "threat_level": "FEATURE DEMOCRATIZATION"
+    }
+  ],
+  "tech_knowledge_graph": {
+    "nodes": [
+      {
+        "id": "tech_5c_charging",
+        "name": "5C/6C Ultra-Charging (520kW)",
+        "name_cn": "5C/6C超充技术",
+        "type": "TECH_PILLAR",
+        "domain": "Battery",
+        "metric": "520 kW / 10-80% in 11min",
+        "trl": 9,
+        "color": "#00d2ff"
+      },
+      {
+        "id": "tech_solid_state",
+        "name": "All-Solid-State Battery (500Wh/kg)",
+        "name_cn": "全固态电池",
+        "type": "TECH_PILLAR",
+        "domain": "Battery",
+        "metric": "500 Wh/kg / 10C Discharge",
+        "trl": 6,
+        "color": "#10b981"
+      },
+      {
+        "id": "tech_e2e_vla",
+        "name": "End-to-End (E2E) VLA AI Driving",
+        "name_cn": "端到端VLA无图智驾",
+        "type": "TECH_PILLAR",
+        "domain": "Autonomous",
+        "metric": "98.7% Mapless Pass Rate",
+        "trl": 8,
+        "color": "#a855f7"
+      },
+      {
+        "id": "tech_on_device_llm",
+        "name": "On-Device 7B In-Cabin LLM",
+        "name_cn": "端侧本地大模型",
+        "type": "TECH_PILLAR",
+        "domain": "Cockpit",
+        "metric": "350ms Latency / Zero-Cloud",
+        "trl": 8,
+        "color": "#f59e0b"
+      },
+      {
+        "id": "tech_by_wire_chassis",
+        "name": "Steer-by-Wire & Distributed Drive (e4)",
+        "name_cn": "线控底盘与四电机分布式驱动",
+        "type": "TECH_PILLAR",
+        "domain": "Chassis",
+        "metric": "4 Independent Motors / Tank Turn",
+        "trl": 7,
+        "color": "#ec4899"
+      },
+      {
+        "id": "tech_900v_sic",
+        "name": "900V SiC Silicon Carbide Architecture",
+        "name_cn": "900V碳化硅高压平台",
+        "type": "TECH_PILLAR",
+        "domain": "Powertrain",
+        "metric": ">21,000 RPM / 92.5% Efficiency",
+        "trl": 8,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "oem_byd",
+        "name": "BYD (比亚迪)",
+        "name_cn": "比亚迪",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "Blade 2.0 / DM 5.0 / e4 Platform",
+        "trl": 9,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_huawei",
+        "name": "Huawei HIMA (鸿蒙智行)",
+        "name_cn": "华为鸿蒙智行",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "Qiankun ADS 3.5 / HarmonyOS NEXT",
+        "trl": 9,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_xiaomi",
+        "name": "Xiaomi EV (小米汽车)",
+        "name_cn": "小米汽车",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "SU7 Ultra / HyperOS 2.2 Cockpit",
+        "trl": 8,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_xpeng",
+        "name": "XPeng (小鹏汽车)",
+        "name_cn": "小鹏汽车",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "Turing 400 TOPS / XNGP VLA",
+        "trl": 8,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_nio",
+        "name": "NIO (蔚来)",
+        "name_cn": "蔚来汽车",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "150kWh Semi-Solid / SkyRide By-Wire",
+        "trl": 8,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_li_auto",
+        "name": "Li Auto (理想汽车)",
+        "name_cn": "理想汽车",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "1,000 5C Stations / Dual-Model AI",
+        "trl": 9,
+        "color": "#ef4444"
+      },
+      {
+        "id": "oem_zeekr",
+        "name": "Zeekr (极氪)",
+        "name_cn": "极氪汽车",
+        "type": "OEM",
+        "domain": "OEM",
+        "metric": "800V Golden Battery / MIX Cabin",
+        "trl": 8,
+        "color": "#ef4444"
+      },
+      {
+        "id": "tier1_catl",
+        "name": "CATL (宁德时代)",
+        "name_cn": "宁德时代",
+        "type": "TIER1",
+        "domain": "Battery",
+        "metric": "Shenxing Plus 5C / Solid-State Pilot",
+        "trl": 9,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "tier1_horizon",
+        "name": "Horizon Robotics (地平线)",
+        "name_cn": "地平线",
+        "type": "TIER1",
+        "domain": "Silicon",
+        "metric": "Journey 6 Series / -30% ADAS BoM",
+        "trl": 8,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "tier1_qualcomm",
+        "name": "Qualcomm Auto (高通)",
+        "name_cn": "高通座舱",
+        "type": "TIER1",
+        "domain": "Silicon",
+        "metric": "Snapdragon 8295 / Local 7B NPU",
+        "trl": 9,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "tier1_welion",
+        "name": "WeLion (卫蓝新能源)",
+        "name_cn": "卫蓝新能源",
+        "type": "TIER1",
+        "domain": "Battery",
+        "metric": "360 Wh/kg Semi-Solid Electrolyte",
+        "trl": 7,
+        "color": "#06b6d4"
+      },
+      {
+        "id": "west_bmw",
+        "name": "BMW (Neue Klasse / Gen6)",
+        "name_cn": "宝马",
+        "type": "WESTERN_BENCHMARK",
+        "domain": "Benchmark",
+        "metric": "205 kW DC / 2,400ms Voice IPA / L2 Highway",
+        "trl": 8,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "west_mercedes",
+        "name": "Mercedes-Benz (MB.OS)",
+        "name_cn": "奔驰",
+        "type": "WESTERN_BENCHMARK",
+        "domain": "Benchmark",
+        "metric": "MMA 800V Platform / Drive Pilot L3",
+        "trl": 8,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "west_audi",
+        "name": "Audi (PPE / E3 1.2)",
+        "name_cn": "奥迪",
+        "type": "WESTERN_BENCHMARK",
+        "domain": "Benchmark",
+        "metric": "Q6 e-tron 270kW / Android Automotive",
+        "trl": 8,
+        "color": "#94a3b8"
+      }
+    ],
+    "edges": [
+      {
+        "source": "tier1_catl",
+        "target": "tech_5c_charging",
+        "relation": "Supplies 5C LFP"
+      },
+      {
+        "source": "tier1_catl",
+        "target": "tech_solid_state",
+        "relation": "Pioneers 500Wh/kg Cell"
+      },
+      {
+        "source": "oem_li_auto",
+        "target": "tech_5c_charging",
+        "relation": "Deploys 520kW Network"
+      },
+      {
+        "source": "oem_zeekr",
+        "target": "tech_5c_charging",
+        "relation": "Adopts Golden Battery"
+      },
+      {
+        "source": "oem_huawei",
+        "target": "tech_e2e_vla",
+        "relation": "Deploys ADS 3.5 VLA"
+      },
+      {
+        "source": "oem_xpeng",
+        "target": "tech_e2e_vla",
+        "relation": "Powers Turing AI"
+      },
+      {
+        "source": "tier1_horizon",
+        "target": "oem_byd",
+        "relation": "Supplies Journey 6 Silicon"
+      },
+      {
+        "source": "oem_xiaomi",
+        "target": "tech_on_device_llm",
+        "relation": "Runs On-Device 7B LLM"
+      },
+      {
+        "source": "tier1_qualcomm",
+        "target": "oem_xiaomi",
+        "relation": "Supplies 8295 Silicon"
+      },
+      {
+        "source": "oem_nio",
+        "target": "tier1_welion",
+        "relation": "Procures 150kWh Pack"
+      },
+      {
+        "source": "oem_byd",
+        "target": "tech_by_wire_chassis",
+        "relation": "Engineers e4 & DiSus"
+      },
+      {
+        "source": "oem_nio",
+        "target": "tech_by_wire_chassis",
+        "relation": "Deploys SkyRide By-Wire"
+      },
+      {
+        "source": "oem_zeekr",
+        "target": "tech_900v_sic",
+        "relation": "Engineers 900V SiC Inverter"
+      },
+      {
+        "source": "tech_5c_charging",
+        "target": "west_bmw",
+        "relation": "Disrupts 205kW Max Peak"
+      },
+      {
+        "source": "tech_e2e_vla",
+        "target": "west_bmw",
+        "relation": "Outpaces Highway-Only L2"
+      },
+      {
+        "source": "tech_on_device_llm",
+        "target": "west_bmw",
+        "relation": "Outpaces 2.4s IPA Voice"
+      },
+      {
+        "source": "tech_e2e_vla",
+        "target": "west_mercedes",
+        "relation": "Challenges MB.OS ADAS"
+      },
+      {
+        "source": "tech_solid_state",
+        "target": "west_audi",
+        "relation": "Challenges PPE Battery"
+      }
+    ]
+  },
+  "statistical_benchmarks": {
+    "charging_power_kw": [
+      {
+        "model": "Li Auto MEGA (China)",
+        "power_kw": 520,
+        "time_10_80_min": 11.2,
+        "voltage_v": 800,
+        "origin": "CN"
+      },
+      {
+        "model": "Zeekr 001 FR (China)",
+        "power_kw": 420,
+        "time_10_80_min": 11.5,
+        "voltage_v": 800,
+        "origin": "CN"
+      },
+      {
+        "model": "XPeng X9 (China)",
+        "power_kw": 480,
+        "time_10_80_min": 12.0,
+        "voltage_v": 800,
+        "origin": "CN"
+      },
+      {
+        "model": "BYD Denza Z9 (China)",
+        "power_kw": 360,
+        "time_10_80_min": 14.8,
+        "voltage_v": 800,
+        "origin": "CN"
+      },
+      {
+        "model": "Porsche Taycan (West)",
+        "power_kw": 320,
+        "time_10_80_min": 18.0,
+        "voltage_v": 800,
+        "origin": "WEST"
+      },
+      {
+        "model": "Tesla Model Y V3 (West)",
+        "power_kw": 250,
+        "time_10_80_min": 27.0,
+        "voltage_v": 400,
+        "origin": "WEST"
+      },
+      {
+        "model": "BMW i5 eDrive40 (West)",
+        "power_kw": 205,
+        "time_10_80_min": 29.0,
+        "voltage_v": 400,
+        "origin": "WEST"
+      }
+    ],
+    "cockpit_voice_latency_ms": [
+      {
+        "system": "Xiaomi HyperOS 2 (On-Device 7B)",
+        "latency_ms": 350,
+        "offline_capable": true,
+        "origin": "CN"
+      },
+      {
+        "system": "Huawei HarmonyOS NEXT (Celia AI)",
+        "latency_ms": 420,
+        "offline_capable": true,
+        "origin": "CN"
+      },
+      {
+        "system": "XPeng X-GPT (Turing NPU)",
+        "latency_ms": 480,
+        "offline_capable": true,
+        "origin": "CN"
+      },
+      {
+        "system": "Li Auto Mind GPT (Qualcomm 8295)",
+        "latency_ms": 520,
+        "offline_capable": true,
+        "origin": "CN"
+      },
+      {
+        "system": "Tesla Voice Command (Cloud)",
+        "latency_ms": 1600,
+        "offline_capable": false,
+        "origin": "WEST"
+      },
+      {
+        "system": "BMW IPA OS 8.5 (Curved Display)",
+        "latency_ms": 2400,
+        "offline_capable": false,
+        "origin": "WEST"
+      },
+      {
+        "system": "Mercedes-Benz MBUX (Hey Mercedes)",
+        "latency_ms": 2800,
+        "offline_capable": false,
+        "origin": "WEST"
+      }
+    ],
+    "urban_autonomy_mpi_km": [
+      {
+        "system": "Huawei Qiankun ADS 3.5 (No-Map VLA)",
+        "mpi_km": 185,
+        "urban_coverage": "100% Nationwide Cities",
+        "origin": "CN"
+      },
+      {
+        "system": "XPeng XNGP / Turing (End-to-End)",
+        "mpi_km": 142,
+        "urban_coverage": "300+ Municipalities",
+        "origin": "CN"
+      },
+      {
+        "system": "Li Auto Dual-Model (Spatial LLM)",
+        "mpi_km": 118,
+        "urban_coverage": "Nationwide Hubs",
+        "origin": "CN"
+      },
+      {
+        "system": "Western Level 2+ Highway Assistant",
+        "mpi_km": 0,
+        "urban_coverage": "0% (Highway-Only Constraint)",
+        "origin": "WEST"
+      }
+    ],
+    "battery_energy_density_wh_kg": [
+      {
+        "stage": "Standard LFP Cell (2022-2023)",
+        "density_wh_kg": 160,
+        "chemistry": "LFP Prismatic",
+        "commercial_status": "Mass Volume"
+      },
+      {
+        "stage": "CATL Shenxing Plus 5C (2024)",
+        "density_wh_kg": 205,
+        "chemistry": "5C Ultra-Fast LFP",
+        "commercial_status": "Series Commercial"
+      },
+      {
+        "stage": "WeLion 150 kWh NIO Pack (2024)",
+        "density_wh_kg": 360,
+        "chemistry": "Semi-Solid Electrolyte",
+        "commercial_status": "Low-Volume Fleet"
+      },
+      {
+        "stage": "CATL Yibin Prototype (2025-2026)",
+        "density_wh_kg": 500,
+        "chemistry": "All-Solid-State Sulfide",
+        "commercial_status": "Pilot Trial Lines"
+      },
+      {
+        "stage": "Theoretical Solid-State Ceiling",
+        "density_wh_kg": 650,
+        "chemistry": "Lithium Metal Anode",
+        "commercial_status": "Research Lab"
+      }
+    ]
+  },
+  "mathematical_tracking_model": {
+    "model_name": "China Technology Acceleration Index (TAI)",
+    "mathematical_formula": "TAI_k = 100 * [ w_TRL * S_TRL + w_OEM * S_OEM + w_SIGNAL * S_SIGNAL + w_GAP * S_GAP ]",
+    "weights": {
+      "w_TRL": 0.3,
+      "w_OEM": 0.25,
+      "w_SIGNAL": 0.25,
+      "w_GAP": 0.2
+    },
+    "score_components_definition": {
+      "S_TRL": "Technology Readiness Level normalized to [0, 1]. TRL 4 (Lab)=0.25, TRL 6 (Pilot)=0.50, TRL 7 (Trial)=0.75, TRL 8-9 (Commercial/Mass)=1.00.",
+      "S_OEM": "OEM Ecosystem Breadth. Min(1.0, Committed_Tier1_OEMs / 5.0). Measures supply chain density.",
+      "S_SIGNAL": "Verified Signal Velocity from Chinese Outlets (Dongchedi, 36Kr, LatePost, CPCA, Gasgoo). Normalized event frequency * impact multiplier.",
+      "S_GAP": "Competitive Differential against Western Luxury Benchmark: Min(1.0, Abs(CN_Metric - West_Metric) / West_Metric). Measures disruption pressure."
+    },
+    "evaluated_megatrends_tai": [
+      {
+        "rank": 1,
+        "technology": "5C/6C Ultra-Charging & 800V SiC",
+        "tai_score": 94.2,
+        "trl_score": 1.0,
+        "oem_breadth_score": 1.0,
+        "signal_velocity_score": 0.92,
+        "competitive_gap_score": 0.85,
+        "status": "COMMERCIAL_DISRUPTION",
+        "evidence": "10-80% in 11.2 min, >1,000 5C megawatt chargers active; 153.6% power advantage over BMW 205kW peak."
+      },
+      {
+        "rank": 2,
+        "technology": "End-to-End (E2E) Mapless VLA Driving",
+        "tai_score": 91.8,
+        "trl_score": 0.9,
+        "oem_breadth_score": 0.95,
+        "signal_velocity_score": 0.95,
+        "competitive_gap_score": 0.88,
+        "status": "EXPEDIENT_SCALE",
+        "evidence": "Huawei ADS 3.5 & XPeng Turing deployed nationwide door-to-door without HD maps; Western L2 restricted to motorways."
+      },
+      {
+        "rank": 3,
+        "technology": "On-Device 7B In-Cabin LLMs",
+        "tai_score": 87.5,
+        "trl_score": 0.85,
+        "oem_breadth_score": 0.9,
+        "signal_velocity_score": 0.88,
+        "competitive_gap_score": 0.88,
+        "status": "RAPID_COMMERCIALIZATION",
+        "evidence": "Xiaomi HyperOS 2 / Qualcomm 8295 achieves 350ms response; 6.8x faster than BMW IPA (2,400ms)."
+      },
+      {
+        "rank": 4,
+        "technology": "All-Solid-State Batteries (>500 Wh/kg)",
+        "tai_score": 76.4,
+        "trl_score": 0.65,
+        "oem_breadth_score": 0.7,
+        "signal_velocity_score": 0.9,
+        "competitive_gap_score": 0.9,
+        "status": "ACCELERATING_PILOT",
+        "evidence": "CATL Yibin prototype reaches 500 Wh/kg, 10C discharge, -20°C resilience; pilot line targeted ahead of 2027."
+      },
+      {
+        "rank": 5,
+        "technology": "Steer-by-Wire & Distributed Multi-Motor Actuation",
+        "tai_score": 72.1,
+        "trl_score": 0.75,
+        "oem_breadth_score": 0.65,
+        "signal_velocity_score": 0.72,
+        "competitive_gap_score": 0.8,
+        "status": "PREMIUM_FLAGSHIP_DEPLOYMENT",
+        "evidence": "BYD e4 four-motor torque vectoring & tank turn; NIO SkyRide fully active hydraulic steer-by-wire."
+      }
+    ]
+  }
+}
