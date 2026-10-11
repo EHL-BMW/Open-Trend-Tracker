@@ -12,11 +12,13 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
-from app.paths import RUNTIME_DIR, UNIFIED_DIR
+from typing import Literal
+
+from app.paths import RUNTIME_DIR, UNIFIED_DIR, get_openai_api_key, get_openai_model
 from app.services.customer_input import process_document
 from app.services.decision_dashboard import decision_dashboard, save_override
 from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
-from app.services import planner
+from app.services import gap_agent, planner
 
 app = FastAPI(title="Open-Trend-Tracker")
 RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
@@ -235,3 +237,106 @@ def v1_get_run(run_id: str):
         return planner.get_run(run_id)
     except KeyError:
         return v1_error(404, "not_found", "That run doesn't exist.")
+
+
+# ---------- AI Competitor Gap Analysis Agent ----------
+
+class AgentAnalysisRequest(BaseModel):
+    vehicle: str = "G60"
+    domain: str | None = None
+    domains: list[str] | None = None
+    focus_competitor: str | None = None
+    custom_instruction: str | None = None
+
+
+class AgentReviewRequest(BaseModel):
+    status: Literal["approved", "rejected", "challenged"]
+    pm_notes: str | None = None
+
+
+@app.get("/api/v1/agent/status")
+def v1_agent_status():
+    key = get_openai_api_key()
+    return {
+        "configured": bool(key),
+        "model": get_openai_model(),
+        "provider": "OpenAI",
+        "domains": list(gap_agent.DOMAIN_MAPPING.keys()),
+        "domain_options": [
+            {"key": k, "label": v["label"]}
+            for k, v in gap_agent.DOMAIN_MAPPING.items()
+        ],
+    }
+
+
+@app.post("/api/v1/agent/gap-analysis", status_code=201)
+def v1_run_gap_analysis(req: AgentAnalysisRequest):
+    return gap_agent.run_gap_analysis(
+        vehicle=req.vehicle,
+        domain=req.domain,
+        domains=req.domains,
+        focus_competitor=req.focus_competitor,
+        custom_instruction=req.custom_instruction,
+    )
+
+
+@app.get("/api/v1/agent/gap-analyses")
+def v1_list_gap_analyses(limit: int = Query(20, ge=1, le=100)):
+    return {"items": gap_agent.list_gap_analyses(limit)}
+
+
+@app.get("/api/v1/agent/gap-analyses/{analysis_id}")
+def v1_get_gap_analysis(analysis_id: str):
+    try:
+        return gap_agent.get_gap_analysis(analysis_id)
+    except KeyError:
+        return v1_error(404, "not_found", f"Gap analysis {analysis_id} not found.")
+
+
+@app.post("/api/v1/agent/gap-analyses/{analysis_id}/review")
+def v1_review_gap_analysis(analysis_id: str, req: AgentReviewRequest):
+    try:
+        return gap_agent.review_gap_analysis(analysis_id, req.status, req.pm_notes)
+    except KeyError:
+        return v1_error(404, "not_found", f"Gap analysis {analysis_id} not found.")
+
+
+class AgentChatMessage(BaseModel):
+    role: Literal["user", "assistant", "system"]
+    content: str
+
+
+class AgentChatRequest(BaseModel):
+    messages: list[AgentChatMessage]
+    vehicle: str = "G60"
+    focus_company: str | None = None
+    domain: str | None = None
+    domains: list[str] | None = None
+
+
+@app.get("/api/v1/agent/trend-markers")
+def v1_get_trend_markers(
+    company: str | None = None,
+    domain: str | None = None,
+    domains: list[str] | None = Query(None),
+    q: str | None = None,
+):
+    return gap_agent.query_trend_markers(
+        company=company,
+        domain=domain,
+        domains=domains,
+        query=q,
+    )
+
+
+@app.post("/api/v1/agent/chat")
+def v1_agent_chat(req: AgentChatRequest):
+    return gap_agent.chat_with_agent(
+        messages=[m.model_dump() for m in req.messages],
+        target_vehicle=req.vehicle,
+        focus_company=req.focus_company,
+        domain=req.domain,
+        domains=req.domains,
+    )
+
+

@@ -12,6 +12,7 @@ dependencies = [
     "pydantic>=2",
     "python-multipart",
     "uvicorn",
+    "openai>=1.0.0",
 ]
 
 [dependency-groups]

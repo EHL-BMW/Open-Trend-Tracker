@@ -20,6 +20,8 @@ import type { CategoryKey } from "../domain/categories";
 import { requestKey, toRequest } from "../domain/settings";
 import { activeCount } from "../domain/weights";
 import { usePlannerOptional } from "../state/PlannerContext";
+import { Link } from "react-router-dom";
+import { ROUTES } from "../routes";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./PlannerPage.module.css";
 
@@ -213,6 +215,27 @@ function Intro({ children }: { children: ReactNode }) {
     <header className={styles.hero}>
       <h2>Plan your next series update.</h2>
       <p>Four steps from data to a traceable Top 5.</p>
+      <div
+        style={{
+          marginTop: "12px",
+          marginBottom: "16px",
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "10px",
+          background: "color-mix(in srgb, var(--card) 90%, transparent)",
+          border: "1px solid color-mix(in srgb, var(--blue) 35%, var(--sep))",
+          padding: "8px 18px",
+          borderRadius: "999px",
+          fontSize: "13px",
+          flexWrap: "wrap",
+        }}
+      >
+        <span style={{ color: "var(--blue)", fontWeight: 600 }}>🤖 Live KI-Agent:</span>
+        <span style={{ color: "var(--label-2)" }}>Deep-dive into Xiaomi, XPeng & Zeekr gaps with our</span>
+        <Link to={ROUTES.agent} style={{ color: "var(--blue)", fontWeight: 600, textDecoration: "underline" }}>
+          AI Gap Agent Cockpit →
+        </Link>
+      </div>
       {children}
     </header>
   );

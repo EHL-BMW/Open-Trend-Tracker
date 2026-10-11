@@ -14,3 +14,17 @@ dist/
 tmp/
 outputs/
 .DS_Store
+
+# Environment variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+backend/.env
+backend/.env.*
+!.env.development
+!.env.backend
+!.env.production
+!.env.example
+!backend/.env.example
+
