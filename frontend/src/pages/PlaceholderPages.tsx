@@ -15,14 +15,6 @@ function ComingSoon({ title, text }: { title: string; text: string }) {
   );
 }
 
-/** Placeholder until the team writes the questions and answers. */
-export function FaqPage() {
-  return (
-    <ContentPage eyebrow="Help" title="FAQ" lead="Answers to common questions about OpenTT.">
-      <ComingSoon title="Coming soon" text="The frequently asked questions are being written." />
-    </ContentPage>
-  );
-}
 
 export function NotFoundPage() {
   return (

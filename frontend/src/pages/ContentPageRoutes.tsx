@@ -1,8 +1,9 @@
 import { Route } from "react-router-dom";
 import { ROUTES } from "../routes";
+import { FaqPage } from "./FaqPage";
 import { HowItWorksPage } from "./HowItWorksPage";
 import { NewsletterPage } from "./NewsletterPage";
-import { FaqPage, NotFoundPage } from "./PlaceholderPages";
+import { NotFoundPage } from "./PlaceholderPages";
 
 /** Routes for the text pages; returned as elements so <Routes> can use them directly. */
 export function ContentPageRoutes() {
