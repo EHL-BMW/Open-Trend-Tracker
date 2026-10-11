@@ -156,7 +156,11 @@ const QUICK_PROMPTS = [
 ];
 
 export function AgentPage() {
-  const [activeTab, setActiveTab] = useState<"chat" | "database" | "gap_analysis" | "problems">("chat");
+  // Planner evidence links point at /agent#problem-<id>: open the problem list and highlight that card.
+  const linkedProblem = window.location.hash.startsWith("#problem-") ? window.location.hash.slice(1) : "";
+  const [activeTab, setActiveTab] = useState<"chat" | "database" | "gap_analysis" | "problems">(
+    linkedProblem ? "problems" : "chat",
+  );
   const [agentStatus, setAgentStatus] = useState<AgentStatus | null>(null);
 
   // Future Trend Markers DB state
@@ -210,6 +214,12 @@ export function AgentPage() {
     loadRuns();
     loadProblems();
   }, []);
+
+  useEffect(() => {
+    if (problemAnalysis && linkedProblem) {
+      document.getElementById(linkedProblem)?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [problemAnalysis, linkedProblem]);
 
   useEffect(() => {
     if (activeTab === "chat") {
@@ -1203,7 +1213,11 @@ export function AgentPage() {
                 </div>
                 <div className={styles.problemGrid}>
                   {problemAnalysis.problems.map((problem) => (
-                    <article key={problem.id} className={styles.problemCard}>
+                    <article
+                      key={problem.id}
+                      id={`problem-${problem.id}`}
+                      className={`${styles.problemCard} ${linkedProblem === `problem-${problem.id}` ? styles.problemCardLinked : ""}`}
+                    >
                       <div className={styles.problemCardTop}>
                         <span className={styles.problemCategory}>{problem.category}</span>
                         <span className={`${styles.problemSeverity} ${problem.severity === "High" ? styles.problemHigh : problem.severity === "Medium" ? styles.problemMedium : styles.problemOpportunity}`}>

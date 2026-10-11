@@ -103,6 +103,8 @@ export const sourceRecordSchema = z.object({
   label: z.string(),
   /** Share of this source's signal for the recommendation (0–1); drives line thickness. */
   share,
+  /** Optional link to the source: a news article, an AI Agent problem, or another OpenTT page. */
+  url: z.string().optional(),
 });
 
 export const contributionSchema = z.object({
@@ -140,7 +142,7 @@ export const recommendationSchema = z.object({
   rank: z.number().int().min(1),
   title: z.string(),
   score: z.number(),
-  /** Customers praise it: protect rather than change. */
+  /** Customers praise it: protect rather than change. Always false while the source is the problem list. */
   keep: z.boolean(),
   assumptionShare: share,
   specs: z.array(specSchema),

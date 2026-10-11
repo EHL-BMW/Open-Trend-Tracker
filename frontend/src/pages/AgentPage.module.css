@@ -1524,6 +1524,10 @@
   border-radius: 14px;
   background: color-mix(in srgb, var(--bg) 45%, var(--card));
 }
+.problemCardLinked {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--blue) 18%, transparent);
+}
 
 .problemCardTop,
 .problemFeatureLinks {

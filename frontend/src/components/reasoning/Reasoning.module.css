@@ -224,6 +224,21 @@
   font-weight: 600;
 }
 
+a.cite {
+  text-decoration: none;
+}
+a.cite:hover {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.graphLink[href] {
+  cursor: pointer;
+}
+.graphLink[href]:hover text {
+  fill: var(--blue);
+}
+
 .flags {
   margin: 0;
   padding: 0;

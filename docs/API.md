@@ -153,7 +153,8 @@ Response `201` – an **AnalysisRun**
             "summary": "Sales signal across i4, iX, i5 (BEV): the strongest of all 16 candidates in this source.",
             "records": [
               // cited source records; share (0–1) = this record's part of the source signal, drives line thickness
-              { "id": "S-01", "label": "i4 · BEV · signal 0.80", "share": 0.35 }
+              // url (optional) links the record to its source: a news article, an AI Agent problem, an OpenTT page
+              { "id": "S-01", "label": "i4 · BEV · signal 0.80", "share": 0.35, "url": "/sales-impact-forecast" }
             ]
           }
         ],

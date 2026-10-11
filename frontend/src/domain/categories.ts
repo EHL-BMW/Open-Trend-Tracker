@@ -34,7 +34,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     colorVar: "--c-sales",
     weighted: true,
     evidence: true,
-    description: "Units and option take rates by model line and powertrain.",
+    description: "BMW 2030 volume in China, Europe and the US × the estimated uplift of each new feature (scenario).",
     orbit: { x: 71.7, y: 34.8, label: "right" },
   },
   trends: {
@@ -45,7 +45,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     weighted: true,
     evidence: false,
     description:
-      "What the bestselling Chinese EVs offer today, and a forecast of how widespread each technology will be. Always an assumption, not evidence.",
+      "New features in Chinese news (from the newsletter), with a sales uplift estimated from related old features. Always an assumption, not evidence.",
     orbit: { x: 62.5, y: 77.1, label: "below" },
   },
   customer: {
@@ -55,7 +55,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     colorVar: "--c-customer",
     weighted: true,
     evidence: true,
-    description: "Pain points and praise from customer verbatims and the customer study.",
+    description: "G70 customer problems identified by the AI Agent from the feedback workbook.",
     orbit: { x: 37.5, y: 77.1, label: "below" },
   },
   features: {

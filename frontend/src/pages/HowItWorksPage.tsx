@@ -6,9 +6,9 @@ import { ContentPage } from "./ContentPage";
 import styles from "./ContentPage.module.css";
 
 const SOURCE_TAGS: Record<string, string[]> = {
-  sales: ["Evidence", "Weighted", "Filter: line, powertrain"],
-  customer: ["Evidence", "Weighted", "Filter: pain points / praise"],
-  trends: ["Assumption", "Weighted", "Filter: technology"],
+  sales: ["Scenario", "Weighted", "Filter: market (CN, EU, US)"],
+  customer: ["Evidence", "Weighted", "Filter: G70 problem list"],
+  trends: ["Assumption", "Weighted", "Filter: new feature"],
   features: ["Context only", "Not weighted", "Filter: BMW features"],
 };
 
@@ -56,7 +56,7 @@ export function HowItWorksPage() {
           <li className="card">
             <h3>Choose and filter</h3>
             <p>
-              Switch sources on or off and narrow each one with its filters, for example only BEV or only pain points.
+              Switch sources on or off and narrow each one with its filters, for example only the China market or only some G70 problems.
             </p>
           </li>
           <li className="card">

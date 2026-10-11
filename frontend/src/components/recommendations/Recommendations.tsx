@@ -179,12 +179,12 @@ function chipHint(spec: Spec): string {
   if (spec.kind === "missing") return "No matching records in this source, so it adds nothing to the score.";
   switch (spec.category) {
     case "sales":
-      return "Sales evidence: model lines and powertrains where this sells.";
+      return "Sales scenario: extra BMW units per year in the selected markets (CN, EU, US).";
     case "customer":
-      return "Customer evidence: how often customers raise it as a pain point or praise it.";
+      return "Customer evidence: G70 problems this feature could solve, and how often customers raised them.";
     case "features":
       return "Product: what existing BMW cars already offer. Context only, not weighted.";
     case "trends":
-      return "Trend forecast from China EV bestsellers. An assumption, not evidence.";
+      return "New feature from Chinese news; uplift estimated from related old features. An assumption, not evidence.";
   }
 }

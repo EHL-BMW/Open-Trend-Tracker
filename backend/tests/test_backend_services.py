@@ -115,7 +115,7 @@ def test_chinese_features_join_quantified_comments_and_manual_overrides(tmp_path
         decision_dashboard("G60", "../../private")
 
 
-def test_planner_contract_ranks_chinese_features_from_real_sources(tmp_path, monkeypatch):
+def test_planner_contract_ranks_news_features_from_real_sources(tmp_path, monkeypatch):
     from fastapi.testclient import TestClient
 
     from app.api import app
@@ -124,7 +124,8 @@ def test_planner_contract_ranks_chinese_features_from_real_sources(tmp_path, mon
     monkeypatch.setattr(planner, "RUNS_DIR", tmp_path)
     client = TestClient(app)
     catalog = client.get("/api/v1/catalog").json()
-    assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) >= 13
+    assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) == 21
+    assert [o["value"] for o in catalog["categories"]["sales"]["filters"][0]["options"]] == ["CN", "EU", "US"]
     everything = {key: {group["key"]: [o["value"] for o in group["options"]] for group in source["filters"]}
                   for key, source in catalog["categories"].items()}
     request = {"dataVersion": catalog["dataVersion"], "topN": 5, "weights": catalog["defaultWeights"],
@@ -138,6 +139,9 @@ def test_planner_contract_ranks_chinese_features_from_real_sources(tmp_path, mon
     top = first["recommendations"][0]
     assert {spec["category"]: spec["kind"] for spec in top["specs"]}["sales"] == "assumption"
     assert abs(top["assumptionShare"] - top["reasoning"]["contributions"][2]["points"] / top["score"]) < 0.01
+    cited = [r for item in top["reasoning"]["contributions"] + top["reasoning"]["context"] for r in item["records"]]
+    assert cited and all(r["url"] for r in cited)
+    assert any(r["url"].startswith("https://") for r in top["reasoning"]["contributions"][2]["records"])
 
     customer_only = {**request, "enabled": {"sales": False, "customer": True, "trends": False}}
     run = client.post("/api/v1/analyses", json=customer_only).json()

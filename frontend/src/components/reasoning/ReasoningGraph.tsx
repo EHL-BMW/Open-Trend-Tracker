@@ -11,7 +11,7 @@ const truncate = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1)}
 interface Laid {
   c: Contribution;
   cy: number;
-  records: { id: string; label: string; share: number; y: number }[];
+  records: { id: string; label: string; share: number; url?: string; y: number }[];
 }
 
 /** Reverse tree drawn left to right: source records → source × weight → recommendation. */
@@ -76,7 +76,7 @@ export function ReasoningGraph({ rec }: { rec: Recommendation }) {
               strokeDasharray={dashed ? "6 5" : undefined}
             />
             {records.map((r) => (
-              <g key={`r-${r.id}`}>
+              <a key={`r-${r.id}`} href={r.url} target="_blank" rel="noreferrer" className={styles.graphLink}>
                 <title>{r.label}</title>
                 <rect x={0} y={r.y - 12} width={330} height={24} rx={8} style={{ fill: "var(--card)" }} />
                 <text x={10} y={r.y + 4} fontSize={11.5} className={`${styles.mono} ${styles.muted}`}>
@@ -85,7 +85,7 @@ export function ReasoningGraph({ rec }: { rec: Recommendation }) {
                 <text x={62} y={r.y + 4} fontSize={12}>
                   {truncate(r.label, 46)}
                 </text>
-              </g>
+              </a>
             ))}
             <rect
               x={400}

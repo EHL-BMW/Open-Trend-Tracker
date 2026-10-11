@@ -165,11 +165,17 @@ function WhyCard({ item }: { item: Contribution | ContextItem }) {
       <p>{item.summary}</p>
       {item.records.length > 0 && (
         <div className={styles.cites}>
-          {item.records.map((r) => (
-            <span key={r.id} className={styles.cite}>
-              <b>{r.id}</b> {r.label}
-            </span>
-          ))}
+          {item.records.map((r) =>
+            r.url ? (
+              <a key={r.id} className={styles.cite} href={r.url} target="_blank" rel="noreferrer">
+                <b>{r.id}</b> {r.label} <span aria-hidden="true">↗</span>
+              </a>
+            ) : (
+              <span key={r.id} className={styles.cite}>
+                <b>{r.id}</b> {r.label}
+              </span>
+            ),
+          )}
         </div>
       )}
     </div>
