@@ -1,0 +1,239 @@
+/* Full-bleed intro under the (transparent) nav bar; the nav is 78px tall. */
+.hero {
+  position: relative;
+  margin-top: -78px;
+  /* At least one screen tall; grows when the text needs more room (short screens). */
+  min-height: max(560px, 100vh);
+  min-height: max(560px, 100svh);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  background: #0b0d10 center / cover no-repeat;
+  color: #ffffff;
+  isolation: isolate;
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+/* Darkens the footage enough for white text to stay readable on any frame. */
+.scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.25) 45%, rgba(0, 0, 0, 0) 70%),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0) 22%);
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 110px 22px clamp(88px, 12vh, 140px);
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.title {
+  margin: 0;
+  max-width: 900px;
+  font: 700 clamp(40px, 7vw, 88px) / 1.02 var(--font-display);
+  letter-spacing: -0.035em;
+}
+
+.tagline {
+  margin: 10px 0 0;
+  font: 600 clamp(20px, 2.6vw, 32px) / 1.15 var(--font-display);
+  letter-spacing: -0.02em;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.lead {
+  margin: 18px 0 0;
+  max-width: 620px;
+  font-size: clamp(16px, 1.8vw, 21px);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  letter-spacing: -0.01em;
+}
+
+.actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 980px;
+  background: #ffffff;
+  color: #1d1d1f;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background 0.2s var(--ease),
+    transform 0.1s;
+}
+
+.cta:hover {
+  background: #e8e8ed;
+}
+
+.cta:active {
+  transform: scale(0.98);
+}
+
+.cta:focus-visible,
+.playback:focus-visible,
+.scrollCue:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.playback {
+  position: absolute;
+  right: 22px;
+  bottom: 28px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  background: rgba(0, 0, 0, 0.35);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.2s var(--ease);
+}
+
+.playback:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.scrollCue {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.85);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  animation: nudge 2.4s ease-in-out infinite;
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 6px);
+  }
+}
+
+@media (max-width: 600px) {
+  .content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .playback {
+    right: 16px;
+  }
+}
+
+/* ---------- Trust pitch: claim + three proof points ---------- */
+
+.trust {
+  margin-top: 28px;
+  max-width: 980px;
+}
+
+.claim {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.point {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+}
+
+.pointIcon {
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+  color: #1d1d1f;
+}
+
+.pointTitle {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.pointText {
+  display: block;
+  margin-top: 2px;
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 860px) {
+  .points {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .point {
+    padding: 10px 14px;
+  }
+}

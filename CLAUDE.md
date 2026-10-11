@@ -1,7 +1,14 @@
+<!-- entire-graph:begin -->
+This repo has the entire-graph code graph installed. Before exploring code with
+grep/find/whole-file reads, read .entire/graph-agent.md — resolution-first guidance
+for using graph retrieval, focused source inspection, and verification.
+@.entire/graph-agent.md
+<!-- entire-graph:end -->
+
 # Open-Trend-Tracker
 
 Decision support for BMW product managers. The backend (`backend/`, Python, uv) unifies internal and
-external data into a per-vehicle tree. The frontend (`frontend/`, Vite + React) is a placeholder for now.
+external data into a per-vehicle tree. The frontend (`frontend/`, Vite + React + TypeScript) is the PM planner; its API contract is `docs/API.md`.
 Details are in `backend/README.md`.
 
 ## No LLM API in the pipeline (current version)

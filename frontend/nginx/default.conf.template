@@ -1,0 +1,48 @@
+# Rendered by the nginx image at start-up: ${BACKEND_URL} is replaced from the environment.
+server {
+  listen 8080;
+  server_name _;
+  root /usr/share/nginx/html;
+  index index.html;
+
+  gzip on;
+  gzip_types text/css application/javascript application/json image/svg+xml;
+
+  add_header X-Content-Type-Options "nosniff" always;
+  add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+  add_header X-Frame-Options "DENY" always;
+
+  # Same-origin API: the browser calls /api/v1/..., nginx forwards to the backend (no CORS needed).
+  location /api/ {
+    proxy_pass ${BACKEND_URL};
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_read_timeout 60s;
+  }
+
+  location = /healthz {
+    access_log off;
+    default_type text/plain;
+    return 200 "ok";
+  }
+
+  # Hashed build assets never change: cache for a year.
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable";
+    add_header X-Content-Type-Options "nosniff" always;
+    try_files $uri =404;
+  }
+
+  # index.html must always be revalidated so new deployments are picked up.
+  location = /index.html {
+    add_header Cache-Control "no-cache";
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-Frame-Options "DENY" always;
+  }
+
+  location / {
+    try_files $uri /index.html;
+  }
+}

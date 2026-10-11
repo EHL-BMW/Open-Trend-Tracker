@@ -1,0 +1,29 @@
+/* Vengeance Animated Button, styled as the app's primary blue pill. */
+.run {
+  height: 34px;
+  padding: 0 18px;
+  gap: 8px;
+  border-radius: 980px;
+  border-color: transparent;
+  background: var(--blue);
+  color: var(--on-blue);
+  font-size: 14px;
+  white-space: nowrap;
+  --shine: rgba(255, 255, 255, 0.75);
+}
+
+.run > span:first-child {
+  font-weight: 500;
+  letter-spacing: 0;
+  gap: 8px;
+}
+
+.run > span:last-child {
+  border-radius: inherit;
+}
+
+@media (max-width: 420px) {
+  .reset {
+    display: none;
+  }
+}

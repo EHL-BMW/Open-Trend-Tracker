@@ -1,0 +1,100 @@
+.steps {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.step {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.step:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--blue) 6%, var(--card));
+}
+
+.step:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.badge {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 15px;
+  background: var(--fill);
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.check {
+  width: 18px;
+  height: 18px;
+}
+
+.text {
+  display: grid;
+  min-width: 0;
+}
+
+.label {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.015em;
+  color: var(--label);
+}
+
+.hint {
+  font-size: 13px;
+  color: var(--label-2);
+}
+
+/* Next step to take: blue ring and badge. */
+.current {
+  box-shadow:
+    0 0 0 2px var(--blue),
+    var(--shadow);
+}
+
+.current .badge {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.done .badge {
+  background: var(--keep-bg);
+  color: var(--keep);
+}
+
+@media (max-width: 980px) {
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .steps {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

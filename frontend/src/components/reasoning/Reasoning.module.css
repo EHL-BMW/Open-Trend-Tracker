@@ -1,0 +1,268 @@
+.dialog {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--label);
+  max-width: min(940px, calc(100vw - 32px));
+  width: 100%;
+  max-height: calc(100vh - 48px);
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.dialog[open] {
+  animation: rise 0.38s var(--ease);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.sheet {
+  background: var(--card);
+  border-radius: 26px;
+  padding: 28px;
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 600px) {
+  .sheet {
+    padding: 20px 16px;
+    border-radius: 20px;
+  }
+}
+
+.head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+
+.head h2 {
+  margin: 2px 0 0;
+  font: 700 clamp(22px, 3.4vw, 30px) / 1.15 var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+.rank {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--fill);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--label-2);
+  flex: none;
+}
+
+.rank.first {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.verdict {
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.45;
+  margin: 18px 0 0;
+  letter-spacing: -0.015em;
+}
+
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.kpi {
+  background: var(--fill);
+  border-radius: 14px;
+  padding: 12px 14px;
+}
+
+.kpi span {
+  display: block;
+  font-size: 12px;
+  color: var(--label-2);
+}
+
+.kpi b {
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.split {
+  display: flex;
+  height: 6px;
+  border-radius: 3px;
+  overflow: hidden;
+  background: var(--fill-2);
+  margin-top: 8px;
+}
+
+.split div {
+  height: 100%;
+}
+
+.h3 {
+  font-size: 12.5px;
+  color: var(--label-2);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 28px 4px 10px;
+  font-weight: 500;
+}
+
+.flowWrap {
+  background: var(--fill);
+  border-radius: 18px;
+  padding: 14px;
+  overflow-x: auto;
+}
+
+.flow {
+  display: block;
+  width: 100%;
+  min-width: 620px;
+  height: auto;
+}
+
+.flow text {
+  font-family: var(--font-text);
+  fill: var(--label);
+}
+
+.flow .muted {
+  fill: var(--label-2);
+}
+
+.flow .mono {
+  font-family: var(--font-mono);
+}
+
+.why {
+  display: grid;
+  gap: 10px;
+}
+
+.whyCard {
+  background: var(--fill);
+  border-radius: 16px;
+  padding: 14px 16px;
+  border-left: 3px solid var(--c);
+}
+
+.assumptionCard {
+  border-left-style: dashed;
+}
+
+.whyTop {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+.whyTop > b {
+  font-size: 15px;
+}
+
+.calc {
+  font-size: 13px;
+  color: var(--label-2);
+}
+
+.whyCard p {
+  margin: 6px 0 8px;
+  font-size: 14.5px;
+}
+
+.cites {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cite {
+  font: 12px var(--font-mono);
+  background: var(--card);
+  border-radius: 6px;
+  padding: 3px 7px;
+  color: var(--label-2);
+}
+
+.cite b {
+  color: var(--label);
+  font-weight: 600;
+}
+
+.flags {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 8px;
+}
+
+.flags li {
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.warning {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.info {
+  background: var(--fill);
+  color: var(--label-2);
+}
+
+.ok {
+  background: var(--keep-bg);
+  color: var(--keep);
+}
+
+.foot {
+  margin-top: 24px;
+  font-size: 12.5px;
+  color: var(--label-2);
+}
+
+.foot code {
+  font: 12px var(--font-mono);
+  background: var(--fill);
+  padding: 2px 6px;
+  border-radius: 5px;
+  color: var(--label);
+}

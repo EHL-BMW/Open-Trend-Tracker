@@ -1,0 +1,43 @@
+.footer {
+  border-top: 1px solid var(--sep);
+  background: var(--card);
+}
+
+.inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 20px 22px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px 24px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--label-2);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.data {
+  font-variant-numeric: tabular-nums;
+}
+
+.inner a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.inner a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .inner {
+    padding: 18px 16px;
+  }
+}

@@ -1,0 +1,1039 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Series Improvement Planner</title>
+<style>
+:root {
+  --bg: #f5f5f7; --card: #ffffff; --fill: #f5f5f7; --fill-2: #e8e8ed;
+  --label: #1d1d1f; --label-2: #6e6e73; --label-3: #86868b; --sep: rgba(60,60,67,.14);
+  --blue: #0071e3; --green: #34c759; --on-blue: #ffffff;
+  --nav: rgba(251,251,253,.78);
+  --shadow: 0 2px 6px rgba(0,0,0,.04), 0 12px 32px rgba(0,0,0,.06);
+  --c-sales: #007aff; --c-customer: #00b8b0; --c-features: #5856d6; --c-trends: #ff9500;
+  --keep: #248a3d; --keep-bg: rgba(52,199,89,.14); --improve: #0062cc; --improve-bg: rgba(0,122,255,.1);
+  --warn: #c93400; --warn-bg: rgba(255,149,0,.12);
+  --stage-1: #ffffff; --stage-2: #eef1f6; --orbit: rgba(0,0,0,.1); --node: #ffffff;
+  --ease: cubic-bezier(.25,.1,.25,1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #000000; --card: #1c1c1e; --fill: #2c2c2e; --fill-2: #3a3a3c;
+    --label: #f5f5f7; --label-2: #a1a1a6; --label-3: #8e8e93; --sep: rgba(84,84,88,.6);
+    --blue: #0a84ff; --green: #30d158; --nav: rgba(22,22,23,.78);
+    --shadow: 0 0 0 1px rgba(255,255,255,.06);
+    --c-sales: #0a84ff; --c-customer: #40d8d0; --c-features: #7d7aff; --c-trends: #ff9f0a;
+    --keep: #30d158; --keep-bg: rgba(48,209,88,.16); --improve: #64a8ff; --improve-bg: rgba(10,132,255,.18);
+    --warn: #ff9f0a; --warn-bg: rgba(255,159,10,.14);
+    --stage-1: #1c1c1e; --stage-2: #111113; --orbit: rgba(255,255,255,.14); --node: #2c2c2e;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #000000; --card: #1c1c1e; --fill: #2c2c2e; --fill-2: #3a3a3c;
+  --label: #f5f5f7; --label-2: #a1a1a6; --label-3: #8e8e93; --sep: rgba(84,84,88,.6);
+  --blue: #0a84ff; --green: #30d158; --nav: rgba(22,22,23,.78);
+  --shadow: 0 0 0 1px rgba(255,255,255,.06);
+  --c-sales: #0a84ff; --c-customer: #40d8d0; --c-features: #7d7aff; --c-trends: #ff9f0a;
+  --keep: #30d158; --keep-bg: rgba(48,209,88,.16); --improve: #64a8ff; --improve-bg: rgba(10,132,255,.18);
+  --warn: #ff9f0a; --warn-bg: rgba(255,159,10,.14);
+  --stage-1: #1c1c1e; --stage-2: #111113; --orbit: rgba(255,255,255,.14); --node: #2c2c2e;
+}
+* { box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; }
+body {
+  margin: 0; background: var(--bg); color: var(--label);
+  font: 15px/1.47 -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display", "Helvetica Neue", "Segoe UI", Inter, sans-serif;
+  letter-spacing: -.01em;
+}
+.num, .rounded { font-family: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+button { font: inherit; color: inherit; letter-spacing: inherit; }
+:focus-visible { outline: 3px solid color-mix(in srgb, var(--blue) 55%, transparent); outline-offset: 2px; border-radius: 10px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ---------- Navigation bar ---------- */
+nav {
+  position: sticky; top: 0; z-index: 10; height: 52px;
+  background: var(--nav); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid var(--sep);
+}
+nav .in { max-width: 1240px; margin: 0 auto; height: 100%; padding: 0 22px; display: flex; align-items: center; gap: 14px; }
+nav .title { font-weight: 600; font-size: 17px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.badge { font-size: 11px; font-weight: 600; color: var(--label-2); background: var(--fill); border-radius: 6px; padding: 2px 7px; margin-left: 8px; vertical-align: 2px; letter-spacing: 0; }
+.link { background: none; border: 0; color: var(--blue); cursor: pointer; padding: 6px 4px; font-size: 15px; }
+.link:hover { text-decoration: underline; }
+.pill-btn { background: var(--blue); color: var(--on-blue); border: 0; border-radius: 980px; padding: 7px 16px; font-size: 14px; font-weight: 500; cursor: pointer; transition: filter .2s var(--ease), transform .1s; }
+.pill-btn:hover { filter: brightness(1.08); }
+.pill-btn:active { transform: scale(.97); }
+
+/* ---------- Page ---------- */
+.page { max-width: 1240px; margin: 0 auto; padding: 0 22px 80px; }
+.hero { padding: 48px 0 28px; }
+.hero h1 { font: 700 clamp(30px, 5vw, 48px)/1.08 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Segoe UI", sans-serif; letter-spacing: -.025em; margin: 0; }
+.hero p { font-size: clamp(17px, 2vw, 21px); color: var(--label-2); margin: 10px 0 0; max-width: 680px; letter-spacing: -.015em; }
+.grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 980px) { .grid { grid-template-columns: minmax(0, 1fr); } .hero { padding: 32px 0 20px; } }
+@media (max-width: 600px) { .page, nav .in { padding-left: 16px; padding-right: 16px; } }
+.card { background: var(--card); border-radius: 22px; box-shadow: var(--shadow); }
+.section-title { font: 700 26px/1.15 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; letter-spacing: -.02em; margin: 56px 0 6px; }
+.section-sub { color: var(--label-2); margin: 0 0 18px; font-size: 15px; }
+
+/* ---------- Orbit ---------- */
+.stage { padding: 22px 22px 18px; background: radial-gradient(120% 90% at 50% 45%, var(--stage-1) 0%, var(--stage-2) 100%); overflow: hidden; }
+.stage-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--label-3); }
+.orbit { position: relative; width: 100%; aspect-ratio: 16 / 10.5; margin-top: 4px; }
+.orbit > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); text-align: center; pointer-events: none; }
+.center b { display: block; font: 600 clamp(15px, 2.4vw, 24px)/1.15 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; letter-spacing: -.02em; }
+.center span { display: block; font-size: clamp(11px, 1.3vw, 13px); color: var(--label-2); margin-top: 6px; }
+.node { position: absolute; transform: translate(-50%, -50%); background: none; border: 0; padding: 0; cursor: pointer; border-radius: 50%; -webkit-tap-highlight-color: transparent; }
+.ring { width: clamp(52px, 8.4vw, 84px); height: clamp(52px, 8.4vw, 84px); display: block; position: relative; transition: transform .35s var(--ease); }
+.ring svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.ring .disc { fill: var(--node); filter: drop-shadow(0 2px 6px rgba(0,0,0,.08)) drop-shadow(0 8px 18px rgba(0,0,0,.08)); }
+.ring .track { fill: none; stroke: color-mix(in srgb, var(--c) 18%, transparent); stroke-width: 6; }
+.ring .prog { fill: none; stroke: var(--c); stroke-width: 6; stroke-linecap: round; transition: stroke-dasharray .45s var(--ease), stroke .3s; }
+.node.trends .track { stroke-dasharray: 3 4; stroke: color-mix(in srgb, var(--c) 45%, transparent); }
+.ring .val { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 600; font-size: clamp(12px, 1.8vw, 18px); letter-spacing: -.02em; }
+.node:hover .ring { transform: scale(1.06); }
+.node:active .ring { transform: scale(.97); }
+.node.selected .ring { transform: scale(1.1); }
+.node.selected .disc { filter: drop-shadow(0 0 0 var(--c)) drop-shadow(0 6px 22px color-mix(in srgb, var(--c) 45%, transparent)); }
+.node.off .ring { opacity: .5; }
+.node.off .val { color: var(--label-3); font-size: clamp(10px, 1.3vw, 13px); }
+.node .lbl { position: absolute; white-space: nowrap; font-weight: 600; font-size: clamp(12px, 1.7vw, 17px); letter-spacing: -.015em; color: var(--label); }
+.node .lbl small { display: block; font-weight: 400; font-size: clamp(10.5px, 1.2vw, 12.5px); color: var(--label-2); letter-spacing: 0; }
+.node.off .lbl { color: var(--label-3); }
+.lbl.right { left: calc(100% + 12px); top: 50%; transform: translateY(-50%); }
+.lbl.left { right: calc(100% + 12px); top: 50%; transform: translateY(-50%); text-align: right; }
+.lbl.left, .lbl.right { white-space: normal; width: max-content; max-width: 8.5em; }
+.lbl.below { left: 50%; top: calc(100% + 8px); transform: translateX(-50%); text-align: center; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12.5px; color: var(--label-2); padding-top: 6px; }
+.legend i { display: inline-block; width: 14px; height: 0; border-top: 2.5px solid var(--label-3); vertical-align: 4px; margin-right: 6px; border-radius: 2px; }
+.legend i.dash { border-top-style: dashed; }
+
+/* ---------- Inspector ---------- */
+.left-col { display: grid; gap: 22px; min-width: 0; }
+/* Phones: the ellipse gets too tight, so the sources become a 2 × 2 grid */
+@media (max-width: 640px) {
+  .orbit { aspect-ratio: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 22px 12px; padding: 18px 0 8px; }
+  .orbit > svg, .orbit .center { display: none; }
+  #nodes { display: contents; }
+  .node { position: static; transform: none; display: grid; justify-items: center; gap: 8px; }
+  .node .ring { width: 72px; height: 72px; }
+  .node .lbl, .lbl.left, .lbl.right, .lbl.below { position: static; transform: none; text-align: center; white-space: normal; max-width: none; width: auto; font-size: 15px; }
+  .fc-name { font-size: 12.5px; }
+  .fc-axis span:nth-child(even) { display: none; }
+}
+/* ---------- Trend forecast chart ---------- */
+.forecast { padding: 22px; }
+.fc-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.fc-head h3 { margin: 0; font: 700 21px/1.2 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; letter-spacing: -.02em; }
+.fc-head p { margin: 4px 0 0; color: var(--label-2); font-size: 13.5px; }
+.fc-legend { display: flex; gap: 14px; font-size: 12.5px; color: var(--label-2); align-items: center; }
+.fc-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 5px; vertical-align: -1px; }
+.fc-legend .now { box-shadow: inset 0 0 0 2px var(--c-trends); }
+.fc-legend .fut { background: var(--c-trends); }
+.fc-grid { display: grid; grid-template-columns: minmax(92px, min(190px, 34%)) minmax(0, 1fr) 50px; column-gap: 12px; margin-top: 18px; }
+.fc-axis { grid-column: 2; position: relative; height: 18px; font-size: 11px; color: var(--label-3); }
+.fc-axis span { position: absolute; transform: translateX(-50%); }
+.fc-row { display: contents; cursor: pointer; }
+.fc-row > * { padding: 7px 0; border-top: 1px solid var(--sep); }
+.fc-name { font-size: 13.5px; background: none; border: 0; text-align: left; cursor: pointer; padding-left: 0; color: var(--label); }
+.fc-track { position: relative; }
+.fc-track::before { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(to right, var(--sep) 0 1px, transparent 1px 25%); background-size: calc(100% + 1px) 100%; opacity: .7; }
+.fc-line { position: absolute; top: 50%; height: 4px; margin-top: -2px; border-radius: 2px; background: linear-gradient(to right, color-mix(in srgb, var(--c-trends) 25%, transparent), var(--c-trends)); transition: left .4s var(--ease), width .4s var(--ease); }
+.fc-dot { position: absolute; top: 50%; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; }
+.fc-dot.now { background: var(--card); box-shadow: inset 0 0 0 2px var(--c-trends); }
+.fc-dot.fut { background: var(--c-trends); box-shadow: 0 0 0 3px var(--card); }
+.fc-delta { text-align: right; font-size: 13px; font-weight: 600; color: var(--c-trends); }
+.fc-row.off > * { opacity: .35; }
+.fc-row:hover .fc-name { color: var(--blue); }
+.fc-foot { font-size: 12.5px; color: var(--label-2); margin: 14px 0 0; }
+.inspector { position: sticky; top: 72px; padding: 22px; min-height: 300px; }
+@media (max-width: 980px) { .inspector { position: static; } }
+.insp-head { display: flex; align-items: center; gap: 12px; }
+.insp-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+.insp-head h2 { flex: 1; margin: 0; font: 700 24px/1.15 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; letter-spacing: -.02em; }
+.insp-sub { color: var(--label-2); font-size: 13.5px; margin: 6px 0 0; }
+.tag-assume { font-size: 11px; font-weight: 600; color: var(--c-trends); border: 1px dashed var(--c-trends); border-radius: 6px; padding: 1px 6px; vertical-align: 4px; letter-spacing: 0; }
+.close { width: 30px; height: 30px; border-radius: 50%; border: 0; background: var(--fill); color: var(--label-2); cursor: pointer; display: grid; place-items: center; flex: none; }
+.close:hover { background: var(--fill-2); }
+.group-h { display: flex; justify-content: space-between; align-items: baseline; font-size: 12.5px; color: var(--label-2); text-transform: uppercase; letter-spacing: .03em; margin: 22px 4px 7px; }
+.group-h .link { font-size: 13.5px; text-transform: none; letter-spacing: 0; padding: 0; }
+.group { background: var(--fill); border-radius: 12px; overflow: hidden; }
+.group-f { font-size: 12.5px; color: var(--label-2); margin: 7px 4px 0; }
+.row { display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 0 14px; position: relative; }
+.row + .row::before { content: ""; position: absolute; top: 0; left: 14px; right: 0; border-top: 1px solid var(--sep); }
+.row .grow { flex: 1; }
+/* iOS switch */
+.switch { position: relative; width: 51px; height: 31px; flex: none; }
+.switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; border-radius: 16px; background: var(--fill-2); transition: background .25s var(--ease); }
+.switch span::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 3px 8px rgba(0,0,0,.15), 0 1px 1px rgba(0,0,0,.16); transition: transform .25s var(--ease); }
+.switch input:checked + span { background: var(--green); }
+.switch input:checked + span::after { transform: translateX(20px); }
+.switch input:focus-visible + span { outline: 3px solid color-mix(in srgb, var(--blue) 55%, transparent); outline-offset: 2px; }
+/* Slider */
+.slider-wrap { padding: 14px 14px 12px; }
+.slider-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+.slider-top b { font-size: 28px; font-weight: 600; letter-spacing: -.02em; }
+.slider-top small { color: var(--label-2); font-size: 13px; }
+input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 28px; background: transparent; margin: 0; cursor: pointer; }
+input[type=range]::-webkit-slider-runnable-track { height: 4px; border-radius: 2px; background: linear-gradient(to right, var(--c) var(--p, 0%), var(--fill-2) var(--p, 0%)); }
+input[type=range]::-moz-range-track { height: 4px; border-radius: 2px; background: var(--fill-2); }
+input[type=range]::-moz-range-progress { height: 4px; border-radius: 2px; background: var(--c); }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 28px; height: 28px; border-radius: 50%; background: #fff; margin-top: -12px; box-shadow: 0 0.5px 4px rgba(0,0,0,.12), 0 6px 13px rgba(0,0,0,.12); border: .5px solid rgba(0,0,0,.04); }
+input[type=range]::-moz-range-thumb { width: 28px; height: 28px; border-radius: 50%; background: #fff; border: 0; box-shadow: 0 0.5px 4px rgba(0,0,0,.12), 0 6px 13px rgba(0,0,0,.12); }
+input[type=range]:disabled { cursor: not-allowed; opacity: .45; }
+input[type=range]:focus-visible { outline: none; }
+input[type=range]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 4px color-mix(in srgb, var(--blue) 40%, transparent), 0 6px 13px rgba(0,0,0,.12); }
+/* Checklist rows */
+.check { width: 100%; background: none; border: 0; text-align: left; cursor: pointer; }
+.check:hover { background: color-mix(in srgb, var(--label) 4%, transparent); }
+.check:disabled { cursor: not-allowed; opacity: .45; }
+.check .tick { width: 22px; height: 22px; flex: none; color: var(--blue); opacity: 0; transform: scale(.6); transition: opacity .2s var(--ease), transform .25s var(--ease); }
+.check[aria-checked=true] .tick { opacity: 1; transform: none; }
+.check[aria-checked=false] .grow { color: var(--label-2); }
+.warn { margin-top: 12px; font-size: 13px; color: var(--warn); background: var(--warn-bg); padding: 9px 12px; border-radius: 10px; }
+.ov-row { display: grid; grid-template-columns: 12px minmax(0,1fr) 64px; gap: 10px; align-items: center; min-height: 52px; padding: 0 14px; width: 100%; background: none; border: 0; text-align: left; cursor: pointer; position: relative; }
+.ov-row + .ov-row::before { content: ""; position: absolute; top: 0; left: 36px; right: 0; border-top: 1px solid var(--sep); }
+.ov-row:hover { background: color-mix(in srgb, var(--label) 4%, transparent); }
+.ov-row .bar-mini { height: 4px; border-radius: 2px; background: var(--fill-2); overflow: hidden; margin-top: 5px; }
+.ov-row .bar-mini div { height: 100%; background: var(--c); border-radius: 2px; transition: width .45s var(--ease); }
+.ov-row .n { text-align: right; color: var(--label-2); font-size: 15px; }
+.chev { color: var(--label-3); font-size: 18px; line-height: 1; }
+
+/* ---------- Results ---------- */
+.results-bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.fp { font-size: 13px; color: var(--label-2); }
+.fp code, td code { font: 12px ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--fill); padding: 2px 6px; border-radius: 5px; color: var(--label); }
+.list { overflow: hidden; }
+.rec { position: relative; display: grid; grid-template-columns: 40px minmax(0,1fr) auto; gap: 8px 16px; align-items: start; padding: 20px; }
+.rec + .rec::before { content: ""; position: absolute; top: 0; left: 76px; right: 0; border-top: 1px solid var(--sep); }
+.rank { width: 40px; height: 40px; border-radius: 50%; background: var(--fill); display: grid; place-items: center; font-weight: 600; font-size: 17px; color: var(--label-2); }
+.rec:first-child .rank { background: var(--blue); color: var(--on-blue); }
+.rec-title { font-weight: 600; font-size: 18px; letter-spacing: -.02em; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 40px; }
+.pill { font-size: 12px; font-weight: 500; padding: 2px 9px; border-radius: 980px; letter-spacing: 0; }
+.pill.keep { color: var(--keep); background: var(--keep-bg); }
+.pill.improve { color: var(--improve); background: var(--improve-bg); }
+.pill.assume { color: var(--c-trends); background: color-mix(in srgb, var(--c-trends) 12%, transparent); }
+.specs { grid-column: 2 / 4; display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.spec { display: inline-flex; align-items: baseline; gap: 7px; background: var(--fill); border-radius: 10px; padding: 6px 11px; font-size: 13.5px; line-height: 1.35; max-width: 100%; }
+.spec::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); flex: none; transform: translateY(-1px); }
+.spec b { font-weight: 600; color: var(--label-2); font-size: 12px; text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.spec.assumption { background: none; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 55%, transparent); border: 0; }
+.spec.assumption::before { background: none; box-shadow: inset 0 0 0 2px var(--c); }
+.spec.context { background: none; box-shadow: inset 0 0 0 1px var(--sep); color: var(--label-2); }
+.spec.missing { color: var(--label-3); background: none; box-shadow: inset 0 0 0 1px var(--sep); }
+.spec.missing::before { background: var(--label-3); opacity: .5; }
+.rec-side { text-align: right; display: grid; justify-items: end; gap: 8px; }
+.score b { font-size: 26px; font-weight: 600; letter-spacing: -.02em; }
+.score small { color: var(--label-3); font-size: 12px; margin-left: 2px; }
+.explain { background: var(--fill); color: var(--blue); border: 0; border-radius: 980px; padding: 6px 14px; font-size: 13.5px; font-weight: 500; cursor: pointer; white-space: nowrap; transition: background .2s var(--ease); }
+.explain:hover { background: var(--fill-2); }
+@media (max-width: 600px) {
+  .rec { grid-template-columns: 32px minmax(0,1fr); padding: 16px; } .rank { width: 32px; height: 32px; font-size: 15px; }
+  .rec-side { grid-column: 1 / 3; grid-row: 3; display: flex; justify-content: space-between; align-items: center; }
+  .specs { grid-column: 1 / 3; } .rec + .rec::before { left: 16px; }
+}
+
+/* ---------- Reasoning sheet ---------- */
+dialog { border: 0; padding: 0; background: transparent; color: var(--label); max-width: min(940px, calc(100vw - 32px)); width: 100%; max-height: calc(100vh - 48px); }
+dialog::backdrop { background: rgba(0,0,0,.32); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+dialog[open] { animation: rise .38s var(--ease); }
+@keyframes rise { from { opacity: 0; transform: translateY(24px) scale(.98); } to { opacity: 1; transform: none; } }
+.sheet-in { background: var(--card); border-radius: 26px; padding: 28px; max-height: calc(100vh - 48px); overflow-y: auto; box-shadow: 0 30px 80px rgba(0,0,0,.25); }
+@media (max-width: 600px) { .sheet-in { padding: 20px 16px; border-radius: 20px; } }
+.sh-head { display: flex; gap: 14px; align-items: flex-start; }
+.sh-head .grow { flex: 1; min-width: 0; }
+.sh-head h2 { margin: 2px 0 0; font: 700 clamp(22px, 3.4vw, 30px)/1.15 -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif; letter-spacing: -.025em; }
+.verdict { font-size: clamp(16px, 2vw, 19px); line-height: 1.45; color: var(--label); margin: 18px 0 0; letter-spacing: -.015em; }
+.verdict em { font-style: normal; font-weight: 600; }
+.kpis { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 10px; margin-top: 20px; }
+.kpi { background: var(--fill); border-radius: 14px; padding: 12px 14px; }
+.kpi span { display: block; font-size: 12px; color: var(--label-2); }
+.kpi b { font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+.split { display: flex; height: 6px; border-radius: 3px; overflow: hidden; background: var(--fill-2); margin-top: 8px; }
+.split div { height: 100%; }
+.sh-h3 { font-size: 12.5px; color: var(--label-2); text-transform: uppercase; letter-spacing: .03em; margin: 28px 4px 10px; font-weight: 500; }
+.flow-wrap { background: var(--fill); border-radius: 18px; padding: 14px; overflow-x: auto; }
+.flow { display: block; width: 100%; min-width: 620px; height: auto; }
+.flow text { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif; fill: var(--label); }
+.flow .muted { fill: var(--label-2); }
+.flow .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+.why { display: grid; gap: 10px; }
+.why-card { background: var(--fill); border-radius: 16px; padding: 14px 16px; border-left: 3px solid var(--c); }
+.why-card.assumption { border-left-style: dashed; }
+.why-top { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.why-top b { font-size: 15px; }
+.why-top .calc { font-size: 13px; color: var(--label-2); }
+.why-card p { margin: 6px 0 8px; font-size: 14.5px; }
+.cites { display: flex; flex-wrap: wrap; gap: 6px; }
+.cite { font: 12px ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--card); border-radius: 6px; padding: 3px 7px; color: var(--label-2); }
+.cite b { color: var(--label); font-weight: 600; }
+.flags { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
+.flags li { background: var(--warn-bg); color: var(--warn); border-radius: 12px; padding: 10px 14px; font-size: 14px; }
+.flags li.ok { background: var(--keep-bg); color: var(--keep); }
+.sh-foot { margin-top: 24px; font-size: 12.5px; color: var(--label-2); }
+.sh-foot code { font: 12px ui-monospace, "SF Mono", Menlo, Consolas, monospace; background: var(--fill); padding: 2px 6px; border-radius: 5px; color: var(--label); }
+.empty { padding: 44px 24px; text-align: center; color: var(--label-2); }
+.log { padding: 4px 0; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 11px 16px; vertical-align: top; }
+th { color: var(--label-2); font-weight: 500; font-size: 12.5px; }
+tbody tr td { border-top: 1px solid var(--sep); }
+</style>
+</head>
+<body>
+<nav>
+  <div class="in">
+    <div class="title">Series Improvement Planner<span class="badge">Mock data</span></div>
+    <button class="link" id="reset">Reset</button>
+    <button class="pill-btn" id="run">Save Run</button>
+  </div>
+</nav>
+
+<div class="page">
+  <header class="hero">
+    <h1>The product management universe.</h1>
+    <p>Choose what informs the decision. Tap a source to switch it on or off, tune its weight, or refine its filters.</p>
+  </header>
+
+  <div class="grid">
+    <div class="left-col">
+    <section class="card stage" aria-label="Product management universe">
+      <div class="stage-head">
+        <span class="eyebrow">Sources</span>
+        <span class="eyebrow" id="center-count"></span>
+      </div>
+      <div class="orbit">
+        <svg viewBox="0 0 1000 656" preserveAspectRatio="none" aria-hidden="true">
+          <g id="spokes"></g>
+          <ellipse cx="500" cy="328" rx="250" ry="205" fill="none" stroke="var(--orbit)" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+        </svg>
+        <div class="center"><b>Product<br>Management</b><span id="center-sub"></span></div>
+        <div id="nodes"></div>
+      </div>
+      <div class="legend">
+        <span><i></i>Evidence</span>
+        <span><i class="dash"></i>Assumption</span>
+        <span>Ring = effective weight</span>
+      </div>
+    </section>
+    <section class="card forecast" id="forecast" hidden aria-label="Technology trend forecast"></section>
+    </div>
+
+    <aside class="card inspector" id="inspector" aria-live="polite"></aside>
+  </div>
+
+  <h2 class="section-title">Top 5 recommendations</h2>
+  <div class="results-bar">
+    <p class="section-sub" style="margin:0">Each one lists the specs and trend technologies that produced its rank.</p>
+    <div class="fp" id="fp"></div>
+  </div>
+  <div class="card list" id="recs"></div>
+
+  <dialog id="sheet" aria-labelledby="sheet-title">
+    <div class="sheet-in" id="sheet-body"></div>
+  </dialog>
+
+  <h2 class="section-title">Run history</h2>
+  <p class="section-sub">Every saved run keeps its filters and weights, so the same inputs reproduce the same ranking.</p>
+  <div class="card log"><table><thead><tr><th>#</th><th>Time</th><th>Fingerprint</th><th>Weights</th><th>Ranking</th></tr></thead><tbody id="log"></tbody></table></div>
+</div>
+
+<script>
+// ---------- Mock data (invented; replaces BMW datasets later) ----------
+const DATA_VERSION = "mock-v3";
+
+const CANDIDATES = {
+  c1:  "Rear-seat cool box",
+  c2:  "Fold-down rear screens",
+  c3:  "Real-world winter range",
+  c4:  "Faster charging stops",
+  c5:  "Physical climate controls",
+  c6:  "Steering & handling feel",
+  c7:  "Head-up display as standard",
+  c8:  "Reclining rear lounge seats",
+  c9:  "Hands-free highway assist",
+  c10: "Seat comfort",
+  c11: "Wider cargo opening",
+  c12: "Conversational AI assistant",
+  c13: "Vehicle-to-load power outlet",
+  c14: "Automated valet parking",
+  c15: "In-car robot companion",
+  c16: "Panoramic smart-glass roof",
+};
+
+const LINES = ["1 Series", "3 Series", "5 Series", "X1", "X3", "X5", "i4", "i5", "iX"];
+const BMW_FEATURES = ["Heat pump", "High-power DC charging", "Touch climate panel", "Adaptive M suspension", "Head-up display",
+  "Driving Assistant Professional", "Comfort seats", "Automatic tailgate", "Theatre Screen", "Parking Assistant Professional",
+  "Intelligent Personal Assistant", "Panorama glass roof"];
+const TECHNOLOGIES = ["Rear fridge", "Rear entertainment screens", "Zero-gravity rear seats", "800V fast charging", "Urban assisted driving",
+  "AR head-up display", "Heat-pump thermal management", "LLM voice assistant", "Vehicle-to-load", "Automated valet parking",
+  "In-car robot companion", "Smart-glass roof", "Steer-by-wire", "Solid-state battery"];
+
+// Node positions sit on the ellipse (x/y in % of the orbit box), following the slide
+const CATS = [
+  { key: "sales", name: "Sales", color: "--c-sales", prefix: "S", evidence: true,
+    pos: { x: 71.7, y: 34.8 }, lbl: "right",
+    desc: "Units and option take rates by model line and powertrain.",
+    groups: [
+      { key: "line", label: "Line", values: LINES },
+      { key: "p", label: "Powertrain", values: ["BEV", "PHEV"] },
+    ] },
+  { key: "trends", name: "Trends / Competition", color: "--c-trends", prefix: "T", evidence: false,
+    pos: { x: 62.5, y: 77.1 }, lbl: "below",
+    desc: "What the bestselling Chinese EVs offer today, and a forecast of how widespread each technology will be by 2030. Ranked on the forecast; always an assumption, not evidence.",
+    groups: [
+      { key: "tech", label: "Technology", heading: "China EV market",
+        values: TECHNOLOGIES },
+    ] },
+  { key: "customer", name: "Customer", color: "--c-customer", prefix: "C", evidence: true,
+    pos: { x: 37.5, y: 77.1 }, lbl: "below",
+    desc: "Pain points and praise from customer verbatims and the customer study.",
+    groups: [
+      { key: "t", label: "Signal", values: ["pain", "praise"], labels: { pain: "Pain points", praise: "Praise" } },
+    ] },
+  { key: "features", name: "Features / Engineering", color: "--c-features", prefix: "F", evidence: true, weighted: false,
+    pos: { x: 28.3, y: 34.8 }, lbl: "left",
+    desc: "Features available on existing BMW cars today, with take rates. Filters only: shown as context, not part of the weighting.",
+    groups: [
+      { key: "feat", label: "Feature", heading: "Existing BMW cars", values: BMW_FEATURES },
+    ] },
+];
+
+const R = (c, v, attrs) => ({ c, v, ...attrs });
+const RECORDS = {
+  sales: [
+    R("c3", .8, { line: "i4", p: "BEV" }), R("c3", .9, { line: "iX", p: "BEV" }),
+    R("c3", .6, { line: "i5", p: "BEV" }), R("c3", .3, { line: "X5", p: "PHEV" }),
+    R("c4", .7, { line: "i4", p: "BEV" }), R("c4", .5, { line: "i5", p: "BEV" }), R("c4", .8, { line: "iX", p: "BEV" }),
+    R("c1", .6, { line: "iX", p: "BEV" }), R("c1", .4, { line: "X5", p: "PHEV" }),
+    R("c2", .7, { line: "5 Series", p: "PHEV" }), R("c2", .5, { line: "i5", p: "BEV" }),
+    R("c5", .3, { line: "3 Series", p: "PHEV" }), R("c5", .2, { line: "X1", p: "PHEV" }),
+    R("c6", .6, { line: "3 Series", p: "PHEV" }), R("c6", .7, { line: "i4", p: "BEV" }), R("c6", .3, { line: "X3", p: "PHEV" }),
+    R("c7", .5, { line: "X3", p: "PHEV" }), R("c7", .4, { line: "i4", p: "BEV" }),
+    R("c8", .6, { line: "5 Series", p: "PHEV" }), R("c8", .4, { line: "iX", p: "BEV" }),
+    R("c9", .6, { line: "i5", p: "BEV" }), R("c9", .4, { line: "X5", p: "PHEV" }),
+    R("c10", .5, { line: "5 Series", p: "PHEV" }), R("c10", .4, { line: "X5", p: "PHEV" }),
+    R("c11", .3, { line: "X1", p: "PHEV" }), R("c11", .2, { line: "1 Series", p: "PHEV" }),
+    R("c12", .3, { line: "i5", p: "BEV" }),
+    R("c16", .4, { line: "iX", p: "BEV" }), R("c16", .3, { line: "X5", p: "PHEV" }),
+  ],
+  customer: [
+    R("c5", 42, { t: "pain", m: "DE", a: "Interior" }), R("c5", 30, { t: "pain", m: "US", a: "Interior" }),
+    R("c5", 12, { t: "pain", m: "CN", a: "Interior" }),
+    R("c3", 55, { t: "pain", m: "DE", a: "Powertrain" }), R("c3", 25, { t: "pain", m: "US", a: "Powertrain" }),
+    R("c3", 18, { t: "pain", m: "CN", a: "Powertrain" }),
+    R("c4", 28, { t: "pain", m: "DE", a: "Powertrain" }), R("c4", 20, { t: "pain", m: "CN", a: "Powertrain" }),
+    R("c6", 60, { t: "praise", m: "DE", a: "Powertrain" }), R("c6", 40, { t: "praise", m: "US", a: "Powertrain" }),
+    R("c10", 35, { t: "praise", m: "DE", a: "Interior" }), R("c10", 30, { t: "praise", m: "US", a: "Interior" }),
+    R("c10", 20, { t: "praise", m: "CN", a: "Interior" }),
+    R("c1", 15, { t: "pain", m: "CN", a: "Interior" }),
+    R("c2", 22, { t: "pain", m: "CN", a: "Interior" }), R("c2", 8, { t: "pain", m: "US", a: "Interior" }),
+    R("c7", 18, { t: "praise", m: "DE", a: "Assistance" }), R("c7", 14, { t: "pain", m: "US", a: "Assistance" }),
+    R("c8", 25, { t: "pain", m: "CN", a: "Interior" }),
+    R("c9", 26, { t: "pain", m: "US", a: "Assistance" }), R("c9", 12, { t: "pain", m: "DE", a: "Assistance" }),
+    R("c11", 16, { t: "pain", m: "DE", a: "Exterior" }), R("c11", 10, { t: "pain", m: "US", a: "Exterior" }),
+    R("c12", 24, { t: "pain", m: "CN", a: "Interior" }), R("c12", 11, { t: "pain", m: "DE", a: "Interior" }),
+    R("c14", 9, { t: "pain", m: "CN", a: "Assistance" }),
+    R("c16", 12, { t: "praise", m: "DE", a: "Interior" }),
+  ],
+  // v = take rate on existing BMW cars (context only, not weighted)
+  features: [
+    R("c3", .64, { feat: "Heat pump", offer: "Standard on BEV" }),
+    R("c4", .58, { feat: "High-power DC charging", offer: "Standard on BEV" }),
+    R("c5", .92, { feat: "Touch climate panel", offer: "Standard" }),
+    R("c6", .31, { feat: "Adaptive M suspension", offer: "Option" }),
+    R("c7", .44, { feat: "Head-up display", offer: "Option" }),
+    R("c9", .27, { feat: "Driving Assistant Professional", offer: "Option" }),
+    R("c10", .38, { feat: "Comfort seats", offer: "Option" }),
+    R("c11", .71, { feat: "Automatic tailgate", offer: "Standard" }),
+    R("c2", .06, { feat: "Theatre Screen", offer: "Option (7 Series only)" }),
+    R("c14", .22, { feat: "Parking Assistant Professional", offer: "Option" }),
+    R("c12", .81, { feat: "Intelligent Personal Assistant", offer: "Standard" }),
+    R("c16", .35, { feat: "Panorama glass roof", offer: "Option" }),
+  ],
+  // now = share of sampled China EV bestsellers offering it today; v = forecast share by 2030 (used for ranking)
+  trends: [
+    R("c1", .70, { tech: "Rear fridge", now: .62 }),
+    R("c2", .68, { tech: "Rear entertainment screens", now: .55 }),
+    R("c8", .60, { tech: "Zero-gravity rear seats", now: .48 }),
+    R("c4", .88, { tech: "800V fast charging", now: .71 }),
+    R("c9", .85, { tech: "Urban assisted driving", now: .58 }),
+    R("c7", .66, { tech: "AR head-up display", now: .44 }),
+    R("c3", .90, { tech: "Heat-pump thermal management", now: .66 }),
+    R("c12", .92, { tech: "LLM voice assistant", now: .52 }),
+    R("c13", .64, { tech: "Vehicle-to-load", now: .47 }),
+    R("c14", .58, { tech: "Automated valet parking", now: .23 }),
+    R("c15", .25, { tech: "In-car robot companion", now: .06 }),
+    R("c16", .55, { tech: "Smart-glass roof", now: .31 }),
+    R("c6", .30, { tech: "Steer-by-wire", now: .04 }),
+    R("c3", .35, { tech: "Solid-state battery", now: .01 }),
+  ],
+};
+for (const cat of CATS) RECORDS[cat.key].forEach((r, i) => r.id = `${cat.prefix}-${String(i + 1).padStart(2, "0")}`);
+
+// ---------- State ----------
+const DEFAULT_WEIGHTS = { sales: 45, customer: 35, features: 0, trends: 20 };
+const isWeighted = c => c.weighted !== false;
+const WEIGHTED = CATS.filter(isWeighted);
+function defaultState() {
+  const filters = {};
+  for (const cat of CATS) {
+    filters[cat.key] = {};
+    for (const g of cat.groups) filters[cat.key][g.key] = [...g.values];
+  }
+  return { weights: { ...DEFAULT_WEIGHTS }, enabled: { sales: true, customer: true, features: true, trends: true }, filters };
+}
+let state = defaultState();
+let selected = null;
+let dragBase = null;
+let runs = [];
+let lastResults = [], lastPerCat = {}, lastEff = {};
+const TOP_N = 5;
+
+const catColor = cat => `var(${cat.color})`;
+const label = (g, v) => (g.labels && g.labels[v]) || v;
+const catByKey = k => CATS.find(c => c.key === k);
+const pct = x => `${Math.round(x * 100)}%`;
+
+// ---------- Weight logic ----------
+// Active categories share (100 − frozen weights). Largest-remainder rounding keeps the sum at exactly 100.
+function setWeight(key, value) {
+  const base = dragBase || state.weights;
+  const keys = WEIGHTED.map(c => c.key);
+  const active = keys.filter(k => state.enabled[k]);
+  const budget = 100 - keys.filter(k => !state.enabled[k]).reduce((s, k) => s + state.weights[k], 0);
+  const v = Math.max(0, Math.min(budget, Math.round(value)));
+  const others = active.filter(k => k !== key);
+  const rest = budget - v;
+  const sumO = others.reduce((s, k) => s + base[k], 0);
+  const raw = others.map(k => sumO > 0 ? rest * base[k] / sumO : rest / others.length);
+  const floors = raw.map(Math.floor);
+  let left = rest - floors.reduce((a, b) => a + b, 0);
+  raw.map((r, i) => [r - floors[i], i]).sort((a, b) => b[0] - a[0] || a[1] - b[1])
+     .forEach(([, i]) => { if (left > 0) { floors[i]++; left--; } });
+  state.weights[key] = others.length ? v : budget;
+  others.forEach((k, i) => state.weights[k] = floors[i]);
+}
+
+function effectiveWeights() {
+  const activeSum = WEIGHTED.filter(c => state.enabled[c.key]).reduce((s, c) => s + state.weights[c.key], 0);
+  const eff = {};
+  for (const c of CATS) eff[c.key] = isWeighted(c) && state.enabled[c.key] && activeSum > 0 ? state.weights[c.key] / activeSum : 0;
+  return eff;
+}
+
+// ---------- Scoring (deterministic) ----------
+function matching(cat) {
+  const f = state.filters[cat.key];
+  return RECORDS[cat.key].filter(r => cat.groups.every(g => f[g.key].includes(r[g.key])));
+}
+
+function analyse() {
+  const eff = effectiveWeights();
+  const ids = Object.keys(CANDIDATES);
+  const perCat = {};
+  for (const cat of CATS) {
+    const rows = state.enabled[cat.key] ? matching(cat) : [];
+    const raw = Object.fromEntries(ids.map(id => [id, 0]));
+    const byCand = Object.fromEntries(ids.map(id => [id, []]));
+    for (const r of rows) { raw[r.c] += r.v; byCand[r.c].push(r); }
+    perCat[cat.key] = { raw, byCand, max: Math.max(0, ...Object.values(raw)), rows: rows.length };
+  }
+  const results = ids.map(id => {
+    const parts = {};
+    let total = 0;
+    for (const cat of CATS) {
+      const pc = perCat[cat.key];
+      const catScore = pc.max > 0 ? 100 * pc.raw[id] / pc.max : 0;
+      parts[cat.key] = { catScore, points: eff[cat.key] * catScore, rows: pc.byCand[id] };
+      total += parts[cat.key].points;
+    }
+    const cust = parts.customer.rows;
+    const pain = cust.filter(r => r.t === "pain").reduce((s, r) => s + r.v, 0);
+    const praise = cust.filter(r => r.t === "praise").reduce((s, r) => s + r.v, 0);
+    return { id, name: CANDIDATES[id], total, parts, keep: praise > pain, assumption: total > 0 ? parts.trends.points / total : 0 };
+  });
+  // Ties broken by candidate id so the order never depends on runtime quirks
+  results.sort((a, b) => b.total - a.total || a.id.localeCompare(b.id, "en", { numeric: true }));
+  return { results: results.filter(r => r.total > 0), eff, perCat };
+}
+
+function fingerprint() {
+  const canon = JSON.stringify({
+    d: DATA_VERSION,
+    w: CATS.map(c => state.weights[c.key]),
+    e: CATS.map(c => state.enabled[c.key]),
+    f: CATS.map(c => c.groups.map(g => [...state.filters[c.key][g.key]].sort())),
+  });
+  let h = 0x811c9dc5;
+  for (let i = 0; i < canon.length; i++) { h ^= canon.charCodeAt(i); h = Math.imul(h, 0x01000193) >>> 0; }
+  return h.toString(16).padStart(8, "0");
+}
+
+// ---------- Rendering ----------
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+const RING_R = 44, RING_C = 2 * Math.PI * RING_R;
+const TICK = `<svg class="tick" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+function renderNodes() {
+  $("#nodes").innerHTML = CATS.map(cat => `
+    <button class="node ${cat.key}" data-node="${cat.key}" style="left:${cat.pos.x}%;top:${cat.pos.y}%;--c:${catColor(cat)}">
+      <span class="ring">
+        <svg viewBox="0 0 100 100" aria-hidden="true">
+          <circle class="disc" cx="50" cy="50" r="50"/>
+          <circle class="track" cx="50" cy="50" r="${RING_R}"/>
+          <circle class="prog" cx="50" cy="50" r="${RING_R}" stroke-dasharray="0 ${RING_C}"/>
+        </svg>
+        <span class="val num"></span>
+      </span>
+      <span class="lbl ${cat.lbl}">${esc(cat.name)}<small data-sub></small></span>
+    </button>`).join("");
+}
+
+function renderInspector() {
+  const el = $("#inspector");
+  if (!selected) {
+    el.style.removeProperty("--c");
+    el.innerHTML = `
+      <div class="insp-head"><h2>Weights</h2></div>
+      <p class="insp-sub">Always 100% in total. Moving one source rebalances the others. A source switched off keeps its weight frozen and leaves the analysis.</p>
+      <div class="group-h"><span>Effective share</span></div>
+      <div class="group" id="overview"></div>
+      <p class="group-f">Defaults Sales 45 / Customer 35 / Trends 20 are a proposal. Features / Engineering only filters and is not weighted.</p>`;
+    return;
+  }
+  const cat = catByKey(selected), k = cat.key;
+  el.style.setProperty("--c", catColor(cat));
+  el.innerHTML = `
+    <div class="insp-head">
+      <span class="insp-dot"></span>
+      <h2>${esc(cat.name)} ${cat.evidence ? "" : '<span class="tag-assume">Assumption</span>'}</h2>
+      <button class="close" data-close aria-label="Back to all weights">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="insp-sub">${cat.desc}</p>
+
+    ${isWeighted(cat) ? `<div class="group-h"><span>Source</span></div>
+    <div class="group">
+      <div class="row"><span class="grow">Include in analysis</span>
+        <label class="switch"><input type="checkbox" data-toggle="${k}" aria-label="Include ${esc(cat.name)} in analysis"><span></span></label>
+      </div>
+    </div>
+    <p class="group-f" data-count></p>
+
+    <div class="group-h"><span>Weight</span></div>
+    <div class="group">
+      <div class="slider-wrap">
+        <div class="slider-top"><b class="num" data-wval></b><small data-weff></small></div>
+        <input type="range" min="0" max="100" step="1" data-weight="${k}" aria-label="${esc(cat.name)} weight">
+      </div>
+    </div>
+    <p class="group-f" data-frozen></p>` : `<p class="group-f" data-count></p>`}
+
+    ${cat.groups.map(g => `
+      <div class="group-h"><span>${esc(g.heading ? `${g.heading} · ${g.label}` : g.label)}</span><button class="link" data-all="${k}|${g.key}">Select All</button></div>
+      <div class="group" role="group" aria-label="${esc(g.label)}">
+        ${g.values.map(v => `<button class="row check" role="checkbox" data-chip="${k}|${g.key}|${esc(v)}"><span class="grow">${esc(label(g, v))}</span>${TICK}</button>`).join("")}
+      </div>`).join("")}
+    <div class="warn" data-warn hidden></div>`;
+}
+
+function update() {
+  const { results, eff, perCat } = analyse();
+  lastPerCat = perCat; lastEff = eff;
+  renderForecast();
+  const activeCount = WEIGHTED.filter(c => state.enabled[c.key]).length;
+
+  // Orbit: spokes start outside the centre label, thickness follows the weight
+  $("#spokes").innerHTML = CATS.map(c => {
+    if (!state.enabled[c.key] || !isWeighted(c)) return "";
+    const x2 = c.pos.x * 10, y2 = c.pos.y * 6.56;
+    return `<line x1="${500 + (x2 - 500) * .6}" y1="${328 + (y2 - 328) * .6}" x2="${x2}" y2="${y2}" stroke="var(${c.color})" stroke-opacity=".45" stroke-width="${1.5 + eff[c.key] * 14}" stroke-linecap="round" ${c.evidence ? "" : 'stroke-dasharray="2 9"'}/>`;
+  }).join("");
+  for (const c of CATS) {
+    const on = state.enabled[c.key];
+    const node = document.querySelector(`[data-node="${c.key}"]`);
+    node.classList.toggle("off", !on);
+    node.classList.toggle("selected", selected === c.key);
+    node.setAttribute("aria-pressed", selected === c.key);
+    node.setAttribute("aria-label", `${c.name}: ${on ? pct(eff[c.key]) + " effective weight" : "off"}. Edit.`);
+    node.querySelector(".prog").setAttribute("stroke-dasharray", `${eff[c.key] * RING_C} ${RING_C}`);
+    node.querySelector(".prog").style.opacity = eff[c.key] > 0 ? 1 : 0;
+    node.querySelector(".val").textContent = !isWeighted(c) ? "Filter" : on ? pct(eff[c.key]) : "Off";
+    node.querySelector("[data-sub]").textContent = !isWeighted(c) ? filterSummary(c) : on ? filterSummary(c) : `Frozen at ${state.weights[c.key]}%`;
+  }
+  $("#center-sub").textContent = `${activeCount} of ${WEIGHTED.length} weighted sources on`;
+  $("#center-count").textContent = `${CATS.reduce((s, c) => s + perCat[c.key].rows, 0)} records in analysis`;
+
+  // Inspector
+  const ov = $("#overview");
+  if (ov) {
+    ov.innerHTML = CATS.map(c => `
+      <button class="ov-row" data-open="${c.key}" style="--c:${catColor(c)}">
+        <span class="insp-dot"></span>
+        <span><span>${esc(c.name)}</span><div class="bar-mini"><div style="width:${eff[c.key] * 100}%"></div></div></span>
+        <span class="n num">${!isWeighted(c) ? "Filter" : state.enabled[c.key] ? (eff[c.key] * 100).toFixed(1) + "%" : "Off"} <span class="chev">›</span></span>
+      </button>`).join("");
+  }
+  if (selected) {
+    const c = catByKey(selected), k = selected, on = state.enabled[k];
+    const el = $("#inspector");
+    if (isWeighted(c)) {
+    el.querySelector("[data-toggle]").checked = on;
+    const slider = el.querySelector("[data-weight]");
+    slider.value = state.weights[k];
+    slider.style.setProperty("--p", `${state.weights[k]}%`);
+    slider.disabled = !on || activeCount <= 1;
+    el.querySelector("[data-wval]").textContent = `${state.weights[k]}%`;
+    el.querySelector("[data-weff]").textContent = on ? `${(eff[k] * 100).toFixed(1)}% effective` : "Frozen";
+    el.querySelector("[data-frozen]").textContent = on
+      ? (activeCount <= 1 ? "The only source switched on carries the whole analysis." : "Other active sources rebalance as you drag.")
+      : `Switched off. Weight stays frozen at ${state.weights[k]}% and the source leaves the analysis.`;
+    }
+    el.querySelector("[data-count]").textContent = `${on ? perCat[k].rows : 0} of ${RECORDS[k].length} source records${isWeighted(c) ? " in the analysis" : " shown as context, not weighted"}.`;
+    el.querySelectorAll("[data-chip]").forEach(b => {
+      const [, g, v] = b.dataset.chip.split("|");
+      b.setAttribute("aria-checked", state.filters[k][g].includes(v));
+      b.disabled = !on;
+    });
+    el.querySelectorAll("[data-all]").forEach(b => b.disabled = !on);
+    const empty = c.groups.filter(g => state.filters[k][g.key].length === 0).map(g => g.label);
+    const warn = el.querySelector("[data-warn]");
+    warn.hidden = !on || (!empty.length && perCat[k].rows > 0);
+    warn.textContent = empty.length ? `Nothing selected in ${empty.join(", ")}. This source won't contribute.` : "No records match these filters. This source won't contribute.";
+  }
+
+  // Results
+  $("#fp").innerHTML = `Fingerprint <code>${fingerprint()}</code> · data <code>${DATA_VERSION}</code>`;
+  lastResults = results;
+  const top = results.slice(0, TOP_N);
+  if (!top.length) {
+    $("#recs").innerHTML = `<div class="empty">No recommendations yet. Switch on at least one source and keep one value selected in each filter.</div>`;
+    return;
+  }
+  $("#recs").innerHTML = top.map((r, i) => `
+    <article class="rec" data-id="${r.id}">
+      <span class="rank num">${i + 1}</span>
+      <div class="rec-title">${esc(r.name)}
+        ${r.keep ? '<span class="pill keep">Keep</span>' : ""}
+        ${r.assumption > 0.005 ? `<span class="pill assume">${Math.round(r.assumption * 100)}% assumption</span>` : ""}
+      </div>
+      <div class="rec-side">
+        <span class="score"><b class="num">${r.total.toFixed(1)}</b><small>/ 100</small></span>
+        <button class="explain" data-explain="${i}">Show reasoning</button>
+      </div>
+      <ul class="specs" aria-label="What produced this rank">
+        ${specsFor(r).map(s => `<li class="spec ${s.cls}" style="--c:${catColor(s.cat)}"><b>${esc(s.label)}</b><span>${esc(s.text)}</span></li>`).join("")}
+      </ul>
+    </article>`).join("");
+}
+
+// ---------- Explaining a recommendation ----------
+const uniq = (rows, k) => [...new Set(rows.map(r => r[k]))];
+const sum = rows => rows.reduce((s, r) => s + r.v, 0);
+const SHORT = { sales: "Sales", customer: "Customer", features: "BMW today", trends: "Trend 2030" };
+
+// The combination of inputs behind a rank, one entry per source; evidence first, trend assumptions last
+function specsFor(r) {
+  return CATS.filter(c => state.enabled[c.key]).sort((a, b) => a.evidence === b.evidence ? 0 : a.evidence ? -1 : 1).map(c => {
+    const rows = r.parts[c.key].rows;
+    if (!rows.length) return c.evidence && isWeighted(c) ? { cat: c, label: SHORT[c.key], text: "No evidence", cls: "missing" } : null;
+    return { cat: c, label: SHORT[c.key], text: specText(c.key, rows), cls: !isWeighted(c) ? "context" : c.evidence ? "" : "assumption" };
+  }).filter(Boolean);
+}
+
+const pc = v => `${Math.round(v * 100)}%`;
+function specText(key, rows) {
+  if (key === "sales") return `${uniq(rows, "line").join(", ")} · ${uniq(rows, "p").join(" + ")}`;
+  if (key === "customer") {
+    const pain = sum(rows.filter(r => r.t === "pain")), praise = sum(rows.filter(r => r.t === "praise"));
+    return [pain && `${pain} pain-point mentions`, praise && `${praise} praise mentions`].filter(Boolean).join(" · ") + ` · ${uniq(rows, "a").join(", ")}`;
+  }
+  if (key === "features") return rows.map(r => `${r.feat} · ${r.offer} · ${pc(r.v)} take rate`).join(" · ");
+  return rows.map(r => `${r.tech} · ${pc(r.now)} → ${pc(r.v)} by 2030`).join(" · ");
+}
+
+// Where this candidate stands within one source, compared with all candidates
+function rankText(key, id) {
+  const raw = lastPerCat[key].raw;
+  const rank = Object.keys(raw).filter(k => raw[k] > raw[id]).length + 1;
+  const of = Object.keys(raw).length;
+  return rank === 1 ? `the strongest of all ${of} candidates` : `#${rank} of ${of} candidates`;
+}
+
+function phrase(key, rows) {
+  if (key === "sales") return `sales signal across ${uniq(rows, "line").join(", ")} (${uniq(rows, "p").join(" and ")})`;
+  if (key === "customer") {
+    const pain = sum(rows.filter(r => r.t === "pain")), praise = sum(rows.filter(r => r.t === "praise"));
+    return pain >= praise ? `${pain} customer pain-point mentions` : `${praise} customer praise mentions`;
+  }
+  if (key === "features") return `BMW already offers ${rows.map(r => `${r.feat} (${r.offer}, ${pc(r.v)} take rate)`).join(", ")}`;
+  return rows.map(r => `forecast: ${pc(r.v)} of China EV bestsellers will offer ${r.tech} by 2030, up from ${pc(r.now)} today`).join("; ");
+}
+
+function verdict(r, i) {
+  const parts = CATS.filter(c => r.parts[c.key].points > 0).sort((a, b) => r.parts[b.key].points - r.parts[a.key].points);
+  const lead = parts[0], others = parts.slice(1);
+  let s = `Ranks <em>#${i + 1}</em> with <em>${r.total.toFixed(1)} of 100</em>. The biggest driver is <em>${esc(lead.name)}</em> (${r.parts[lead.key].points.toFixed(1)} pts): ${esc(phrase(lead.key, r.parts[lead.key].rows))}, ${rankText(lead.key, r.id)}.`;
+  if (others.length) s += ` Also supported by ${others.map(c => `${esc(c.name)} (${r.parts[c.key].points.toFixed(1)} pts)`).join(", ").replace(/, ([^,]*)$/, " and $1")}.`;
+  s += r.assumption > 0.005 ? ` ${Math.round(r.assumption * 100)}% of the score rests on trend assumptions.` : " The score rests entirely on evidence.";
+  return s;
+}
+
+function flagsFor(r) {
+  const flags = [];
+  const cust = r.parts.customer.rows;
+  const pain = sum(cust.filter(x => x.t === "pain")), praise = sum(cust.filter(x => x.t === "praise"));
+  if (pain && praise) flags.push({ text: `Mixed customer signal: praised ${praise} times, criticised ${pain} times. Check which markets disagree before changing it.` });
+  if (r.keep) flags.push({ ok: true, text: "Customers praise this. Protect it in the next update rather than replacing it." });
+  WEIGHTED.filter(c => c.evidence && state.enabled[c.key] && !r.parts[c.key].rows.length)
+    .forEach(c => flags.push({ text: `No ${c.name} evidence supports this recommendation.` }));
+  if (r.assumption > .3) flags.push({ text: "More than 30% of the score comes from trends. Treat it as a hypothesis to validate." });
+  if (r.parts.trends.rows.length) flags.push({ text: "The 2030 trend forecast extrapolates today's China EV bestsellers. Preferences differ by climate, use and culture, so validate it for other markets." });
+  return flags.length ? flags : [{ ok: true, text: "No conflicting or missing signals." }];
+}
+
+function describePlain(cat, r) {
+  if (cat.key === "sales") return `${r.line} · ${r.p} · signal ${r.v.toFixed(2)}`;
+  if (cat.key === "customer") return `${label(cat.groups[0], r.t)} · ${r.m} · ${r.a} · ${r.v} mentions`;
+  if (cat.key === "features") return `${r.feat} · ${r.offer} · ${pc(r.v)} take rate`;
+  return `${r.tech} · ${pc(r.now)} today → ${pc(r.v)} 2030`;
+}
+
+// Reverse tree drawn left to right: source records → source × weight → result
+function flowSvg(r) {
+  const W = 880, ROW = 30, GAP = 18, TOP = 36;
+  const cats = WEIGHTED.filter(c => r.parts[c.key].rows.length).sort((a, b) => r.parts[b.key].points - r.parts[a.key].points);
+  let y = TOP, recs = "", links = "", nodes = "";
+  const catYs = [];
+  for (const c of cats) {
+    const rows = r.parts[c.key].rows, total = sum(rows) || 1;
+    const h = Math.max(rows.length * ROW, 60);
+    const cy = y + h / 2;
+    rows.forEach((row, j) => {
+      const ry = y + (h - rows.length * ROW) / 2 + j * ROW + ROW / 2;
+      const desc = describePlain(c, row);
+      recs += `<rect x="0" y="${ry - 12}" width="330" height="24" rx="8" style="fill:var(--card)"/>
+        <text x="10" y="${ry + 4}" font-size="11.5" class="mono muted">${row.id}</text>
+        <text x="56" y="${ry + 4}" font-size="12">${esc(desc.length > 50 ? desc.slice(0, 49) + "…" : desc)}</text>`;
+      links += `<path d="M330 ${ry} C365 ${ry} 365 ${cy} 400 ${cy}" fill="none" style="stroke:var(${c.color})" stroke-opacity=".55" stroke-width="${(1 + 5 * row.v / total).toFixed(2)}"/>`;
+    });
+    const p = r.parts[c.key];
+    nodes += `<rect x="400" y="${cy - 28}" width="200" height="56" rx="14" style="fill:var(--card);stroke:var(${c.color})" stroke-width="1.5" ${c.evidence ? "" : 'stroke-dasharray="5 4"'}/>
+      <text x="414" y="${cy - 6}" font-size="13.5" font-weight="600">${esc(c.name)}</text>
+      <text x="414" y="${cy + 13}" font-size="12" class="muted">${p.points.toFixed(1)} pts · ${p.catScore.toFixed(0)} × ${(lastEff[c.key] * 100).toFixed(0)}%${c.evidence ? "" : " · assumption"}</text>`;
+    catYs.push([c, cy, p.points]);
+    y += h + GAP;
+  }
+  const H = Math.max(y - GAP + 10, 170);
+  const resY = (TOP + H - 10) / 2;
+  catYs.forEach(([c, cy, pts]) => {
+    links += `<path d="M600 ${cy} C640 ${cy} 640 ${resY} 680 ${resY}" fill="none" style="stroke:var(${c.color})" stroke-opacity=".7" stroke-width="${(2 + pts * .3).toFixed(2)}" ${c.evidence ? "" : 'stroke-dasharray="6 5"'}/>`;
+  });
+  nodes += `<rect x="680" y="${resY - 56}" width="200" height="112" rx="18" style="fill:var(--blue)"/>
+    <text x="696" y="${resY - 26}" font-size="12" style="fill:#fff" opacity=".85">Recommendation</text>
+    <text x="696" y="${resY - 6}" font-size="13.5" font-weight="600" style="fill:#fff">${esc(r.name.length > 26 ? r.name.slice(0, 25) + "…" : r.name)}</text>
+    <text x="696" y="${resY + 34}" font-size="30" font-weight="600" style="fill:#fff">${r.total.toFixed(1)}</text>
+    <text x="764" y="${resY + 34}" font-size="12" style="fill:#fff" opacity=".85">of 100</text>`;
+  const head = [[0, "Source records"], [400, "Source × weight"], [680, "Result"]]
+    .map(([x, t]) => `<text x="${x}" y="14" font-size="11" class="muted" letter-spacing=".06em">${t.toUpperCase()}</text>`).join("");
+  return `<svg class="flow" viewBox="0 0 ${W} ${H}" role="img" aria-label="Reasoning graph from source records to ${esc(r.name)}">${head}${links}${recs}${nodes}</svg>`;
+}
+
+function openSheet(i) {
+  const r = lastResults[i];
+  if (!r) return;
+  const evidencePts = r.total - r.parts.trends.points;
+  const cited = CATS.reduce((s, c) => s + r.parts[c.key].rows.length, 0);
+  const conf = r.assumption < .2 ? "Evidence-led" : r.assumption < .5 ? "Mixed" : "Assumption-led";
+  $("#sheet-body").innerHTML = `
+    <div class="sh-head">
+      <span class="rank num" style="${i === 0 ? "background:var(--blue);color:var(--on-blue)" : ""}">${i + 1}</span>
+      <div class="grow">
+        <span class="eyebrow">Recommendation ${i + 1} of ${Math.min(TOP_N, lastResults.length)}</span>
+        <h2 id="sheet-title">${esc(r.name)}</h2>
+      </div>
+      <button class="close" data-sheet-close aria-label="Close">
+        <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 2l8 8M10 2l-8 8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <p class="verdict">${verdict(r, i)}</p>
+
+    <div class="kpis">
+      <div class="kpi"><span>Score</span><b class="num">${r.total.toFixed(1)}</b></div>
+      <div class="kpi"><span>${conf}</span><b class="num">${Math.round(100 - r.assumption * 100)}% evidence</b>
+        <div class="split"><div style="width:${evidencePts / r.total * 100}%;background:var(--blue)"></div><div style="width:${r.assumption * 100}%;background:var(--c-trends)"></div></div></div>
+      <div class="kpi"><span>Sources cited</span><b class="num">${cited} records</b></div>
+    </div>
+
+    <div class="sh-h3">How the rank was built</div>
+    <div class="flow-wrap">${flowSvg(r)}</div>
+
+    <div class="sh-h3">Why, source by source</div>
+    <div class="why">
+      ${CATS.filter(c => state.enabled[c.key]).sort((a, b) => r.parts[b.key].points - r.parts[a.key].points).map(c => {
+        const p = r.parts[c.key];
+        const ph = p.rows.length ? phrase(c.key, p.rows) : "";
+        const text = p.rows.length
+          ? `${ph[0].toUpperCase()}${ph.slice(1)}: ${rankText(c.key, r.id)} in this source.`
+          : "No matching records, so this source adds nothing.";
+        return `<div class="why-card ${c.evidence ? "" : "assumption"}" style="--c:${catColor(c)}">
+          <div class="why-top"><b>${esc(c.name)}${c.evidence ? "" : ' <span class="tag-assume">Assumption</span>'}</b>
+            ${!isWeighted(c) ? `<span class="calc">Context only · not weighted</span>` : `<span class="calc num">score ${p.catScore.toFixed(0)} × ${(lastEff[c.key] * 100).toFixed(1)}% weight = <b>${p.points.toFixed(1)} pts</b></span>`}</div>
+          <p>${esc(text)}</p>
+          ${p.rows.length ? `<div class="cites">${p.rows.map(row => `<span class="cite"><b>${row.id}</b> ${esc(describePlain(c, row))}</span>`).join("")}</div>` : ""}
+        </div>`;
+      }).join("")}
+    </div>
+
+    <div class="sh-h3">Signals to check</div>
+    <ul class="flags">${flagsFor(r).map(f => `<li class="${f.ok ? "ok" : ""}">${esc(f.text)}</li>`).join("")}</ul>
+
+    <p class="sh-foot">Reproducible: fingerprint <code>${fingerprint()}</code> · data <code>${DATA_VERSION}</code> · weights ${WEIGHTED.map(c => `${esc(c.name)} ${state.enabled[c.key] ? pct(lastEff[c.key]) : "off"}`).join(", ")}.</p>`;
+  const d = $("#sheet");
+  if (!d.open) d.showModal();
+  d.querySelector(".sheet-in").scrollTop = 0;
+}
+
+function filterSummary(cat) {
+  const parts = cat.groups.map(g => {
+    const sel = state.filters[cat.key][g.key];
+    if (sel.length === g.values.length) return null;
+    if (sel.length === 0) return `No ${g.label.toLowerCase()}`;
+    return sel.length <= 2 ? sel.map(v => label(g, v)).join(" + ") : `${sel.length} of ${g.values.length} ${g.label.toLowerCase()}`;
+  }).filter(Boolean);
+  return parts.length ? parts.join(" · ") : "All data";
+}
+
+function describe(cat, r) {
+  const extra = { sales: [r.p, r.m, r.y], customer: [label(cat.groups[0], r.t), r.m, r.a], features: [r.m, r.line, r.offer, r.src], trends: [r.tech] }[cat.key];
+  const val = cat.key === "customer" ? `${r.v} mentions` : cat.key === "trends" ? `offered by ${Math.round(r.v * 100)}% of sampled bestsellers` : `signal ${r.v.toFixed(2)}`;
+  return `<code>${r.id}</code> ${esc(extra.join(" · "))} · ${val}`;
+}
+
+function renderLog() {
+  $("#log").innerHTML = runs.length ? runs.map((r, i) => `
+    <tr><td class="num">${runs.length - i}</td><td>${r.time}</td><td><code>${r.fp}</code></td><td>${r.weights}</td><td>${r.ranking}</td></tr>`).join("")
+    : `<tr><td colspan="5" style="color:var(--label-2)">No runs saved yet. Tap Save Run to record the current setup.</td></tr>`;
+}
+
+function renderForecast() {
+  const el = $("#forecast");
+  el.hidden = selected !== "trends";
+  if (el.hidden) return;
+  const sel = state.filters.trends.tech, on = state.enabled.trends;
+  const rows = [...RECORDS.trends].sort((a, b) => b.v - a.v || a.tech.localeCompare(b.tech));
+  el.innerHTML = `
+    <div class="fc-head">
+      <div><h3>Technology forecast</h3><p>Share of sampled China EV bestsellers offering each technology, today and estimated for 2030. Click a row to include or exclude it.</p></div>
+      <div class="fc-legend"><span><i class="now"></i>Today</span><span><i class="fut"></i>2030 forecast</span></div>
+    </div>
+    <div class="fc-grid">
+      <span></span><div class="fc-axis">${[0, 25, 50, 75, 100].map(t => `<span style="left:${t}%">${t}%</span>`).join("")}</div><span></span>
+      ${rows.map(r => {
+        const off = !on || !sel.includes(r.tech);
+        return `<div class="fc-row ${off ? "off" : ""}" data-chip="trends|tech|${esc(r.tech)}" role="checkbox" aria-checked="${!off}" tabindex="0" title="${esc(r.tech)}: ${Math.round(r.now * 100)}% today, ${Math.round(r.v * 100)}% by 2030">
+          <span class="fc-name">${esc(r.tech)}</span>
+          <span class="fc-track">
+            <span class="fc-line" style="left:${r.now * 100}%;width:${(r.v - r.now) * 100}%"></span>
+            <span class="fc-dot now" style="left:${r.now * 100}%"></span>
+            <span class="fc-dot fut" style="left:${r.v * 100}%"></span>
+          </span>
+          <span class="fc-delta num">+${Math.round((r.v - r.now) * 100)} pp</span>
+        </div>`;
+      }).join("")}
+    </div>
+    <p class="fc-foot">Forecasts are assumptions (mock values). Sorted by 2030 forecast; the ranking uses the 2030 value.</p>`;
+}
+
+function select(key) {
+  selected = selected === key ? null : key;
+  renderInspector();
+  update();
+}
+
+// ---------- Events ----------
+$("#nodes").addEventListener("click", e => {
+  const n = e.target.closest("[data-node]");
+  if (n) select(n.dataset.node);
+});
+$("#inspector").addEventListener("input", e => {
+  const k = e.target.dataset.weight;
+  if (!k) return;
+  if (!dragBase) dragBase = { ...state.weights };
+  setWeight(k, +e.target.value);
+  update();
+});
+$("#inspector").addEventListener("change", e => {
+  if (e.target.dataset.weight) { dragBase = null; return; }
+  const k = e.target.dataset.toggle;
+  if (k) { state.enabled[k] = e.target.checked; update(); }
+});
+$("#inspector").addEventListener("click", e => {
+  const chip = e.target.closest("[data-chip]");
+  if (chip) {
+    const [k, g, v] = chip.dataset.chip.split("|");
+    const arr = state.filters[k][g];
+    state.filters[k][g] = arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+    update();
+  }
+  const all = e.target.closest("[data-all]");
+  if (all) {
+    const [k, g] = all.dataset.all.split("|");
+    state.filters[k][g] = [...catByKey(k).groups.find(x => x.key === g).values];
+    update();
+  }
+  const openRow = e.target.closest("[data-open]");
+  if (openRow) select(openRow.dataset.open);
+  if (e.target.closest("[data-close]")) select(selected);
+});
+$("#forecast").addEventListener("click", e => {
+  const row = e.target.closest("[data-chip]");
+  if (row) toggleChip(row.dataset.chip);
+});
+$("#forecast").addEventListener("keydown", e => {
+  const row = e.target.closest("[data-chip]");
+  if (row && (e.key === " " || e.key === "Enter")) { e.preventDefault(); toggleChip(row.dataset.chip); }
+});
+function toggleChip(id) {
+  const [k, g, v] = id.split("|");
+  if (!state.enabled[k]) return;
+  const arr = state.filters[k][g];
+  state.filters[k][g] = arr.includes(v) ? arr.filter(x => x !== v) : [...arr, v];
+  update();
+}
+$("#recs").addEventListener("click", e => {
+  const b = e.target.closest("[data-explain]");
+  if (b) openSheet(+b.dataset.explain);
+});
+$("#sheet").addEventListener("click", e => {
+  // Clicking the dimmed backdrop (the dialog itself) or the close button dismisses the sheet
+  if (e.target.id === "sheet" || e.target.closest("[data-sheet-close]")) $("#sheet").close();
+});
+document.addEventListener("keydown", e => { if (e.key === "Escape" && selected && !$("#sheet").open) select(selected); });
+$("#reset").addEventListener("click", () => { state = defaultState(); renderInspector(); update(); });
+$("#run").addEventListener("click", () => {
+  const { results, eff } = analyse();
+  runs.unshift({
+    time: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+    fp: fingerprint(),
+    weights: WEIGHTED.map(c => `${esc(c.name.split(" ")[0])} ${state.enabled[c.key] ? pct(eff[c.key]) : "off"}`).join(" · "),
+    ranking: results.slice(0, TOP_N).map((r, i) => `${i + 1}. ${esc(r.name)}`).join("<br>") || "–",
+  });
+  renderLog();
+});
+
+renderNodes();
+renderInspector();
+renderLog();
+update();
+</script>
+</body>
+</html>

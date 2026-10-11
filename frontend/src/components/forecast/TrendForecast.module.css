@@ -1,0 +1,169 @@
+.card {
+  padding: 22px;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.head h3 {
+  margin: 0;
+  font: 700 21px/1.2 var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+.head p {
+  margin: 4px 0 0;
+  color: var(--label-2);
+  font-size: 13.5px;
+  max-width: 520px;
+}
+
+.legend {
+  display: flex;
+  gap: 14px;
+  font-size: 12.5px;
+  color: var(--label-2);
+  align-items: center;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 5px;
+  vertical-align: -1px;
+}
+
+.legend .now {
+  box-shadow: inset 0 0 0 2px var(--c-trends);
+}
+
+.legend .fut {
+  background: var(--c-trends);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(92px, min(190px, 34%)) minmax(0, 1fr) 50px;
+  column-gap: 12px;
+  margin-top: 18px;
+}
+
+.axis {
+  position: relative;
+  height: 18px;
+  font-size: 11px;
+  color: var(--label-3);
+}
+
+.axis span {
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.row {
+  display: contents;
+  cursor: pointer;
+}
+
+.row > * {
+  padding: 7px 0;
+  border-top: 1px solid var(--sep);
+}
+
+.row:not([role="checkbox"]) {
+  cursor: default;
+}
+
+.name {
+  font-size: 13.5px;
+}
+
+.track {
+  position: relative;
+}
+
+.track::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(to right, var(--sep) 0 1px, transparent 1px 25%);
+  background-size: calc(100% + 1px) 100%;
+  opacity: 0.7;
+}
+
+.line {
+  position: absolute;
+  top: 50%;
+  height: 4px;
+  margin-top: -2px;
+  border-radius: 2px;
+  background: linear-gradient(to right, color-mix(in srgb, var(--c-trends) 25%, transparent), var(--c-trends));
+  transition:
+    left 0.4s var(--ease),
+    width 0.4s var(--ease);
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin: -6px 0 0 -6px;
+  border-radius: 50%;
+}
+
+.dot.now {
+  background: var(--card);
+  box-shadow: inset 0 0 0 2px var(--c-trends);
+}
+
+.dot.fut {
+  background: var(--c-trends);
+  box-shadow: 0 0 0 3px var(--card);
+}
+
+.delta {
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-trends);
+}
+
+.off > * {
+  opacity: 0.35;
+}
+
+.row[role="checkbox"]:hover .name {
+  color: var(--blue);
+}
+
+.row:focus-visible {
+  outline: none;
+}
+
+.row:focus-visible .name {
+  color: var(--blue);
+  text-decoration: underline;
+}
+
+.foot {
+  font-size: 12.5px;
+  color: var(--label-2);
+  margin: 14px 0 0;
+}
+
+@media (max-width: 640px) {
+  .name {
+    font-size: 12.5px;
+  }
+  .axis span:nth-child(even) {
+    display: none;
+  }
+}
