@@ -259,3 +259,8 @@
     font-size: 15px;
   }
 }
+
+/* Jump target for the step bar: stop below the 78px header. */
+.stage {
+  scroll-margin-top: 94px;
+}

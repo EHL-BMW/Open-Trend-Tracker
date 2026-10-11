@@ -8,6 +8,7 @@ import { StateMessage } from "../common/StateMessage";
 import { FilterGroupList } from "./FilterGroupList";
 import { Switch } from "./Switch";
 import { WeightSlider } from "./WeightSlider";
+import { STEP_IDS } from "../steps/PlannerSteps";
 import styles from "./Inspector.module.css";
 
 interface Props {
@@ -17,7 +18,13 @@ interface Props {
 
 export function Inspector({ selected, onSelect }: Props) {
   return (
-    <aside className={`card ${styles.inspector}`} aria-live="polite" aria-label="Source settings">
+    <aside
+      id={STEP_IDS.settings}
+      className={`card ${styles.inspector}`}
+      aria-live="polite"
+      aria-label="Step 2: weights and filters"
+    >
+      <p className={`eyebrow ${styles.step}`}>2 · Weights &amp; filters</p>
       {selected ? (
         <CategoryEditor categoryKey={selected} onClose={() => onSelect(null)} />
       ) : (

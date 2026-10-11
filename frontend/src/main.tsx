@@ -2,8 +2,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { MotionConfig } from "framer-motion";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import { ApiError } from "./api/client";
 import { App } from "./App";
+import { ErrorBoundary } from "./components/common/ErrorBoundary";
 import { config } from "./config";
 import "./styles/index.css";
 
@@ -35,7 +37,11 @@ void enableMocks().then(() => {
       <QueryClientProvider client={queryClient}>
         {/* Vengeance UI motion follows the OS "reduce motion" setting. */}
         <MotionConfig reducedMotion="user">
-          <App />
+          <BrowserRouter>
+            <ErrorBoundary>
+              <App />
+            </ErrorBoundary>
+          </BrowserRouter>
         </MotionConfig>
       </QueryClientProvider>
     </StrictMode>,

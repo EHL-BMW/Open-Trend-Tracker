@@ -1,0 +1,151 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  background: var(--nav);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-top: 1px solid var(--sep);
+  transform: translateY(100%);
+  transition: transform 0.3s var(--ease);
+}
+
+.visible {
+  transform: none;
+}
+
+.inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  height: 60px;
+  padding: 0 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.summary {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  height: 100%;
+  border: 0;
+  background: none;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  color: var(--label);
+}
+
+.label {
+  flex: none;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--label-3);
+}
+
+.first {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 45%;
+}
+
+.rank,
+.restRank {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 600;
+  flex: none;
+}
+
+.rank {
+  background: var(--blue);
+  color: var(--on-blue);
+}
+
+.title {
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.score {
+  color: var(--label-2);
+  font-weight: 600;
+}
+
+.rest {
+  display: flex;
+  gap: 14px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 13.5px;
+  color: var(--label-2);
+  mask-image: linear-gradient(to right, #000 85%, transparent);
+}
+
+.restItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.restRank {
+  background: var(--fill);
+  color: var(--label-2);
+}
+
+.stale {
+  flex: none;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--warn);
+  background: var(--warn-bg);
+  border-radius: 980px;
+  padding: 3px 10px;
+}
+
+.run {
+  flex: none;
+}
+
+@media (max-width: 760px) {
+  .rest {
+    display: none;
+  }
+  .first {
+    max-width: none;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .inner {
+    padding: 0 16px;
+    gap: 10px;
+  }
+  .label,
+  .stale {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}

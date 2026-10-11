@@ -263,3 +263,16 @@
 .glow .rec {
   padding: 4px;
 }
+
+/* Step label + jump target for the step bar and the post-run scroll (stops below the 78px header). */
+.section {
+  scroll-margin-top: 94px;
+}
+
+.step {
+  margin: 56px 0 0;
+}
+
+.step + .title {
+  margin-top: 6px;
+}

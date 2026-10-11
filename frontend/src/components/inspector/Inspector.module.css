@@ -1,6 +1,6 @@
 .inspector {
   position: sticky;
-  top: 72px;
+  top: 98px;
   padding: 22px;
   min-height: 300px;
 }
@@ -354,4 +354,13 @@
 .skBlock {
   height: 180px;
   margin-top: 24px;
+}
+
+/* Step label + jump target for the step bar (stops below the 78px header). */
+.inspector {
+  scroll-margin-top: 94px;
+}
+
+.step {
+  margin: 0 0 12px;
 }

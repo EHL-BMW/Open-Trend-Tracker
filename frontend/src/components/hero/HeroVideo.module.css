@@ -1,7 +1,7 @@
-/* Full-bleed intro under the (transparent) nav bar; the nav is 52px tall. */
+/* Full-bleed intro under the (transparent) nav bar; the nav is 78px tall. */
 .hero {
   position: relative;
-  margin-top: -52px;
+  margin-top: -78px;
   height: 100vh;
   height: 100svh;
   min-height: 560px;

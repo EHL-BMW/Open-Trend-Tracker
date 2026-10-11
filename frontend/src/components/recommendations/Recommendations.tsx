@@ -5,6 +5,7 @@ import { RollingNumber } from "../common/RollingNumber";
 import { StateMessage } from "../common/StateMessage";
 import AnimatedTooltip from "../ui/animated-tooltip";
 import GlowBorderCard from "../ui/glow-border-card";
+import { STEP_IDS } from "../steps/PlannerSteps";
 import styles from "./Recommendations.module.css";
 
 interface Props {
@@ -21,7 +22,8 @@ const formatTime = (iso: string) => new Date(iso).toLocaleString([], { dateStyle
 
 export function Recommendations({ run, stale, running, error, canRun, onRun, onExplain }: Props) {
   return (
-    <section aria-labelledby="recs-title" aria-busy={running}>
+    <section id={STEP_IDS.results} className={styles.section} aria-labelledby="recs-title" aria-busy={running}>
+      <p className={`eyebrow ${styles.step}`}>4 · Review</p>
       <h2 id="recs-title" className={styles.title}>
         Top recommendations
       </h2>

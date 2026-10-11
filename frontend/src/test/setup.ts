@@ -24,7 +24,9 @@ if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
   Object.assign(window, { IntersectionObserver: VisibleObserver });
 }
 
-// jsdom does not implement media playback.
+// jsdom does not implement scrolling or media playback.
+window.scrollTo = () => {};
+Element.prototype.scrollIntoView = () => {};
 if (typeof HTMLMediaElement !== "undefined") {
   HTMLMediaElement.prototype.play = () => Promise.resolve();
   HTMLMediaElement.prototype.pause = () => {};

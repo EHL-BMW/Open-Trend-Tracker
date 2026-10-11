@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="light dark" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+      // Apply the saved appearance (Settings) before first paint to avoid a flash.
+      try {
+        var t = localStorage.getItem("opentt-theme");
+        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
     <title>OpenTT · Series Improvement Planner</title>
   </head>
   <body>

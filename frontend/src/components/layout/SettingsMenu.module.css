@@ -1,0 +1,134 @@
+.root {
+  position: relative;
+  flex: none;
+}
+
+.gear {
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0.85;
+  transition:
+    opacity 0.2s var(--ease),
+    background 0.2s var(--ease),
+    transform 0.3s var(--ease);
+}
+
+.gear:hover,
+.gear[aria-expanded="true"] {
+  opacity: 1;
+  background: color-mix(in srgb, currentColor 10%, transparent);
+}
+
+.gear[aria-expanded="true"] svg {
+  transform: rotate(45deg);
+  transition: transform 0.3s var(--ease);
+}
+
+/* Panel always uses the page theme, also when the header sits transparent over the video. */
+.panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 30;
+  width: 300px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--card);
+  color: var(--label);
+  box-shadow:
+    0 0 0 1px var(--sep),
+    0 18px 40px rgba(0, 0, 0, 0.18);
+  animation: pop 0.18s var(--ease);
+  transform-origin: top right;
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(-4px);
+  }
+}
+
+.title {
+  margin: 0 0 14px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.groupLabel {
+  margin: 0 0 8px;
+  font-size: 12.5px;
+  color: var(--label-2);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.segmented {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--fill-2);
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 4px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--label-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background 0.2s var(--ease),
+    color 0.2s var(--ease),
+    box-shadow 0.2s var(--ease);
+}
+
+.option:hover {
+  color: var(--label);
+}
+
+.option[aria-checked="true"] {
+  background: var(--card);
+  color: var(--label);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.12),
+    0 3px 1px rgba(0, 0, 0, 0.04);
+}
+
+.hint {
+  margin: 10px 0 0;
+  font-size: 12.5px;
+  color: var(--label-2);
+}
+
+@media (max-width: 600px) {
+  .panel {
+    position: fixed;
+    top: 86px;
+    left: 16px;
+    right: 16px;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    animation: none;
+  }
+}

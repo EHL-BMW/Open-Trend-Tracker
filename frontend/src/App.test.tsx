@@ -78,4 +78,31 @@ describe("App", () => {
     expect(screen.getByText("Service unavailable.")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Try again" })).toBeInTheDocument();
   });
+  it("navigates between pages and keeps the current run", async () => {
+    const user = userEvent.setup();
+    renderWithClient(<App />);
+    await user.click(await findRunButton());
+    await screen.findAllByRole("button", { name: /^Show reasoning for/ });
+
+    const nav = screen.getByRole("navigation", { name: "Main" });
+    await user.click(within(nav).getByRole("link", { name: "How it works" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "How it works" })).toBeInTheDocument();
+    expect(document.title).toBe("How it works · OpenTT");
+
+    await user.click(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "FAQ" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "FAQ" })).toBeInTheDocument();
+
+    await user.click(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "Planner" }));
+    expect(await screen.findAllByRole("button", { name: /^Show reasoning for/ })).toHaveLength(5);
+  });
+
+  it("shows content pages even when the backend is down", async () => {
+    server.use(
+      http.get(apiUrl("/catalog"), () =>
+        HttpResponse.json({ error: { code: "x", message: "Down." } }, { status: 503 }),
+      ),
+    );
+    renderWithClient(<App />, { route: "/how-it-works" });
+    expect(await screen.findByRole("heading", { level: 1, name: "How it works" })).toBeInTheDocument();
+  });
 });

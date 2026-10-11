@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { CATEGORIES, CATEGORY_KEYS, categoryColor, type CategoryKey } from "../../domain/categories";
+import { STEP_IDS } from "../steps/PlannerSteps";
 import styles from "./Orbit.module.css";
 
 export interface OrbitNodeModel {
@@ -33,9 +34,9 @@ const CY = VB_H / 2;
 /** The "product management universe": sources orbit Product Management, as on the slide. */
 export function OrbitView({ nodes, selected, onSelect, centerSub, headerRight, disabled }: Props) {
   return (
-    <section className={`card ${styles.stage}`} aria-label="Product management universe">
+    <section id={STEP_IDS.sources} className={`card ${styles.stage}`} aria-label="Step 1: choose sources">
       <div className={styles.head}>
-        <span className="eyebrow">Sources</span>
+        <span className="eyebrow">1 · Choose sources</span>
         <span className="eyebrow">{headerRight}</span>
       </div>
       <div className={styles.orbit}>

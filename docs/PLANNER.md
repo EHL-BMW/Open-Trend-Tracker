@@ -56,6 +56,24 @@ npm run dev            # http://localhost:5173 against the built-in mock backend
 | `VITE_DEV_BACKEND_URL` | –         | Dev server only: target for the `/api` proxy               |
 | `BACKEND_URL`          | –         | Docker only: where nginx forwards `/api/` (runtime, no rebuild) |
 
+### Pages and navigation
+
+| Path            | Page                                                                        |
+| --------------- | --------------------------------------------------------------------------- |
+| `/`             | Planner: video intro, sources, weights, recommendations and run history    |
+| `/how-it-works` | The method explained for PMs                                                |
+| `/faq`          | Placeholder, content to come                                                |
+| `/newsletter`   | Placeholder, content to come                                                |
+
+The header follows bmw.de: BMW roundel at the far left, the main links next to it (underlined on the active page),
+page actions on the right, and a menu button below 900 px width. Routes are defined in `frontend/src/routes.ts`; add
+a page there and in `src/pages/ContentPageRoutes.tsx`. Settings and the current run survive switching pages. Deep
+links work in production because nginx falls back to `index.html`.
+
+The roundel files in `frontend/public/brand/` are the official 2020 BMW logo from Wikimedia Commons
+(`BMW_logo_(white).svg`, `BMW_logo_(gray).svg`), used unchanged. They are public domain copyright-wise but a BMW
+trademark: fine for this internal BMW challenge project, not for presenting OpenTT publicly as an official BMW product.
+
 ### Intro video
 
 The page opens with a full-screen intro video; the planner starts below it. The video is fixed:

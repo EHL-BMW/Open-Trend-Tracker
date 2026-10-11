@@ -9,8 +9,28 @@
 @import "./global.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
-/* Vengeance UI uses `dark:`; follow the system setting like the rest of the app. */
-@custom-variant dark (@media (prefers-color-scheme: dark));
+/* Vengeance UI uses `dark:`; follow the Settings choice, or the system setting when "System" is chosen. */
+@custom-variant dark {
+  &:where([data-theme="dark"], [data-theme="dark"] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme="light"]), :root:not([data-theme="light"]) *) {
+      @slot;
+    }
+  }
+}
+
+/* Native controls (scrollbars, form fields) follow the chosen appearance too. */
+:root {
+  color-scheme: light dark;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
 
 /* shadcn-style tokens the Vengeance components reference, mapped onto the app's design tokens. */
 :root {
