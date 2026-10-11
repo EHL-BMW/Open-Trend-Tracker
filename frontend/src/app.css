@@ -13,9 +13,16 @@ section { background: white; border: 1px solid #dce2e8; border-radius: 12px; pad
 .controls, .upload { display: flex; flex-wrap: wrap; gap: 14px; margin: 18px 0 24px; }
 .controls label { display: grid; gap: 5px; min-width: 220px; font-weight: 600; }
 select, input[type="file"] { border: 1px solid #cad2da; border-radius: 7px; padding: 9px; background: white; }
-.feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 8px; margin-bottom: 28px; }
-.feature { display: flex; gap: 9px; padding: 10px; border: 1px solid #e0e5ea; border-radius: 8px; }
-.feature small { display: block; margin-top: 3px; }
+.decision-scroll { overflow-x: auto; margin-bottom: 28px; }
+.decision-table { min-width: 1050px; }
+.decision-table td:nth-child(2) { min-width: 260px; }
+.decision-table td:nth-child(3) { min-width: 230px; }
+.decision-table td:nth-child(5) { min-width: 220px; }
+.name-input, textarea, input[type="number"] { width: 100%; border: 1px solid #cad2da; border-radius: 5px; padding: 6px; }
+.trend { display: block; white-space: nowrap; padding: 2px 0; }
+.decision-fields { display: grid; gap: 6px; }
+.decision-fields label { display: grid; gap: 2px; font-size: 12px; color: #62707f; }
+textarea { min-height: 52px; resize: vertical; }
 .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 24px; }
 .card { padding: 14px; border-left: 4px solid #2f78a7; background: #f5f8fb; }
 .card strong, .card span, .card small { display: block; }

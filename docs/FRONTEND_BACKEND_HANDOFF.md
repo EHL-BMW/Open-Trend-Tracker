@@ -40,6 +40,7 @@ The Vite server proxies `/api` to `http://127.0.0.1:8000`. Interactive API docum
 | BMW feature comparison for engineering | `app/services/forecast.py` | review/edit in a future workflow |
 | Customer document processing | `app/services/customer_input.py` | upload and show returned rows |
 | Customer complaint figure | generated in backend runtime storage | display `figure_url` |
+| Final decision dashboard | `app/services/decision_dashboard.py` | edit the PM override layer |
 | Static pipeline/report plots | `app/plots.py`, `app/analysis/` | link or display generated artifacts |
 
 Example backend-generated plots are committed in `backend/examples/plots/`.
@@ -85,6 +86,48 @@ Important response fields:
 - `selected_features`, `status`, `caveat`.
 
 Do not recalculate these arrays in the frontend.
+
+## Final decision dashboard
+
+### `GET /api/decision-dashboard/{vehicle}`
+
+This is the preferred endpoint for the final page. It replaces dummy feature rows with the selected
+Chinese-derived features and joins three evidence layers into every row:
+
+- Chinese source-pair and model coverage;
+- quantified customer comments: mentions, mention rate, positive/negative counts, need share, net sentiment,
+  and traceable examples;
+- sales-impact trend: estimate and uncertainty for years 1–4 after release.
+
+Without a query parameter, comments come from the selected BMW vehicle's internal feedback workbook. To
+build the page from an uploaded document, process it first and pass the returned ID:
+
+```bash
+curl 'http://127.0.0.1:8000/api/decision-dashboard/G60?document_id=<document_id>'
+```
+
+The first five features are selected by default. The PM-editable fields are `display_name`, `selected`,
+`priority`, `engineering_status`, and `note`.
+
+### `POST /api/decision-dashboard/overrides`
+
+Save one feature's manual settings:
+
+```json
+{
+  "vehicle": "G60",
+  "feature": "Charging + battery-swap station network",
+  "display_name": "Fast charging ecosystem",
+  "selected": true,
+  "priority": 1,
+  "engineering_status": "approved",
+  "note": "Include in the concept review."
+}
+```
+
+`engineering_status` is `review`, `approved`, or `rejected`. Overrides are stored in
+`data/runtime/decision-dashboard-overrides.json`. They change the PM presentation layer only; source
+features, comments, and forecast evidence remain unchanged.
 
 ### `GET /api/forecast/prices/{vehicle}`
 
@@ -132,6 +175,9 @@ The response contains:
 - `figure_url`: a backend-generated PNG, for example
   `/api/artifacts/customer-input/<document_id>/complaints.png`;
 - method and caveat.
+
+The processed response is also stored at `data/runtime/customer-input/<document_id>/result.json`, allowing
+the final decision dashboard to reuse the document-derived comments.
 
 The processor is deterministic: sentence splitting, transparent keyword sentiment rules, and the shared
 taxonomy mapper. Keep `Unclassified` rows visible so a product manager can review them; do not silently

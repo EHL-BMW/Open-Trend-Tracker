@@ -69,6 +69,8 @@ The API now keeps business logic in backend services:
 - `GET /api/forecast/prices/{vehicle}` for transparent option-price scenarios;
 - `GET /api/engineering/features/{vehicle}` for the BMW catalog comparison as engineering input;
 - `POST /api/customer-input/process` for document-to-complaint processing and a backend-generated figure.
+- `GET /api/decision-dashboard/{vehicle}` joins Chinese-derived features, quantified comments, and
+  four-year sales-impact trends; `POST /api/decision-dashboard/overrides` stores manual PM edits.
 
 ## Updating after new data
 

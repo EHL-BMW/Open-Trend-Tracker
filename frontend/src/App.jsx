@@ -46,14 +46,16 @@ function EvidencePage() {
   </section>;
 }
 
-function ForecastPage() {
+function ForecastPage({ documentId }) {
   const [catalog, setCatalog] = useState(null);
   const [model, setModel] = useState("");
   const [market, setMarket] = useState("Global");
   const [selected, setSelected] = useState([]);
   const [forecast, setForecast] = useState(null);
   const [prices, setPrices] = useState(null);
+  const [decisions, setDecisions] = useState(null);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
 
   useEffect(() => {
     jsonFetch("/api/forecast/catalog").then((data) => {
@@ -68,6 +70,15 @@ function ForecastPage() {
   }, [catalog, model, market]);
   useEffect(() => {
     if (!model) return;
+    const vehicle = model.split("/")[0];
+    const query = documentId ? `?document_id=${encodeURIComponent(documentId)}` : "";
+    jsonFetch(`/api/decision-dashboard/${vehicle}${query}`).then((data) => {
+      setDecisions(data);
+      setSelected(data.features.filter((item) => item.selected).map((item) => item.source_feature));
+    }).catch((reason) => setError(reason.message));
+  }, [model, documentId]);
+  useEffect(() => {
+    if (!model) return;
     const params = new URLSearchParams({ model, market });
     selected.forEach((feature) => params.append("feature", feature));
     jsonFetch(`/api/forecast/sales?${params}`).then(setForecast).catch((reason) => setError(reason.message));
@@ -75,11 +86,31 @@ function ForecastPage() {
   }, [model, market, selected]);
 
   const markets = catalog?.bmw_sales_history[model] || {};
-  const features = catalog?.features || [];
   const rows = useMemo(() => forecast?.years.map((year, index) => ({
     year, baseline: forecast.baseline[index], estimate: forecast.estimate[index],
     low: forecast.lower[index], high: forecast.upper[index], uplift: forecast.impact[index],
   })) || [], [forecast]);
+
+  function editFeature(sourceFeature, field, value) {
+    setDecisions((current) => ({ ...current, features: current.features.map((item) => item.source_feature === sourceFeature ? { ...item, [field]: value } : item) }));
+  }
+  async function saveFeature(item, patch = {}) {
+    const update = { ...item, ...patch };
+    setNotice(`Saving ${update.display_name}…`);
+    await jsonFetch("/api/decision-dashboard/overrides", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        vehicle: decisions.vehicle, feature: update.source_feature, display_name: update.display_name,
+        selected: update.selected, priority: Number(update.priority), engineering_status: update.engineering_status, note: update.note,
+      }),
+    }).then(() => setNotice(`Saved ${update.display_name}.`), (reason) => setNotice(`Not saved: ${reason.message}`));
+  }
+  async function toggleFeature(item) {
+    const enabled = !item.selected;
+    editFeature(item.source_feature, "selected", enabled);
+    setSelected((current) => enabled ? [...new Set([...current, item.source_feature])] : current.filter((name) => name !== item.source_feature));
+    await saveFeature(item, { selected: enabled });
+  }
 
   if (error) return <section><h2>Forecast</h2><p className="error">{error}</p></section>;
   if (!catalog) return <section><h2>Forecast</h2><p>Loading backend forecast…</p></section>;
@@ -94,11 +125,21 @@ function ForecastPage() {
         {Object.entries(markets).map(([code, item]) => <option key={code} value={code}>{item.label} ({code})</option>)}
       </select></label>
     </div>
-    <h3>Feature scenarios</h3>
-    <div className="feature-grid">{features.map((item) => <label className="feature" key={item.feature}>
-      <input type="checkbox" checked={selected.includes(item.feature)} onChange={() => setSelected((current) => current.includes(item.feature) ? current.filter((name) => name !== item.feature) : [...current, item.feature])} />
-      <span>{item.feature}<small>{item.category} · Y4 {fmt(item.estimate[3], 1)}%</small></span>
-    </label>)}</div>
+    <h3>Chinese-derived feature decisions</h3>
+    <p className="muted">Comment source: {documentId ? `uploaded document ${documentId}` : `${model.split("/")[0]} internal customer feedback`}. Names, selection, priority, status, and notes are editable; source evidence remains unchanged.</p>
+    {notice && <p className="muted">{notice}</p>}
+    {decisions && <div className="decision-scroll"><table className="decision-table"><thead><tr><th>Use</th><th>Feature / PM name</th><th>Customer comments</th><th>Sales-impact trend</th><th>PM decision</th></tr></thead><tbody>
+      {decisions.features.map((item) => <tr key={item.source_feature}>
+        <td><input type="checkbox" checked={item.selected} onChange={() => toggleFeature(item)} /></td>
+        <td><input className="name-input" value={item.display_name} onChange={(event) => editFeature(item.source_feature, "display_name", event.target.value)} /><small>{item.source_feature}<br />{item.category} · {item.pair_count} source pairs</small></td>
+        <td><strong>{item.comments.mentions}</strong> mentions ({fmt(item.comments.mention_rate * 100, 1)}%)<br /><small>{item.comments.negative} negative · {item.comments.positive} positive · need {fmt(item.comments.need_share * 100, 1)}%</small>
+          {item.comments.examples.length > 0 && <details><summary>Examples</summary>{item.comments.examples.map((example) => <p key={`${example.source}-${example.id}`}><small>{example.text}</small></p>)}</details>}</td>
+        <td>{item.sales_impact_trend.estimate_pct.map((value, index) => <span className="trend" key={index}>Y{index + 1} {fmt(value, 1)}%</span>)}</td>
+        <td><div className="decision-fields"><label>Priority<input type="number" min="1" value={item.priority} onChange={(event) => editFeature(item.source_feature, "priority", event.target.value)} /></label>
+          <label>Status<select value={item.engineering_status} onChange={(event) => editFeature(item.source_feature, "engineering_status", event.target.value)}><option value="review">Review</option><option value="approved">Approved</option><option value="rejected">Rejected</option></select></label>
+          <label>Note<textarea value={item.note} onChange={(event) => editFeature(item.source_feature, "note", event.target.value)} /></label>
+          <button onClick={() => saveFeature(item)}>Save</button></div></td>
+      </tr>)}</tbody></table></div>}
     <h3>Sales forecast</h3>
     <div className="cards">{rows.map((row) => <article className="card" key={row.year}>
       <strong>{row.year}</strong><span>{fmt(row.estimate)} vehicles</span>
@@ -111,7 +152,7 @@ function ForecastPage() {
   </section>;
 }
 
-function CustomerInputPage() {
+function CustomerInputPage({ onUseDocument }) {
   const [result, setResult] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -133,6 +174,7 @@ function CustomerInputPage() {
     {result && <>
       <p><strong>{result.statement_count}</strong> statements processed from {result.filename}.</p>
       <img className="result-plot" src={result.figure_url} alt="Customer complaints grouped by feature" />
+      <button onClick={() => onUseDocument(result.document_id)}>Use this document on decision dashboard</button>
       <details><summary>Complaint data</summary><table><thead><tr><th>#</th><th>Statement</th><th>Sentiment</th><th>Feature</th></tr></thead><tbody>
         {result.complaints.map((item) => <tr key={item.id}><td>{item.id}</td><td>{item.complaint}</td><td>{item.sentiment}</td><td>{item.feature}</td></tr>)}
       </tbody></table></details>
@@ -142,12 +184,13 @@ function CustomerInputPage() {
 
 export default function App() {
   const [page, setPage] = useState("forecast");
+  const [decisionDocument, setDecisionDocument] = useState(null);
   return <main>
     <header><div><h1>Open Trend Tracker</h1><p>Evidence-backed vehicle planning</p></div>
       <nav>{[["forecast", "Forecast"], ["customer", "Customer input"], ["evidence", "Evidence"]].map(([id, label]) => <button className={page === id ? "active" : ""} key={id} onClick={() => setPage(id)}>{label}</button>)}</nav>
     </header>
-    {page === "forecast" && <ForecastPage />}
-    {page === "customer" && <CustomerInputPage />}
+    {page === "forecast" && <ForecastPage documentId={decisionDocument} />}
+    {page === "customer" && <CustomerInputPage onUseDocument={(documentId) => { setDecisionDocument(documentId); setPage("forecast"); }} />}
     {page === "evidence" && <EvidencePage />}
   </main>;
 }

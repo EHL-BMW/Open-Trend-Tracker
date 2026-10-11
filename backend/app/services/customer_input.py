@@ -115,7 +115,7 @@ def process_document(filename: str, content: bytes) -> dict:
     _plot(rows, figure)
     sentiments = Counter(row["sentiment"] for row in rows)
     features = Counter(row["feature"] for row in rows)
-    return {
+    result = {
         "document_id": document_id,
         "filename": Path(filename).name,
         "statement_count": len(rows),
@@ -126,3 +126,7 @@ def process_document(filename: str, content: bytes) -> dict:
         "method": "deterministic sentence splitting, keyword sentiment rules, and taxonomy mapping",
         "caveat": "Unclassified statements should be reviewed and added to the taxonomy when appropriate.",
     }
+    (output_dir / "result.json").write_text(
+        json.dumps(result, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    return result

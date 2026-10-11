@@ -7,14 +7,26 @@ from functools import cache
 
 from fastapi import FastAPI, File, HTTPException, Query, UploadFile
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field
 
 from app.paths import RUNTIME_DIR, UNIFIED_DIR
 from app.services.customer_input import process_document
+from app.services.decision_dashboard import decision_dashboard, save_override
 from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
 
 app = FastAPI(title="Open-Trend-Tracker")
 RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/api/artifacts", StaticFiles(directory=RUNTIME_DIR), name="runtime-artifacts")
+
+
+class DecisionOverride(BaseModel):
+    vehicle: str
+    feature: str
+    display_name: str | None = None
+    selected: bool | None = None
+    priority: int | None = Field(default=None, ge=1, le=999)
+    engineering_status: str | None = None
+    note: str | None = None
 
 
 @cache
@@ -127,3 +139,26 @@ async def process_customer_input(document: UploadFile = File(...)):
         return process_document(document.filename or "upload.txt", await document.read())
     except (ValueError, json.JSONDecodeError) as exc:
         raise HTTPException(422, str(exc)) from exc
+
+
+@app.get("/api/decision-dashboard/{vehicle}")
+def get_decision_dashboard(vehicle: str, document_id: str | None = None):
+    """Chinese feature selection joined to comments and sales-impact trends."""
+    try:
+        return decision_dashboard(vehicle.upper(), document_id)
+    except FileNotFoundError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except (ValueError, KeyError) as exc:
+        raise HTTPException(422, str(exc)) from exc
+
+
+@app.post("/api/decision-dashboard/overrides")
+def update_decision_override(update: DecisionOverride):
+    """Persist the product manager's editable layer without changing source evidence."""
+    if update.engineering_status not in {None, "review", "approved", "rejected"}:
+        raise HTTPException(422, "engineering_status must be review, approved, or rejected")
+    try:
+        saved = save_override(update.vehicle.upper(), update.feature, update.model_dump(exclude={"vehicle", "feature"}))
+    except KeyError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    return {"vehicle": update.vehicle.upper(), "feature": update.feature, "override": saved}
