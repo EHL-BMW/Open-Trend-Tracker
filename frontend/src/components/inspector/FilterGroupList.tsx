@@ -28,7 +28,7 @@ export function FilterGroupList({ categoryKey, group, disabled }: Props) {
           disabled={disabled || allOn}
           onClick={() => dispatch({ type: "selectAll", category: categoryKey, group: group.key, catalog })}
         >
-          Select All
+          Select all
         </button>
       </div>
       {group.options.length === 0 ? (

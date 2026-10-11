@@ -51,7 +51,7 @@ export function RunHistory({ currentRunId, openingId, onOpen }: Props) {
               <thead>
                 <tr>
                   <th scope="col">Time</th>
-                  <th scope="col">Fingerprint</th>
+                  <th scope="col">Run ID</th>
                   <th scope="col">Weights</th>
                   <th scope="col">Top results</th>
                   <th scope="col">

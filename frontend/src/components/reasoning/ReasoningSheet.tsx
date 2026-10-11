@@ -130,7 +130,7 @@ function SheetContent({ run, rec, onClose }: { run: AnalysisRun; rec: Recommenda
       </ul>
 
       <p className={styles.foot}>
-        Reproducible: fingerprint <code>{run.fingerprint}</code> · data <code>{run.dataVersion}</code> · weights{" "}
+        Reproducible: Run ID <code>{run.fingerprint}</code> · weights{" "}
         {WEIGHTED_KEYS.map(
           (k) =>
             `${CATEGORIES[k].name} ${run.request.enabled[k] ? `${Math.round(run.effectiveWeights[k] * 100)}%` : "off"}`,

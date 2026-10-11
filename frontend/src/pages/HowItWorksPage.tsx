@@ -109,8 +109,8 @@ total score   = sum of points over all sources   (0–100)`}</code>
       <section className={styles.section} aria-labelledby="audit">
         <h2 id="audit">Traceable and reproducible</h2>
         <p>
-          Each run is stored with its filters, weights, data version and a fingerprint. The run history lists every run,
-          and opening one restores its exact settings and results, so any ranking can be checked later.
+          Each run is stored with its filters, weights, data version and a Run ID. The run history lists every run, and
+          opening one restores its exact settings and results, so any ranking can be checked later.
         </p>
       </section>
 

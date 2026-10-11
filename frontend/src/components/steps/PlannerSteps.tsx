@@ -21,7 +21,7 @@ export function PlannerSteps({ hasFreshResults, running, canRun, onRun }: Props)
   const steps = [
     { n: 1, label: "Choose sources", hint: "Switch sources on or off", go: () => scrollTo(STEP_IDS.sources) },
     { n: 2, label: "Set weights & filters", hint: "Tune what counts", go: () => scrollTo(STEP_IDS.settings) },
-    { n: 3, label: "Run the analysis", hint: running ? "Running…" : "Get the Top 5", go: onRun, isRun: true },
+    { n: 3, label: "Run analysis", hint: running ? "Running…" : "Get the Top 5", go: onRun, isRun: true },
     { n: 4, label: "Review the Top 5", hint: "With reasoning", go: () => scrollTo(STEP_IDS.results) },
   ];
   // Before a run (or after settings changed) step 3 is next; with fresh results step 4 is.

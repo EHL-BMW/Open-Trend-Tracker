@@ -40,7 +40,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
   trends: {
     key: "trends",
     name: "Trends / Competition",
-    chipLabel: "Trend",
+    chipLabel: "Trends",
     colorVar: "--c-trends",
     weighted: true,
     evidence: false,
@@ -61,7 +61,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
   features: {
     key: "features",
     name: "Product",
-    chipLabel: "BMW today",
+    chipLabel: "Product",
     colorVar: "--c-features",
     weighted: false,
     evidence: true,

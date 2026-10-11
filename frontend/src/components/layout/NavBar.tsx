@@ -90,8 +90,11 @@ export function NavBar({ mockMode, actions }: Props) {
           />
           <span className={styles.wordmark}>OpenTT</span>
           {mockMode && (
-            <span className={styles.badge} title="Running against the built-in mock backend">
-              Mock
+            <span
+              className={styles.badge}
+              title="Invented sample figures from the built-in demo backend, not real BMW data."
+            >
+              Demo data
             </span>
           )}
         </Link>

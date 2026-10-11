@@ -39,6 +39,7 @@ export function TrendForecast() {
             <i className={styles.fut} />
             {forecastYear} forecast
           </span>
+          <span>pp = percentage points</span>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 import type { CSSProperties } from "react";
 import type { AnalysisRun, Recommendation, Spec } from "../../api/types";
-import { categoryColor } from "../../domain/categories";
+import { CATEGORIES, categoryColor } from "../../domain/categories";
 import { RollingNumber } from "../common/RollingNumber";
 import { StateMessage } from "../common/StateMessage";
 import AnimatedTooltip from "../ui/animated-tooltip";
@@ -31,8 +31,10 @@ export function Recommendations({ run, stale, running, error, canRun, onRun, onE
         <p className={styles.sub}>Each one lists the specs and trend technologies that produced its rank.</p>
         {run && (
           <p className={styles.meta}>
-            Run {formatTime(run.createdAt)} · fingerprint <code>{run.fingerprint}</code> · data{" "}
-            <code>{run.dataVersion}</code>
+            Run {formatTime(run.createdAt)} · Run ID{" "}
+            <code title="The same settings and data always reproduce this exact Top 5. Find this run again in the run history.">
+              {run.fingerprint}
+            </code>
           </p>
         )}
       </div>
@@ -131,9 +133,11 @@ function RecommendationBody({ rec, onExplain }: { rec: Recommendation; onExplain
       </span>
       <div className={styles.recTitle}>
         <h3>{rec.title}</h3>
-        {rec.keep && <span className={`${styles.pill} ${styles.keep}`}>Keep</span>}
+        {rec.keep && <span className={`${styles.pill} ${styles.keep}`}>Keep · praised by customers</span>}
         {rec.assumptionShare > 0.005 && (
-          <span className={`${styles.pill} ${styles.assume}`}>{Math.round(rec.assumptionShare * 100)}% assumption</span>
+          <span className={`${styles.pill} ${styles.assume}`}>
+            {Math.round(rec.assumptionShare * 100)}% from trends
+          </span>
         )}
       </div>
       <div className={styles.side}>
@@ -163,7 +167,7 @@ function SpecChip({ spec }: { spec: Spec }) {
       style={{ "--c": categoryColor(spec.category) } as CSSProperties}
     >
       <AnimatedTooltip content={chipHint(spec)} variant="indis" accentColor="var(--blue)" triggerClassName="">
-        <b>{spec.label}</b>
+        <b>{CATEGORIES[spec.category].chipLabel}</b>
       </AnimatedTooltip>
       <span>{spec.text}</span>
     </li>
@@ -179,7 +183,7 @@ function chipHint(spec: Spec): string {
     case "customer":
       return "Customer evidence: how often customers raise it as a pain point or praise it.";
     case "features":
-      return "BMW today: what existing BMW cars already offer. Context only, not weighted.";
+      return "Product: what existing BMW cars already offer. Context only, not weighted.";
     case "trends":
       return "Trend forecast from China EV bestsellers. An assumption, not evidence.";
   }

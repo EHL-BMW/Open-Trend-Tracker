@@ -129,10 +129,11 @@ Response `201` – an **AnalysisRun**
       "assumptionShare": 0.2, // share of the score coming from trends
       "specs": [
         // the combination that produced the rank; shown as chips. kind: evidence | assumption | context | missing
+        // (the frontend shows its own source name as the chip label; `label` is informational)
         { "category": "sales", "label": "Sales", "text": "i4, iX, i5 · BEV", "kind": "evidence" },
         { "category": "customer", "label": "Customer", "text": "98 pain-point mentions · Powertrain", "kind": "evidence" },
-        { "category": "features", "label": "BMW today", "text": "Heat pump · Standard on BEV · 64% take rate", "kind": "context" },
-        { "category": "trends", "label": "Trend 2030", "text": "Heat-pump thermal management · 66% → 90% by 2030", "kind": "assumption" }
+        { "category": "features", "label": "Product", "text": "Heat pump · Standard on BEV · 64% take rate", "kind": "context" },
+        { "category": "trends", "label": "Trends", "text": "Heat-pump thermal management · 66% → 90% by 2030", "kind": "assumption" }
       ],
       "reasoning": {
         "verdict": "Ranks #1 with 99.3 of 100. The biggest driver is Sales (45.0 pts): …", // one or two plain sentences

@@ -249,7 +249,7 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
     if (req.enabled.trends && ownTrends.length) {
       specs.push({
         category: "trends",
-        label: `${CATEGORIES.trends.chipLabel} ${FORECAST_YEAR}`,
+        label: CATEGORIES.trends.chipLabel,
         text: ownTrends
           .map((r) => `${labelOf(TECHNOLOGIES, r.technology)} · ${pc(r.now)} → ${pc(r.v)} by ${FORECAST_YEAR}`)
           .join(" · "),

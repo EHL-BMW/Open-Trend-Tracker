@@ -81,8 +81,8 @@ export function HeroVideo() {
       <div className={styles.scrim} aria-hidden="true" />
 
       <div className={styles.content}>
-        <p className={styles.eyebrow}>Product Management · Series Planning</p>
-        <h1 id="hero-title" className={styles.title} aria-label="OpenTT">
+        <p className={styles.eyebrow}>Open Trend Tracker · Product Management</p>
+        <h1 id="hero-title" className={styles.title} aria-label="OpenTT, Open Trend Tracker">
           <span aria-hidden="true">
             <TextAnimation divideBy="letter">OpenTT</TextAnimation>
           </span>

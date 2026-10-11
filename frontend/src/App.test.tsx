@@ -87,7 +87,7 @@ describe("App", () => {
     const nav = screen.getByRole("navigation", { name: "Main" });
     await user.click(within(nav).getByRole("link", { name: "How it works" }));
     expect(await screen.findByRole("heading", { level: 1, name: "How it works" })).toBeInTheDocument();
-    expect(document.title).toBe("How it works · OpenTT");
+    expect(document.title).toBe("How it works · OpenTT – Open Trend Tracker");
 
     await user.click(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "FAQ" }));
     expect(await screen.findByRole("heading", { level: 1, name: "FAQ" })).toBeInTheDocument();
