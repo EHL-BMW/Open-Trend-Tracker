@@ -93,7 +93,8 @@ def build(obs: list[Observation], mapper: Mapper) -> dict[str, VehicleNode]:
         markets = {m: market_node(m, [o for o in vobs if o.market == m], mapper)
                    for m in sorted({o.market for o in vobs})}
         markets["ALL"] = market_node("ALL", vobs, mapper)
-        trees[v] = VehicleNode(vehicle=v, line=LINES.get(v, v), generated_at=now, markets=markets)
+        trees[v] = VehicleNode(vehicle=v, line=LINES.get(v, v), taxonomy_version=mapper.version, generated_at=now,
+                               markets=markets)
     return trees
 
 
@@ -104,11 +105,13 @@ def collect(external_dir: Path = EXTERNAL_DIR) -> tuple[list[Observation], Mappe
     return obs, mapper
 
 
-def coverage(obs: list[Observation]) -> dict:
+def coverage(obs: list[Observation], mapper: Mapper) -> dict:
     return {
+        "taxonomy_version": mapper.version,
         "observations": len(obs),
         "by_source": dict(Counter(o.source for o in obs)),
-        "mapped": dict(Counter(o.source for o in obs if o.attribute)),
+        "mapped_by_alias": dict(Counter(o.source for o in obs if o.mapped_by == "alias")),
+        "mapped_by_keyword": dict(Counter(o.source for o in obs if o.mapped_by == "keyword")),
         "unmapped": dict(Counter(o.source for o in obs if not o.attribute)),
         "unmapped_labels": {src: dict(Counter(o.raw_label or "(unlabelled comment)" for o in obs
                                               if o.source == src and not o.attribute).most_common())
@@ -125,11 +128,12 @@ def main() -> None:
     with open(UNIFIED_DIR / "observations.jsonl", "w") as f:
         for o in obs:
             f.write(o.model_dump_json() + "\n")
-    cov = coverage(obs)
+    cov = coverage(obs, mapper)
     (UNIFIED_DIR / "coverage.json").write_text(json.dumps(cov, indent=1, ensure_ascii=False))
     report.write(UNIFIED_DIR / "report.html", trees, obs, cov)
     print(f"{cov['observations']} observations -> {UNIFIED_DIR}")
-    print("mapped:  ", cov["mapped"])
+    print("alias:   ", cov["mapped_by_alias"])
+    print("keyword: ", cov["mapped_by_keyword"])
     print("unmapped:", cov["unmapped"])
 
 

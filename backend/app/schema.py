@@ -29,6 +29,7 @@ class Observation(BaseModel):
     competitor: str | None = None     # set when the fact describes a competitor, not the BMW vehicle
     raw_label: str                    # label exactly as in the source
     attribute: str | None = None      # canonical attribute id from taxonomy.json; None = not (yet) mapped
+    mapped_by: Literal["alias", "keyword"] | None = None
     metric: str                       # e.g. like, defect, study_mean_0_10, volume, option_price
     value: float
     unit: str                         # count | units | 0-10 | 1-7 | share | EUR | ...
@@ -75,5 +76,6 @@ class MarketNode(BaseModel):
 class VehicleNode(BaseModel):
     vehicle: str
     line: str
+    taxonomy_version: int
     generated_at: str
     markets: dict[str, MarketNode]   # includes "ALL"

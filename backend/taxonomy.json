@@ -1,5 +1,6 @@
 {
-  "_doc": "Hand-curated taxonomy. category -> attribute -> aliases. An alias is a raw label exactly as it appears in a source (matched case- and whitespace-insensitively). Labels not listed here stay 'unmapped' and are reported in data/unified/coverage.json for curation (see CLAUDE.md).",
+  "version": 3,
+  "_doc": "Hand-curated taxonomy: category -> attribute -> aliases + keywords. An alias is a raw label exactly as it appears in a source (case- and whitespace-insensitive). Keywords are substrings for free-text feature lists; the longest matching keyword wins. Labels matching neither stay unmapped and are reported in data/unified/coverage.json for curation (see CLAUDE.md). Bump version when the structure changes.",
   "categories": [
     {"id": "overall", "name": "Overall impression", "attributes": [
       {"id": "overall_satisfaction", "name": "Overall satisfaction", "aliases": [
@@ -10,15 +11,18 @@
         "Exterior design", "Exterior", "Exterior styling", "Overall exterior styling", "Size/ proportions",
         "Headlight/ taillight design", "Radiator grille", "Bumper, front", "Bumper, rear", "Side sill trim panel",
         "Roof", "Running board",
-        "BMW Iconic Glow Exterieurpaket", "M Carbon Exterieurpaket", "M Heckspoiler in Wagenfarbe", "BMW Niere Iconic", "M Hochglanz Shadow Line", "M Sport Exterieurumfänge", "Entfall, Modellschriftzug", "Modellschriftzug, Entfall"]},
+        "BMW Iconic Glow Exterieurpaket", "M Carbon Exterieurpaket", "M Heckspoiler in Wagenfarbe", "BMW Niere Iconic", "M Hochglanz Shadow Line", "M Sport Exterieurumfänge", "Entfall, Modellschriftzug", "Modellschriftzug, Entfall"],
+        "keywords": ["karosserie", "design", "silhouette", "lackierung", "zweifarb", "schürze", "kühlerverkleidung", "frontgrill", "niere", "iconic glow", "shadow line", "optikpaket", "dachreling", "kontrastdach", "beplankung", "heckspoiler", "amg line", "crystal face"]},
       {"id": "wheels_tires", "name": "Wheels & tires", "aliases": [
         "Wheels / tires", "Appearance of tires/ wheels", "RSC tire", "Tirefit", "Tire pressure control",
         "If applicable: Flat tire preparedness (spare, run flat, etc.)",
-        "Reifendruck-Kontrolle", "Reifenreparatur Set oder Reifenpannenset Plus", "Reifenpannenset Plus", "Radschraubensicherung"]},
+        "Reifendruck-Kontrolle", "Reifenreparatur Set oder Reifenpannenset Plus", "Reifenpannenset Plus", "Radschraubensicherung"],
+        "keywords": ["leichtmetall", "felge", "räder", "radkappen"]},
       {"id": "exterior_lighting", "name": "Exterior lighting", "aliases": [
         "Exterior lighting", "Headlight function/ brightness", "High-beam assistant", "Fog light",
         "Welcome Light Carpet", "Flashing", "Light switch operating unit",
-        "Adaptiver LED-Scheinwerfer", "Fernlichtassistent \"BMW Selective Beam\"", "BMW Individual Kristallscheinwerfer Iconic Glow", "Ceremonial Light Carpet"]}
+        "Adaptiver LED-Scheinwerfer", "Fernlichtassistent \"BMW Selective Beam\"", "BMW Individual Kristallscheinwerfer Iconic Glow", "Ceremonial Light Carpet"],
+        "keywords": ["scheinwerfer", "rückleucht", "heckleucht", "lichtsignatur", "lichtband", "leuchtenband", "fernlicht", "lichtgrafik", "digital light", "tagfahrlicht"]}
     ]},
     {"id": "convenience", "name": "Access & convenience", "attributes": [
       {"id": "doors_closures", "name": "Doors, trunk & closures", "aliases": [
@@ -28,94 +32,113 @@
         "Hood, open / close", "Hood", "Side window, open / close", "Fuel filler flap , open / close",
         "Child safety latch", "Sound of doors/ trunk/ hatch shutting", "Resting state after door opening",
         "Opening / closing convertible top / hardtop",
-        "Soft-Close-Automatik für Türen", "Automatische Heckklappenbetätigung", "Automatiktüren", "Flächenintegrierte Türgriffe"]},
+        "Soft-Close-Automatik für Türen", "Automatische Heckklappenbetätigung", "Automatiktüren", "Flächenintegrierte Türgriffe"],
+        "keywords": ["heckklappe", "gepäckraumklappe", "kofferraumklappe", "türgriff"]},
       {"id": "vehicle_access", "name": "Keys & vehicle access", "aliases": [
         "Vehicle key", "Digital Key", "Comfort Access", "Vehicle, lock / unlock", "Display key",
         "Remote Engine Start (Vehicle Key )", "Anti-theft alarm system", "Garage door opener",
         "Interior mirror, garage door opener",
-        "BMW Digital Key", "Komfortzugang", "Alarmanlage", "Garagentoröffner, integriert"]}
+        "BMW Digital Key", "Komfortzugang", "Alarmanlage", "Garagentoröffner, integriert"],
+        "keywords": ["schlüssel", "smart-key", "kameraüberwachung", "sentry mode", "wächter-modus", "anti-diebstahl"]}
     ]},
     {"id": "interior", "name": "Interior design & quality", "attributes": [
       {"id": "interior_styling", "name": "Interior styling", "aliases": [
         "Interior design", "Interior", "Interior styling", "Overall interior styling/ aesthetics", "Interior colors",
         "Overall interior design / layout", "Instrument panel", "Instrument panel (IP)",
-        "M Sport Interieurumfänge", "Glasapplikation 'CraftedClarity' für Interieurelemente", "Glasapplikationen „CraftedClarity“ für Interieurelemente", "M Dachhimmel Anthrazit", "M Dachhimmel Alcantara anthrazit", "M Dachhimmel Alcantara"]},
+        "M Sport Interieurumfänge", "Glasapplikation 'CraftedClarity' für Interieurelemente", "Glasapplikationen „CraftedClarity“ für Interieurelemente", "M Dachhimmel Anthrazit", "M Dachhimmel Alcantara anthrazit", "M Dachhimmel Alcantara"],
+        "keywords": ["innenausstattung", "interieur", "interieurleisten", "akzent dunkelsilber"]},
       {"id": "materials_workmanship", "name": "Materials & workmanship", "aliases": [
         "Quality of interior and materials used", "Interior trim and finish", "Overall interior workmanship",
         "Quality of seat materials", "Quality of interior materials", "Upholstery / interior trim",
         "Interior door handles", "Floor mat",
-        "Fußmatten in Velours"]},
+        "Fußmatten in Velours"],
+        "keywords": ["leder", "polster", "alcantara", "textil", "materialien", "sitzbezüge", "nappa", "race-tex"]},
       {"id": "ambient_lighting", "name": "Ambient & interior lighting", "aliases": [
         "Ambient light", "Vehicle interior, lighting", "Interior lighting", "Trunk light",
-        "Ambientes Licht"]},
+        "Ambientes Licht"],
+        "keywords": ["ambiente", "ambientebeleuchtung"]},
       {"id": "roof_sun_protection", "name": "Panorama roof & sun protection", "aliases": [
         "Panorama glass roof", "If applicable: Sunroof/ moonroof", "Sun protection", "Sun visor, front",
         "Roof function centre",
-        "Panorama Glasdach inkl. Dachlackierung in Schwarz Hochglanz", "Panorama-Glasdach", "Panorama-Glasdach Sky Lounge", "Sonnenschutzrollos", "Sonnenschutzverglasung"]}
+        "Panorama Glasdach inkl. Dachlackierung in Schwarz Hochglanz", "Panorama-Glasdach", "Panorama-Glasdach Sky Lounge", "Sonnenschutzrollos", "Sonnenschutzverglasung"],
+        "keywords": ["glasdach", "panoramadach", "schiebedach", "ausstelldach", "solarbay", "smart glass", "sonnenschutz", "wärmeschutzverglasung", "privacy-verglasung", "getönt", "panorama-glasdach"]}
     ]},
     {"id": "seating_comfort", "name": "Seating & comfort", "attributes": [
       {"id": "seat_comfort", "name": "Seat comfort", "aliases": [
         "Seats", "Overall seating comfort", "Overall comfort of the seats", "Comfort of front seat",
         "Comfort of 2nd row seat", "Driving position", "Headrests, rear", "Center armrest, front",
-        "Sportsitze für Fahrer und Beifahrer", "Komfortsitze vorn, elektrisch verstellbar", "Executive Lounge Seating", "5-Sitzigkeit"]},
+        "Sportsitze für Fahrer und Beifahrer", "Komfortsitze vorn, elektrisch verstellbar", "Executive Lounge Seating", "5-Sitzigkeit"],
+        "keywords": ["sitze", "komfort-sitze", "ergonomische sitze", "relaxation", "agr-", "komfortsitze"]},
       {"id": "seat_features", "name": "Seat & comfort features", "aliases": [
         "Seating, ventilate / heat", "Seat massage", "Seat memory", "Adjustment of lower lumbar support",
         "Headrest, adjust", "Driver seat adjustability", "Passenger seat adjustability", "Heated steering wheel",
         "Panel heating",
-        "Lordosenstütze für Fahrer und Beifahrer", "Sitzheizung für Fahrer und Beifahrer", "Sitzverstellung, elektrisch, mit Memory für Fahrersitz", "Sitzverstellung, elektrisch, mit Memory", "Sitzheizung vorn und hinten", "Multifunktionssitze für Fahrer und Beifahrer", "Lenkradheizung", "Wärmekomfortpaket", "Lenksäulenverstellung"]},
+        "Lordosenstütze für Fahrer und Beifahrer", "Sitzheizung für Fahrer und Beifahrer", "Sitzverstellung, elektrisch, mit Memory für Fahrersitz", "Sitzverstellung, elektrisch, mit Memory", "Sitzheizung vorn und hinten", "Multifunktionssitze für Fahrer und Beifahrer", "Lenkradheizung", "Wärmekomfortpaket", "Lenksäulenverstellung"],
+        "keywords": ["massage", "sitzbelüftung", "sitzheizung", "beheizbar", "lordosen", "belüftete", "sitzverstellung"]},
       {"id": "interior_comfort", "name": "Interior comfort & wellbeing", "aliases": [
-        "Interior comfort", "Provides a sense of wellbeing", "Caring Car"]},
+        "Interior comfort", "Provides a sense of wellbeing", "Caring Car"],
+        "keywords": ["luftreinigung", "luftqualität", "luftgüte", "air-balance", "beduftung", "ionisator", "cleanzone", "pm2.5", "dog mode"]},
       {"id": "climate", "name": "Climate control", "aliases": [
         "Vehicle, climatization", "Air conditioning, setting", "Blower function", "Air conditioning control panel",
         "Air conditioning, overall technology", "Heating/ ventilation/ air conditioning",
         "Overall performance of climate control system", "Heater performance", "Air conditioner performance",
         "Operation of heater/ AC controls", "Auxiliary heater function",
-        "Klimaautomatik", "Klimaautomatik mit 4-Zonenregelung", "Klimaautomatik mit 4-Zonen-Regelung", "Standheizung", "Standklimatisierung"]}
+        "Klimaautomatik", "Klimaautomatik mit 4-Zonenregelung", "Klimaautomatik mit 4-Zonen-Regelung", "Standheizung", "Standklimatisierung"],
+        "keywords": ["klima", "standheizung", "climatronic", "standklimatisierung", "klimaautomatik"]}
     ]},
     {"id": "space_practicality", "name": "Space & practicality", "attributes": [
       {"id": "interior_space", "name": "Interior space", "aliases": [
         "Space / spatial impression", "Front interior roominess", "Front seat roominess", "Interior roominess",
-        "Passenger seating capacity"]},
+        "Passenger seating capacity"],
+        "keywords": ["raumkonzept", "raumausnutzung", "beinfreiheit"]},
       {"id": "rear_space", "name": "Rear space", "aliases": [
         "Rear interior roominess", "2nd row seat roominess"]},
       {"id": "storage", "name": "Interior storage", "aliases": [
         "Interior storage for small items", "Interior storage", "Storage compartments", "Glove box", "Cupholder",
         "Cupholders", "Center console, front",
-        "Ablagemöglichkeiten", "Travel & Comfort System"]},
+        "Ablagemöglichkeiten", "Travel & Comfort System"],
+        "keywords": ["staufach", "stauraum", "ablage", "mittelkonsole", "megaconsole", "becherhalter", "youclip", "schließfach", "simply clever"]},
       {"id": "luggage", "name": "Luggage & cargo", "aliases": [
         "Luggage compartment", "Luggage capacity", "Ease of loading/ unloading luggage",
         "Ease of loading/unloading cargo", "Cargo capacity/usefulness", "Frunk", "Through-loading facility",
-        "Durchladesystem 40:20:40", "Durchladesystem"]},
+        "Durchladesystem 40:20:40", "Durchladesystem"],
+        "keywords": ["kofferraum", "frunk", "gepäck", "liter frunk", "kofferraumvolumen"]},
       {"id": "entry_exit", "name": "Entry & exit", "aliases": [
         "Vehicle, access and exit", "Ease of entry into and out of car", "Ease of front seat entry",
         "Ease of 2nd row seat entry", "Grab handle"]},
       {"id": "versatility", "name": "Versatility & towing", "aliases": [
         "Interior versatility", "Overall interior versatility/seat stowaway", "Trailer, use", "Towing eye",
         "Child restraint seat, use", "Child restraint seat",
-        "Anhängerkupplung"]}
+        "Anhängerkupplung"],
+        "keywords": ["anhängelast", "anhänger", "verschiebbare rücksitzbank"]}
     ]},
     {"id": "hmi", "name": "HMI & controls", "attributes": [
       {"id": "touchscreen", "name": "Touchscreen operation", "aliases": [
         "Touch screen, operation", "Ease of reading and using screen interface", "Touch Command",
-        "BMW Touch Command"]},
+        "BMW Touch Command"],
+        "keywords": ["touchscreen", "touch-display", "touch-slider"]},
       {"id": "operating_concept", "name": "Operating concept & menus", "aliases": [
         "Operating concept, operating system", "Menu structure of infotainment system", "Driver profile",
         "If applicable: Ease of customization", "Overall driver-vehicle interaction (HMI)",
         "Easy to use information and entertainment system including in-car apps", "Intuitiveness of controls",
         "Display, time",
-        "BMW Panoramic iDrive", "BMW Live Cockpit Plus"]},
+        "BMW Panoramic iDrive", "BMW Live Cockpit Plus"],
+        "keywords": ["benutzeroberfläche", "menüführung", "zero-layer", "i-toggles", "schnellzugriff", "operating system"]},
       {"id": "physical_controls", "name": "Physical controls", "aliases": [
         "Controller operation", "Multi-function steering wheel operation", "Steering wheel", "Operate selector lever",
         "Shift paddle", "Gesture control", "Pedals, operate", "Placement/ ease of reading and using controls",
         "Easy to read and use instruments/ controls/ displays", "Parking brake", "Automatic-hold", "Horns",
         "Start engine/switch on drive readiness", "Starting engine", "Wash / wipe switch",
-        "M Lederlenkrad", "Sport-Lenkrad", "Sport-Lederlenkrad", "BMW Individual Lenkrad", "Fahrerlebnisschalter"]},
+        "M Lederlenkrad", "Sport-Lenkrad", "Sport-Lederlenkrad", "BMW Individual Lenkrad", "Fahrerlebnisschalter"],
+        "keywords": ["lenkrad", "multifunktions-lederlenkrad", "interaction bar", "bedienelement", "controller", "12-uhr-markierung", "griffbereich"]},
       {"id": "displays", "name": "Displays & head-up display", "aliases": [
         "Instrument cluster", "Head-Up Display", "Position/ integration of displays in dashboard",
-        "BMW Panoramic Vision", "BMW 3D Head-Up Display", "BMW Passenger Screen"]},
+        "BMW Panoramic Vision", "BMW 3D Head-Up Display", "BMW Passenger Screen"],
+        "keywords": ["head-up", "hud", "display", "bildschirm", "kombiinstrument", "cockpit", "zentralanzeige", "hyperscreen", "curved display", "virtual cockpit", "beifahrerdisplay", "head-up display", "instrumenten-cluster"]},
       {"id": "voice_assistant", "name": "Voice assistant", "aliases": [
         "Intelligent Personal Assistant", "Intelligent Personal Assistant, activation word",
-        "Voice control / speech recognition", "Performance of voice recognition"]},
+        "Voice control / speech recognition", "Performance of voice recognition"],
+        "keywords": ["sprachassist", "sprachsteuerung", "google assistant", "chatgpt", "party assistants"]},
       {"id": "owners_manual", "name": "Owner's manual & guidance", "aliases": [
         "Owner's Manual", "Driver's Guide App"]}
     ]},
@@ -124,21 +147,26 @@
         "ConnectedDrive and Infotainment, overall technology",
         "Features of information and entertainment system including in-car apps",
         "If applicable: Interactive information system (e.g., OnStar, mbrace, iDrive)", "Apps (in-car)",
-        "BMW Digital Premium (laufzeitbegrenzt)5,6"]},
+        "BMW Digital Premium (laufzeitbegrenzt)5,6"],
+        "keywords": ["infotainment", "multimedia", "google built-in infotainment", "integrierte google services", "google automotive", "sync move mit"]},
       {"id": "smartphone_integration", "name": "Smartphone integration", "aliases": [
         "Apple CarPlay", "Android Auto", "Smartphone integration/ connectivity",
         "Manage / pair mobile device (Bluetooth)", "Bluetooth/ smartphone pairing",
-        "Mirroring of smartphone content on vehicle display", "Screen mirroring", "Priorities for telephones"]},
+        "Mirroring of smartphone content on vehicle display", "Screen mirroring", "Priorities for telephones"],
+        "keywords": ["carplay", "android auto", "smartphone-integration", "bluetooth", "smartphone integration"]},
       {"id": "phone_charging", "name": "Phone charging & ports", "aliases": [
         "Mobile device, wireless charging", "USB port", "Phone charging", "Place for phone", "12 V connection",
-        "Wireless Charging Ablage"]},
+        "Wireless Charging Ablage"],
+        "keywords": ["ladestation", "drahtlose schnellladefunktion", "usb"]},
       {"id": "navigation", "name": "Navigation", "aliases": [
         "Navigation", "Integrated navigation system", "If applicable: Navigation system", "Map update",
-        "Real Time Traffic Information (RTTI)", "Traffic Camera Information", "Smart POI search"]},
+        "Real Time Traffic Information (RTTI)", "Traffic Camera Information", "Smart POI search"],
+        "keywords": ["navigation", "navigationssystem", "maps"]},
       {"id": "audio", "name": "Audio", "aliases": [
         "Audio mode, sound", "Overall performance of sound system", "Design and integration of speakers",
         "Audio clarity", "Bass performance", "Radio function", "CD / DVD changer, playback",
-        "DAB-Tuner", "HiFi Lautsprechersystem harman/kardon", "Bowers & Wilkins Surround Sound System", "Bowers & Wilkins Diamond Surround Sound System"]},
+        "DAB-Tuner", "HiFi Lautsprechersystem harman/kardon", "Bowers & Wilkins Surround Sound System", "Bowers & Wilkins Diamond Surround Sound System"],
+        "keywords": ["soundsystem", "sound system", "sound-system", "audio", "lautsprecher", "hifi", "hi-fi", "soundbar"]},
       {"id": "connected_services", "name": "Connected services & app", "aliases": [
         "My BMW App / MINI App", "Remote Services & Remote Keyless Entry (My BMW App/MINI App)",
         "Remote Engine Start (My BMW App / MINI App)", "Remote 3D View (My BMW App / MINI App)",
@@ -148,9 +176,11 @@
         "BMW ConnectedDrive upgrades/ MINI CONNECTED upgrades", "Connected services", "Vehicle's Mobile App",
         "Teleservices", "My BMW / MINI Portal", "Customer Account (My BMW / MINI Portal)",
         "BMW Online / MINI Online", "Apps (smartphone)",
-        "ConnectedDrive Services6", "Connected Package Professional5"]},
+        "ConnectedDrive Services6", "Connected Package Professional5"],
+        "keywords": ["over-the-air", "software-update", "my bmw app", "connected package", "connecteddrive", "remote services", "remote software", "vehicle apps", "connected music", "4g lte", "airconsole"]},
       {"id": "rear_entertainment", "name": "Rear seat entertainment", "aliases": [
-        "Rear seat entertainment", "Video: playback / streaming"]}
+        "Rear seat entertainment", "Video: playback / streaming"],
+        "keywords": ["fondpassagiere", "videostreaming", "fondkonsole", "fond-entertainment"]}
     ]},
     {"id": "assistance_safety", "name": "Driver assistance & safety", "attributes": [
       {"id": "driving_assistance", "name": "Driving assistance", "aliases": [
@@ -158,28 +188,33 @@
         "Steering and lane guide assist", "Speed Limit Assistant", "Traffic Jam Assistant", "Lane Change Assistant",
         "Adaptive driving assists (lane keeping, cruise, braking)", "Overall driver assist features",
         "Emergency Stop Assistant",
-        "Driving Assistant", "Driving Assistant Plus", "Driving Assistant Professional", "Autobahnassistent", "Autobahn- & City-Assistent (laufzeitbegrenzt)1,2", "Speed Limit Info", "Geschwindigkeitsregelung mit Bremsfunktion", "Speed Limiter"]},
+        "Driving Assistant", "Driving Assistant Plus", "Driving Assistant Professional", "Autobahnassistent", "Autobahn- & City-Assistent (laufzeitbegrenzt)1,2", "Speed Limit Info", "Geschwindigkeitsregelung mit Bremsfunktion", "Speed Limiter"],
+        "keywords": ["tempomat", "abstandsregel", "spurhalte", "spurführung", "spurwechsel", "autobahnassistent", "highway driving", "travel assist", "pilot assist", "autopilot", "drive pilot", "fahrassistenz", "fahrassistent", "fahrerassistenz", "driving assistant", "geschwindigkeitsregel", "stauassistent", "staufolge", "co-pilot", "drive assist", "distronic", "innodrive", "lidar", "notfallassistent", "geschwindigkeitslimit", "tempolimit", "verkehrszeichen", "tempopilot", "lenk-assistent", "speed limit", "nothalteassistent", "ampel", "rettungsgasse", "abstandsinformation", "abbiegeassistent", "assisted driving", "anfahrerinnerung", "lenkunterstützung"]},
       {"id": "parking_assistance", "name": "Parking assistance", "aliases": [
         "Parking Assistant", "Rear view camera", "Park Distance Control (PDC)", "Surround View", "All-round view",
         "Back-up Assistant", "Remote controlled parking", "Side View",
         "If applicable: Backup system (camera, sensors, etc.)",
-        "Parking Assistant Professional", "Parking Assistant Plus"]},
+        "Parking Assistant Professional", "Parking Assistant Plus"],
+        "keywords": ["einpark", "auspark", "parkassist", "park assist", "park-assist", "parking", "parkhilfe", "rückfahrkamera", "kamerasystem", "360-grad-kamera", "360°", "surround view", "area view", "visiopark", "rückfahrassistent", "park-paket", "parklenk", "smart summon", "parkkamera", "parking assist", "3d-kamera", "park distance", "3d view", "panoramaansicht", "parken-anfahr", "anlernbaren fahrstrecken"]},
       {"id": "safety_warnings", "name": "Safety warnings & monitoring", "aliases": [
         "Lane departure warning", "Blind spot monitoring", "Front collision warning",
         "Cross Traffic Warning Rear with Brake Intervention", "Fatigue Alert", "Rear-end collision warning",
         "Traffic Light And Sign Warning", "Intersection Warning with Brake Intervention", "Night Vision",
         "Safety monitoring features (blid spot warning, lane departure warning, etc)", "Interior camera",
         "Drive Recorder",
-        "Spurverlassenswarnung mit aktiver Rückführung", "Frontkollisionswarnung mit Bremsfunktion, Ausweichhilfe und Bremseingriff", "Linksabbiegewarnung (Fahrzeug) mit Bremsfunktion"]},
+        "Spurverlassenswarnung mit aktiver Rückführung", "Frontkollisionswarnung mit Bremsfunktion, Ausweichhilfe und Bremseingriff", "Linksabbiegewarnung (Fahrzeug) mit Bremsfunktion"],
+        "keywords": ["notbrems", "kollision", "totwinkel", "toter-winkel", "blind spot", "querverkehr", "cross traffic", "ausstiegswarn", "türöffnungswarnung", "dooring", "kreuzungsassistent", "ausweich", "nachtsicht", "night vision", "bremsassistent", "city safety", "pre sense", "frontradarassistent", "spurwechselwarnung", "side assist", "safety coach", "totwinkel-assistent", "innenraumkamera", "falschfahrwarnung", "vorfahrtswarnung", "radfahrerwarnung", "personenwarnung", "spurverlassenswarnung", "heckkollis"]},
       {"id": "safety_overall", "name": "Perceived safety", "aliases": [
         "Safety", "Impression of safety", "Vehicle safety, overall technology", "Overall safety of the vehicle",
         "Seat belts", "Airbags", "Emergency request", "Dynamic Stability Control", "Dynamic Stability Control (DSC)",
-        "Active Protection", "Gesetzlicher Notruf inkl. Teleservices und BMW Unfallhilfe", "M Sicherheitsgurte", "Warndreieck und Verbandskasten", "Akustischer Fußgängerschutz"]},
+        "Active Protection", "Gesetzlicher Notruf inkl. Teleservices und BMW Unfallhilfe", "M Sicherheitsgurte", "Warndreieck und Verbandskasten", "Akustischer Fußgängerschutz"],
+        "keywords": ["sicherheit", "pre-safe", "insassenschutz", "safe space", "pre-safe impuls"]},
       {"id": "visibility", "name": "Visibility, mirrors & wipers", "aliases": [
         "All round visibility", "Front visibility", "Rear visibility", "Exterior rearview mirror",
         "Interior rearview mirror", "Windshield", "Windshield wiper", "Rear wiper", "Rain sensor mode",
         "Heated rear window", "Washer fluid, top up",
-        "Erweitertes Außenspiegelpaket"]}
+        "Erweitertes Außenspiegelpaket"],
+        "keywords": ["außenspiegel", "sichtfeld", "frontscheibe", "e-mirror"]}
     ]},
     {"id": "driving", "name": "Driving dynamics & performance", "attributes": [
       {"id": "driving_overall", "name": "Overall driving experience", "aliases": [
@@ -188,61 +223,75 @@
         "Handling / Riding", "Cushioning / damping vehicle", "Roadholding", "Quality of ride", "Riding comfort",
         "Handling/Maneuverability", "Manoeuvrability", "Turning radius", "Steering", "Self-leveling suspension",
         "If applicable: 4WD/AWD performance", "Off-Road capability", "Ground clearance",
-        "Adaptives Fahrwerk Professional", "Adaptives M Fahrwerk Professional", "Integral-Aktivlenkung", "Adaptive M Chassis Control Professional", "Adaptive Chassis Control Professional"]},
+        "Adaptives Fahrwerk Professional", "Adaptives M Fahrwerk Professional", "Integral-Aktivlenkung", "Adaptive M Chassis Control Professional", "Adaptive Chassis Control Professional"],
+        "keywords": ["fahrwerk", "luftfederung", "dämpf", "hinterachslenkung", "niveauregulierung", "airmatic", "allrad", "quattro", "quattro mit ultra", "wankstabil"]},
       {"id": "powertrain_performance", "name": "Powertrain & acceleration", "aliases": [
         "Drivetrain", "Transmission", "Acceleration", "Overall power and pickup", "Acceleration from stop",
         "Passing capability", "Smoothness of transmission", "Launch Control",
         "Automatic engine start-stop function (MSA)", "Engine oil", "Exhaust system",
-        "Steptronic Getriebe mit Schaltwippen", "Steptronic Sport Getriebe Steptronic Sport Getriebe"]},
+        "Steptronic Getriebe mit Schaltwippen", "Steptronic Sport Getriebe Steptronic Sport Getriebe"],
+        "keywords": ["antrieb", "motor", "edrive", "getriebe", "xtraboost", "synchronmaschine", "e-maschine", "elektromaschine", "turbobenziner", "plug-in-hybrid", "app550", "antriebseinheit", "heckmotoren"]},
       {"id": "driving_modes", "name": "Driving modes", "aliases": [
         "My Modes / driving experience", "Experience Modes",
         "My Modes"]},
       {"id": "braking", "name": "Braking", "aliases": ["Braking",
-        "M Sportbremse, dunkelblau metallic", "M Sportbremse, schwarz metallic"]},
+        "M Sportbremse, dunkelblau metallic", "M Sportbremse, schwarz metallic"],
+        "keywords": ["bremse", "bremssättel", "brake"]},
       {"id": "engine_sound", "name": "Engine & vehicle sound", "aliases": [
         "Engine acoustics / engine sound", "Sound of engine", "Overall vehicle sound",
-        "BMW IconicSounds Electric"]}
+        "BMW IconicSounds Electric"],
+        "keywords": ["iconicsounds", "motorsound"]}
     ]},
     {"id": "range_charging", "name": "Range, charging & efficiency", "attributes": [
-      {"id": "electric_range", "name": "Electric range", "aliases": ["Electric Range"]},
+      {"id": "electric_range", "name": "Electric range", "aliases": ["Electric Range"],
+        "keywords": ["reichweite", "wltp", "elektrische reichweite"]},
       {"id": "charging", "name": "Charging experience", "aliases": [
         "Public charging / external providers", "Charge high-voltage battery", "Wallbox, charging / home charging",
         "Opening/closing charging socket cover", "Charging cable", "High-voltage charging power socket",
         "Route optimized for charging", "High voltage battery, preconditioning", "Bidirectional charging",
-        "Ladekabel Professional (Mode 3) für öffentliches Laden", "AC-Laden Professional (22 kW)", "AC-Laden Professional: AC Laden für zuhause und unterwegs (22 kW, 3-phasig)"]},
-      {"id": "hv_battery", "name": "High-voltage battery", "aliases": ["High voltage battery"]},
+        "Ladekabel Professional (Mode 3) für öffentliches Laden", "AC-Laden Professional (22 kW)", "AC-Laden Professional: AC Laden für zuhause und unterwegs (22 kW, 3-phasig)"],
+        "keywords": ["ladeleistung", "schnellladefähig", "kw dc", "dc-lade", "ac-lade", "ac-lader", "bordlader", "wallbox", "ladeklappe", "ladesäule", "supercharger", "plug & charge", "v2l", "vehicle-to-load", "bidirektional", "vorkonditionier", "800-volt", "800v", "400v", "ladearchitektur", "ladeplattform", "ladezeit", "ladekabel", "ladeplanung", "combined charging", "e-gmp", "schnellladesystem", "dc-schnellladefunktion", "ac stecker"]},
+      {"id": "hv_battery", "name": "High-voltage battery", "aliases": ["High voltage battery"],
+        "keywords": ["batterie", "akku", "zell-integration", "blade battery", "cell-to-body"]},
       {"id": "efficiency", "name": "Energy & fuel efficiency", "aliases": [
         "Fuel economy/ energy efficiency", "Gas or electric mileage (fuel economy)",
-        "Brake Energy Regeneration / recuperation", "Fuel tank"]}
+        "Brake Energy Regeneration / recuperation", "Fuel tank"],
+        "keywords": ["energieverbrauch", "verbrauch", "effizien", "wärmepumpe zur", "serienmäßige wärmepumpe", "wärmepumpe serienmäßig", "rekuperation", "ein-pedal", "leergewicht"]}
     ]},
     {"id": "nvh", "name": "Noise & vibration", "attributes": [
       {"id": "quietness", "name": "Quietness", "aliases": [
         "Interior acoustics", "Quietness when driving", "Overall noise/vibration/harshness",
-        "Freedom from wind and road noise", "Active noise cancellation"]},
+        "Freedom from wind and road noise", "Active noise cancellation"],
+        "keywords": ["akustikverglasung", "akustik-doppelverglasung", "akustik-komfortverglasung", "akustikglas", "geräusch", "komfortverglasung"]},
       {"id": "squeaks_rattles", "name": "Squeaks & rattles", "aliases": [
         "Freedom from faults/ squeaks/ rattles", "Freedom from squeaks and rattles"]}
     ]},
     {"id": "quality", "name": "Quality & reliability", "attributes": [
       {"id": "build_quality", "name": "Build quality", "aliases": [
-        "Body equipment, overall technology", "Overall build quality", "Solid vehicle construction"]},
+        "Body equipment, overall technology", "Overall build quality", "Solid vehicle construction"],
+        "keywords": ["torsionssteifigkeit"]},
       {"id": "reliability", "name": "Reliability", "aliases": [
         "Reliability", "Overall impression of durability/reliability", "Freedom from electrical problems",
         "Vehicle battery"]},
       {"id": "service_warranty", "name": "Service, parts & warranty", "aliases": [
-        "Warranty coverage", "Accessories / Parts"]}
+        "Warranty coverage", "Accessories / Parts"],
+        "keywords": ["garantie", "garantie auf batterie"]}
     ]},
     {"id": "value_brand", "name": "Value & brand", "attributes": [
       {"id": "value_for_money", "name": "Value for money", "aliases": [
         "Value for money", "Overall value for money", "Price/deal offered", "Affordable to buy",
-        "Economical to own (cost of ownership)", "Future trade-in or resale value"]},
+        "Economical to own (cost of ownership)", "Future trade-in or resale value"],
+        "keywords": ["erschwinglich"]},
       {"id": "equipment_level", "name": "Equipment level & innovation", "aliases": [
         "Level of equipment", "Level of standard equipment", "Technical innovations",
         "INNOVATIONSPAKET", "COMFORT PAKET", "TRAVEL PAKET", "EXECUTIVE PAKET", "EXECUTIVE LOUNGE PAKET", "CONNOISSEUR PAKET", "DESIGN PURE EXCELLENCE", "M SPORTPAKET", "M SPORTPAKET PRO", "M AUTOMOBILE"]},
       {"id": "brand_image", "name": "Brand & image", "aliases": [
         "Prestige/ manufacturer reputation", "Overall brand image", "Reputation/prestige of manufacturer",
-        "Overall vehicle image"]},
+        "Overall vehicle image"],
+        "keywords": ["car of the year", "meistverkauft", "europas meistverkaufter"]},
       {"id": "environment", "name": "Environmental friendliness", "aliases": [
-        "Environm. friendliness", "Overall environmental friendliness"]}
+        "Environm. friendliness", "Overall environmental friendliness"],
+        "keywords": ["nachhaltig", "recycelt", "emissionsfrei", "zuckerrohr"]}
     ]},
     {"id": "market", "name": "Market & sales", "attributes": [
       {"id": "sales_volume", "name": "Sales volume", "aliases": ["sales_volume"]}

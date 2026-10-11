@@ -1,15 +1,20 @@
-"""Read-only API over the unified output (run `python -m app.unify` first).
+"""Backend API for unified evidence, forecasts, engineering input, and uploads.
 
     uv run uvicorn app.api:app --reload
 """
 import json
 from functools import cache
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, HTTPException, Query, UploadFile
+from fastapi.staticfiles import StaticFiles
 
-from app.paths import UNIFIED_DIR
+from app.paths import RUNTIME_DIR, UNIFIED_DIR
+from app.services.customer_input import process_document
+from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
 
 app = FastAPI(title="Open-Trend-Tracker")
+RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
+app.mount("/api/artifacts", StaticFiles(directory=RUNTIME_DIR), name="runtime-artifacts")
 
 
 @cache
@@ -68,3 +73,57 @@ def find_observations(vehicle: str, attribute: str | None = None, market: str | 
 @app.get("/api/coverage")
 def get_coverage():
     return json.loads((UNIFIED_DIR / "coverage.json").read_text())
+
+
+@app.get("/api/forecast/catalog")
+def get_forecast_catalog():
+    """Feature-impact trajectories plus available BMW model/market history."""
+    try:
+        return forecast_catalog()
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(503, f"forecast inputs are not ready: {exc}") from exc
+
+
+@app.get("/api/forecast/sales")
+def get_sales_forecast(
+    model: str,
+    market: str = "Global",
+    feature: list[str] = Query(default=[]),
+):
+    """BMW 2030-2033 sales series; repeat `feature` for multiple selections."""
+    try:
+        return sales_forecast(model, market, feature)
+    except KeyError as exc:
+        raise HTTPException(404, str(exc)) from exc
+    except (FileNotFoundError, ValueError) as exc:
+        raise HTTPException(503, f"forecast inputs are not ready: {exc}") from exc
+
+
+@app.get("/api/forecast/prices/{vehicle}")
+def get_price_forecast(vehicle: str, target_year: int = 2030, annual_rate: float = 0.025):
+    """BMW option-price reference scenario for a forecast page."""
+    try:
+        result = price_forecast(vehicle.upper(), target_year, annual_rate)
+    except ValueError as exc:
+        raise HTTPException(422, str(exc)) from exc
+    if not result["items"]:
+        raise HTTPException(404, f"no positive BMW option-price evidence for {vehicle}")
+    return result
+
+
+@app.get("/api/engineering/features/{vehicle}")
+def get_engineering_features(vehicle: str):
+    """Existing BMW catalog comparison shaped as engineering review input."""
+    result = engineering_comparison(vehicle.upper())
+    if not any(item["sources"] for item in result["items"]):
+        raise HTTPException(404, f"no BMW option-list comparison for {vehicle}")
+    return result
+
+
+@app.post("/api/customer-input/process")
+async def process_customer_input(document: UploadFile = File(...)):
+    """Convert a customer document into complaint data and a generated figure."""
+    try:
+        return process_document(document.filename or "upload.txt", await document.read())
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(422, str(exc)) from exc

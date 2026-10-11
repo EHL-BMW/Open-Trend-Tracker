@@ -10,7 +10,7 @@ from collections import defaultdict
 import pandas as pd
 from pypdf import PdfReader
 
-from app.paths import DATA_DIR
+from app.paths import DATA_DIR, INTERNAL_DIR
 from app.schema import Observation, RawRef
 
 logging.getLogger("pypdf").setLevel(logging.ERROR)  # font-encoding warnings, irrelevant for the text we use
@@ -37,7 +37,7 @@ FEEDBACK_TYPES = {"Likes": "like", "Wants": "want", "Difficult to Use": "difficu
 
 def feedback() -> list[Observation]:
     out = []
-    for f in sorted(DATA_DIR.glob("*_feedback_hackathon.xlsx")):
+    for f in sorted(INTERNAL_DIR.glob("*_feedback_hackathon.xlsx")):
         df = pd.read_excel(f)
         label = df["Vfc level2 Name"].fillna("no_class_found")
         classified_ids = set(df.loc[label != "no_class_found", "ID"])
@@ -65,7 +65,7 @@ STUDY_FILE = "F70_G60_G68_G70_customer_studies.xlsx"
 
 def study_cn_eu() -> list[Observation]:
     """Mean satisfaction on a 0-10 scale; columns = (market, model), rows = attribute + 'Mean'."""
-    f = DATA_DIR / STUDY_FILE
+    f = INTERNAL_DIR / STUDY_FILE
     df = pd.read_excel(f, sheet_name="CN_EU_2025", header=None)
     markets = df.iloc[1, 1:].ffill().map({"China": "CN", "EU": "EU"})
     models = df.iloc[2, 1:].map(lambda s: s.split()[-1])
@@ -81,7 +81,7 @@ def study_cn_eu() -> list[Observation]:
                     id=f"st:cneu:{i + 1}:{j}", origin="internal", source="study_cn_eu",
                     vehicle=models[j], market=markets[j], raw_label=label, metric="study_mean_0_10",
                     value=float(v), unit="0-10", norm=float(v) / 10, period="2025",
-                    raw=RawRef(file=STUDY_FILE, locator=f"sheet=CN_EU_2025 row={i + 1} col={j + 1}"),
+                    raw=RawRef(file=_rel(f), locator=f"sheet=CN_EU_2025 row={i + 1} col={j + 1}"),
                 ))
     return out
 
@@ -92,7 +92,7 @@ US_SCALE = {"I Hate It": 1, "A Failure": 2, "Unsatisfactory": 3, "Satisfactory":
 
 def study_us() -> list[Observation]:
     """7-point answer distribution per question -> mean (1-7) and bottom-3 share."""
-    f = DATA_DIR / STUDY_FILE
+    f = INTERNAL_DIR / STUDY_FILE
     df = pd.read_excel(f, sheet_name="US_2025", header=None)
     models = {j: str(df.iat[0, j]).split()[-1] for j in (2, 3)}
     blocks = []  # (question, first excel row, {model: {answer: share}})
@@ -115,7 +115,7 @@ def study_us() -> list[Observation]:
                 continue
             mean = sum(US_SCALE[a] * s for a, s in shares.items()) / total
             bottom3 = sum(s for a, s in shares.items() if US_SCALE[a] <= 3) / total
-            raw = RawRef(file=STUDY_FILE, locator=f"sheet=US_2025 rows={row}-{row + 8} model={model}")
+            raw = RawRef(file=_rel(f), locator=f"sheet=US_2025 rows={row}-{row + 8} model={model}")
             common = dict(origin="internal", source="study_us", vehicle=model, market="US",
                           raw_label=question, period="2025", raw=raw)
             out.append(Observation(id=f"st:us:{row}:{model}:mean", metric="study_mean_1_7", value=mean,
@@ -133,7 +133,7 @@ SALES_FILE = "sales_volumes.xlsx"
 def sales() -> list[Observation]:
     """Units per market and year. A sheet covering two models (G60_G68) is attributed to both."""
     out = []
-    for sheet, df in pd.read_excel(DATA_DIR / SALES_FILE, sheet_name=None).items():
+    for sheet, df in pd.read_excel(INTERNAL_DIR / SALES_FILE, sheet_name=None).items():
         vehicles = sheet.split("_")
         note = f"sheet {sheet} combines {' + '.join(vehicles)}" if len(vehicles) > 1 else None
         for i, r in enumerate(df.to_dict("records")):
@@ -141,7 +141,7 @@ def sales() -> list[Observation]:
             for v in vehicles:
                 common = dict(origin="internal", source="sales", vehicle=v, market=r["market_code"],
                               raw_label="sales_volume", text=note,
-                              raw=RawRef(file=SALES_FILE, locator=f"sheet={sheet} row={i + 2}"))
+                              raw=RawRef(file=_rel(INTERNAL_DIR / SALES_FILE), locator=f"sheet={sheet} row={i + 2}"))
                 for year, units in volumes.items():
                     period = year if int(year) <= 2025 else f"{year}F"  # years after 2025 are forecasts
                     out.append(Observation(id=f"sa:{v}:{r['market_code']}:{year}", metric=f"volume_{period}",
@@ -155,43 +155,66 @@ def sales() -> list[Observation]:
 
 # --- option lists (German price-list PDFs, Germany, EUR incl. VAT) ------------------------
 # In layout mode each table row is one text line: name, SA code, price, then one marker per model
-# variant: ■ = standard, □ = optional, blank = not available.
+# variant: ■ = standard, □ = optional, blank = not available. A package's contents follow it on lines
+# without markers ("– Komfortzugang", or plain names under an ALL-CAPS package); they inherit its markers.
 
 SA_CODE = re.compile(r"^(?=.*\d)[0-9A-Z]{3}$")
 PRICE = re.compile(r"^(\d{1,3}(?:\.\d{3})*|–),–$")
 # lines that qualify the item above (a condition, a note, a wheel spec) rather than name a new item
-CONTINUATION = re.compile(r"^(In Verbindung|Nur in Verbindung|Nicht in Verbindung|Hinweis|Für |– |\d+(,\d)? ?J\b)")
+CONDITION = re.compile(r"^(In Verbindung|Nur in Verbindung|Nicht in Verbindung|Hinweis|Für |Im Umfang|\d+(,\d)? ?J\b)")
+
+
+def _clean(name: str) -> str:
+    """'– BMW Maps5' -> 'BMW Maps' (drop the dash and a trailing footnote number)."""
+    return re.sub(r"(?<=[A-Za-z)])\d+$", "", name.lstrip("–").strip())
+
+
+def _is_content(text: str, package_is_caps: bool) -> bool:
+    if text.startswith("–"):
+        return True
+    return (package_is_caps and text[0].isupper() and not text.isupper() and not CONDITION.match(text)
+            and not text.endswith(":") and "Ausstattungsalternative" not in text)
 
 
 def option_rows(pdf) -> list[dict]:
-    rows, current = [], None
+    rows, current, package = [], None, None  # package = (name, standard, optional) whose contents may follow
     for page_no, page in enumerate(PdfReader(pdf).pages, start=1):
         for line in page.extract_text(extraction_mode="layout").splitlines():
             std, opt = line.count("■"), line.count("□")
-            if not std + opt or ("Serienausstattung" in line and "Sonderausstattung" in line):  # legend
+            if "Serienausstattung" in line and "Sonderausstattung" in line:  # legend
                 continue
             cols = [c.strip() for c in re.split(r"\s{3,}", line.replace("■", " ").replace("□", " ")) if c.strip()]
-            name = cols[0] if cols and not SA_CODE.match(cols[0]) and not PRICE.match(cols[0]) else ""
-            if name and not CONTINUATION.match(name) and name != "Serienausstattung":
-                current = name
+            first = " ".join(cols[0].split()) if cols and not SA_CODE.match(cols[0]) and not PRICE.match(cols[0]) else ""
+            if not std + opt:
+                if first.isupper():  # section heading ends a package's contents
+                    package = None
+                elif package and first and _is_content(first, package[0].isupper()):
+                    rows.append({"page": page_no, "name": _clean(first), "code": None, "price": None,
+                                 "standard": package[1], "optional": package[2], "line": " ".join(cols),
+                                 "package": package[0]})
+                continue
+            if first and not CONDITION.match(first) and first != "Serienausstattung":
+                current = _clean(first)
+                if not first.startswith("–"):
+                    package = (current, std, opt)
             if current is None:
                 continue
             price = next((c for c in cols if PRICE.match(c)), None)
             rows.append({"page": page_no, "name": current, "code": next((c for c in cols[1:] if SA_CODE.match(c)), None),
                          "price": None if price is None else float(price[:-2].replace(".", "").replace("–", "0")),
-                         "standard": std, "optional": opt, "line": " ".join(cols)})
+                         "standard": std, "optional": opt, "line": " ".join(cols), "package": None})
     return rows
 
 
 def options() -> list[Observation]:
     out = []
-    for pdf in sorted(DATA_DIR.glob("*_OptionList.PDF")):
+    for pdf in sorted(INTERNAL_DIR.glob("*_OptionList.PDF")):
         vehicle = pdf.name.split("_")[0]
         rows = option_rows(pdf)
         n_variants = max(r["standard"] + r["optional"] for r in rows)
         for i, r in enumerate(rows):
             common = dict(origin="internal", source="options", vehicle=vehicle, market="EU", country="DE",
-                          raw_label=r["name"], text=r["line"],
+                          raw_label=r["name"], text=r["line"] + (f" (in {r['package']})" if r["package"] else ""),
                           raw=RawRef(file=_rel(pdf), locator=f"page={r['page']}" + (f" code={r['code']}" if r["code"] else "")))
             share = r["standard"] / n_variants
             out.append(Observation(id=f"op:{vehicle}:{i}:std", metric="standard_fitment", value=share,

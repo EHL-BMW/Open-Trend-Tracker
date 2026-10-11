@@ -12,20 +12,32 @@ automate it through an API.
 
 ## Regenerating the data structure after a data update
 
-1. Run `cd backend && uv run python -m app.unify`.
+1. New files go to `data/internal/` or `data/external/`. A new external format needs a small reader in
+   `backend/app/external.py` (see `ev_market` for a table example). Then run `cd backend && uv run python -m app.unify`.
 2. Read `data/unified/coverage.json` → `unmapped_labels`, grouped by source.
 3. Curate `backend/taxonomy.json`:
    - add each customer-facing raw label, exactly as printed, to the `aliases` of the right attribute;
+   - for free-text feature phrases, add a distinctive substring to `keywords` instead (the longest matching keyword
+     wins). Then check `mapped_by: keyword` results for wrong matches and fix them with a longer keyword;
    - if no attribute fits, add a new attribute with `id`, `name` and `aliases` to the best category;
    - each alias may appear under only one attribute (the mapper raises an error on duplicates);
    - leave labels that are not product attributes unmapped on purpose: `no_class_found`,
-     `General enquiry: customer feedback`, paint/upholstery colours, wheel designs, legal notes.
+     `General enquiry: customer feedback`, bare colour names (e.g. "Schwarz", "Mokka"), legal notes.
 4. Turn raw external material into `data/external/<name>.jsonl` records, following the format in
    `backend/app/external.py`:
    - technical PDFs → `metric` records with `competitor` set when the fact is about another vehicle;
    - social media or review text → `comment` records with `label` and `sentiment`;
    - keep `url` and a short quote in `text` so every record stays traceable.
-5. Rerun `unify` and `uv run pytest`. Report what changed: newly mapped counts, new attributes, labels left unmapped.
+5. Bump `version` in `taxonomy.json` if the structure changed. Before regenerating a new version, move the old
+   output to `data/unified_v<N>` so the two can be compared.
+6. Rerun `unify` and `uv run pytest`. Report what changed: newly mapped counts, new attributes, labels left unmapped.
+
+## Recommendation pipeline
+
+`uv run python -m app.pipeline` runs steps 1-7 (see `backend/README.md`). Steps 3-4 use SYNTHETIC data
+from `backend/app/dummy.py`. Never present those numbers as real, and replace them when real feeds arrive.
+`backend/engineering_filter.csv` holds DUMMY engineer labels: engineers edit `feasible` on/off.
+Figures are PDF only.
 
 ## Conventions
 

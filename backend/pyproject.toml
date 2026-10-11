@@ -5,10 +5,12 @@ description = "Open-Trend-Tracker backend: unify heterogeneous vehicle data into
 requires-python = ">=3.11"
 dependencies = [
     "fastapi",
+    "matplotlib",
     "openpyxl",
     "pandas",
     "pypdf[crypto]",
     "pydantic>=2",
+    "python-multipart",
     "uvicorn",
 ]
 

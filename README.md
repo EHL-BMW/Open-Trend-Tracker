@@ -1,7 +1,21 @@
 # Open-Trend-Tracker
 Build an AI-powered application that turns customer feedback, product and sales data, and web research into traceable, evidence-backed customer requirements for an automobile, with a product manager in control of every decision that matters.
 
-ys. test
+## Current implementation
+
+- `backend/app/grabbers/`: official BMW and Chinese-OEM data acquisition.
+- `backend/app/`: preprocessing, taxonomy mapping, unified evidence, recommendation scoring, and plots.
+- `backend/app/services/`: frontend-ready forecast, price, engineering-comparison, and customer-document services.
+- `frontend/`: React pages that consume backend APIs without duplicating business formulas.
+- [`docs/FRONTEND_BACKEND_HANDOFF.md`](docs/FRONTEND_BACKEND_HANDOFF.md): complete coworker handoff,
+  endpoint contract, examples, refresh commands, limitations, and verification steps.
+
+Quick verification:
+
+```bash
+cd backend && uv sync && uv run pytest
+cd ../frontend && npm install && npm run build
+```
 Here is the **distilled requirements specification for your hackathon project**—filtering out all the background reading and focusing strictly on **what your application must do, what is in/out of scope, and what you must submit**.
 
 ---

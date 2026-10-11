@@ -6,11 +6,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 from app import api
-from app.paths import DATA_DIR
+from app.external import ev_market
+from app.mapping import Mapper
+from app.paths import EXTERNAL_DIR, INTERNAL_DIR
 from app.unify import build, collect
 
 EXAMPLES = Path(__file__).resolve().parents[1] / "examples"
-pytestmark = pytest.mark.skipif(not (DATA_DIR / "sales_volumes.xlsx").exists(), reason="internal data missing")
+pytestmark = pytest.mark.skipif(not (INTERNAL_DIR / "sales_volumes.xlsx").exists(), reason="internal data missing")
 
 
 @pytest.fixture(scope="module")
@@ -92,3 +94,40 @@ def test_api(pipeline, tmp_path, monkeypatch):
     assert hits["total"] > 0
     api.vehicle.cache_clear()
     api.observations.cache_clear()
+
+
+EV_MARKET = sorted(EXTERNAL_DIR.glob("top_500_ev_phev_europe*.csv"))
+
+
+@pytest.mark.skipif(not EV_MARKET, reason="EV market table missing")
+def test_ev_market_table():
+    obs = ev_market(EV_MARKET[0])
+    Mapper().apply(obs)
+    assert all(o.attribute for o in obs), {o.raw_label for o in obs if not o.attribute}
+    own = [o for o in obs if o.competitor is None]
+    assert {o.vehicle for o in own} == {"G60", "G70"}  # F70 has no EV/PHEV variant
+    assert not any(o.competitor and o.competitor.startswith(("BMW", "MINI")) for o in obs)
+    i5 = [o for o in own if o.vehicle == "G60" and o.metric == "wltp_range_bev"]
+    assert i5 and all(0 < o.norm <= 1 for o in i5)  # percentile within E-segment BEVs
+    assert not any(o.metric == "charging_time_10_80_phev" and o.competitor is None for o in obs)
+
+
+def test_recommendation_pipeline(tmp_path, monkeypatch):
+    from app import pipeline
+
+    mapper = Mapper()
+    features = pipeline.feature_catalog(mapper)
+    existing = pipeline.existing_features(mapper, features)
+    # package contents count: the G60 head-up display only appears inside the Innovationspaket
+    assert "BMW Live Cockpit Professional inkl. BMW Head-Up Display" in set(existing["item"])
+    monkeypatch.setattr(pipeline, "SYNTHETIC_DIR", tmp_path)
+    trends, news = pipeline.external_inputs(mapper, features)
+    assert set(trends.columns) >= {"month", "feature", "popularity", "sales"} and (trends["sales"] > 0).all()
+    fc = pipeline.forecast(trends, news)
+    assert fc["sales_growth_fc"].abs().max() < 1  # no exploding growth from near-zero history
+    rec = pipeline.recommend(features, existing, pipeline.comment_summary(pipeline.comments(mapper, features)),
+                             fc, pipeline.engineering_filter(features))
+    g60 = rec[rec["car"] == "G60"]
+    assert g60["score"].is_monotonic_decreasing or g60[g60["feasible"]]["score"].is_monotonic_decreasing
+    assert g60[~g60["feasible"]]["score"].isna().all()  # engineering "off" features are never scored
+    assert (g60[g60["feasible"]]["score"].between(0, 1)).all()
