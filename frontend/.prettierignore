@@ -3,3 +3,5 @@ coverage
 node_modules
 package-lock.json
 public/mockServiceWorker.js
+src/mocks/real-data.json
+src/content/china-briefing.json

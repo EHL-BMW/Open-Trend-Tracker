@@ -76,7 +76,13 @@
       "summary_en": "China MIIT published GB17675-2025 (effective July 1, 2026), removing the requirement for a mechanical steering column between the steering wheel and road wheels. Co-drafted by NIO, BYD, Xiaomi, and Geely, the standard enables full software-defined variable-ratio steering, vibration filtering, and 12-degree rear-wheel active steering.",
       "bmw_relevance": "Direct existential threat to BMW's core brand ethos 'The Ultimate Driving Machine' (Freude am Fahren). Chinese EVs now deliver 4.99m turning circles and active roll cancellation that mechanical BMW 5/7 Series chassis cannot match.",
       "original_url": "https://auto.gasgoo.com/news/202410/28I70390124C108.shtml",
-      "keywords": ["Steer-by-Wire", "GB17675-2025", "Digital Chassis", "NIO ET9", "IM Motors"],
+      "keywords": [
+        "Steer-by-Wire",
+        "GB17675-2025",
+        "Digital Chassis",
+        "NIO ET9",
+        "IM Motors"
+      ],
       "pm_takeaway": "China formalized national standard GB17675-2025 legalizing steer-by-wire without mechanical backup by July 2026.",
       "pm_action": "Mandate steer-by-wire & 12° rear steering into Neue Klasse 'Heart of Joy' chassis computer to defend BMW handling supremacy.",
       "threat_level": "CORE BRAND EQUITY THREAT"
@@ -94,7 +100,12 @@
       "summary_en": "At its Yibin Technology Symposium, CATL presented verified test bench figures for its all-solid-state cells. Achieving over 500 Wh/kg energy density and 10C peak charging discharge, the cells retain over 85% usable capacity at -20°C, aiming for pilot lines ahead of 2027.",
       "bmw_relevance": "Places significant innovation pressure on BMW Gen6 cylindrical cell ramp-up (Neue Klasse 2025/2026). European OEMs must prove sub-12 minute charging curves under cold weather conditions.",
       "original_url": "https://www.36kr.com/p/2978931284728704",
-      "keywords": ["CATL", "Solid-State", "500Wh/kg", "Ultra-Charging"],
+      "keywords": [
+        "CATL",
+        "Solid-State",
+        "500Wh/kg",
+        "Ultra-Charging"
+      ],
       "pm_takeaway": "CATL demonstrated 500 Wh/kg all-solid-state cells with 10C discharge, targeting pre-series lines before 2027.",
       "pm_action": "Evaluate Gen6 solid-state roadmap to prevent 2x energy density obsolescence by 2027.",
       "threat_level": "CRITICAL R&D THREAT"
@@ -112,7 +123,13 @@
       "summary_en": "Huawei's new unified Vision-Language-Action (VLA) architecture enables door-to-door autonomous navigation without high-definition maps. Vehicles smoothly negotiate complex multi-lane Chinese roundabouts and underground multi-level parking garages from entrance barrier to charging stall.",
       "bmw_relevance": "BMW Driving Assistant Professional (hands-off limited to designated highways) struggles to match Huawei's end-to-end urban autonomy in Tier-1 Chinese megacities.",
       "original_url": "https://www.latepost.com/news/m_show?id=1849",
-      "keywords": ["Huawei ADS", "HIMA", "End-to-End", "VLA", "No-Map"],
+      "keywords": [
+        "Huawei ADS",
+        "HIMA",
+        "End-to-End",
+        "VLA",
+        "No-Map"
+      ],
       "pm_takeaway": "Huawei deployed ADS 3.5 VLA nationwide without HD maps, handling roundabouts and multi-level parking garages at 98.7% success.",
       "pm_action": "Prioritize mapless end-to-end urban navigation in China; highway-only L2 is no longer competitive.",
       "threat_level": "IMMEDIATE COMPETITIVE THREAT"
@@ -130,7 +147,13 @@
       "summary_en": "Xiaomi deployed a quantized 7B-parameter large language model directly on the Qualcomm Snapdragon 8295 cockpit chip. The 'Xiao AI' voice assistant processes complex multi-intent commands completely offline, managing multi-window views, drift modes, and track telemetry with sub-second latency.",
       "bmw_relevance": "Directly highlights why Chinese participants in our BMW customer survey criticized BMW Intelligent Personal Assistant (IPA) for sluggish latency and rigid voice dialogs. 350ms is the new expected baseline.",
       "original_url": "https://www.dongchedi.com/article/742189301829471",
-      "keywords": ["Xiaomi", "HyperOS", "On-Device LLM", "Cockpit", "Xiao AI"],
+      "keywords": [
+        "Xiaomi",
+        "HyperOS",
+        "On-Device LLM",
+        "Cockpit",
+        "Xiao AI"
+      ],
       "pm_takeaway": "Xiaomi deployed an on-device 7B LLM on Snapdragon 8295, cutting voice latency to 350ms offline.",
       "pm_action": "Cut BMW IPA voice response latency below 500ms via on-device NPU; eliminate 2.4s cloud roundtrips.",
       "threat_level": "CORE UX FRICTION POINT"
@@ -148,7 +171,12 @@
       "summary_en": "Delivering over 2,100 km comprehensive driving range and 2.9 L/100km fuel consumption, BYD's latest plug-in hybrids are capturing mainstream passenger volume. Traditional ICE sedans from German legacy brands face intense margin and residual value erosion.",
       "bmw_relevance": "In China, PHEVs and Extended-Range EVs (EREVs) are no longer transitional compromises but the dominant volume powertrains. BMW 530e / 750e face stiff competition against ultra-affordable extended-range executive sedans.",
       "original_url": "https://auto.gasgoo.com/news/202410/25I70389304C108.shtml",
-      "keywords": ["BYD DM 5.0", "Price War", "PHEV", "Range 2100km"],
+      "keywords": [
+        "BYD DM 5.0",
+        "Price War",
+        "PHEV",
+        "Range 2100km"
+      ],
       "pm_takeaway": "BYD dropped DM 5.0 PHEVs with 2,100 km range to $11,000, driving national PHEV penetration to 46%.",
       "pm_action": "Reposition PHEVs as long-range electrics, not compliance hybrids; address price compression.",
       "threat_level": "VOLUME & MARGIN EROSION"
@@ -166,7 +194,12 @@
       "summary_en": "XPeng CEO He Xiaopeng announced that their proprietary Turing AI processor has taped out. Engineered with 400 TOPS of NPU compute, two Turing chips will replace high-cost Nvidia Orin-X dual clusters in upcoming smart EVs, AI robotaxis, and humanoid robotics.",
       "bmw_relevance": "Vertical semiconductor silicon design among Chinese pure EV startups drives down Bill of Materials (BoM) by up to 55-60% relative to Western Tier-1 silicon purchasing models.",
       "original_url": "https://www.ithome.com/0/798/215.htm",
-      "keywords": ["XPeng", "Turing Chip", "In-House Silicon", "Robotaxi"],
+      "keywords": [
+        "XPeng",
+        "Turing Chip",
+        "In-House Silicon",
+        "Robotaxi"
+      ],
       "pm_takeaway": "XPeng taped out in-house 400 TOPS 'Turing' AI processor, replacing expensive dual Nvidia Orin-X clusters.",
       "pm_action": "Audit ADAS silicon BoM costs; vertical silicon integration allows Chinese OEMs to undercut Tier-1 pricing.",
       "threat_level": "SUPPLY CHAIN & BOM THREAT"
@@ -184,7 +217,12 @@
       "summary_en": "NIO's European-focused brand Firefly is slated for launch across Germany, Netherlands, and Scandinavia. Key differentiator: Full integration with NIO Power Swap Stations (PSS 4.0) alongside 90 kW DC fast charging in a 4.1-meter agile urban footprint.",
       "bmw_relevance": "Directly challenges the entry-level premium urban EV niche that BMW vacated after i3 production ceased, placing competitive pressure on the MINI Aceman.",
       "original_url": "https://www.autohome.com.cn/news/202410/1298451.html",
-      "keywords": ["NIO", "Firefly", "Europe Market", "Battery Swap"],
+      "keywords": [
+        "NIO",
+        "Firefly",
+        "Europe Market",
+        "Battery Swap"
+      ],
       "pm_takeaway": "NIO Firefly sub-€25k compact EV spotted testing in Europe with battery swap and 90kW DC charging.",
       "pm_action": "Accelerate entry-level premium urban EV portfolio (MINI Aceman / compact iX1) to defend European home turf.",
       "threat_level": "EUROPEAN HOMELAND THREAT"
@@ -202,7 +240,12 @@
       "summary_en": "Zeekr redefines automotive interiors as mobile living rooms. With no B-pillars, the vehicle creates a 1.48-meter wide aperture. Electric front seats rotate 270 degrees to face rear passengers for business conferences and family dining.",
       "bmw_relevance": "Demonstrates why Chinese luxury buyers increasingly evaluate vehicle interiors not merely as driver cockpits, but as a flexible 'Third Living Space', highlighting friction points in traditional German luxury layouts.",
       "original_url": "https://weibo.com/u/zeekrmotors",
-      "keywords": ["Zeekr MIX", "Interior Space", "Smart Cabin", "Swivel Seats"],
+      "keywords": [
+        "Zeekr MIX",
+        "Interior Space",
+        "Smart Cabin",
+        "Swivel Seats"
+      ],
       "pm_takeaway": "Zeekr MIX features pillarless double sliding doors and 270° swiveling lounge seats, transforming cabin into mobile living room.",
       "pm_action": "Shift cabin design focus from driver cockpit to 'Third Living Space' modularity for luxury segments.",
       "threat_level": "INTERIOR ARCHITECTURE SHIFT"
@@ -220,7 +263,12 @@
       "summary_en": "Delivering up to 520 kW peak charging power, Li Auto's proprietary 5C charging network replenishes 500 km of range in 12 minutes for the MEGA MPV and upcoming M-series BEVs, matching the convenience of gasoline refueling.",
       "bmw_relevance": "Proprietary charging networks are becoming the primary purchase decider in China. BMW's IONCHI joint venture with Mercedes must drastically accelerate its deployment velocity to stay competitive.",
       "original_url": "https://auto.gasgoo.com/news/202410/26I70389650C109.shtml",
-      "keywords": ["Li Auto", "5C Supercharging", "Infrastructure", "800V"],
+      "keywords": [
+        "Li Auto",
+        "5C Supercharging",
+        "Infrastructure",
+        "800V"
+      ],
       "pm_takeaway": "Li Auto active with 1,000 5C superchargers (520 kW) covering 92% of highways, delivering 500 km in 12 min.",
       "pm_action": "Accelerate IONCHI charging joint venture; proprietary 5C infrastructure is the primary purchase decider.",
       "threat_level": "INFRASTRUCTURE ECOSYSTEM"
@@ -238,7 +286,12 @@
       "summary_en": "According to China Passenger Car Association data, new energy vehicle retail penetration in China reached 58.2%, setting a historic quarterly peak. Traditional foreign joint-venture brands saw overall volume contract by 11.4% year-over-year.",
       "bmw_relevance": "Highlights the critical imperative for German joint ventures (BMW Brilliance, Beijing Benz, FAW Audi) to accelerate China-specific localized smart cockpits and autonomous driving rollouts.",
       "original_url": "http://www.cpcaauto.com/newslist.php?types=csx&id=3421",
-      "keywords": ["CPCA", "NEV Penetration", "Market Share", "Joint Ventures"],
+      "keywords": [
+        "CPCA",
+        "NEV Penetration",
+        "Market Share",
+        "Joint Ventures"
+      ],
       "pm_takeaway": "China NEV retail penetration reached 58.2%, with joint-venture brand sales contracting 11.4% year-over-year.",
       "pm_action": "Speed up China-specific localized software releases; Western brand premium alone cannot sustain market share.",
       "threat_level": "MARKET SHARE CONTRACTION"
@@ -256,7 +309,12 @@
       "summary_en": "Horizon Robotics disclosed mass production contracts for its Journey 6 family spanning entry ADAS to high-compute Urban NOA architectures, enabling sub-$20,000 passenger vehicles to equip mapless navigation capabilities.",
       "bmw_relevance": "Aggressive cost reduction in automotive silicon supply chains enables Chinese brands to deliver premium Level 2+ features as standard equipment across economy car categories.",
       "original_url": "https://www.36kr.com/p/2978891283719041",
-      "keywords": ["Horizon Robotics", "Journey 6", "ADAS Silicon", "BoM Reduction"],
+      "keywords": [
+        "Horizon Robotics",
+        "Journey 6",
+        "ADAS Silicon",
+        "BoM Reduction"
+      ],
       "pm_takeaway": "Horizon Robotics secured 20+ OEM contracts for Journey 6 silicon, cutting L2+ ADAS BoM by 30%.",
       "pm_action": "Standardize Level 2+ navigation on base models; premium ADAS feature surcharges face customer resistance.",
       "threat_level": "FEATURE DEMOCRATIZATION"
