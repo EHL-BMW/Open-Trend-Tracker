@@ -129,95 +129,14 @@ export function HeroVideo() {
   );
 }
 
-/** Why PMs can rely on the output: evidence first, traceable, reproducible. */
+/** Short trust claim above the call to action. */
 function TrustPoints() {
-  const points = [
-    {
-      icon: <CheckIcon />,
-      title: "Evidence first",
-      text: "Built on real sales and customer data. Trend forecasts are always marked as assumptions, never hidden.",
-    },
-    {
-      icon: <SourceIcon />,
-      title: "Traceable to the source",
-      text: "Every recommendation links back to the exact records behind it.",
-    },
-    {
-      icon: <HashIcon />,
-      title: "Reproducible",
-      text: "Same inputs, same Top 5. Every run is stored with a Run ID for audit.",
-    },
-  ];
   return (
     <section className={styles.trust} aria-labelledby="trust-claim">
       <p id="trust-claim" className={styles.claim}>
         Decisions you can defend.
       </p>
-      <ul className={styles.points}>
-        {points.map((p) => (
-          <li key={p.title} className={styles.point}>
-            <span className={styles.pointIcon} aria-hidden="true">
-              {p.icon}
-            </span>
-            <span>
-              <span className={styles.pointTitle}>{p.title}</span>
-              <span className={styles.pointText}>{p.text}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
     </section>
-  );
-}
-
-function CheckIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 12.5l4.5 4.5L19 7.5" />
-    </svg>
-  );
-}
-
-function SourceIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M6 4v9a4 4 0 0 0 4 4h8" />
-      <path d="M14 13l4 4-4 4" />
-    </svg>
-  );
-}
-
-function HashIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-    >
-      <path d="M9 4L7 20M17 4l-2 16M4 9h16M3.5 15h16" />
-    </svg>
   );
 }
 

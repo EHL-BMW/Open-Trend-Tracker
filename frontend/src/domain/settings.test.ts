@@ -9,7 +9,8 @@ describe("createSettings", () => {
     const s = createSettings(catalog);
     expect(s.weights).toEqual({ sales: 45, customer: 35, trends: 20 });
     expect(s.filters.sales.powertrain).toEqual(["BEV", "PHEV"]);
-    expect(s.filters.features.feature).toHaveLength(catalog.categories.features.filters[0]!.options.length);
+    const firstGroup = catalog.categories.features.filters[0]!;
+    expect(s.filters.features[firstGroup.key]).toHaveLength(firstGroup.options.length);
   });
 });
 

@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from "react";
-import { errorMessage } from "../api/client";
-import { useCatalog, useOpenRun, useRunAnalysis } from "../api/queries";
+import { useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { ApiError, errorMessage } from "../api/client";
+import { queryKeys, useCatalog, useOpenRun, useRunAnalysis } from "../api/queries";
 import { StateMessage } from "../components/common/StateMessage";
 import { TrendForecast } from "../components/forecast/TrendForecast";
 import { HeroVideo, PLANNER_ID } from "../components/hero/HeroVideo";
@@ -74,6 +75,9 @@ function Planner() {
   const [reasoningId, setReasoningId] = useState<string | null>(null);
   const runAnalysis = useRunAnalysis();
   const openRun = useOpenRun();
+  const queryClient = useQueryClient();
+  /** Data version a run was rejected for as outdated; set while the new catalog loads, then the run retries once. */
+  const retryAfterVersion = useRef<string | null>(null);
 
   const request = useMemo(() => toRequest(settings, catalog, config.topN), [settings, catalog]);
   const stale = run !== null && requestKey(request) !== requestKey(run.request);
@@ -94,8 +98,25 @@ function Planner() {
             ?.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
         });
       },
+      onError: (err) => {
+        // The backend data changed while the page was open: load the new filters, then run again once.
+        if (err instanceof ApiError && err.code === "stale_data_version" && retryAfterVersion.current === null) {
+          retryAfterVersion.current = request.dataVersion;
+          void queryClient.invalidateQueries({ queryKey: queryKeys.catalog });
+        }
+      },
     });
-  }, [canRun, request, runAnalysis, setRun]);
+  }, [canRun, request, runAnalysis, setRun, queryClient]);
+
+  // Once the refreshed catalog (new data version) has reset the settings, retry the rejected run.
+  useEffect(() => {
+    const rejected = retryAfterVersion.current;
+    if (rejected === null || catalog.dataVersion === rejected || runAnalysis.isPending) return;
+    retryAfterVersion.current = null;
+    setRun(null);
+    runAnalysis.reset();
+    handleRun();
+  }, [catalog.dataVersion, handleRun, runAnalysis, setRun]);
 
   const handleOpenRun = (id: string) => {
     openRun.mutate(id, {

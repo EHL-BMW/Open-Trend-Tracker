@@ -165,7 +165,7 @@
   }
 }
 
-/* ---------- Trust pitch: claim + three proof points ---------- */
+/* ---------- Trust claim ---------- */
 
 .trust {
   margin-top: 28px;
@@ -173,67 +173,10 @@
 }
 
 .claim {
-  margin: 0 0 12px;
+  margin: 0;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: #ffffff;
-}
-
-.points {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.point {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 14px 16px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
-}
-
-.pointIcon {
-  flex: none;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: #ffffff;
-  color: #1d1d1f;
-}
-
-.pointTitle {
-  display: block;
-  font-size: 15px;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-}
-
-.pointText {
-  display: block;
-  margin-top: 2px;
-  font-size: 13.5px;
-  line-height: 1.4;
-  color: rgba(255, 255, 255, 0.85);
-}
-
-@media (max-width: 860px) {
-  .points {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
-  }
-  .point {
-    padding: 10px 14px;
-  }
 }

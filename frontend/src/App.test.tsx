@@ -4,6 +4,8 @@ import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 import { apiUrl } from "./api/client";
 import { App } from "./App";
+import type { AnalysisRequest } from "./api/types";
+import { buildCatalog, runAnalysis } from "./mocks/engine";
 import { server } from "./mocks/node";
 import { renderWithClient } from "./test/render";
 
@@ -110,5 +112,25 @@ describe("App", () => {
     expect(await screen.findByRole("heading", { level: 1, name: "China tech briefing" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "Megatrends at a glance" })).toBeInTheDocument();
     expect(screen.getAllByRole("link", { name: /^Read the original/ }).length).toBeGreaterThan(0);
+  });
+  it("recovers when the backend data changed while the page was open", async () => {
+    const user = userEvent.setup();
+    renderWithClient(<App />);
+    const run = await findRunButton();
+    // From now on the backend serves a newer data version and rejects requests for the old one.
+    server.use(
+      http.get(apiUrl("/catalog"), () => HttpResponse.json({ ...buildCatalog(), dataVersion: "demo-next" })),
+      http.post(apiUrl("/analyses"), async ({ request }) => {
+        const body = (await request.json()) as AnalysisRequest;
+        if (body.dataVersion !== "demo-next")
+          return HttpResponse.json(
+            { error: { code: "stale_data_version", message: "The data was updated." } },
+            { status: 409 },
+          );
+        return HttpResponse.json(runAnalysis(body, "retry", new Date().toISOString()), { status: 201 });
+      }),
+    );
+    await user.click(run);
+    expect(await screen.findAllByRole("button", { name: /^Show reasoning for/ }, { timeout: 4000 })).toHaveLength(5);
   });
 });

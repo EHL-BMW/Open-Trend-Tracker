@@ -74,6 +74,24 @@ The roundel files in `frontend/public/brand/` are the official 2020 BMW logo fro
 (`BMW_logo_(white).svg`, `BMW_logo_(gray).svg`), used unchanged. They are public domain copyright-wise but a BMW
 trademark: fine for this internal BMW challenge project, not for presenting OpenTT publicly as an official BMW product.
 
+### Demo data: real Customer, Product and Sales
+
+`npm run dev` runs on the built-in demo backend. Its **Customer**, **Product** and **Sales** sources use real data from
+the `china-tech-radar` module; only **Trends** stays invented.
+
+| Source   | File (china-tech-radar)                                                                 | Used as                                              |
+| -------- | --------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Customer | `bmw_ev_technology_domain_records.csv`                                                  | Pain points (Defect, Difficult to use) and Wants, per comment with feedback ID and verbatim |
+| Customer | `bmw_ev_technology_sentiment_pipeline.csv`                                              | Praise ("Likes", aggregated with a sample quote)     |
+| Product  | `bmw_ev_phev_catalog.csv`                                                               | Which of 53 BMW BEV/PHEV variants offer a feature, in three areas: Interior (incl. cockpit and assistance), Exterior, Powertrain & charging |
+| Sales    | `bmw_ev_phev_catalog.csv`                                                               | Europe units of the variants carrying a candidate's linked feature; revenue = units × list price (estimate) |
+
+Product features are grouped by rules over the catalogue text (30 features). Only features linked to a recommendation
+candidate add evidence; the others are available as filters. The link between recommendation candidates and customer
+components / catalogue features is the reviewed mapping in
+`frontend/src/mocks/realData.ts`. After the CSVs change, run `npm run sync:real-data` in `frontend/`. The extracted
+data (`src/mocks/real-data.json`) is only used in development and is not part of production builds.
+
 ### Intro video
 
 The page opens with a full-screen intro video; the planner starts below it. The video is fixed:

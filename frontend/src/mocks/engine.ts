@@ -17,25 +17,33 @@ import { CATEGORIES, WEIGHTED_KEYS, type WeightedKey } from "../domain/categorie
 import { requestKey } from "../domain/settings";
 import { effectiveWeights } from "../domain/weights";
 import {
-  BMW_FEATURES,
   CANDIDATES,
-  CUSTOMER,
   DATA_VERSION,
   DEFAULT_WEIGHTS,
-  FEATURES,
   FORECAST_YEAR,
-  LINES,
   POWERTRAINS,
-  SALES,
-  SIGNALS,
   TECHNOLOGIES,
   TRENDS,
   labelOf,
-  type CustomerRecord,
-  type FeatureRecord,
-  type SalesRecord,
   type TrendRecord,
 } from "./data";
+import {
+  CATALOG_VARIANT_COUNT,
+  CUSTOMER,
+  CUSTOMER_COMMENT_COUNT,
+  DOMAINS,
+  PRAISE_ROW_COUNT,
+  PRODUCT,
+  PRODUCT_AREAS,
+  PRODUCT_FEATURE_GROUPS,
+  PRODUCT_POWERTRAINS,
+  SALES,
+  SALES_LINES,
+  type SalesRecord,
+  SIGNALS,
+  type CustomerRecord,
+  type ProductRecord,
+} from "./realData";
 
 const options = (list: [string, string][]) => list.map(([value, label]) => ({ value, label }));
 
@@ -46,19 +54,32 @@ export function buildCatalog(): Catalog {
     defaultWeights: DEFAULT_WEIGHTS,
     categories: {
       sales: {
-        recordCount: SALES.length,
+        recordCount: CATALOG_VARIANT_COUNT,
         filters: [
-          { key: "line", label: "Line", options: options(LINES) },
+          { key: "line", label: "Line", options: options(SALES_LINES) },
           { key: "powertrain", label: "Powertrain", options: options(POWERTRAINS) },
         ],
       },
       customer: {
-        recordCount: CUSTOMER.length,
-        filters: [{ key: "signal", label: "Signal", options: options(SIGNALS) }],
+        recordCount: CUSTOMER_COMMENT_COUNT + PRAISE_ROW_COUNT,
+        filters: [
+          { key: "signal", label: "Signal", options: options(SIGNALS) },
+          { key: "domain", label: "Technology domain", options: options(DOMAINS) },
+        ],
       },
       features: {
-        recordCount: FEATURES.length,
-        filters: [{ key: "feature", label: "Feature", heading: "Existing BMW cars", options: options(BMW_FEATURES) }],
+        recordCount: CATALOG_VARIANT_COUNT,
+        filters: [
+          { key: "area", label: "Area", heading: "BMW BEV/PHEV catalogue", options: options(PRODUCT_AREAS) },
+          ...PRODUCT_FEATURE_GROUPS.map((g) => ({
+            key: g.area,
+            label: labelOf(PRODUCT_AREAS, g.area),
+            heading: "Features",
+            options: options(g.options),
+            collapsible: true,
+          })),
+          { key: "powertrain", label: "Powertrain", options: options(PRODUCT_POWERTRAINS) },
+        ],
       },
       trends: {
         recordCount: TRENDS.length,
@@ -93,10 +114,21 @@ export function fingerprint(req: AnalysisRequest): string {
   return h.toString(16).padStart(8, "0");
 }
 
-const salesLabel = (r: SalesRecord) => `${labelOf(LINES, r.line)} · ${r.powertrain} · signal ${r.v.toFixed(2)}`;
+const units = (n: number) => n.toLocaleString("en-US");
+const euros = (v: number) => (v >= 1e9 ? `€${(v / 1e9).toFixed(1)} bn` : `€${Math.round(v / 1e6)} m`);
+const salesTotals = (rows: SalesRecord[]) => ({
+  units: rows.reduce((s, r) => s + r.v, 0),
+  revenue: rows.reduce((s, r) => s + r.revenueEur, 0),
+});
+const salesLabel = (r: SalesRecord) =>
+  `${r.model} · ${r.powertrain} · ${r.variants} ${r.variants === 1 ? "variant" : "variants"} · ${units(r.v)} units · ≈ ${euros(r.revenueEur)} est. revenue`;
+const quote = (s: string, max = 90) => `“${s.length > max ? `${s.slice(0, max - 1)}…` : s}”`;
 const customerLabel = (r: CustomerRecord) =>
-  `${labelOf(SIGNALS, r.signal)} · ${r.market} · ${r.area} · ${r.v} mentions`;
-const featureLabel = (r: FeatureRecord) => `${labelOf(BMW_FEATURES, r.feature)} · ${r.offer} · ${pc(r.v)} take rate`;
+  r.signal === "praise"
+    ? `${r.component} · Praise · ${r.v} likes · e.g. ${quote(r.sample)}`
+    : `${r.component} · ${labelOf(SIGNALS, r.signal)} · ${r.v} ${r.v === 1 ? "comment" : "comments"} · e.g. ${r.sampleId} ${quote(r.sample)}`;
+const featureLabel = (r: ProductRecord) =>
+  `${r.featureLabel} · on ${r.count} of ${r.total} BMW ${r.powertrain} variants (e.g. ${r.examples.join(", ")})`;
 const trendLabel = (r: TrendRecord) =>
   `${labelOf(TECHNOLOGIES, r.technology)} · ${pc(r.now)} today → ${pc(r.v)} ${FORECAST_YEAR}`;
 
@@ -109,6 +141,7 @@ interface WeightedRows {
 function painPraise(rows: CustomerRecord[]) {
   return {
     pain: sum(rows.filter((r) => r.signal === "pain")),
+    wants: sum(rows.filter((r) => r.signal === "wants")),
     praise: sum(rows.filter((r) => r.signal === "praise")),
   };
 }
@@ -116,11 +149,14 @@ function painPraise(rows: CustomerRecord[]) {
 function phrase(key: WeightedKey, rows: WeightedRows[WeightedKey]): string {
   if (key === "sales") {
     const r = rows as SalesRecord[];
-    return `sales signal across ${uniq(r.map((x) => labelOf(LINES, x.line))).join(", ")} (${uniq(r.map((x) => x.powertrain)).join(" and ")})`;
+    const t = salesTotals(r);
+    return `${units(t.units)} units sold in Europe with ${uniq(r.flatMap((x) => x.features)).join(" / ")} (≈ ${euros(t.revenue)} est. revenue, units × list price)`;
   }
   if (key === "customer") {
-    const { pain, praise } = painPraise(rows as CustomerRecord[]);
-    return pain >= praise ? `${pain} customer pain-point mentions` : `${praise} customer praise mentions`;
+    const { pain, wants, praise } = painPraise(rows as CustomerRecord[]);
+    return pain + wants >= praise
+      ? `${pain} customer pain points and ${wants} wants`
+      : `${praise} customer praise mentions`;
   }
   return (rows as TrendRecord[])
     .map(
@@ -140,12 +176,18 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
 
   const rows: WeightedRows = {
     sales: req.enabled.sales
-      ? SALES.filter((r) => has(f.sales.line, r.line) && has(f.sales.powertrain, r.powertrain))
+      ? SALES.filter((r) => has(f.sales.line, r.model) && has(f.sales.powertrain, r.powertrain))
       : [],
-    customer: req.enabled.customer ? CUSTOMER.filter((r) => has(f.customer.signal, r.signal)) : [],
+    customer: req.enabled.customer
+      ? CUSTOMER.filter((r) => has(f.customer.signal, r.signal) && has(f.customer.domain, r.domain))
+      : [],
     trends: req.enabled.trends ? TRENDS.filter((r) => has(f.trends.technology, r.technology)) : [],
   };
-  const featureRows = FEATURES.filter((r) => has(f.features.feature, r.feature));
+  // Two-level product filter: the area must be on and the feature selected within it.
+  const featureRows = PRODUCT.filter(
+    (r) =>
+      has(f.features.area, r.area) && has(f.features[r.area], r.feature) && has(f.features.powertrain, r.powertrain),
+  );
 
   const ids = Object.keys(CANDIDATES);
   const raw = Object.fromEntries(
@@ -180,7 +222,7 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
   const recommendations: Recommendation[] = top.map((s, i) => {
     const part = (k: WeightedKey) => s.parts.find((p) => p.key === k)!;
     const custRows = part("customer").own as CustomerRecord[];
-    const { pain, praise } = painPraise(custRows);
+    const { pain, wants, praise } = painPraise(custRows);
     const trendPoints = part("trends").points;
     const assumptionShare = s.total > 0 ? trendPoints / s.total : 0;
     const ownFeatures = featureRows.filter((r) => r.c === s.id);
@@ -210,7 +252,7 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
       ? [
           {
             category: "features",
-            summary: `BMW already offers ${ownFeatures.map((r) => `${labelOf(BMW_FEATURES, r.feature)} (${r.offer}, ${pc(r.v)} take rate)`).join(", ")}.`,
+            summary: `BMW already offers ${ownFeatures.map((r) => `${r.featureLabel} on ${r.count} of ${r.total} ${r.powertrain} variants`).join(", ")} (BMW BEV/PHEV catalogue).`,
             records: ownFeatures.map((r) => ({
               id: recordId("features", r),
               label: featureLabel(r),
@@ -230,18 +272,21 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
       }
       const text =
         key === "sales"
-          ? `${uniq((own as SalesRecord[]).map((r) => labelOf(LINES, r.line))).join(", ")} · ${uniq((own as SalesRecord[]).map((r) => r.powertrain)).join(" + ")}`
-          : [pain && `${pain} pain-point mentions`, praise && `${praise} praise mentions`].filter(Boolean).join(" · ") +
-            ` · ${uniq(custRows.map((r) => r.area)).join(", ")}`;
+          ? `${units(salesTotals(own as SalesRecord[]).units)} units · ≈ ${euros(salesTotals(own as SalesRecord[]).revenue)} · ${uniq(
+              (own as SalesRecord[]).map((r) => r.model),
+            )
+              .slice(0, 4)
+              .join(", ")}${uniq((own as SalesRecord[]).map((r) => r.model)).length > 4 ? " …" : ""}`
+          : [pain && `${pain} pain points`, wants && `${wants} wants`, praise && `${praise} praise`]
+              .filter(Boolean)
+              .join(" · ") + ` · ${uniq(custRows.map((r) => r.domain)).join(", ")}`;
       specs.push({ category: key, label: CATEGORIES[key].chipLabel, text, kind: "evidence" });
     }
     if (ownFeatures.length) {
       specs.push({
         category: "features",
         label: CATEGORIES.features.chipLabel,
-        text: ownFeatures
-          .map((r) => `${labelOf(BMW_FEATURES, r.feature)} · ${r.offer} · ${pc(r.v)} take rate`)
-          .join(" · "),
+        text: ownFeatures.map((r) => `${r.featureLabel} · ${r.count}/${r.total} ${r.powertrain}`).join(" · "),
         kind: "context",
       });
     }
@@ -334,9 +379,11 @@ export function runAnalysis(req: AnalysisRequest, id: string, createdAt: string)
 
 const round = (v: number) => Math.round(v * 10) / 10;
 
-const PREFIX = { sales: "S", customer: "C", features: "F", trends: "T" } as const;
-const TABLES = { sales: SALES, customer: CUSTOMER, features: FEATURES, trends: TRENDS } as const;
-function recordId(key: keyof typeof TABLES, record: object): string {
+const PREFIX = { trends: "T" } as const;
+const TABLES = { trends: TRENDS } as const;
+function recordId(key: "sales" | "customer" | "features" | "trends", record: object): string {
+  // Real Customer and Product records carry their own stable id (C-.., P-..).
+  if (key !== "trends") return (record as { id: string }).id;
   const index = (TABLES[key] as object[]).indexOf(record);
   return `${PREFIX[key]}-${String(index + 1).padStart(2, "0")}`;
 }

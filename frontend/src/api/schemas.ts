@@ -36,6 +36,8 @@ export const filterGroupSchema = z.object({
   /** Optional heading shown above the group, e.g. "China EV market". */
   heading: z.string().optional(),
   options: z.array(filterOptionSchema),
+  /** Optional: show the group collapsed (expandable) in the source settings panel. */
+  collapsible: z.boolean().optional(),
 });
 
 export const categoryCatalogSchema = z.object({

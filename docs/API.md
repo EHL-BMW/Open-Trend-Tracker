@@ -78,6 +78,7 @@ Notes
 - Filter groups and their `key`s are free to change; the frontend renders whatever arrives. Only the Trends group
   `technology` has a special meaning (it links the forecast chart to the filter).
 - `heading` is optional and shown above the group.
+- `collapsible` is optional (`true` = the group starts collapsed and can be expanded, e.g. the product areas).
 - `trendForecastLabels` is optional: `{ "title", "description", "current", "forecast" }` relabels the trend chart
   (default: technology share today vs. `forecastYear`). The axis scales to the largest value.
 - A category with `"filters": []` renders an empty state.

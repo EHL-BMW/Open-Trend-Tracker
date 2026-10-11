@@ -1,13 +1,4 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-  type Dispatch,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, useReducer, useState, type Dispatch, type ReactNode } from "react";
 import type { AnalysisRun, Catalog } from "../api/types";
 import { settingsReducer, type Settings, type SettingsAction } from "../domain/settings";
 
@@ -33,13 +24,14 @@ export function PlannerProvider({ catalog, children }: { catalog: Catalog; child
   );
   const [run, setRun] = useState<AnalysisRun | null>(null);
 
-  // A refreshed catalog with a new data version invalidates selections; start from its defaults.
-  const version = useRef(catalog.dataVersion);
-  useEffect(() => {
-    if (version.current === catalog.dataVersion) return;
-    version.current = catalog.dataVersion;
+  // A refreshed catalog with a new data version invalidates selections and the shown run; start from its
+  // defaults. Done during render (not in an effect) so children never see old settings with the new catalog.
+  const [version, setVersion] = useState(catalog.dataVersion);
+  if (version !== catalog.dataVersion) {
+    setVersion(catalog.dataVersion);
     dispatch({ type: "reset", catalog });
-  }, [catalog]);
+    setRun(null);
+  }
 
   if (!settings) return null;
   return (
