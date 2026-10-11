@@ -1,5 +1,6 @@
 export const ROUTES = {
-  planner: "/",
+  home: "/",
+  planner: "/planner",
   agent: "/agent",
   featureTrends: "/feature-trends",
   impactForecast: "/sales-impact-forecast",

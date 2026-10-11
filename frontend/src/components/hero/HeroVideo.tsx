@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { config } from "../../config";
+import { ROUTES } from "../../routes";
 import TextAnimation from "../ui/stagger-text";
 import styles from "./HeroVideo.module.css";
 
 export const HERO_ID = "intro";
-export const PLANNER_ID = "planner";
 
 const prefersReducedMotion = () =>
   typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches === true;
@@ -19,8 +20,8 @@ const safePlay = (el: HTMLVideoElement): Promise<void> => {
 };
 
 /**
- * Full-screen intro with a looping background video, like a brand landing page. The planner
- * starts below it. Without a video file (or with reduced motion) the poster / a dark surface shows.
+ * Full-screen intro with a looping background video, like a brand landing page: the home page.
+ * Without a video file (or with reduced motion) the poster / a dark surface shows.
  */
 export function HeroVideo() {
   const video = useRef<HTMLVideoElement>(null);
@@ -81,24 +82,28 @@ export function HeroVideo() {
       <div className={styles.scrim} aria-hidden="true" />
 
       <div className={styles.content}>
-        <p className={styles.eyebrow}>Open Trend Tracker · Product Management</p>
+        <p className={styles.eyebrow}>Open Trend Tracker · BMW Product Management</p>
         <h1 id="hero-title" className={styles.title} aria-label="OpenTT, Open Trend Tracker">
           <span aria-hidden="true">
             <TextAnimation divideBy="letter">OpenTT</TextAnimation>
           </span>
         </h1>
         <p className={styles.tagline}>
-          <TextAnimation delay={0.35}>Series Improvement Planner</TextAnimation>
+          <TextAnimation delay={0.35}>From China feature trends to BMW customer value</TextAnimation>
         </p>
         <p className={styles.lead}>
-          Weigh sales, customer voices and market trends, and get the improvements that matter most for the next update
-          of an existing series. Every recommendation traced back to its source.
+          OpenTT continuously discovers emerging vehicle features in China and connects them to real BMW customer
+          problems. It then uses historical vehicle and sales data to estimate which opportunities have the greatest
+          potential to improve customer experience and grow revenue.
         </p>
         <TrustPoints />
         <div className={styles.actions}>
-          <a className={styles.cta} href={`#${PLANNER_ID}`}>
+          <Link className={styles.cta} to={ROUTES.planner}>
             Open the planner
-          </a>
+          </Link>
+          <Link className={styles.ctaSecondary} to={ROUTES.featureTrends}>
+            Explore Feature Radar
+          </Link>
         </div>
       </div>
 
@@ -112,19 +117,6 @@ export function HeroVideo() {
           {playing ? <PauseIcon /> : <PlayIcon />}
         </button>
       )}
-
-      <a className={styles.scrollCue} href={`#${PLANNER_ID}`} aria-label="Scroll to the planner">
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            d="M6 9l6 6 6-6"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </a>
     </section>
   );
 }

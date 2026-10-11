@@ -18,7 +18,7 @@ async function findRunButton() {
 describe("App", () => {
   it("starts empty, loads filters from the backend and runs the analysis", async () => {
     const user = userEvent.setup();
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
 
     // Before the catalog arrives nothing is filled in.
     expect(screen.getByText("Loading sources…")).toBeInTheDocument();
@@ -42,7 +42,7 @@ describe("App", () => {
     server.events.on("request:start", async ({ request }) => {
       if (request.method === "POST") lastBody = await request.clone().json();
     });
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
 
     await user.click(await findRunButton());
     await screen.findAllByRole("button", { name: /^Show reasoning for/ });
@@ -59,7 +59,7 @@ describe("App", () => {
 
   it("opens the reasoning sheet with verdict and sources", async () => {
     const user = userEvent.setup();
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
     await user.click(await findRunButton());
 
     const [first] = await screen.findAllByRole("button", { name: /^Show reasoning for/ });
@@ -75,14 +75,14 @@ describe("App", () => {
         HttpResponse.json({ error: { code: "unavailable", message: "Service unavailable." } }, { status: 503 }),
       ),
     );
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
     expect(await screen.findByText("Couldn't load the data")).toBeInTheDocument();
     expect(screen.getByText("Service unavailable.")).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Try again" })).toBeInTheDocument();
   });
   it("navigates between pages and keeps the current run", async () => {
     const user = userEvent.setup();
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
     await user.click(await findRunButton());
     await screen.findAllByRole("button", { name: /^Show reasoning for/ });
 
@@ -96,6 +96,19 @@ describe("App", () => {
 
     await user.click(within(screen.getByRole("navigation", { name: "Main" })).getByRole("link", { name: "Planner" }));
     expect(await screen.findAllByRole("button", { name: /^Show reasoning for/ })).toHaveLength(5);
+  });
+
+  it("opens on the home page and links to the planner", async () => {
+    const user = userEvent.setup();
+    renderWithClient(<App />);
+    expect(screen.getByRole("heading", { level: 1, name: "OpenTT, Open Trend Tracker" })).toBeInTheDocument();
+    expect(screen.getByText(/continuously discovers emerging vehicle features in China/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: "Open the planner" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "Plan your next series update." })).toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: "OpenTT, go to the home page" }));
+    expect(await screen.findByText(/continuously discovers emerging vehicle features in China/)).toBeInTheDocument();
   });
 
   it("shows content pages even when the backend is down", async () => {
@@ -117,7 +130,7 @@ describe("App", () => {
   });
   it("recovers when the backend data changed while the page was open", async () => {
     const user = userEvent.setup();
-    renderWithClient(<App />);
+    renderWithClient(<App />, { route: "/planner" });
     const run = await findRunButton();
     // From now on the backend serves a newer data version and rejects requests for the old one.
     server.use(

@@ -66,7 +66,7 @@
 
 .lead {
   margin: 18px 0 0;
-  max-width: 620px;
+  max-width: 720px;
   font-size: clamp(16px, 1.8vw, 21px);
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.88);
@@ -104,9 +104,27 @@
   transform: scale(0.98);
 }
 
+.ctaSecondary {
+  display: inline-flex;
+  align-items: center;
+  height: 46px;
+  padding: 0 24px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  border-radius: 980px;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s var(--ease);
+}
+
+.ctaSecondary:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
 .cta:focus-visible,
-.playback:focus-visible,
-.scrollCue:focus-visible {
+.ctaSecondary:focus-visible,
+.playback:focus-visible {
   outline: 3px solid #ffffff;
   outline-offset: 3px;
 }
@@ -129,30 +147,6 @@
 
 .playback:hover {
   background: rgba(0, 0, 0, 0.55);
-}
-
-.scrollCue {
-  position: absolute;
-  left: 50%;
-  bottom: 22px;
-  transform: translateX(-50%);
-  color: rgba(255, 255, 255, 0.85);
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  animation: nudge 2.4s ease-in-out infinite;
-}
-
-@keyframes nudge {
-  0%,
-  100% {
-    transform: translate(-50%, 0);
-  }
-  50% {
-    transform: translate(-50%, 6px);
-  }
 }
 
 @media (max-width: 600px) {

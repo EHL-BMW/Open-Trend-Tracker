@@ -4,7 +4,6 @@ import { ApiError, errorMessage } from "../api/client";
 import { queryKeys, useCatalog, useOpenRun, useRunAnalysis } from "../api/queries";
 import { StateMessage } from "../components/common/StateMessage";
 import { TrendForecast } from "../components/forecast/TrendForecast";
-import { HeroVideo, PLANNER_ID } from "../components/hero/HeroVideo";
 import { Inspector, InspectorPlaceholder } from "../components/inspector/Inspector";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
@@ -25,7 +24,7 @@ import { ROUTES } from "../routes";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./PlannerPage.module.css";
 
-/** Start page: video intro, then the planner. Shows an empty frame until the catalog has loaded. */
+/** The planner. Shows an empty frame until the catalog has loaded. */
 export function PlannerPage() {
   usePageTitle("Planner");
   return usePlannerOptional() ? <Planner /> : <PlannerLoading />;
@@ -39,8 +38,7 @@ function PlannerLoading() {
         mockMode={config.useMocks}
         actions={<PlannerActions canReset={false} canRun={false} running={false} runHint="Waiting for data" />}
       />
-      <HeroVideo />
-      <main id={PLANNER_ID} className={styles.page}>
+      <main className={styles.page}>
         <Intro>
           <PlannerSteps hasFreshResults={false} running={false} canRun={false} onRun={() => {}} />
         </Intro>
@@ -167,8 +165,7 @@ function Planner() {
           />
         }
       />
-      <HeroVideo />
-      <main id={PLANNER_ID} className={styles.page}>
+      <main className={styles.page}>
         <Intro>
           <PlannerSteps
             hasFreshResults={run !== null && !stale}
@@ -213,7 +210,8 @@ function Planner() {
 function Intro({ children }: { children: ReactNode }) {
   return (
     <header className={styles.hero}>
-      <h2>Plan your next series update.</h2>
+      <p className={styles.eyebrow}>Planner · Top 5 recommendations</p>
+      <h1>Plan your next series update.</h1>
       <p>Four steps from data to a traceable Top 5.</p>
       <div
         style={{

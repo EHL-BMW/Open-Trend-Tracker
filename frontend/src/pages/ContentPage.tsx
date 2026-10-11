@@ -1,4 +1,4 @@
-import { useEffect, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
 import { config } from "../config";
@@ -15,10 +15,6 @@ interface Props {
 /** Layout for the text pages (How it works, FAQ, Newsletter): solid header, page title, content. */
 export function ContentPage({ title, eyebrow, lead, children }: Props) {
   usePageTitle(title);
-  // A new page starts at the top, not at the previous page's scroll position.
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <>

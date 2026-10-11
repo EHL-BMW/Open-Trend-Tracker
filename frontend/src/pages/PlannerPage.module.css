@@ -1,5 +1,4 @@
 .page {
-  scroll-margin-top: 78px;
   max-width: 1240px;
   margin: 0 auto;
   padding: 0 22px 80px;
@@ -9,7 +8,16 @@
   padding: 48px 0 28px;
 }
 
-.hero h2 {
+.hero .eyebrow {
+  margin: 0 0 9px;
+  color: var(--label-3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
   font: 700 clamp(30px, 5vw, 48px) / 1.08 var(--font-display);
   letter-spacing: -0.025em;
   margin: 0;

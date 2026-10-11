@@ -39,7 +39,6 @@ function NavLinks() {
         <li key={item.to}>
           <NavLink
             to={item.to}
-            end={item.to === ROUTES.planner}
             className={({ isActive }) => (isActive ? styles.active : undefined)}
           >
             {item.label}
@@ -72,7 +71,7 @@ export function NavBar({ mockMode, actions }: Props) {
   return (
     <header className={`${styles.nav} ${transparent ? styles.overHero : ""}`}>
       <div className={styles.inner}>
-        <Link to={ROUTES.planner} className={styles.brand} aria-label="OpenTT, go to the planner">
+        <Link to={ROUTES.home} className={styles.brand} aria-label="OpenTT, go to the home page">
           {/* Official BMW roundel (2020): white over the video and in dark mode, gray on the light header. */}
           <img
             className={`${styles.logo} ${styles.logoWhite}`}
