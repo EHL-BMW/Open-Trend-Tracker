@@ -4,6 +4,7 @@ import { NavBar } from "../components/layout/NavBar";
 import { config } from "../config";
 import {
   FEATURE_CATEGORIES,
+  brandStats,
   featureClusters,
   featureNewsMeta,
   type FeatureCategory,
@@ -15,7 +16,7 @@ import { DOMAIN_COLORS, fmtPct } from "../content/trendRadar";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./FeatureTrendsPage.module.css";
 
-interface SavedProblem {
+export interface SavedProblem {
   id: string;
   name: string;
   category: string;
@@ -27,7 +28,7 @@ interface SavedProblem {
   evidence: Array<{ feedback_id: string; feedback_type: string; quote: string }>;
 }
 
-interface SavedProblemAnalysis {
+export interface SavedProblemAnalysis {
   source_file: string;
   generated_at: string;
   generation_mode: string;
@@ -250,6 +251,59 @@ function OemBubbles({ feature }: { feature: FeatureCluster }) {
   );
 }
 
+/** Up to three saved customer problems this feature could solve. */
+function linkedProblems(analysis: SavedProblemAnalysis | null, featureId: string): SavedProblem[] {
+  return (analysis?.problems ?? []).filter((problem) => problem.possible_feature_ids.includes(featureId)).slice(0, 3);
+}
+
+/** Feature card, shared with the Sales Impact Forecast tab. With onOpen it opens the trend & evidence view. */
+export function FeatureCard({
+  feature,
+  analysis,
+  onOpen,
+}: {
+  feature: FeatureCluster;
+  analysis: SavedProblemAnalysis | null;
+  onOpen?: () => void;
+}) {
+  const color = CATEGORY_COLORS[feature.category];
+  const problems = linkedProblems(analysis, feature.id);
+  const body = (
+    <>
+      <div className={styles.cardTop}>
+        <span className={styles.categoryPill} style={{ "--category-color": color } as CSSProperties}>{feature.category}</span>
+        <span className={`${styles.signal} ${feature.signal === "Accelerating" ? styles.signalUp : ""}`}>{feature.signal}</span>
+      </div>
+      <Sparkline values={feature.weeklyCounts} color={color} label={`${feature.label} weekly trend`} />
+      <h3>{feature.label}</h3>
+      <OemBubbles feature={feature} />
+      {FEATURE_EXPLANATIONS[feature.id] && (
+        <p className={styles.explanation}>
+          <b>What it is · AI-generated</b> {FEATURE_EXPLANATIONS[feature.id]}
+        </p>
+      )}
+      <div className={styles.cardProblemTags}>
+        {problems.map((problem) => (
+          <span key={problem.id}>{problem.name} · {problem.mention_count}</span>
+        ))}
+        {!problems.length && <span className={styles.problemTagMuted}>No linked customer problem</span>}
+      </div>
+      <p className={styles.cnLabel}>{feature.labelCn}</p>
+      <div className={styles.cardStats}>
+        <span><b>{feature.momentumPctChange === null ? "—" : fmtPct(feature.momentumPctChange)}</b> momentum</span>
+        <span><b>{feature.items.length}</b> related items</span>
+      </div>
+    </>
+  );
+  if (!onOpen) return <article className={`${styles.featureCard} ${styles.featureCardStatic}`}>{body}</article>;
+  return (
+    <button type="button" className={styles.featureCard} onClick={onOpen}>
+      {body}
+      <span className={styles.openHint}>Open trend & evidence →</span>
+    </button>
+  );
+}
+
 function NewsDetail({ item }: { item: FeatureNewsItem }) {
   return (
     <article className={styles.newsItem}>
@@ -289,12 +343,15 @@ export function FeatureTrendsPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedProblemId, setSelectedProblemId] = useState<string | null>(null);
   const [problemAnalysis, setProblemAnalysis] = useState<SavedProblemAnalysis | null>(null);
+  const [oem, setOem] = useState<string | null>(null);
 
   const selected = featureClusters.find((feature) => feature.id === selectedId) ?? null;
   const selectedProblem = problemAnalysis?.problems.find((problem) => problem.id === selectedProblemId) ?? null;
-  const displayed = selectedProblem
-    ? featureClusters.filter((feature) => selectedProblem.possible_feature_ids.includes(feature.id))
-    : featureClusters.filter((feature) => enabledIds.has(feature.id));
+  const displayed = (
+    selectedProblem
+      ? featureClusters.filter((feature) => selectedProblem.possible_feature_ids.includes(feature.id))
+      : featureClusters.filter((feature) => enabledIds.has(feature.id))
+  ).filter((feature) => !oem || feature.brandCounts.some(({ brand }) => brand === oem));
 
   useEffect(() => {
     fetch(`${config.apiBaseUrl}/agent/problems`)
@@ -341,10 +398,7 @@ export function FeatureTrendsPage() {
   };
 
   const selectedNews = selected?.items ?? [];
-  const problemsForFeature = (feature: FeatureCluster) => {
-    const saved = problemAnalysis?.problems ?? [];
-    return saved.filter((problem) => problem.possible_feature_ids.includes(feature.id)).slice(0, 3);
-  };
+  const problemsForFeature = (feature: FeatureCluster) => linkedProblems(problemAnalysis, feature.id);
   const selectedProblems = selected ? problemsForFeature(selected) : [];
 
   return (
@@ -422,52 +476,57 @@ export function FeatureTrendsPage() {
           </aside>
 
           <section className={styles.results} aria-live="polite">
+            <div className={styles.oemBar} role="group" aria-label="Filter features by OEM">
+              <button
+                type="button"
+                className={`${styles.oemPill} ${oem === null ? styles.oemPillActive : ""}`}
+                aria-pressed={oem === null}
+                onClick={() => setOem(null)}
+              >
+                All OEMs
+              </button>
+              {brandStats.map(({ brand, count }) => (
+                <button
+                  type="button"
+                  key={brand}
+                  className={`${styles.oemPill} ${oem === brand ? styles.oemPillActive : ""}`}
+                  aria-pressed={oem === brand}
+                  onClick={() => setOem(oem === brand ? null : brand)}
+                >
+                  {brand}
+                  <b>{count}</b>
+                </button>
+              ))}
+            </div>
             <div className={styles.resultsHeader}>
               <div>
                 <p className={styles.kicker}>Feature trends</p>
-                <h2>{selectedProblem ? `Possible features for ${selectedProblem.name}` : "All active signals"}</h2>
+                <h2>
+                  {selectedProblem ? `Possible features for ${selectedProblem.name}` : "All active signals"}
+                  {oem && ` · ${oem}`}
+                </h2>
               </div>
               <span>{displayed.length} features · {problemAnalysis?.problems.length ?? 0} saved problems</span>
             </div>
             {displayed.length ? (
               <div className={styles.featureGrid}>
-                {displayed.map((feature) => {
-                  const color = CATEGORY_COLORS[feature.category];
-                  const linkedProblems = problemsForFeature(feature);
-                  return (
-                    <button key={feature.id} type="button" className={styles.featureCard} onClick={() => setSelectedId(feature.id)}>
-                      <div className={styles.cardTop}>
-                        <span className={styles.categoryPill} style={{ "--category-color": color } as CSSProperties}>{feature.category}</span>
-                        <span className={`${styles.signal} ${feature.signal === "Accelerating" ? styles.signalUp : ""}`}>{feature.signal}</span>
-                      </div>
-                      <Sparkline values={feature.weeklyCounts} color={color} label={`${feature.label} weekly trend`} />
-                      <h3>{feature.label}</h3>
-                      <OemBubbles feature={feature} />
-                      {FEATURE_EXPLANATIONS[feature.id] && (
-                        <p className={styles.explanation}>
-                          <b>What it is · AI-generated</b> {FEATURE_EXPLANATIONS[feature.id]}
-                        </p>
-                      )}
-                      <div className={styles.cardProblemTags}>
-                        {linkedProblems.map((problem) => (
-                          <span key={problem.id}>{problem.name} · {problem.mention_count}</span>
-                        ))}
-                        {!linkedProblems.length && <span className={styles.problemTagMuted}>No linked customer problem</span>}
-                      </div>
-                      <p className={styles.cnLabel}>{feature.labelCn}</p>
-                      <div className={styles.cardStats}>
-                        <span><b>{feature.momentumPctChange === null ? "—" : fmtPct(feature.momentumPctChange)}</b> momentum</span>
-                        <span><b>{feature.items.length}</b> related items</span>
-                      </div>
-                      <span className={styles.openHint}>Open trend & evidence →</span>
-                    </button>
-                  );
-                })}
+                {displayed.map((feature) => (
+                  <FeatureCard
+                    key={feature.id}
+                    feature={feature}
+                    analysis={problemAnalysis}
+                    onOpen={() => setSelectedId(feature.id)}
+                  />
+                ))}
               </div>
             ) : (
               <div className={styles.emptyState}>
                 <h3>No active features.</h3>
-                <p>Enable features in the left panel to restore signals.</p>
+                <p>
+                  {oem
+                    ? `No active feature has news naming ${oem}. Choose another OEM or All OEMs.`
+                    : "Enable features in the left panel to restore signals."}
+                </p>
               </div>
             )}
           </section>

@@ -227,24 +227,20 @@
 
 /* ---------- legacy features with uncertainty band ---------- */
 
-.featureList,
-.newsList {
+.featureList {
   display: grid;
   margin-top: 14px;
 }
 
-.featureCard,
-.newsFeature {
+.featureCard {
   padding: 14px 0;
   border-bottom: 1px solid color-mix(in srgb, var(--sep) 72%, transparent);
 }
-.featureCard:last-child,
-.newsFeature:last-child {
+.featureCard:last-child {
   border-bottom: 0;
 }
 
-.featureTop,
-.newsFeatureTop {
+.featureTop {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -255,13 +251,11 @@
   flex-direction: column;
   gap: 4px;
 }
-.featureTop strong,
-.newsFeature strong {
+.featureTop strong {
   font-size: 13px;
   line-height: 1.35;
 }
-.featureTop span,
-.newsFeature p {
+.featureTop span {
   color: var(--label-3);
   font-size: 11px;
   line-height: 1.4;
@@ -286,41 +280,12 @@
   margin-top: 8px;
 }
 
-/* ---------- new features from recent news ---------- */
+/* ---------- new features from recent news (Feature Radar cards) ---------- */
 
-.newsFeatureTop span {
-  flex: none;
-  padding: 3px 7px;
-  border-radius: 999px;
-  background: var(--fill);
-  color: var(--label-2);
-  font-size: 10px;
-  font-weight: 700;
-}
-.newsFeatureTop span[data-signal="accelerating"] {
-  background: var(--keep-bg);
-  color: var(--keep);
-}
-.newsFeatureTop span[data-signal="stable"] {
-  background: var(--improve-bg);
-  color: var(--improve);
-}
-.newsFeature p {
-  margin: 6px 0;
-}
-.newsFeature a {
-  display: -webkit-box;
-  overflow: hidden;
-  color: var(--label-2);
-  font-size: 12px;
-  line-height: 1.35;
-  text-decoration: none;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-}
-.newsFeature a:hover {
-  color: var(--blue);
-  text-decoration: underline;
+.newsList {
+  display: grid;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .emptyEvidence {

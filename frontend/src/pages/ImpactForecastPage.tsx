@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { useImpactForecast } from "../api/queries";
 import type { ImpactCategory } from "../api/types";
 import { errorMessage } from "../api/client";
@@ -6,6 +6,8 @@ import { StateMessage } from "../components/common/StateMessage";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
 import { config } from "../config";
+import { featureClusters } from "../content/featureNews";
+import { FeatureCard, type SavedProblemAnalysis } from "./FeatureTrendsPage";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./ImpactForecastPage.module.css";
 
@@ -195,10 +197,9 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
   );
 }
 
-function NewsFeaturePanel({ category }: { category: ImpactCategory }) {
-  const news = category.subcategories
-    .flatMap((subcategory) => subcategory.news_features.map((feature) => ({ feature, subcategory: subcategory.label })))
-    .sort((a, b) => (b.feature.priority ?? 0) - (a.feature.priority ?? 0));
+function NewsFeaturePanel({ category, problems }: { category: ImpactCategory; problems: SavedProblemAnalysis | null }) {
+  const ids = new Set(category.subcategories.flatMap((subcategory) => subcategory.news_features.map((feature) => feature.id)));
+  const features = featureClusters.filter((feature) => ids.has(feature.id));
 
   return (
     <section className={styles.panel} aria-labelledby="news-title">
@@ -209,24 +210,10 @@ function NewsFeaturePanel({ category }: { category: ImpactCategory }) {
           <p>Market signal, not causal lift · sorted by priority</p>
         </div>
       </div>
-      {news.length ? (
+      {features.length ? (
         <div className={styles.newsList}>
-          {news.map(({ feature, subcategory }) => (
-            <article className={styles.newsFeature} key={feature.id}>
-              <div className={styles.newsFeatureTop}>
-                <strong>{feature.label}</strong>
-                <span data-signal={feature.signal?.toLowerCase() ?? "tracked"}>{feature.signal ?? "Tracked"}</span>
-              </div>
-              <p>
-                {feature.label_cn} · {subcategory} · priority {feature.priority?.toFixed(1) ?? "—"} ·{" "}
-                {feature.volume_recent.toLocaleString()} recent articles
-              </p>
-              {feature.headline && (
-                <a href={feature.headline_url} target="_blank" rel="noreferrer">
-                  {feature.headline}
-                </a>
-              )}
-            </article>
+          {features.map((feature) => (
+            <FeatureCard key={feature.id} feature={feature} analysis={problems} />
           ))}
         </div>
       ) : (
@@ -240,6 +227,13 @@ export function ImpactForecastPage() {
   usePageTitle("Sales Impact Forecast");
   const forecast = useImpactForecast();
   const [selectedId, setSelectedId] = useState("");
+  const [problems, setProblems] = useState<SavedProblemAnalysis | null>(null);
+  useEffect(() => {
+    fetch(`${config.apiBaseUrl}/agent/problems`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then(setProblems)
+      .catch(() => setProblems(null));
+  }, []);
   const categories = forecast.data?.categories ?? [];
   const selectedIndex = categories.findIndex((category) => category.id === selectedId);
   const selected = categories.find((category) => category.id === selectedId);
@@ -339,7 +333,7 @@ export function ImpactForecastPage() {
               </section>
 
               {selected && <LegacyFeaturePanel category={selected} color={selectedColor} />}
-              {selected && <NewsFeaturePanel category={selected} />}
+              {selected && <NewsFeaturePanel category={selected} problems={problems} />}
             </div>
 
             <aside className={styles.methodNote}>
