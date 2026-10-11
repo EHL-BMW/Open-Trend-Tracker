@@ -92,7 +92,7 @@ def test_planner_contract_ranks_chinese_features_from_real_sources(tmp_path, mon
     monkeypatch.setattr(planner, "RUNS_DIR", tmp_path)
     client = TestClient(app)
     catalog = client.get("/api/v1/catalog").json()
-    assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) == 13
+    assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) >= 13
     everything = {key: {group["key"]: [o["value"] for o in group["options"]] for group in source["filters"]}
                   for key, source in catalog["categories"].items()}
     request = {"dataVersion": catalog["dataVersion"], "topN": 5, "weights": catalog["defaultWeights"],

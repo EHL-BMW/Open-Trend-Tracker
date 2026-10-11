@@ -4,6 +4,42 @@ import { afterAll, afterEach, beforeAll } from "vitest";
 import { resetMockDb } from "../mocks/handlers";
 import { server } from "../mocks/node";
 
+// Node 22 defines an experimental globalThis.localStorage which causes undefined errors in jsdom.
+// Ensure a compliant localStorage exists on both window and globalThis.
+if (typeof window !== "undefined") {
+  const store = new Map<string, string>();
+  const mockStorage = {
+    get length() {
+      return store.size;
+    },
+    clear() {
+      store.clear();
+    },
+    getItem(key: string) {
+      return store.get(key) ?? null;
+    },
+    setItem(key: string, value: string) {
+      store.set(key, String(value));
+    },
+    removeItem(key: string) {
+      store.delete(key);
+    },
+    key(index: number) {
+      return Array.from(store.keys())[index] ?? null;
+    },
+  };
+  Object.defineProperty(window, "localStorage", {
+    value: mockStorage,
+    configurable: true,
+    writable: true,
+  });
+  Object.defineProperty(globalThis, "localStorage", {
+    value: mockStorage,
+    configurable: true,
+    writable: true,
+  });
+}
+
 // jsdom has no IntersectionObserver (framer-motion's whileInView needs one). Report everything as visible.
 if (typeof window !== "undefined" && !("IntersectionObserver" in window)) {
   class VisibleObserver {

@@ -10,6 +10,13 @@ Build an AI-powered application that turns customer feedback, product and sales 
 - [`docs/FRONTEND_BACKEND_HANDOFF.md`](docs/FRONTEND_BACKEND_HANDOFF.md): complete coworker handoff,
   endpoint contract, examples, refresh commands, limitations, and verification steps.
 
+## Quick Start
+
+```bash
+./run.sh
+```
+Starts both backend (port 8000) and frontend (port 5173) in a single command.
+
 Quick verification:
 
 ```bash

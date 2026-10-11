@@ -1,11 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 import { THEME_STORAGE_KEY } from "../../state/theme";
 import { SettingsMenu } from "./SettingsMenu";
 
 afterEach(() => {
-  localStorage.clear();
+  cleanup();
+  window.localStorage.clear();
   delete document.documentElement.dataset.theme;
 });
 
@@ -19,7 +20,7 @@ describe("SettingsMenu", () => {
 
     await user.click(screen.getByRole("radio", { name: "Dark" }));
     expect(document.documentElement.dataset.theme).toBe("dark");
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBe("dark");
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBe("dark");
     expect(screen.getByRole("radio", { name: "Dark" })).toHaveAttribute("aria-checked", "true");
 
     await user.click(screen.getByRole("radio", { name: "Light" }));
@@ -27,7 +28,7 @@ describe("SettingsMenu", () => {
 
     await user.click(screen.getByRole("radio", { name: "System" }));
     expect(document.documentElement.dataset.theme).toBeUndefined();
-    expect(localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
+    expect(window.localStorage.getItem(THEME_STORAGE_KEY)).toBeNull();
   });
 
   it("closes with Escape", async () => {

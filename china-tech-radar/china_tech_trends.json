@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-11 04:30",
+  "generated_at": "2026-10-11 05:14",
   "window": {
     "start": "2026-07-20",
     "end": "2026-10-11",
@@ -22,8 +22,8 @@
   },
   "source": "Google News China edition (zh-CN), aggregating Chinese outlets",
   "totals": {
-    "articles": 6337,
-    "outlets": 314,
+    "articles": 6334,
+    "outlets": 315,
     "topics": 21
   },
   "bmw_domains": {
@@ -113,7 +113,7 @@
         43,
         31,
         151,
-        479
+        480
       ],
       "weekly_share": [
         0.0949,
@@ -127,12 +127,12 @@
         0.0833,
         0.0803,
         0.1787,
-        0.2841
+        0.2852
       ],
-      "volume_recent": 704,
+      "volume_recent": 705,
       "volume_prior": 353,
-      "momentum": 1.862,
-      "momentum_pct_change": 86.2,
+      "momentum": 1.868,
+      "momentum_pct_change": 86.8,
       "p_momentum": 0.0,
       "mk_z": 0.891,
       "mk_p": 0.37269,
@@ -149,7 +149,7 @@
         ],
         [
           "汽车之家",
-          60
+          59
         ],
         [
           "财联社",
@@ -201,7 +201,7 @@
           "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxQc0oybnpMX1dqcGZqQjBlSTlGZ0lTdWRsMFYwYjJaU1RJanA2N3duUmY4NkZ3cFVGTnJ2V0dwenFwY1BpSzRsaldQRVdMUmdwMmczZjFjVEVPSU1SZmZ4YS16MnNybzBuRDdpc1pVM2YwZHgxMzlta3R5OHNqUGljcEdyVlJOeWl1WFhIWm8zQQ?oc=5"
         }
       ],
-      "share_of_voice": 0.2051,
+      "share_of_voice": 0.2055,
       "attention_pct": 1.0,
       "momentum_pct": 0.9,
       "bmw_exposure": 0.98,
@@ -227,7 +227,7 @@
         33,
         35,
         72,
-        206
+        205
       ],
       "weekly_share": [
         0.0506,
@@ -241,12 +241,12 @@
         0.064,
         0.0907,
         0.0852,
-        0.1222
+        0.1218
       ],
-      "volume_recent": 346,
+      "volume_recent": 345,
       "volume_prior": 160,
-      "momentum": 1.918,
-      "momentum_pct_change": 91.8,
+      "momentum": 1.914,
+      "momentum_pct_change": 91.4,
       "p_momentum": 0.0,
       "mk_z": 2.263,
       "mk_p": 0.02364,
@@ -255,15 +255,15 @@
       "top_outlets": [
         [
           "手机新浪网",
-          115
+          116
         ],
         [
           "汽车之家",
-          64
+          62
         ],
         [
           "新浪网",
-          56
+          55
         ],
         [
           "新浪财经",
@@ -291,12 +291,6 @@
           "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1VRTU3Z0h4VlBwZ0E4LW9BVl9IT1VFT0JEVEtwOVE3RFFhdGlHQnZDejd6V2JfOThydDRHdkRDOGt4WDRyTWtlUU9vLUJ1V3NmZTM0RGNyRURJTDNtRlJ3?oc=5"
         },
         {
-          "title": "合资纯电SUV高速NOA横评：三车实测，大众ID.AURA T6如何定义“智稳”？",
-          "source": "新浪网",
-          "date": "2026-10-11",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE4tdzU4Rzc2R1F0QWRXdktWZ0FBZklwUnFmVHBNeVU3MTI0T19zbmpfNGRoUTJUVFhHSlAtX1BqRDJpZUFJWENIRFVIR2E1b1VUNXVlUzNCc05jeGhVUGx6Tmg1NHc2REQ3cjlidTdHM2wwQQ?oc=5"
-        },
-        {
           "title": "宋Ultra EV天神之眼值得选吗？15.19万起+710km续航，3个维度说清+FAQ",
           "source": "新浪网",
           "date": "2026-10-11",
@@ -313,9 +307,15 @@
           "source": "手机新浪网",
           "date": "2026-10-11",
           "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBhZ3lWdi04SjhfUFVJbHNUSXZ0TVRrM2hnNHVvQUE5OWxBV3FJemJIVXhVd2JxS2UzYl83RmtQUWpkek1ueU8xNk1yV3FsOF84VUh2YWNCVF9takF3STRB?oc=5"
+        },
+        {
+          "title": "德系纯电SUV智驾大横评：大众ID.AURA T6对比ID.4 CROZZ、奥迪E7X，谁才是稳定派的新答案？",
+          "source": "手机新浪网",
+          "date": "2026-10-11",
+          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFA2QWZmOUFxYVczT2tHQWlsUjVPUE5FeVpwV2FFTUdqSEF6ZmNNcjUtM3gyOXBkVVpkX3lCLWJKQ2lsOWNucU1mUDFzQnpWN1BGblpmamNkalJHaklwVDBN?oc=5"
         }
       ],
-      "share_of_voice": 0.1008,
+      "share_of_voice": 0.1006,
       "attention_pct": 0.9,
       "momentum_pct": 0.95,
       "bmw_exposure": 0.479,
@@ -324,68 +324,68 @@
       "quadrant": "Mainstreaming"
     },
     {
-      "id": "e2e_vla",
-      "label_en": "End-to-end / VLA driving models",
-      "label_cn": "端到端 / VLA",
-      "query": "\"端到端\" 智驾 OR \"VLA\" 智驾 OR \"世界模型\" 智驾",
-      "bmw_domain": "Driving Assistance",
+      "id": "smart_seats",
+      "label_en": "Smart cabin comfort (seats, climate)",
+      "label_cn": "智能座椅 / 零重力",
+      "query": "\"零重力座椅\" OR \"智能座椅\" OR \"座舱 舒适\"",
+      "bmw_domain": "Smart Cabin",
       "weekly_counts": [
         10,
-        7,
-        15,
-        27,
-        42,
-        59,
-        61,
-        40,
-        55,
-        28,
-        89,
-        303
+        8,
+        9,
+        33,
+        36,
+        23,
+        36,
+        20,
+        34,
+        25,
+        67,
+        56
       ],
       "weekly_share": [
         0.0633,
-        0.0432,
-        0.0806,
-        0.0763,
-        0.0837,
-        0.0997,
-        0.0984,
-        0.1216,
-        0.1066,
-        0.0725,
-        0.1053,
-        0.1797
+        0.0494,
+        0.0484,
+        0.0932,
+        0.0717,
+        0.0389,
+        0.0581,
+        0.0608,
+        0.0659,
+        0.0648,
+        0.0793,
+        0.0333
       ],
-      "volume_recent": 475,
-      "volume_prior": 261,
-      "momentum": 1.624,
-      "momentum_pct_change": 62.4,
-      "p_momentum": 0.0,
-      "mk_z": 2.674,
-      "mk_p": 0.00749,
-      "sens_slope_share_pp_per_week": 0.662,
-      "breadth_outlets": 31,
+      "volume_recent": 182,
+      "volume_prior": 175,
+      "momentum": 0.873,
+      "momentum_pct_change": -12.7,
+      "p_momentum": 0.20273,
+      "mk_z": 0.069,
+      "mk_p": 0.94533,
+      "sens_slope_share_pp_per_week": 0.024,
+      "breadth_outlets": 23,
       "top_outlets": [
         [
-          "手机新浪网",
-          201
-        ],
-        [
           "汽车之家",
-          76
+          47
         ],
         [
-          "新浪网",
-          71
+          "手机新浪网",
+          46
         ],
         [
           "搜狐网",
-          49
+          26
+        ],
+        [
+          "新浪网",
+          18
         ],
         [
           "新浪财经",
-          16
+          9
         ]
       ],
       "saturated_days": 0,
@@ -393,49 +393,49 @@
       "recovered_quota_articles": 0,
       "headlines": [
         {
-          "title": "德系纯电SUV智驾横评：激光雷达+城市NOA，谁才是真正的“听劝”卷王？",
-          "source": "手机新浪网",
+          "title": "四部门“通知”，终结“速成车”乱象！",
+          "source": "新浪财经",
           "date": "2026-10-11",
-          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE05QTJiRUFQYkx0c2s1bERuVUF6SjRWSmtWYnYtc2tCU21Zdlh0M1NmWlp6dEZ1cXgtcWlGd29UeXZLaEx5LTI0cGlMcGY5YkFTZ01EU3lrNVd0VXJucml3?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE0wSU1YN1JkaTczZFdGbTNtVVI4d1VHY3ZISlNtMXhMZVlxX3hDVHZ0Mk1talc4TEZPUElNTEpVQ3dPNlY3bE0xRXJGbVFkcjh3bDNKN2pLck85UlREYjJfMlppSGJ5U0lZME9WTy0tdmhrdw?oc=5"
         },
         {
-          "title": "宋Ultra EV天神之眼值得选吗？15.19万起+710km续航，3个维度说清+FAQ",
-          "source": "新浪网",
-          "date": "2026-10-11",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1uSGlSQ2FrX2tGYlI5X1hmd3g0Vkx0V1ROQkhqd2tFanV0bDNfeE5MZ3R5LWl1cEI1MWZ1aUYzVklYQ1UzZm9IajdJQmREdExVZVBsbnRlMzU3ZmZnZ1pFMU1GMlEzZ29OT3RHU3g5bWNjZw?oc=5"
-        },
-        {
-          "title": "德系智驾新变局：ID.4 CROZZ、马自达EZ-60、奥迪E7X之外，大众T6凭什么领跑第一梯队？",
-          "source": "手机新浪网",
-          "date": "2026-10-11",
-          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBOMmZJb2dtMUZyWWtpMjF3eXNuZEx6NUhQdE5RWFE3S2RBRFUxd1BPLTgtcDJmSFd0c2F3QnF6NnYxTTNRWWpsdWZpdmlDMjFDcWdicVlhdmNwRzh0X0JZ?oc=5"
-        },
-        {
-          "title": "海豹05dm智驾",
+          "title": "理想i6零重力座椅乘坐体验怎么样？",
           "source": "新浪网",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE4xcURnQkpwZjY1VHlGLUV3U0FhT2p6V1MxRllZZXFpTGpZMEVTQWgxeTQ4bUpBcjM0MXB1Vjk3bU96MDRYMk9FdzBIN0xsb2hkZ0R3bkgwTmNLWkRfOUZLOHQ3d2U4d3BqRzlISDBWZnRRUQ?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5DbVVKT2xvajRSQWZiWTZ3TC13VGgzSWdfcXJCU0ZIUXQ3eXNzeDdGeWZJU1MzdW1xc2JxUHBqODY4TlZsYXBzZ1Q0dDJpWEZFZmNFV05XV1pmejc2SFJqR0xaU0lqdjBvRElhWlg4WE5oZw?oc=5"
         },
         {
-          "title": "福田汽车与卓驭科技签署战略合作，商用车全域智驾从干线NOA走向L4级量产",
-          "source": "网通社",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBXb2NORjIwVXFhNEU5a1ZUdWNucFBHbC1yYkhHZWdPNlVSRmoyZmVxdlFFTXpDS2lTWjRUOGR6VDFUdFF5VlBnZnpsdWluR3lQakVOZXZtbDNaaFVh?oc=5"
-        },
-        {
-          "title": "【视频】四选一纠结智驾？奕境X9 30万内四激光，值得放清单",
+          "title": "五万差价换大空间和零重力座椅，问界M8和M9怎么选才不后悔？",
           "source": "汽车之家",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ZdWZVMDFrTTRQaC1sajNIbF9jTHFxMTFndl9QN1JmcGJzbUdOZTE4SHVSNG40WkEzMTZBTi13Mjk5aWEzQU9YN0REd3RMUnRNV0VVcExwVG5tTmluNm9TVTlZZXEyaVVodU1v?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9ORkpSY1dEVllRRlQ5clFRc1ZSMUhJdHVBYy1PTjRITm9JVExEWTFSemsyeUhiZmxWcEFKR3d0eHU2YklaTk5icEVkNHpCRjMwdkp2Sl9RaEZzTG8?oc=5"
+        },
+        {
+          "title": "纯电300km+零重力座椅+全地形穿越：四款新能源豪华SUV长途自驾横评，把“野性”找回来了",
+          "source": "新浪网",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE90cVp6eWV4bGlSQXdfX0VOSC16NWpWbnV4RUVxVFdyem4zU0UtcHZRNi1oTk1ZOXlqSlVPYVd6eGdnNHRZX1g4OXY0akYzdGt0SXIxamh6N0JlUV90REgzdkVtMkpLeEs2bUswN0J0M2N6Zw?oc=5"
+        },
+        {
+          "title": "新款理想L6的座椅也太舒服了吧！…",
+          "source": "新浪网",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE16QmVqNVlNU0xiQU9IUVR5cXhrc2xubW91eVRhUmp2eTNNcUtmMFJKYjdnZnFKZ0NhRzA4NVdMeUlwMjA0eXlsZ3Z3dm14T1ZTTUhWTmgyd3JyNVhsUGo3d2pFQlRkZW84X2l1YkpwblphMnc?oc=5"
+        },
+        {
+          "title": "上汽奥迪 E7X 首次 OTA 推送：新增屏幕护眼模式、零重力座椅倾角调节功能等",
+          "source": "手机新浪网",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMilAFBVV95cUxOdW1reXhhamQ3NUFsdkgxWjB0YURRbDVoWXZ6TUIwalJpbXBOOWNuM1o0VzFSSTJvMjVHQmwyMmpOSDdfcG1GSG0zNDg5MEc5eGlKc1VHVDR6RmZMZkdteTJwWEgyWlE4OWVTaFcyTXVKTFdBclVBQmdMMnlrRjZ4WGFDV0xyZjNlSDM0eUs0UVFzVmln?oc=5"
         }
       ],
-      "share_of_voice": 0.1384,
-      "attention_pct": 0.95,
-      "momentum_pct": 0.85,
-      "bmw_exposure": 0.479,
-      "priority": 77.4,
-      "signal": "Accelerating",
-      "quadrant": "Mainstreaming"
+      "share_of_voice": 0.0531,
+      "attention_pct": 0.7,
+      "momentum_pct": 0.65,
+      "bmw_exposure": 0.981,
+      "priority": 76.7,
+      "signal": "Stable",
+      "quadrant": "Established"
     },
     {
       "id": "ultra_charging",
@@ -455,7 +455,7 @@
         31,
         13,
         26,
-        40
+        41
       ],
       "weekly_share": [
         0.038,
@@ -469,17 +469,17 @@
         0.0601,
         0.0337,
         0.0308,
-        0.0237
+        0.0244
       ],
-      "volume_recent": 110,
+      "volume_recent": 111,
       "volume_prior": 96,
-      "momentum": 0.967,
-      "momentum_pct_change": -3.3,
-      "p_momentum": 0.83405,
-      "mk_z": 0.069,
-      "mk_p": 0.94533,
-      "sens_slope_share_pp_per_week": 0.011,
-      "breadth_outlets": 17,
+      "momentum": 0.977,
+      "momentum_pct_change": -2.3,
+      "p_momentum": 0.8892,
+      "mk_z": 0.206,
+      "mk_p": 0.83701,
+      "sens_slope_share_pp_per_week": 0.016,
+      "breadth_outlets": 16,
       "top_outlets": [
         [
           "手机新浪网",
@@ -487,7 +487,7 @@
         ],
         [
           "汽车之家",
-          15
+          17
         ],
         [
           "新浪网",
@@ -519,101 +519,101 @@
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1MZ2p4dW1TaVZIbFBDWVVqOFBVQ3F4R1RxdXFwRGxRNF9pczdqWUZFcWJTR0IzRXRFRTR1dkVHeGJ6YVNOekNCSkZmcVc5VFYwMU1sVzVlQkdvQ1ZjaFFyM1g0amtIYm9WazVEWWppY1c2dw?oc=5"
         },
         {
+          "title": "比亚迪大唐首发亮相 搭载兆瓦闪充/定位40万级大型SUV",
+          "source": "汽车之家",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1aU0hGZW1VbGtXc2pEdWxPck5TdVA3TkpOQ2RjU016MGlDQjhzelR2VUVXNVpTcTdDS3pOcklpT2FnSVhwMHBkcVlILVhTeERqNl8xVDVMMUVzeTQ?oc=5"
+        },
+        {
           "title": "2026款理想i6首发静态评测：续航780km+5C超充，老车主该换还是等？+FAQ",
           "source": "新浪网",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5la1BDWWJtTjFyYkNLTnBPYkxiVTVOM0J3UUI3OFdUWWxNZGY3SFNuc2k1VDlYcGJmRUF4XzVKcjRKc2RObllMOVFGeXFOMDc0V1l3bjJEdFdlUVBhN21SS1hGRXVWX0hKSVdHMk1jQ2V6UQ?oc=5"
         },
         {
+          "title": "比亚迪大唐内饰曝光！6座+兆瓦闪充，问界M8新对手？",
+          "source": "汽车之家",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBva0Jzc3lRLTVPSDkyT0N4eVRnTjNMT09iWW9KZ2p3cEVSU0h3NjRONHhObzdsM1RKUHc5VDgzdkhubEZrMElyODRvLVRaYUowMk1Ja3gtenQxUEk?oc=5"
+        },
+        {
           "title": "25-30万买理想L6值不值？续航300km+5C超充，家用SUV绕不开的选择+FAQ",
           "source": "新浪网",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBLZVdhTUlFdlBoelZEeEtoQlVQYVh4bm1rdXhFSkJTQUVqN3RCSWJ6eWxZUkhuUEdmLUZDM29pTnFpOUVDUmFTa2xjTHM5MV90bUlVUW9QRUZHaGhwX193b2d3WG1yUmZ4Smtsb0FrQjlWUQ?oc=5"
-        },
-        {
-          "title": "日产NX8卖14.99万起，锁单破1.1万台，增程/纯电怎么选？3个维度讲透+FAQ",
-          "source": "新浪网",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTFBSMGZELWZ2bVRoQXl3MGZNU092c0U1WEMzZDA3OUZsWXlCVk5vT1JzcHFtU3FmaDdDcXk4cXBVcjlnOU5wSU1ZblZsRmdTTEZvcG5zVFlMUkN4dUM2d0syemR5MUFDOG82a3FLMFVDa2NDUQ?oc=5"
-        },
-        {
-          "title": "MG07EV实测续航到底能跑多少？全网数据汇总+高速/城市真实达成率+FAQ",
-          "source": "新浪网",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5rRU44UGc0M0RvNWRraEJGZkdyT3ZoSTdfMzhVMmdkdHlXcFR6cTc1aGQ3TzNNWkpyWFFlRGJJdDdyTjhkNEFhZkI5aUI4WHNocTRiQnFUWWdRYTU4dzE4YnBHVHBaMnFRSHhEMkFDdFZvQQ?oc=5"
         }
       ],
-      "share_of_voice": 0.032,
-      "attention_pct": 0.575,
+      "share_of_voice": 0.0324,
+      "attention_pct": 0.6,
       "momentum_pct": 0.75,
       "bmw_exposure": 0.98,
-      "priority": 75.8,
+      "priority": 76.6,
       "signal": "Stable",
       "quadrant": "Established"
     },
     {
-      "id": "smart_seats",
-      "label_en": "Smart cabin comfort (seats, climate)",
-      "label_cn": "智能座椅 / 零重力",
-      "query": "\"零重力座椅\" OR \"智能座椅\" OR \"座舱 舒适\"",
-      "bmw_domain": "Smart Cabin",
+      "id": "e2e_vla",
+      "label_en": "End-to-end / VLA driving models",
+      "label_cn": "端到端 / VLA",
+      "query": "\"端到端\" 智驾 OR \"VLA\" 智驾 OR \"世界模型\" 智驾",
+      "bmw_domain": "Driving Assistance",
       "weekly_counts": [
         10,
-        8,
-        9,
-        33,
-        36,
-        23,
-        36,
-        20,
-        34,
-        25,
-        67,
-        55
+        7,
+        15,
+        27,
+        42,
+        59,
+        61,
+        40,
+        55,
+        28,
+        89,
+        298
       ],
       "weekly_share": [
         0.0633,
-        0.0494,
-        0.0484,
-        0.0932,
-        0.0717,
-        0.0389,
-        0.0581,
-        0.0608,
-        0.0659,
-        0.0648,
-        0.0793,
-        0.0326
+        0.0432,
+        0.0806,
+        0.0763,
+        0.0837,
+        0.0997,
+        0.0984,
+        0.1216,
+        0.1066,
+        0.0725,
+        0.1053,
+        0.1771
       ],
-      "volume_recent": 181,
-      "volume_prior": 175,
-      "momentum": 0.868,
-      "momentum_pct_change": -13.2,
-      "p_momentum": 0.18377,
-      "mk_z": 0.069,
-      "mk_p": 0.94533,
-      "sens_slope_share_pp_per_week": 0.024,
-      "breadth_outlets": 24,
+      "volume_recent": 470,
+      "volume_prior": 261,
+      "momentum": 1.606,
+      "momentum_pct_change": 60.6,
+      "p_momentum": 0.0,
+      "mk_z": 2.674,
+      "mk_p": 0.00749,
+      "sens_slope_share_pp_per_week": 0.662,
+      "breadth_outlets": 31,
       "top_outlets": [
         [
-          "汽车之家",
-          47
-        ],
-        [
           "手机新浪网",
-          44
+          198
         ],
         [
-          "搜狐网",
-          26
+          "汽车之家",
+          75
         ],
         [
           "新浪网",
-          17
+          70
+        ],
+        [
+          "搜狐网",
+          49
         ],
         [
           "新浪财经",
-          9
+          16
         ]
       ],
       "saturated_days": 0,
@@ -621,49 +621,49 @@
       "recovered_quota_articles": 0,
       "headlines": [
         {
-          "title": "理想i6零重力座椅乘坐体验怎么样？",
+          "title": "德系纯电SUV智驾横评：激光雷达+城市NOA，谁才是真正的“听劝”卷王？",
+          "source": "手机新浪网",
+          "date": "2026-10-11",
+          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE05QTJiRUFQYkx0c2s1bERuVUF6SjRWSmtWYnYtc2tCU21Zdlh0M1NmWlp6dEZ1cXgtcWlGd29UeXZLaEx5LTI0cGlMcGY5YkFTZ01EU3lrNVd0VXJucml3?oc=5"
+        },
+        {
+          "title": "宋Ultra EV天神之眼值得选吗？15.19万起+710km续航，3个维度说清+FAQ",
+          "source": "新浪网",
+          "date": "2026-10-11",
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE1uSGlSQ2FrX2tGYlI5X1hmd3g0Vkx0V1ROQkhqd2tFanV0bDNfeE5MZ3R5LWl1cEI1MWZ1aUYzVklYQ1UzZm9IajdJQmREdExVZVBsbnRlMzU3ZmZnZ1pFMU1GMlEzZ29OT3RHU3g5bWNjZw?oc=5"
+        },
+        {
+          "title": "海豹05dm智驾",
           "source": "新浪网",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5DbVVKT2xvajRSQWZiWTZ3TC13VGgzSWdfcXJCU0ZIUXQ3eXNzeDdGeWZJU1MzdW1xc2JxUHBqODY4TlZsYXBzZ1Q0dDJpWEZFZmNFV05XV1pmejc2SFJqR0xaU0lqdjBvRElhWlg4WE5oZw?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE4xcURnQkpwZjY1VHlGLUV3U0FhT2p6V1MxRllZZXFpTGpZMEVTQWgxeTQ4bUpBcjM0MXB1Vjk3bU96MDRYMk9FdzBIN0xsb2hkZ0R3bkgwTmNLWkRfOUZLOHQ3d2U4d3BqRzlISDBWZnRRUQ?oc=5"
         },
         {
-          "title": "四部门“通知”终结“速成车”乱象！环境验证不少于一年 可靠性试验大于三万公里",
-          "source": "财联社",
+          "title": "福田汽车与卓驭科技签署战略合作，商用车全域智驾从干线NOA走向L4级量产",
+          "source": "网通社",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE5wQTBVSlVaLXNONmJVYWxqWGMxVUNQNy1ZWE1zekwtc3J2MmpoUHJHbzhOcEMtazhLbFpnSlJxeVozb19EQjFaUg?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMiXEFVX3lxTFBXb2NORjIwVXFhNEU5a1ZUdWNucFBHbC1yYkhHZWdPNlVSRmoyZmVxdlFFTXpDS2lTWjRUOGR6VDFUdFF5VlBnZnpsdWluR3lQakVOZXZtbDNaaFVh?oc=5"
         },
         {
-          "title": "五万差价换大空间和零重力座椅，问界M8和M9怎么选才不后悔？",
+          "title": "【视频】四选一纠结智驾？奕境X9 30万内四激光，值得放清单",
           "source": "汽车之家",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9ORkpSY1dEVllRRlQ5clFRc1ZSMUhJdHVBYy1PTjRITm9JVExEWTFSemsyeUhiZmxWcEFKR3d0eHU2YklaTk5icEVkNHpCRjMwdkp2Sl9RaEZzTG8?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ZdWZVMDFrTTRQaC1sajNIbF9jTHFxMTFndl9QN1JmcGJzbUdOZTE4SHVSNG40WkEzMTZBTi13Mjk5aWEzQU9YN0REd3RMUnRNV0VVcExwVG5tTmluNm9TVTlZZXEyaVVodU1v?oc=5"
         },
         {
-          "title": "纯电300km+零重力座椅+全地形穿越：四款新能源豪华SUV长途自驾横评，把“野性”找回来了",
+          "title": "德系纯电SUV智驾大横评：用上192线激光雷达的大众，把“稳”刻进了基因",
           "source": "新浪网",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE90cVp6eWV4bGlSQXdfX0VOSC16NWpWbnV4RUVxVFdyem4zU0UtcHZRNi1oTk1ZOXlqSlVPYVd6eGdnNHRZX1g4OXY0akYzdGt0SXIxamh6N0JlUV90REgzdkVtMkpLeEs2bUswN0J0M2N6Zw?oc=5"
-        },
-        {
-          "title": "新款理想L6的座椅也太舒服了吧！…",
-          "source": "新浪网",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMic0FVX3lxTE16QmVqNVlNU0xiQU9IUVR5cXhrc2xubW91eVRhUmp2eTNNcUtmMFJKYjdnZnFKZ0NhRzA4NVdMeUlwMjA0eXlsZ3Z3dm14T1ZTTUhWTmgyd3JyNVhsUGo3d2pFQlRkZW84X2l1YkpwblphMnc?oc=5"
-        },
-        {
-          "title": "上汽奥迪 E7X 首次 OTA 推送：新增屏幕护眼模式、零重力座椅倾角调节功能等",
-          "source": "新浪财经",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE01UU1YOWk0ZGVkOUpyZVA4Y3RDV2tPSC1GczZLZG1NSzVyTk16YUV4YV9IV1REWjBxVXZWZ3l5QWNMcmVwZldwd28ybjFhaEdaM2FMdC1qclpfc3ktaTJveFFXLVc0RUlPNlpnd0NDZmRLOEJneVFZbWxKMG0ydDA?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9LMjRHcUpPOHRNQmxBbHFrOWZzRG80bmdhSE51Zk45ZDdVUndJMHMzZlVsN0lXTHFnUTJjMkFDVkpvd1A1LTNMMV8zTm1aMGdiRFdfZmNRczFhQ1c1ckgwOFVLcWR5ZmpCN3hSN0JfQzFJZw?oc=5"
         }
       ],
-      "share_of_voice": 0.0527,
-      "attention_pct": 0.7,
-      "momentum_pct": 0.6,
-      "bmw_exposure": 0.981,
-      "priority": 74.9,
-      "signal": "Stable",
-      "quadrant": "Established"
+      "share_of_voice": 0.137,
+      "attention_pct": 0.95,
+      "momentum_pct": 0.8,
+      "bmw_exposure": 0.479,
+      "priority": 75.6,
+      "signal": "Accelerating",
+      "quadrant": "Mainstreaming"
     },
     {
       "id": "battery_swap",
@@ -697,13 +697,13 @@
         0.0271,
         0.044,
         0.0473,
-        0.0231
+        0.0232
       ],
       "volume_recent": 110,
       "volume_prior": 103,
       "momentum": 0.9,
       "momentum_pct_change": -10.0,
-      "p_momentum": 0.45002,
+      "p_momentum": 0.4502,
       "mk_z": 0.343,
       "mk_p": 0.7317,
       "sens_slope_share_pp_per_week": 0.042,
@@ -771,11 +771,11 @@
           "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5TUmc0NHZ1b1VsRTlVbWc5OXQ0RWhCUFBkVDA5cU11R1BRQ1ZXWTR1TlExMzlNdDlMdzR6Z1F4TGRNazBfWnIzeVlNRDhSU21PcmltQzUtU0lwSnNmN1E?oc=5"
         }
       ],
-      "share_of_voice": 0.032,
-      "attention_pct": 0.575,
+      "share_of_voice": 0.0321,
+      "attention_pct": 0.55,
       "momentum_pct": 0.7,
       "bmw_exposure": 0.98,
-      "priority": 74.0,
+      "priority": 73.2,
       "signal": "Stable",
       "quadrant": "Established"
     },
@@ -815,8 +815,8 @@
       ],
       "volume_recent": 41,
       "volume_prior": 14,
-      "momentum": 2.438,
-      "momentum_pct_change": 143.8,
+      "momentum": 2.44,
+      "momentum_pct_change": 144.0,
       "p_momentum": 0.00259,
       "mk_z": 1.383,
       "mk_p": 0.16653,
@@ -885,7 +885,7 @@
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE9LNy1VMXJvNFVxMkRINmxpcmQ2UXZEZXRIUkNtbWFMTGNlQThxcnJxNFRQNVduMFdjRU1xVkM1ZUExVTVsdFlkNUZHZGpMZW1Ea3UwMXBzRTV2UjQ?oc=5"
         }
       ],
-      "share_of_voice": 0.0119,
+      "share_of_voice": 0.012,
       "attention_pct": 0.2,
       "momentum_pct": 1.0,
       "bmw_exposure": 0.964,
@@ -911,7 +911,7 @@
         35,
         38,
         53,
-        44
+        45
       ],
       "weekly_share": [
         0.0443,
@@ -925,13 +925,13 @@
         0.0678,
         0.0984,
         0.0627,
-        0.0261
+        0.0267
       ],
-      "volume_recent": 170,
+      "volume_recent": 171,
       "volume_prior": 194,
-      "momentum": 0.728,
-      "momentum_pct_change": -27.2,
-      "p_momentum": 0.00265,
+      "momentum": 0.733,
+      "momentum_pct_change": -26.7,
+      "p_momentum": 0.0032,
       "mk_z": -0.206,
       "mk_p": 0.83701,
       "sens_slope_share_pp_per_week": -0.054,
@@ -939,7 +939,7 @@
       "top_outlets": [
         [
           "汽车之家",
-          40
+          41
         ],
         [
           "手机新浪网",
@@ -999,7 +999,7 @@
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5YWVBCaU1oWEl2WW5HUFdDZVdIc2RvQkNMc1pUQV9uTGZmRzRlTDB0V3N2aUM1a1AyUjJPbGpZNGZMUEJfNm0tdnNmRXB5S1BQUHRaWm5CZmZjQkk?oc=5"
         }
       ],
-      "share_of_voice": 0.0495,
+      "share_of_voice": 0.0499,
       "attention_pct": 0.65,
       "momentum_pct": 0.4,
       "bmw_exposure": 0.98,
@@ -1025,7 +1025,7 @@
         39,
         33,
         71,
-        49
+        51
       ],
       "weekly_share": [
         0.057,
@@ -1039,13 +1039,13 @@
         0.0756,
         0.0855,
         0.084,
-        0.0291
+        0.0303
       ],
-      "volume_recent": 192,
+      "volume_recent": 194,
       "volume_prior": 194,
-      "momentum": 0.827,
-      "momentum_pct_change": -17.3,
-      "p_momentum": 0.06575,
+      "momentum": 0.837,
+      "momentum_pct_change": -16.3,
+      "p_momentum": 0.08312,
       "mk_z": 1.029,
       "mk_p": 0.30367,
       "sens_slope_share_pp_per_week": 0.219,
@@ -1061,11 +1061,11 @@
         ],
         [
           "搜狐网",
-          27
+          28
         ],
         [
           "新浪财经",
-          10
+          11
         ],
         [
           "新浪网",
@@ -1113,7 +1113,7 @@
           "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9KSS1BRThOUkJiRG5OX3JoNW5PcVVCYktvSmJzY0tCT0tWaU5vaG4xNHhmbHJkbUUxaGhSeTE4a3BMMmRrS3VXRUJHYzE5RWg0N0NvSVlqM1B4RzFsNkVZ?oc=5"
         }
       ],
-      "share_of_voice": 0.0559,
+      "share_of_voice": 0.0566,
       "attention_pct": 0.75,
       "momentum_pct": 0.55,
       "bmw_exposure": 0.68,
@@ -1139,7 +1139,7 @@
         10,
         9,
         25,
-        41
+        42
       ],
       "weekly_share": [
         0.0,
@@ -1153,13 +1153,13 @@
         0.0194,
         0.0233,
         0.0296,
-        0.0243
+        0.025
       ],
-      "volume_recent": 85,
+      "volume_recent": 86,
       "volume_prior": 45,
-      "momentum": 1.604,
-      "momentum_pct_change": 60.4,
-      "p_momentum": 0.01046,
+      "momentum": 1.625,
+      "momentum_pct_change": 62.5,
+      "p_momentum": 0.00831,
       "mk_z": 1.577,
       "mk_p": 0.11476,
       "sens_slope_share_pp_per_week": 0.242,
@@ -1167,7 +1167,7 @@
       "top_outlets": [
         [
           "汽车之家",
-          46
+          47
         ],
         [
           "手机新浪网",
@@ -1203,6 +1203,12 @@
           "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5kWU5wSE5ST3hFeUFHZDRTSVNGQU1XUTN6RWNGTkt0ZWhVSF85VEs4RjY2U2NOYXBOaDVQUjNtNWJBVTI5ZE1kYy1ROE45Z3dHR1o3YXV5ajNnQ09KeUNCa01hRElDNEdTMFhEXzFCc0VPUQ?oc=5"
         },
         {
+          "title": "【视频】试驾蔚来ES9地平线版，顶配行政旗舰SUV到底强在哪？",
+          "source": "汽车之家",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1BUnZlaFdDVThoRVZfOEQ1QjIxTDF4Y2tZTHNPcVVnRjFtR0hmTlBuVUNWbFBnd0NTVnh6U21FdzdtQlNRZlAyU2ZkRWkxQ01HUkNFRmo5NkZyR0k?oc=5"
+        },
+        {
           "title": "【视频】全网最密｜25 分钟看完#蔚来# ES9！",
           "source": "汽车之家",
           "date": "2026-10-10",
@@ -1219,19 +1225,13 @@
           "source": "汽车之家",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5RR1FZX3FaTkxZaVpOZ2E2TEJ4NV9ubG14Y0NwbEUzeVVLdUxPcXlma1NEV0lXei1jWkppRlB5VmJLbmU1R21qNjN5UldFVnZDOXhqdzRuLWtwMTQ?oc=5"
-        },
-        {
-          "title": "【视频】假期出行神器L8省那么多？",
-          "source": "汽车之家",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1hUWhhYm8tMmg1ZllYbHVOaUwxbFdYTTFfd0VFUmZJa3RNTndmWm4tcjhZMWRKc0Z0UlhCakEzZkd5NjJiTWphVFFHX2NneWsxdUJWMnp4Tlhldjg?oc=5"
         }
       ],
-      "share_of_voice": 0.0248,
+      "share_of_voice": 0.0251,
       "attention_pct": 0.35,
-      "momentum_pct": 0.8,
+      "momentum_pct": 0.85,
       "bmw_exposure": 0.746,
-      "priority": 62.6,
+      "priority": 64.4,
       "signal": "Accelerating",
       "quadrant": "Emerging"
     },
@@ -1253,7 +1253,7 @@
         20,
         21,
         33,
-        33
+        31
       ],
       "weekly_share": [
         0.038,
@@ -1267,13 +1267,13 @@
         0.0388,
         0.0544,
         0.0391,
-        0.0196
+        0.0184
       ],
-      "volume_recent": 107,
+      "volume_recent": 105,
       "volume_prior": 102,
-      "momentum": 0.883,
-      "momentum_pct_change": -11.7,
-      "p_momentum": 0.40483,
+      "momentum": 0.867,
+      "momentum_pct_change": -13.3,
+      "p_momentum": 0.32881,
       "mk_z": -0.48,
       "mk_p": 0.63122,
       "sens_slope_share_pp_per_week": -0.022,
@@ -1281,7 +1281,7 @@
       "top_outlets": [
         [
           "汽车之家",
-          27
+          25
         ],
         [
           "搜狐网",
@@ -1311,10 +1311,16 @@
           "link": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE1ZYnEyVklpM3dYRHM5MTdlUXBRVDF1WVlOLWE0aVo1THhkTkI3OGlhbGMxMnJsYkxtV0FkQkNDWDAtVHIzdmpEQ0xnZTJQem5IOF81MjdHS0NiUkZORWc?oc=5"
         },
         {
-          "title": "零跑B10值得买吗？10万级纯电SUV全球车3个维度拆解+FAQ",
+          "title": "UN R156 与 GB 44496-2024 汽车软件升级法规全面对比",
+          "source": "电子工程专辑",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9tRnE1TUVJWTFFclJTcWI1d0JMN3dDNUVidDNxOF81aXYxZ0h4a2pXeGowS3hfQnAtOHdtbjRxWUtVNm9LdVB2R29TS1FaTjgwZjhV?oc=5"
+        },
+        {
+          "title": "2026款本田CR-V油车车机值得买吗？3个维度说清升级真相+FAQ",
           "source": "新浪网",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5nNFBlVi1YX1ZYVE9FTkEwQjFPUHhmWlZBTlBFQmswVzlQcEFUR2hqZHMwV1ZwSzJiZktZQ1dzN2xxNU55UTdpR2tUSXFOcEpxWXZURDR2RHd2cXJGcDVDN0x3WGQ1U3JBTExMVmFtVWNUQQ?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE9FUDY5aWhJRW5qM2pjcTBsdzhLa1NycXRxSXdkMEs2LWZrM1R2NmNwdzg5LW4zSFJGaEZFRnFjZEJzS2V3YW9YOUozZXNaU3lTVUJncEtRZjNSRDBnWGZ1Mk9mU2JxYVN2eXR5NkpMZDMwUQ?oc=5"
         },
         {
           "title": "iCAR V27长续航版上市 全系OTA升级",
@@ -1323,31 +1329,25 @@
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4zcXNMS3pobUk0X2VYakxBSVd3ZXRGVERWNUNBZmpmTldvLXBZY2tJdEZtcDg4cjZ3OVgycDZLdnBiOGxsc3BrdGhnd2RQcXpaeTdIZmNPVFBsM1U?oc=5"
         },
         {
-          "title": "赛力斯9月产销快报 全新一代问界M9系列16周累计交付破4万",
+          "title": "零跑B10值得买吗？10万级纯电SUV全球车3个维度拆解+FAQ",
           "source": "新浪网",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1WekhWMTRGOWxUc0gxY1daNHdNLV83aGppVkNHOTJzVHZaVEdIWE5hNEhBdDNUYWtuUDY0aXlxcnQ4MkZHQW1XdzV4dTNJbS03NkYtVUdBYjRrSmdlLV9VcjlLV3FNYnhUSHBndTNRSndBUlJ1bWlUM3dlcDE1dw?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMickFVX3lxTE5nNFBlVi1YX1ZYVE9FTkEwQjFPUHhmWlZBTlBFQmswVzlQcEFUR2hqZHMwV1ZwSzJiZktZQ1dzN2xxNU55UTdpR2tUSXFOcEpxWXZURDR2RHd2cXJGcDVDN0x3WGQ1U3JBTExMVmFtVWNUQQ?oc=5"
         },
         {
           "title": "【视频】兄弟们，山海炮OTA升级来了！",
           "source": "汽车之家",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBadE44QTlEdGNKU0xNN0g2MzRza2Q3eUVnRGxpUVUyMmxWQUpnMy00NXVmbVh1NDlrcjNSWkpkRzJxeUNVX3ZFZVJzVjJWWVFKU2RSTEloM0Y4dmc?oc=5"
-        },
-        {
-          "title": "UN R156 与 GB 44496-2024 汽车软件升级法规全面对比",
-          "source": "电子工程专辑",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE9tRnE1TUVJWTFFclJTcWI1d0JMN3dDNUVidDNxOF81aXYxZ0h4a2pXeGowS3hfQnAtOHdtbjRxWUtVNm9LdVB2R29TS1FaTjgwZjhV?oc=5"
         }
       ],
-      "share_of_voice": 0.0312,
+      "share_of_voice": 0.0306,
       "attention_pct": 0.5,
-      "momentum_pct": 0.65,
+      "momentum_pct": 0.6,
       "bmw_exposure": 0.68,
-      "priority": 60.7,
+      "priority": 58.9,
       "signal": "Stable",
-      "quadrant": "Established"
+      "quadrant": "Background"
     },
     {
       "id": "lidar",
@@ -1367,7 +1367,7 @@
         47,
         42,
         78,
-        55
+        54
       ],
       "weekly_share": [
         0.0886,
@@ -1381,13 +1381,13 @@
         0.0911,
         0.1088,
         0.0923,
-        0.0326
+        0.0321
       ],
-      "volume_recent": 222,
+      "volume_recent": 221,
       "volume_prior": 232,
-      "momentum": 0.796,
-      "momentum_pct_change": -20.4,
-      "p_momentum": 0.01615,
+      "momentum": 0.793,
+      "momentum_pct_change": -20.7,
+      "p_momentum": 0.0141,
       "mk_z": 0.206,
       "mk_p": 0.83701,
       "sens_slope_share_pp_per_week": 0.039,
@@ -1399,7 +1399,7 @@
         ],
         [
           "手机新浪网",
-          53
+          52
         ],
         [
           "搜狐网",
@@ -1431,16 +1431,16 @@
           "link": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE14b256Ymg2QXBQeDRuOFM2WGNJVFhwdFNuaVBnMXFOX3RBZkNEYkE2bDQwWjVmZTlIZ0pCUTZXMkFXQXltMHpoaE4xOS1OdFM5RUJWcXVBRTRDeEQwcGlTcw?oc=5"
         },
         {
-          "title": "德系智驾横评：有了激光雷达和城市NOA，谁才是更“稳”的纯电SUV？",
-          "source": "手机新浪网",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBaY0VCSGh6N21Fc2ktS2FLd3J1cXB3YWJSblpJLWxzTk5MVks5YWJZcnlvV3YwMWxOVW9GSWZpcnV0TWs5b0M3MmxWVjF1YXZpQnl0dFNWUnQzejZXdm5J?oc=5"
-        },
-        {
           "title": "13万级带激光雷达的合资纯电SUV 四款热门车型高速NOA实测体验",
           "source": "手机新浪网",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFB3M0h4a0NvdXhKcmc1TjlJdWhja3d6eFNrYXRUdC1fLXZfOHNvM1ZwanViYjRTY0lFdnZBSUJxRVhPU21fV1ljakJ4Mk43dWR4T21VM0dZVlJQdVBCWU9j?oc=5"
+        },
+        {
+          "title": "13万级带激光雷达 大众 ID.AURA T6与三款合资纯电SUV高速NOA深度横评",
+          "source": "手机新浪网",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE85bnMzQVpKOFdFaTNyYkV3OEZTc25Wdlc3OUlIelQwOVJJeVdjS0dnVm1qOFVGVmtBRW44ek1oNXNaZW5RN1E0NEhyRWdYa0VhcnROdHNPYTNQNF9kN084?oc=5"
         },
         {
           "title": "手握12万选激光雷达轿车，风云A9和零跑B01差价2万差在哪",
@@ -1449,13 +1449,13 @@
           "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9hb0kzTEMwR1JxMmxGXzlWRjRKSzRlSGxhQWhoeFhvUzRQcmNMNElxZk14dDRuT21ZY1dNdzc5V0NuUmhIRnFRRC1ua09FM0N6b0dUWkxDN01jQXFYTjJOV3h4dzg3aHJFVW1R?oc=5"
         },
         {
-          "title": "13万级带激光雷达 大众 ID.AURA T6与三款合资纯电SUV高速NOA深度横评",
-          "source": "手机新浪网",
+          "title": "【视频】比亚迪汉2025款 EV 智驾版701KM激光雷达旗舰",
+          "source": "汽车之家",
           "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE85bnMzQVpKOFdFaTNyYkV3OEZTc25Wdlc3OUlIelQwOVJJeVdjS0dnVm1qOFVGVmtBRW44ek1oNXNaZW5RN1E0NEhyRWdYa0VhcnROdHNPYTNQNF9kN084?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBlT3hLM1JwZ1NGSFFaWW8yamt1TF9pOFItbDJRQ3VyMFhERTQ4TnZmZUxoNlZBTDRYckNpcG1pTFlfN1VqRE5DNWhrQVotYUVpLVpwWE91S3l2U00?oc=5"
         }
       ],
-      "share_of_voice": 0.0647,
+      "share_of_voice": 0.0644,
       "attention_pct": 0.8,
       "momentum_pct": 0.45,
       "bmw_exposure": 0.479,
@@ -1481,7 +1481,7 @@
         40,
         21,
         36,
-        167
+        166
       ],
       "weekly_share": [
         0.1519,
@@ -1495,17 +1495,17 @@
         0.0775,
         0.0544,
         0.0426,
-        0.0991
+        0.0986
       ],
-      "volume_recent": 264,
+      "volume_recent": 263,
       "volume_prior": 357,
-      "momentum": 0.594,
-      "momentum_pct_change": -40.6,
+      "momentum": 0.593,
+      "momentum_pct_change": -40.7,
       "p_momentum": 0.0,
       "mk_z": -1.577,
       "mk_p": 0.11476,
       "sens_slope_share_pp_per_week": -0.694,
-      "breadth_outlets": 69,
+      "breadth_outlets": 70,
       "top_outlets": [
         [
           "搜狐网",
@@ -1517,11 +1517,11 @@
         ],
         [
           "汽车之家",
-          27
+          26
         ],
         [
           "新浪财经",
-          21
+          20
         ],
         [
           "手机新浪网",
@@ -1537,6 +1537,12 @@
           "source": "极客公园",
           "date": "2026-10-11",
           "link": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE10b0owZXpNMUdFNGdRcl9BVXY4X1h3WTdJMXoxdDRVYXk0T085RGhwYzZnUk1GdjlrME5oR0VlZ24xSzhDTlQwRXBFWk0?oc=5"
+        },
+        {
+          "title": "小马智行Robotaxi将于伦敦启动道路测试 计划在欧洲五城部署超2000辆",
+          "source": "国际在线",
+          "date": "2026-10-10",
+          "link": "https://news.google.com/rss/articles/CBMiekFVX3lxTE1STXdJQ1ZiWUpERHFic1Q2UUp4dFhTM3pBX0ZFTks4SUJKdWNscWRhOExjZXdJYlhiV3RpT09hanJES0J2Q1NxUjlTREtxeTNUTTRlU3BFTnNyaURLZXY5ZUhlUHBlT2lkUktNZ3F1QjVDdW9wdWlUWkln?oc=5"
         },
         {
           "title": "小鹏\"小鹏悠游上线，中国车企集体冲进Robotaxi",
@@ -1561,15 +1567,9 @@
           "source": "动点科技",
           "date": "2026-10-10",
           "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOUXlBUGRhS05WUDFpR3B6QzNpbjl4LXNCSl9BaUpFc0lwVFNmS2JFNy04WGJQMUpBQ2x0MlQ0b3IzaDFDelAzUzAtYldjOUppMDVvVk12LVI3U0lRWm9saW9nYkR0NDJkbzBYNGVVWEtMOUdYQ2RNM0ozMjhLLVlqTmJPNUFyYm5rZ0RmLXlFVQ?oc=5"
-        },
-        {
-          "title": "约1亿美元融资落地，安全短板仍是哈啰Robotaxi绕不开的考题｜大鱼财经",
-          "source": "搜狐网",
-          "date": "2026-10-10",
-          "link": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOYXdGVDVHc213QllpS0dxWXg3MGJDbnJnQXVTRWtRak5QcmZ1Ty1HR1VyVlJpY3R0aGstLTNFQUE4cWN5RDlxMl9EYUZJWjkwd0lQczV4WnlKUE1PNE9EWHB4N3VaQXFPdWUzall3bDJGMkg0Zi1TWEdJV0ZYUUVKZWNqVW1LOEdiRURWUFpQTQ?oc=5"
         }
       ],
-      "share_of_voice": 0.0769,
+      "share_of_voice": 0.0767,
       "attention_pct": 0.85,
       "momentum_pct": 0.2,
       "bmw_exposure": 0.479,
@@ -1609,13 +1609,13 @@
         0.0233,
         0.0337,
         0.0118,
-        0.013
+        0.0131
       ],
       "volume_recent": 57,
       "volume_prior": 70,
-      "momentum": 0.684,
-      "momentum_pct_change": -31.6,
-      "p_momentum": 0.03272,
+      "momentum": 0.685,
+      "momentum_pct_change": -31.5,
+      "p_momentum": 0.03281,
       "mk_z": -1.989,
       "mk_p": 0.04674,
       "sens_slope_share_pp_per_week": -0.224,
@@ -1729,7 +1729,7 @@
       "volume_prior": 28,
       "momentum": 0.815,
       "momentum_pct_change": -18.5,
-      "p_momentum": 0.4993,
+      "p_momentum": 0.49937,
       "mk_z": -0.754,
       "mk_p": 0.45067,
       "sens_slope_share_pp_per_week": -0.039,
@@ -1837,7 +1837,7 @@
         0.0388,
         0.0311,
         0.0249,
-        0.0219
+        0.022
       ],
       "volume_recent": 90,
       "volume_prior": 117,
@@ -1957,7 +1957,7 @@
       "volume_prior": 28,
       "momentum": 0.636,
       "momentum_pct_change": -36.4,
-      "p_momentum": 0.11621,
+      "p_momentum": 0.11635,
       "mk_z": -1.166,
       "mk_p": 0.24372,
       "sens_slope_share_pp_per_week": -0.042,
@@ -2010,7 +2010,7 @@
           "title": "赛力斯刘小飞：汽车架构驶向舱驾融合",
           "source": "汽车之家",
           "date": "2026-10-09",
-          "link": "https://news.google.com/rss/articles/CBMia0FVX3lxTE40SHRrTmFLS2tnNVd1Q3dnSVVlMUZkS1lHbUtOQVVpWHVsYXhPdEx5VmlEMUpoR2RUdGczbHNMWi15ajZFQW5Ud3NubDVDSE1VY2g3dU50T0JpZkVlWm5vUFRQVEhvV2VWbng4?oc=5"
+          "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE50cGhMNnMydnNfVlppWTZTcTRlNFhjaGJKT2cwaHZMSDFtVTZ3a0pnTUxidG1PcWdFa1lwYmhRTmlJZUs5NnRfcU05TDBzdlVkc2VMSlBnNlpwakU?oc=5"
         },
         {
           "title": "27款极狐阿尔法T5实车现身，增激光雷达+前备箱，配309马力后驱",
@@ -2071,7 +2071,7 @@
       "volume_prior": 48,
       "momentum": 0.528,
       "momentum_pct_change": -47.2,
-      "p_momentum": 0.00603,
+      "p_momentum": 0.00604,
       "mk_z": -0.754,
       "mk_p": 0.45067,
       "sens_slope_share_pp_per_week": -0.071,
@@ -2197,7 +2197,7 @@
         ],
         [
           "汽车之家",
-          21
+          22
         ],
         [
           "新浪财经",
@@ -2209,19 +2209,13 @@
         ],
         [
           "新浪网",
-          5
+          4
         ]
       ],
       "saturated_days": 0,
       "resolved_quota_days": 0,
       "recovered_quota_articles": 0,
       "headlines": [
-        {
-          "title": "尊界V680的自动驾驶辅助功能怎么样？",
-          "source": "新浪网",
-          "date": "2026-10-11",
-          "link": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1vdjdxY2gxaUp2ZVdOdVpHRXZkaDZGdnBmYVJNX2VkQXdzNjhuZEM5VkN0bllpaGZVOTBIckFIWUNoMS1CVkg3dXh2Yk5Ya0o4cFpLbExNY29IWWh2TVBrNDJVcnZyMlZHZWg1WTdiYzVDTWUzalRUb0wxeHhRTmM?oc=5"
-        },
         {
           "title": "关于智驾“小蓝灯”，你想知道的都在这里",
           "source": "汽车之家",
@@ -2251,6 +2245,12 @@
           "source": "财联社",
           "date": "2026-10-09",
           "link": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE0ycFdEWTV4aDFwdUo4SWJxZ1BaNUc5TTN3WTFQR0htRGFGUlFYcE1VbFlJOHhrZEdrSTZESmU0OXd1ZGFuOWVTSg?oc=5"
+        },
+        {
+          "title": "搭载L3级架构和800V高压平台 智界RX上市25.98万元起售",
+          "source": "中国经济网",
+          "date": "2026-10-09",
+          "link": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5hTUQ1bXlrdUpjLWxKR3c4bzR1a09ZTGY4WDZCZGF6ZXJxWTFsMmlhcVluQ08zUXB5ZkpWeHlmSXBXWDg3ekRxb0lQeU1nZ0xqUkN5ZGxDbWZ1VmVsN2k0?oc=5"
         }
       ],
       "share_of_voice": 0.0277,
@@ -2367,7 +2367,7 @@
           "link": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5vbTRoXzd2Snh5bGZ5ekwxY2FQZm1IYnJxYnYzR1EwcXotUzdCSmppNDFCb19kWFZmaC1YMnREd2NHUEU5d1BOZEJfcDJtdHN5ZEplczFtcllGejg?oc=5"
         }
       ],
-      "share_of_voice": 0.0218,
+      "share_of_voice": 0.0219,
       "attention_pct": 0.3,
       "momentum_pct": 0.15,
       "bmw_exposure": 0.479,

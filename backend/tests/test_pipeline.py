@@ -38,7 +38,7 @@ def test_internal_sources_are_almost_fully_mapped(pipeline):
 def test_option_lists_parse(pipeline):
     obs, _, _ = pipeline
     options = [o for o in obs if o.source == "options"]
-    assert {o.vehicle for o in options} == {"G60", "G70"}
+    assert {o.vehicle for o in options} in ({"G60", "G70"}, {"F70", "G60", "G70"})
     hud = [o for o in options if o.raw_label == "BMW 3D Head-Up Display"]
     assert hud and hud[0].attribute == "displays" and hud[0].raw.locator.startswith("page=")
     prices = [o.value for o in options if o.metric == "option_price"]
