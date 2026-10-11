@@ -6,7 +6,7 @@ Build an AI-powered application that turns customer feedback, product and sales 
 - `backend/app/grabbers/`: official BMW and Chinese-OEM data acquisition.
 - `backend/app/`: preprocessing, taxonomy mapping, unified evidence, recommendation scoring, and plots.
 - `backend/app/services/`: frontend-ready forecast, price, engineering-comparison, and customer-document services.
-- `frontend/`: React pages that consume backend APIs without duplicating business formulas.
+- `frontend/`: OpenTT planner (React + TypeScript); `npm run dev:backend` runs it on the real `/api/v1` backend.
 - [`docs/FRONTEND_BACKEND_HANDOFF.md`](docs/FRONTEND_BACKEND_HANDOFF.md): complete coworker handoff,
   endpoint contract, examples, refresh commands, limitations, and verification steps.
 
@@ -14,7 +14,7 @@ Quick verification:
 
 ```bash
 cd backend && uv sync && uv run pytest
-cd ../frontend && npm install && npm run build
+cd ../frontend && npm ci && npm test && npm run build
 ```
 Here is the **distilled requirements specification for your hackathon project**â€”filtering out all the background reading and focusing strictly on **what your application must do, what is in/out of scope, and what you must submit**.
 
@@ -115,7 +115,8 @@ Here is the **distilled requirements specification for your hackathon project**â
 PM tool that turns Sales, Customer, Trends / Competition and Features / Engineering data into a weighted, explainable
 Top 5 of improvements for an existing BMW model series, with every recommendation traced back to its source records.
 
-- Code: [`frontend/`](frontend/) (React + TypeScript + Vite, runs against a built-in mock backend)
+- Code: [`frontend/`](frontend/) (React + TypeScript + Vite; `npm run dev` uses a mock backend, `npm run dev:backend`
+  the real one in `backend/app/services/planner.py`)
 - Guide and setup: [`docs/PLANNER.md`](docs/PLANNER.md)
 - API contract for the backend: [`docs/API.md`](docs/API.md)
 

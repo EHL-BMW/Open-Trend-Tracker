@@ -81,3 +81,36 @@ def test_chinese_features_join_quantified_comments_and_manual_overrides(tmp_path
     assert row["sales_impact_trend"]["estimate_pct"] == [2.3, 3.312, 4.048, 4.6]
     with pytest.raises(ValueError, match="document_id"):
         decision_dashboard("G60", "../../private")
+
+
+def test_planner_contract_ranks_chinese_features_from_real_sources(tmp_path, monkeypatch):
+    from fastapi.testclient import TestClient
+
+    from app.api import app
+    from app.services import planner
+
+    monkeypatch.setattr(planner, "RUNS_DIR", tmp_path)
+    client = TestClient(app)
+    catalog = client.get("/api/v1/catalog").json()
+    assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) == 13
+    everything = {key: {group["key"]: [o["value"] for o in group["options"]] for group in source["filters"]}
+                  for key, source in catalog["categories"].items()}
+    request = {"dataVersion": catalog["dataVersion"], "topN": 5, "weights": catalog["defaultWeights"],
+               "enabled": {"sales": True, "customer": True, "trends": True}, "filters": everything}
+    first = client.post("/api/v1/analyses", json=request).json()
+    again = client.post("/api/v1/analyses", json=request).json()
+    titles = [row["title"] for row in first["recommendations"]]
+    assert titles == [row["title"] for row in again["recommendations"]]
+    assert first["fingerprint"] == again["fingerprint"]
+    assert set(titles) <= set(planner.tables()["candidates"].values())
+    top = first["recommendations"][0]
+    assert {spec["category"]: spec["kind"] for spec in top["specs"]}["sales"] == "assumption"
+    assert abs(top["assumptionShare"] - top["reasoning"]["contributions"][2]["points"] / top["score"]) < 0.01
+
+    customer_only = {**request, "enabled": {"sales": False, "customer": True, "trends": False}}
+    run = client.post("/api/v1/analyses", json=customer_only).json()
+    assert all(row["assumptionShare"] == 0 for row in run["recommendations"])
+    assert client.get(f"/api/v1/analyses/{run['id']}").json()["id"] == run["id"]
+    assert len(client.get("/api/v1/analyses?limit=2").json()["items"]) == 2
+    assert client.post("/api/v1/analyses", json={**request, "dataVersion": "old"}).status_code == 409
+    assert client.get("/api/v1/analyses/unknown").json()["error"]["code"] == "not_found"

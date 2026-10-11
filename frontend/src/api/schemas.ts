@@ -62,6 +62,10 @@ export const catalogSchema = z.object({
     trends: categoryCatalogSchema,
   }),
   trendForecast: z.array(technologyForecastSchema),
+  /** Optional wording for the trend chart; the frontend falls back to the China EV adoption copy. */
+  trendForecastLabels: z
+    .object({ title: z.string(), description: z.string(), current: z.string(), forecast: z.string() })
+    .optional(),
 });
 
 /* ---------- POST /analyses (request) ---------- */

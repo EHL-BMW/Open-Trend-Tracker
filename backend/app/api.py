@@ -5,7 +5,10 @@
 import json
 from functools import cache
 
-from fastapi import FastAPI, File, HTTPException, Query, UploadFile
+from fastapi import FastAPI, File, HTTPException, Query, Request, UploadFile
+from fastapi.exceptions import RequestValidationError
+from fastapi.exception_handlers import request_validation_exception_handler
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -13,6 +16,7 @@ from app.paths import RUNTIME_DIR, UNIFIED_DIR
 from app.services.customer_input import process_document
 from app.services.decision_dashboard import decision_dashboard, save_override
 from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
+from app.services import planner
 
 app = FastAPI(title="Open-Trend-Tracker")
 RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
@@ -162,3 +166,72 @@ def update_decision_override(update: DecisionOverride):
     except KeyError as exc:
         raise HTTPException(404, str(exc)) from exc
     return {"vehicle": update.vehicle.upper(), "feature": update.feature, "override": saved}
+
+
+# ---------- planner contract v1 (docs/API.md) ----------
+
+class Weights(BaseModel):
+    sales: float
+    customer: float
+    trends: float
+
+
+class Enabled(BaseModel):
+    sales: bool
+    customer: bool
+    trends: bool
+
+
+class Filters(BaseModel):
+    sales: dict[str, list[str]]
+    customer: dict[str, list[str]]
+    features: dict[str, list[str]]
+    trends: dict[str, list[str]]
+
+
+class AnalysisRequest(BaseModel):
+    dataVersion: str
+    topN: int = Field(ge=1, le=20)
+    weights: Weights
+    enabled: Enabled
+    filters: Filters
+
+
+def v1_error(status: int, code: str, message: str, details=None) -> JSONResponse:
+    return JSONResponse({"error": {"code": code, "message": message, "details": details}}, status_code=status)
+
+
+@app.exception_handler(RequestValidationError)
+async def invalid_request(request: Request, exc: RequestValidationError):
+    if request.url.path.startswith("/api/v1/"):
+        return v1_error(400, "invalid_request", "The analysis request is invalid.", jsonable(exc.errors()))
+    return await request_validation_exception_handler(request, exc)
+
+
+def jsonable(value):
+    return json.loads(json.dumps(value, default=str))
+
+
+@app.get("/api/v1/catalog")
+def v1_catalog():
+    return planner.catalog()
+
+
+@app.post("/api/v1/analyses", status_code=201)
+def v1_run_analysis(body: AnalysisRequest):
+    if body.dataVersion != planner.tables()["version"]:
+        return v1_error(409, "stale_data_version", "The data was updated. Reload the page to get the latest filters.")
+    return planner.analyse(body.model_dump())
+
+
+@app.get("/api/v1/analyses")
+def v1_list_runs(limit: int = Query(20, ge=1, le=100)):
+    return {"items": planner.list_runs(limit)}
+
+
+@app.get("/api/v1/analyses/{run_id}")
+def v1_get_run(run_id: str):
+    try:
+        return planner.get_run(run_id)
+    except KeyError:
+        return v1_error(404, "not_found", "That run doesn't exist.")

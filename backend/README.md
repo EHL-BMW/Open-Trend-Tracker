@@ -60,7 +60,7 @@ uv run uvicorn app.api:app --reload  # API, http://127.0.0.1:8000/docs
 uv run pytest
 ```
 
-The frontend integration contract, forecast/customer-input endpoints, response fields, and example calls
+The planner `/api/v1` contract, forecast/customer-input endpoints, response fields, and example calls
 are documented in [`../docs/FRONTEND_BACKEND_HANDOFF.md`](../docs/FRONTEND_BACKEND_HANDOFF.md).
 
 The API now keeps business logic in backend services:

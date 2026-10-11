@@ -8,7 +8,8 @@ what the backend computes (ranking, reasoning, graph data, flags). **All scoring
 - Source of truth for shapes: [`frontend/src/api/schemas.ts`](../frontend/src/api/schemas.ts) (zod). The frontend
   validates every response against it and shows an error instead of rendering data that breaks the contract.
 - A working reference implementation of every endpoint, including the scoring and reasoning texts, lives in
-  [`frontend/src/mocks/engine.ts`](../frontend/src/mocks/engine.ts).
+  [`frontend/src/mocks/engine.ts`](../frontend/src/mocks/engine.ts). The real-data implementation is
+  [`backend/app/services/planner.py`](../backend/app/services/planner.py) (see `docs/FRONTEND_BACKEND_HANDOFF.md`).
 
 ## Fixed vocabulary
 
@@ -77,6 +78,8 @@ Notes
 - Filter groups and their `key`s are free to change; the frontend renders whatever arrives. Only the Trends group
   `technology` has a special meaning (it links the forecast chart to the filter).
 - `heading` is optional and shown above the group.
+- `trendForecastLabels` is optional: `{ "title", "description", "current", "forecast" }` relabels the trend chart
+  (default: technology share today vs. `forecastYear`). The axis scales to the largest value.
 - A category with `"filters": []` renders an empty state.
 
 ## `POST /analyses`

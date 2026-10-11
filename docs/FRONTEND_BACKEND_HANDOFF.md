@@ -16,15 +16,16 @@ uv run python -m app.unify
 uv run uvicorn app.api:app --reload
 ```
 
-Terminal 2:
+Terminal 2 (Node.js ≥ 20):
 
 ```bash
 cd frontend
-npm install
-npm run dev
+npm ci
+npm run dev:backend
 ```
 
-The Vite server proxies `/api` to `http://127.0.0.1:8000`. Interactive API documentation is available at
+Open `http://localhost:5173`. `dev:backend` proxies `/api` to `http://localhost:8000`; plain `npm run dev` runs the
+planner on the invented MSW mock data instead. Interactive API documentation is available at
 `http://127.0.0.1:8000/docs`.
 
 ## Architecture and ownership
@@ -87,11 +88,35 @@ Important response fields:
 
 Do not recalculate these arrays in the frontend.
 
-## Final decision dashboard
+## Planner (final page): `/api/v1`
+
+The OpenTT planner in `frontend/` is the final page. Its contract is [`docs/API.md`](API.md); the backend implements
+it in `app/services/planner.py` on real data, replacing the 16 invented mock candidates:
+
+| Planner source | Backend data | Kind |
+|---|---|---|
+| candidates | the 13 selected Chinese-derived features (`forecast_catalog()`) | — |
+| Customer | keyword-quantified F70/G60/G70 feedback: pain = negative, praise = positive mentions | evidence |
+| Trends / Competition | sales-impact trend per feature, year 1 → year 4 after launch | assumption |
+| Sales | BMW 2030 volume per line and market × conservative (lower-bound) year-4 uplift | scenario, marked as assumption |
+| Product | G60/G70 option-list availability of the matching taxonomy attributes (`BMW_ATTRIBUTES`) | context only |
+
+There is no observed sales response to these features yet (`comparisons_with_sales: 0` in the Chinese analysis), so
+every Sales chip is marked `assumption` and each recommendation carries a flag saying so. `assumptionShare` is the
+trends share, as the contract defines it.
+
+The PM modifies the result in the interface: switch sources on or off, change weights, filter lines, markets,
+feedback vehicles, signals and individual Chinese features, then run. Every run is stored in
+`data/runtime/planner-runs/` and can be reopened from the run history.
+
+`catalog.trendForecastLabels` (optional) relabels the trend chart; the backend uses it to show year 1 / year 4
+sales uplift instead of the mock's "share of bestsellers" wording.
+
+## Decision dashboard data (PM override layer)
 
 ### `GET /api/decision-dashboard/{vehicle}`
 
-This is the preferred endpoint for the final page. It replaces dummy feature rows with the selected
+The same evidence as a flat per-vehicle table, for exports or a future editing view. It replaces dummy feature rows with the selected
 Chinese-derived features and joins three evidence layers into every row:
 
 - Chinese source-pair and model coverage;
@@ -233,7 +258,7 @@ The frontend should display the API `detail` field. Do not substitute zero for u
 
 ```bash
 cd backend && uv run pytest
-cd frontend && npm run build
+cd frontend && npm test && npm run build
 ```
 
 The backend tests cover raw-to-unified traceability, option parsing, forecast calculations, price scenarios,
