@@ -327,6 +327,42 @@ export function FaqPage() {
         </>
       ),
     },
+    {
+      id: "dream-bmw-car",
+      category: "backlog",
+      question: "Can we find the 'Dream BMW Car' that has the best baselines for everything?",
+      content: (
+        <>
+          <p>
+            When comparing the 53 BMW EV/PHEV models across range, battery capacity, fast charging, acceleration, towing, and customer satisfaction, data proves that <strong>no single production car holds the best baseline for everything</strong>:
+          </p>
+          <ul>
+            <li><strong>Range &amp; Battery Leader:</strong> <code>iX xDrive50</code> (630 km WLTP, 105.2 kWh, 2,500 kg towing).</li>
+            <li><strong>Acceleration &amp; Sports Dynamics Leader:</strong> <code>i4 M50 xDrive</code> (3.9s 0–100 km/h, 544 PS, 205 kW DC).</li>
+            <li><strong>Digital Ergonomics &amp; ADAS Leader:</strong> <code>i5 M60 / eDrive40</code> (Level 2+ gaze-confirmed Highway Assistant, Interaction Bar).</li>
+            <li><strong>Ultra-Luxury Acoustic Leader:</strong> <code>i7 xDrive60</code> (Bowers &amp; Wilkins Diamond 4D 1,615W, 31.3&quot; Theatre Screen).</li>
+            <li><strong>Cargo &amp; Touring Versatility Leader:</strong> <code>i5 Touring</code> (570–1,700 L flat cargo deck, cW 0.23 aero).</li>
+          </ul>
+          <p>
+            In automotive product management, the <strong>&quot;Dream BMW Car&quot;</strong> is therefore defined as the <strong>Pareto-Optimal Successor Blueprint</strong> (the target vehicle for 2028–2030):
+          </p>
+          <div style={{ background: "var(--fill)", padding: "16px 20px", borderRadius: "14px", border: "1px solid var(--sep)", margin: "14px 0" }}>
+            <strong style={{ color: "var(--blue)" }}>The Synthesized Concept: BMW i5 M-Sport Touring 800V Hyper-GT</strong>
+            <ul style={{ marginTop: "10px", marginBottom: "4px" }}>
+              <li><strong>Pack &amp; Range:</strong> 105.2 kWh pack from the iX tuned to 650+ km WLTP in the aerodynamic Touring body.</li>
+              <li><strong>Charging:</strong> 800V SiC architecture delivering 300 kW peak DC (10–80% in 18 minutes, resolving the -43.2% cold charging deficit).</li>
+              <li><strong>Chassis:</strong> 2-axle air suspension + 3.2° rear-wheel steering from the i7 (preserving the +44.7% dynamics moat).</li>
+              <li><strong>Controls:</strong> Haptic quick-keys for climate/defrost + local on-device Voice AI (resolving touchscreen distraction).</li>
+              <li><strong>Connectivity:</strong> Dual-band UWB + local Bluetooth fallback daemon (resolving -76.7% underground garage app timeouts).</li>
+              <li><strong>Materials:</strong> Electrochromic dimming glass roof + perforated ventilated Veganza (resolving cabin summer heat).</li>
+            </ul>
+          </div>
+          <p>
+            Detailed multi-criteria trade-off code and documentation are available in <code>docs/DREAM_CAR_SYNTHESIS.md</code>.
+          </p>
+        </>
+      ),
+    },
 
     // Integration
     {

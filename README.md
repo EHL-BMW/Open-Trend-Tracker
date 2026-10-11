@@ -9,6 +9,7 @@ Build an AI-powered application that turns customer feedback, product and sales 
 - `frontend/`: OpenTT planner (React + TypeScript); `npm run dev:backend` runs it on the real `/api/v1` backend.
 - [`docs/FRONTEND_BACKEND_HANDOFF.md`](docs/FRONTEND_BACKEND_HANDOFF.md): complete coworker handoff,
   endpoint contract, examples, refresh commands, limitations, and verification steps.
+- [`docs/DREAM_CAR_SYNTHESIS.md`](docs/DREAM_CAR_SYNTHESIS.md): multi-criteria benchmark across all 53 BMW EV/PHEV models, Pareto frontier analysis, and the "Dream BMW Car" successor blueprint.
 
 ## Quick Start
 
