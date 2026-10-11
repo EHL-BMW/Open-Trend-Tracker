@@ -87,29 +87,6 @@ interface GapAnalysisOutput {
   seed?: number | null;
 }
 
-interface IdentifiedProblem {
-  id: string;
-  name: string;
-  category: string;
-  problem_statement: string;
-  mention_count: number;
-  severity: "High" | "Medium" | "Opportunity";
-  affected_feature_ids: string[];
-  possible_feature_ids: string[];
-  evidence: Array<{ feedback_id: string; feedback_type: string; quote: string }>;
-}
-
-interface ProblemAnalysisOutput {
-  vehicle: string;
-  source_file: string;
-  generated_at: string;
-  generation_mode: string;
-  feedback_rows: number;
-  problem_rows: number;
-  figure_url: string;
-  problems: IdentifiedProblem[];
-}
-
 export const MECE_DOMAINS = [
   { key: "energy_charging", label: "⚡ 1. Energy & Charging", aspect: "Charging experience, range management, power distribution" },
   { key: "driving_assistance", label: "🛡️ 2. Driving Assistance", aspect: "Highway pilot, automated parking, human-machine handoff" },
@@ -156,11 +133,7 @@ const QUICK_PROMPTS = [
 ];
 
 export function AgentPage() {
-  // Planner evidence links point at /agent#problem-<id>: open the problem list and highlight that card.
-  const linkedProblem = window.location.hash.startsWith("#problem-") ? window.location.hash.slice(1) : "";
-  const [activeTab, setActiveTab] = useState<"chat" | "database" | "gap_analysis" | "problems">(
-    linkedProblem ? "problems" : "chat",
-  );
+  const [activeTab, setActiveTab] = useState<"chat" | "database" | "gap_analysis">("chat");
   const [agentStatus, setAgentStatus] = useState<AgentStatus | null>(null);
 
   // Future Trend Markers DB state
@@ -197,12 +170,6 @@ export function AgentPage() {
   const [reviewLoading, setReviewLoading] = useState(false);
   const [actionFeedback, setActionFeedback] = useState<string | null>(null);
 
-  // Saved G70 customer-problem analysis
-  const [problemAnalysis, setProblemAnalysis] = useState<ProblemAnalysisOutput | null>(null);
-  const [problemFile, setProblemFile] = useState<File | null>(null);
-  const [problemLoading, setProblemLoading] = useState(false);
-  const [problemError, setProblemError] = useState<string | null>(null);
-
   // Initial data load
   useEffect(() => {
     fetch("/api/v1/agent/status")
@@ -212,14 +179,7 @@ export function AgentPage() {
 
     loadTrendMarkers();
     loadRuns();
-    loadProblems();
   }, []);
-
-  useEffect(() => {
-    if (problemAnalysis && linkedProblem) {
-      document.getElementById(linkedProblem)?.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }, [problemAnalysis, linkedProblem]);
 
   useEffect(() => {
     if (activeTab === "chat") {
@@ -260,37 +220,6 @@ export function AgentPage() {
       }
     } catch (err) {
       console.error("Failed to load gap analyses", err);
-    }
-  };
-
-  const loadProblems = async () => {
-    try {
-      const res = await fetch("/api/v1/agent/problems");
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setProblemAnalysis(await res.json());
-    } catch (err) {
-      console.error("Failed to load saved G70 problems", err);
-    }
-  };
-
-  const handleIdentifyProblems = async () => {
-    if (!problemFile) {
-      setProblemError("Choose an .xlsx feedback workbook first.");
-      return;
-    }
-    setProblemLoading(true);
-    setProblemError(null);
-    try {
-      const body = new FormData();
-      body.append("document", problemFile);
-      const res = await fetch("/api/v1/agent/problems/identify", { method: "POST", body });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      setProblemAnalysis(await res.json());
-    } catch (err) {
-      console.error("Problem identification failed", err);
-      setProblemError("Problem identification failed. Check the backend and G70 workbook.");
-    } finally {
-      setProblemLoading(false);
     }
   };
 
@@ -514,13 +443,6 @@ export function AgentPage() {
           <span>📋 Deep Gap PRD & Review</span>
         </button>
 
-        <button
-          className={`${styles.tabBtn} ${activeTab === "problems" ? styles.tabBtnActive : ""}`}
-          onClick={() => setActiveTab("problems")}
-        >
-          <span>🔎 Problem Identification</span>
-          {problemAnalysis && <span className={styles.tabCountBadge}>{problemAnalysis.problems.length}</span>}
-        </button>
       </nav>
 
       {/* ====================================================================
@@ -1158,86 +1080,6 @@ export function AgentPage() {
                 </div>
               </div>
             </section>
-          )}
-        </div>
-      )}
-
-      {activeTab === "problems" && (
-        <div className={styles.problemWorkspace}>
-          <section className={styles.problemControlCard}>
-            <div>
-              <div className={styles.problemEyebrow}>Saved AI output · BMW G70</div>
-              <h2>Identify customer problems</h2>
-              <p>
-                Upload an Excel feedback export. The agent clusters explicit defects, usability friction, and unmet
-                needs, then saves a traceable problem list and figure for Feature Radar.
-              </p>
-            </div>
-            <div className={styles.problemUploadActions}>
-              <label className={styles.problemFileInput}>
-                <span>{problemFile?.name ?? "Choose .xlsx workbook"}</span>
-                <input
-                  type="file"
-                  accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                  onChange={(event) => setProblemFile(event.target.files?.[0] ?? null)}
-                />
-              </label>
-              <button className={styles.primaryBtn} onClick={handleIdentifyProblems} disabled={problemLoading || !problemFile}>
-                {problemLoading ? "Identifying and saving…" : "Run problem identification"}
-              </button>
-            </div>
-            {problemError && <div className={styles.problemError}>{problemError}</div>}
-          </section>
-
-          {problemAnalysis && (
-            <>
-              <section className={styles.problemSummary}>
-                <div><b>{problemAnalysis.feedback_rows.toLocaleString()}</b><span>feedback rows</span></div>
-                <div><b>{problemAnalysis.problems.length}</b><span>saved problems</span></div>
-                <div><b>6</b><span>customer-problem categories</span></div>
-                <div><b>{problemAnalysis.generation_mode}</b><span>generation mode</span></div>
-              </section>
-
-              <section className={styles.problemFigureCard}>
-                <div className={styles.problemSectionHeading}>
-                  <div><h2>Problem frequency figure</h2><p>Ranked mentions from problem-bearing G70 feedback.</p></div>
-                  <span>Updated {new Date(problemAnalysis.generated_at).toLocaleString()}</span>
-                </div>
-                <img src={`${problemAnalysis.figure_url}?v=${encodeURIComponent(problemAnalysis.generated_at)}`} alt="Ranked BMW G70 customer problems" />
-              </section>
-
-              <section className={styles.problemListSection}>
-                <div className={styles.problemSectionHeading}>
-                  <div><h2>Saved problem list</h2><p>Each item links customer evidence to the shared feature taxonomy.</p></div>
-                  <span>{problemAnalysis.source_file}</span>
-                </div>
-                <div className={styles.problemGrid}>
-                  {problemAnalysis.problems.map((problem) => (
-                    <article
-                      key={problem.id}
-                      id={`problem-${problem.id}`}
-                      className={`${styles.problemCard} ${linkedProblem === `problem-${problem.id}` ? styles.problemCardLinked : ""}`}
-                    >
-                      <div className={styles.problemCardTop}>
-                        <span className={styles.problemCategory}>{problem.category}</span>
-                        <span className={`${styles.problemSeverity} ${problem.severity === "High" ? styles.problemHigh : problem.severity === "Medium" ? styles.problemMedium : styles.problemOpportunity}`}>
-                          {problem.severity}
-                        </span>
-                      </div>
-                      <h3>{problem.name}</h3>
-                      <p>{problem.problem_statement}</p>
-                      <div className={styles.problemMentions}><b>{problem.mention_count}</b> problem mentions</div>
-                      <div className={styles.problemFeatureLinks}>
-                        {problem.possible_feature_ids.map((featureId) => <span key={featureId}>Possible · {featureId}</span>)}
-                      </div>
-                      {problem.evidence[0] && (
-                        <blockquote>“{problem.evidence[0].quote}” <cite>{problem.evidence[0].feedback_id}</cite></blockquote>
-                      )}
-                    </article>
-                  ))}
-                </div>
-              </section>
-            </>
           )}
         </div>
       )}

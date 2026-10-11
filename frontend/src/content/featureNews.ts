@@ -1,4 +1,5 @@
 import briefingRaw from "./china-briefing.json";
+import { HEADLINE_EN, SOURCE_EN } from "./translations";
 import { trendRadarData, type TrendTopic } from "./trendRadar";
 
 export const FEATURE_CATEGORIES = [
@@ -19,10 +20,14 @@ export interface FeatureNewsItem {
   featureId: string;
   featureLabel: string;
   category: FeatureCategory;
-  primaryBrand: string;
+  /** OEMs named in the item; empty when none is named. */
   brands: string[];
   title: string;
+  /** Short English translation of a non-English title. */
+  titleEn?: string;
   source: string;
+  /** English name of a non-English outlet. */
+  sourceEn?: string;
   date: string;
   publishedLabel?: string;
   url: string;
@@ -78,12 +83,12 @@ const BRAND_RULES: Array<{ brand: string; pattern: RegExp }> = [
   { brand: "XPeng", pattern: /XPeng|小鹏/i },
   { brand: "Li Auto", pattern: /Li Auto|理想(?:汽车|i|L|MEGA)/i },
   { brand: "Zeekr", pattern: /Zeekr|极氪/i },
-  { brand: "BYD", pattern: /\bBYD\b|比亚迪|仰望|方程豹|腾势|Denza/i },
+  { brand: "BYD", pattern: /\bBYD\b|比亚迪|仰望|方程豹|腾势|Denza|海豹|宋Ultra|大唐/i },
   { brand: "BMW", pattern: /\bBMW\b|宝马/i },
   { brand: "Mercedes-Benz", pattern: /Mercedes|奔驰/i },
   { brand: "Audi", pattern: /\bAudi\b|奥迪/i },
-  { brand: "Volkswagen", pattern: /Volkswagen|大众|ID\./i },
-  { brand: "Tesla", pattern: /Tesla|特斯拉|马斯克/i },
+  { brand: "Volkswagen", pattern: /Volkswagen|大众|ID\.|与众|速腾|迈腾/i },
+  { brand: "Tesla", pattern: /Tesla|特斯拉|Cybercab/i },
   { brand: "Geely", pattern: /Geely|吉利|银河/i },
   { brand: "IM Motors", pattern: /IM Motors|智己/i },
   { brand: "Leapmotor", pattern: /Leapmotor|零跑/i },
@@ -91,9 +96,20 @@ const BRAND_RULES: Array<{ brand: string; pattern: RegExp }> = [
   { brand: "Hongqi", pattern: /Hongqi|红旗/i },
   { brand: "Arcfox", pattern: /Arcfox|极狐/i },
   { brand: "GAC", pattern: /\bGAC\b|广汽|传祺|昊铂/i },
-  { brand: "Chery", pattern: /Chery|奇瑞|星途/i },
+  { brand: "Chery", pattern: /Chery|奇瑞|星途|风云|iCAR/i },
   { brand: "Avatr", pattern: /Avatr|阿维塔/i },
   { brand: "Renault", pattern: /Renault|雷诺/i },
+  { brand: "Seres", pattern: /Seres|赛力斯/i },
+  { brand: "Dongfeng", pattern: /Dongfeng|东风|猛士|M-Hero/i },
+  { brand: "Great Wall", pattern: /Great Wall|长城汽车|坦克|山海炮/i },
+  { brand: "Foton", pattern: /Foton|福田/i },
+  { brand: "Beiben", pattern: /Beiben|北奔/i },
+  { brand: "Toyota / Lexus", pattern: /Toyota|Lexus|丰田|雷克萨斯/i },
+  { brand: "Honda", pattern: /Honda|本田/i },
+  { brand: "Nissan", pattern: /Nissan|日产|天籁/i },
+  { brand: "Mazda", pattern: /Mazda|马自达/i },
+  { brand: "Porsche", pattern: /Porsche|保时捷/i },
+  { brand: "Volvo", pattern: /Volvo|沃尔沃/i },
 ];
 
 const FEATURE_RULES: Array<{ id: string; pattern: RegExp }> = [
@@ -121,8 +137,7 @@ const FEATURE_RULES: Array<{ id: string; pattern: RegExp }> = [
 ];
 
 function detectBrands(text: string): string[] {
-  const matches = BRAND_RULES.filter((rule) => rule.pattern.test(text)).map((rule) => rule.brand);
-  return matches.length ? matches : ["Industry / Multi-brand"];
+  return BRAND_RULES.filter((rule) => rule.pattern.test(text)).map((rule) => rule.brand);
 }
 
 function asCategory(value: string): FeatureCategory {
@@ -148,10 +163,11 @@ for (const topic of trendRadarData.topics) {
       featureId: topic.id,
       featureLabel: topic.label_en,
       category: asCategory(topic.bmw_domain),
-      primaryBrand: brands[0] ?? "Industry / Multi-brand",
       brands,
       title: headline.title,
+      titleEn: HEADLINE_EN[headline.title],
       source: headline.source,
+      sourceEn: SOURCE_EN[headline.source],
       date: headline.date,
       url: headline.link,
       keywords: [topic.label_en, topic.label_cn],
@@ -169,10 +185,10 @@ for (const detail of briefing.news_items) {
     featureId,
     featureLabel: topic?.label_en ?? "EV affordability & market pressure",
     category: topic ? asCategory(topic.bmw_domain) : "Market & Portfolio",
-    primaryBrand: brands[0] ?? "Industry / Multi-brand",
     brands,
     title: detail.title_en,
     source: detail.source,
+    sourceEn: SOURCE_EN[detail.source],
     date: capturedDate,
     publishedLabel: detail.publish_time,
     url: detail.original_url,

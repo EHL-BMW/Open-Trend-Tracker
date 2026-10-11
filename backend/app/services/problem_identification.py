@@ -1,19 +1,14 @@
-"""Identify, visualize, and persist customer problems from the G70 feedback workbook."""
+"""Identify and persist customer problems from the G70 feedback workbook (shown in Feature Radar)."""
 
 from __future__ import annotations
 
 import json
 import re
-import textwrap
 from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from io import BytesIO
 from pathlib import Path
 
-import matplotlib
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
 from openai import OpenAI
 from openpyxl import load_workbook
 from pydantic import BaseModel, Field
@@ -23,7 +18,6 @@ from app.paths import RUNTIME_DIR, get_openai_api_key, get_openai_model
 
 OUTPUT_DIR = RUNTIME_DIR / "agent-problems"
 OUTPUT_FILE = OUTPUT_DIR / "g70-problems.json"
-FIGURE_FILE = OUTPUT_DIR / "g70-problems.png"
 PROBLEM_FEEDBACK_TYPES = {"Difficult to Use", "Wants", "Defect"}
 BROAD_LABELS = {
     "Body equipment, overall technology",
@@ -266,35 +260,8 @@ def _deterministic_problems(candidates: list[dict]) -> list[IdentifiedProblem]:
     return problems
 
 
-def _save_figure(problems: list[IdentifiedProblem]) -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    shown = problems[:12]
-    fig, ax = plt.subplots(figsize=(15.5, 8.2))
-    fig.patch.set_facecolor("#0b1020")
-    ax.set_facecolor("#0b1020")
-    names = [textwrap.fill(problem.name.replace(" customer friction", ""), width=19) for problem in shown]
-    counts = [problem.mention_count for problem in shown]
-    maximum = max(counts, default=1)
-    minimum = min(counts, default=0)
-    spread = max(maximum - minimum, 1)
-    colors = plt.cm.Blues([0.3 + 0.65 * ((count - minimum) / spread) for count in counts])
-    bars = ax.bar(range(len(shown)), counts, color=colors, width=0.72)
-    ax.bar_label(bars, padding=5, color="#e2e8f0", fontsize=10, fontweight="bold")
-    ax.set_title("BMW G70 customer problems", loc="left", color="white", fontsize=20, fontweight="bold", pad=18)
-    ax.set_ylabel("Problem mentions", color="#94a3b8", labelpad=12)
-    ax.set_xticks(range(len(shown)), names, rotation=34, ha="right")
-    ax.tick_params(colors="#cbd5e1", labelsize=10)
-    for spine in ax.spines.values():
-        spine.set_visible(False)
-    ax.grid(axis="y", color="#334155", alpha=0.45, linewidth=0.8)
-    ax.set_axisbelow(True)
-    fig.tight_layout()
-    fig.savefig(FIGURE_FILE, dpi=180, bbox_inches="tight", facecolor=fig.get_facecolor())
-    plt.close(fig)
-
-
 def identify_uploaded_problems(filename: str, content: bytes) -> dict:
-    """Analyze an uploaded workbook, then save its structured JSON and PNG outputs."""
+    """Analyze an uploaded workbook, then save the structured problem list as JSON."""
     if not filename.lower().endswith(".xlsx"):
         raise ValueError("Problem identification accepts .xlsx workbooks only")
     if not content:
@@ -306,7 +273,6 @@ def identify_uploaded_problems(filename: str, content: bytes) -> dict:
     candidates = _read_candidates(BytesIO(content))
     api_key = get_openai_api_key()
     problems = _llm_problems(candidates) if api_key else _deterministic_problems(candidates)
-    _save_figure(problems)
     output = {
         "vehicle": "G70",
         "source_file": Path(filename).name,
@@ -315,7 +281,6 @@ def identify_uploaded_problems(filename: str, content: bytes) -> dict:
         "problem_categories": list(CATEGORIES),
         "feedback_rows": feedback_rows,
         "problem_rows": sum(candidate["mention_count"] for candidate in candidates),
-        "figure_url": "/api/artifacts/agent-problems/g70-problems.png",
         "problems": [problem.model_dump() for problem in problems],
     }
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)

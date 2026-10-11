@@ -55,7 +55,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
     colorVar: "--c-customer",
     weighted: true,
     evidence: true,
-    description: "G70 customer problems identified by the AI Agent from the feedback workbook.",
+    description: "G70 customer problems identified from the feedback workbook in Feature Radar.",
     orbit: { x: 37.5, y: 77.1, label: "below" },
   },
   features: {

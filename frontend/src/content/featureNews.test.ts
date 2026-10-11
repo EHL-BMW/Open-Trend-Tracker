@@ -8,14 +8,13 @@ import {
 } from "./featureNews";
 
 describe("feature news preprocessing", () => {
-  it("labels every captured item with a feature category and at least one brand", () => {
+  it("labels every captured item with a feature category", () => {
     expect(featureNewsItems.length).toBeGreaterThan(100);
     for (const item of featureNewsItems) {
       expect(item.featureId).toBeTruthy();
       expect(item.featureLabel).toBeTruthy();
       expect(FEATURE_CATEGORIES).toContain(item.category);
-      expect(item.primaryBrand).toBeTruthy();
-      expect(item.brands.length).toBeGreaterThan(0);
+      expect(item.brands).not.toContain("Industry / Multi-brand");
     }
   });
 
@@ -25,7 +24,11 @@ describe("feature news preprocessing", () => {
     expect(featureNewsMeta.itemCount).toBe(featureNewsItems.length);
   });
 
-  it("builds usable brand bubbles", () => {
+  it("translates every Chinese headline and names OEMs", () => {
+    for (const item of featureNewsItems.filter((news) => /[\u4e00-\u9fff]/.test(news.title))) {
+      expect(item.titleEn).toBeTruthy();
+    }
+
     expect(brandStats.length).toBeGreaterThan(5);
     expect(brandStats[0]?.count).toBeGreaterThan(0);
   });

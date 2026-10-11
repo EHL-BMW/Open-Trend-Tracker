@@ -279,7 +279,7 @@ def v1_extract_features(req: FeatureExtractionInput):
 
 @app.post("/api/v1/agent/problems/identify", status_code=201)
 async def v1_identify_g70_problems(document: UploadFile = File(...)):
-    """Identify problems in an uploaded workbook, save the list, and render its figure."""
+    """Identify problems in an uploaded workbook and save the list."""
     try:
         return identify_uploaded_problems(document.filename or "feedback.xlsx", await document.read())
     except FileNotFoundError as exc:

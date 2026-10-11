@@ -10,6 +10,7 @@ import {
   type FeatureCluster,
   type FeatureNewsItem,
 } from "../content/featureNews";
+import { FEATURE_EXPLANATIONS } from "../content/featureExplanations";
 import { DOMAIN_COLORS, fmtPct } from "../content/trendRadar";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./FeatureTrendsPage.module.css";
@@ -17,75 +18,144 @@ import styles from "./FeatureTrendsPage.module.css";
 interface SavedProblem {
   id: string;
   name: string;
-  category: FeatureCategory;
+  category: string;
   problem_statement: string;
   mention_count: number;
+  severity: string;
   affected_feature_ids: string[];
   possible_feature_ids: string[];
+  evidence: Array<{ feedback_id: string; feedback_type: string; quote: string }>;
 }
 
 interface SavedProblemAnalysis {
+  source_file: string;
   generated_at: string;
+  generation_mode: string;
+  feedback_rows: number;
   problems: SavedProblem[];
+}
+
+function ProblemIdentification({ onSaved }: { onSaved: (analysis: SavedProblemAnalysis) => void }) {
+  const [file, setFile] = useState<File | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const run = async () => {
+    if (!file) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const body = new FormData();
+      body.append("document", file);
+      const response = await fetch(`${config.apiBaseUrl}/agent/problems/identify`, { method: "POST", body });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      onSaved(await response.json());
+    } catch (err) {
+      console.error("Problem identification failed", err);
+      setError("Problem identification failed. Check the backend and the G70 workbook.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className={styles.identifyBar}>
+      <div>
+        <b>Identify customer problems</b>
+        <span>
+          Upload the G70 Excel feedback export. Defects, usability friction and unmet needs are clustered into a
+          saved problem list that feeds this chart and the Planner.
+        </span>
+      </div>
+      <label className={styles.fileInput}>
+        <span>{file?.name ?? "Choose .xlsx workbook"}</span>
+        <input
+          type="file"
+          accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+          onChange={(event) => setFile(event.target.files?.[0] ?? null)}
+        />
+      </label>
+      <button type="button" className={styles.runButton} onClick={() => void run()} disabled={loading || !file}>
+        {loading ? "Identifying…" : "Run identification"}
+      </button>
+      {error && <p className={styles.identifyError}>{error}</p>}
+    </div>
+  );
 }
 
 function ProblemChart({
   analysis,
   selectedId,
   onSelect,
+  onSaved,
 }: {
   analysis: SavedProblemAnalysis | null;
   selectedId: string | null;
   onSelect: (id: string | null) => void;
+  onSaved: (analysis: SavedProblemAnalysis) => void;
 }) {
   const problems = analysis?.problems ?? [];
-  if (!problems.length) {
-    return (
-      <section className={styles.problemChartEmpty}>
-        <div><p className={styles.kicker}>Customer problems</p><h2>Upload feedback in AI Agent</h2></div>
-        <p>The saved problem comparison will appear here and connect each problem to possible features.</p>
-      </section>
-    );
-  }
   const maximum = Math.max(...problems.map((problem) => problem.mention_count), 1);
   const minimum = Math.min(...problems.map((problem) => problem.mention_count), maximum);
   const spread = Math.max(maximum - minimum, 1);
   const selected = problems.find((problem) => problem.id === selectedId) ?? null;
   return (
-    <section className={styles.problemChartSection} aria-labelledby="problem-chart-title">
+    <section id="customer-problems" className={styles.problemChartSection} aria-labelledby="problem-chart-title">
+      <ProblemIdentification onSaved={onSaved} />
       <div className={styles.problemChartHeading}>
-        <div><p className={styles.kicker}>Customer problem comparison</p><h2 id="problem-chart-title">Problem intensity and possible features</h2></div>
+        <div>
+          <p className={styles.kicker}>Customer problem comparison</p>
+          <h2 id="problem-chart-title">Problem intensity and possible features</h2>
+          {analysis && (
+            <p className={styles.problemSource}>
+              {analysis.source_file} · {analysis.feedback_rows.toLocaleString()} feedback rows · {analysis.generation_mode} ·
+              updated {new Date(analysis.generated_at).toLocaleString()}
+            </p>
+          )}
+        </div>
         {selected && <button type="button" className={styles.clearButton} onClick={() => onSelect(null)}>Show all features</button>}
       </div>
-      <div className={styles.problemChart} role="group" aria-label="Problem mentions; select a bar to show possible features">
-        {problems.map((problem) => {
-          const ratio = problem.mention_count / maximum;
-          const density = (problem.mention_count - minimum) / spread;
-          return (
-            <button
-              type="button"
-              key={problem.id}
-              className={`${styles.problemColumn} ${selectedId === problem.id ? styles.problemColumnActive : ""}`}
-              onClick={() => onSelect(selectedId === problem.id ? null : problem.id)}
-              aria-pressed={selectedId === problem.id}
-              title={`${problem.name}: ${problem.mention_count} mentions`}
-            >
-              <b>{problem.mention_count}</b>
-              <span
-                className={styles.problemBar}
-                style={{
-                  "--bar-height": `${Math.max(18, ratio * 100)}%`,
-                  "--bar-density": `${Math.round(35 + density * 65)}%`,
-                } as CSSProperties}
-              />
-              <span className={styles.problemBarLabel}>{problem.name}</span>
-            </button>
-          );
-        })}
-      </div>
+      {problems.length ? (
+        <div className={styles.problemChart} role="group" aria-label="Problem mentions; select a bar to show possible features">
+          {problems.map((problem) => {
+            const ratio = problem.mention_count / maximum;
+            const density = (problem.mention_count - minimum) / spread;
+            return (
+              <button
+                type="button"
+                key={problem.id}
+                id={`problem-${problem.id}`}
+                className={`${styles.problemColumn} ${selectedId === problem.id ? styles.problemColumnActive : ""}`}
+                onClick={() => onSelect(selectedId === problem.id ? null : problem.id)}
+                aria-pressed={selectedId === problem.id}
+                title={`${problem.name}: ${problem.mention_count} mentions`}
+              >
+                <b>{problem.mention_count}</b>
+                <span
+                  className={styles.problemBar}
+                  style={{
+                    "--bar-height": `${Math.max(18, ratio * 100)}%`,
+                    "--bar-density": `${Math.round(35 + density * 65)}%`,
+                  } as CSSProperties}
+                />
+                <span className={styles.problemBarLabel}>{problem.name}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
+        <p className={styles.problemEmpty}>No saved problem list yet. Upload a feedback workbook above.</p>
+      )}
       {selected && (
         <div className={styles.problemSelection} aria-live="polite">
-          <div><b>{selected.name}</b><span>{selected.category} · {selected.mention_count} mentions</span></div>
+          <div>
+            <b>{selected.name}</b>
+            <span>{selected.category} · {selected.severity} · {selected.mention_count} mentions</span>
+            <p>{selected.problem_statement}</p>
+            {selected.evidence[0] && (
+              <blockquote>“{selected.evidence[0].quote}” <cite>{selected.evidence[0].feedback_id}</cite></blockquote>
+            )}
+          </div>
           <div className={styles.possibleFeatures}>
             <span>Possible features</span>
             {selected.possible_feature_ids.map((id) => {
@@ -166,17 +236,32 @@ function TrendChart({ feature }: { feature: FeatureCluster }) {
   );
 }
 
+function OemBubbles({ feature }: { feature: FeatureCluster }) {
+  if (!feature.brandCounts.length) return <div className={styles.cardBrands}><span>No OEM named in the news</span></div>;
+  return (
+    <div className={styles.cardBrands} aria-label="OEMs named in related news">
+      {feature.brandCounts.map(({ brand, count }) => (
+        <span key={brand}>
+          {brand}
+          <b>{count}</b>
+        </span>
+      ))}
+    </div>
+  );
+}
+
 function NewsDetail({ item }: { item: FeatureNewsItem }) {
   return (
     <article className={styles.newsItem}>
       <div className={styles.newsMeta}>
-        <span>{item.source}</span>
+        <span title={item.sourceEn ? item.source : undefined}>{item.sourceEn ?? item.source}</span>
         <span>{item.publishedLabel ?? item.date}</span>
         {item.impact && <strong>{item.impact}</strong>}
       </div>
       <a href={item.url} target="_blank" rel="noreferrer" className={styles.newsTitle}>
         {item.title}
       </a>
+      {item.titleEn && <p className={styles.translation}>EN · {item.titleEn}</p>}
       <div className={styles.brandChips}>
         {item.brands.map((brand) => <span key={brand}>{brand}</span>)}
       </div>
@@ -214,7 +299,15 @@ export function FeatureTrendsPage() {
   useEffect(() => {
     fetch(`${config.apiBaseUrl}/agent/problems`)
       .then((response) => response.ok ? response.json() : Promise.reject(new Error(`HTTP ${response.status}`)))
-      .then((data: SavedProblemAnalysis) => setProblemAnalysis(data))
+      .then((data: SavedProblemAnalysis) => {
+        setProblemAnalysis(data);
+        // Planner evidence links point at /feature-trends#problem-<id>: select that problem.
+        const linked = window.location.hash.slice("#problem-".length);
+        if (window.location.hash.startsWith("#problem-") && data.problems.some((problem) => problem.id === linked)) {
+          setSelectedProblemId(linked);
+          window.setTimeout(() => document.getElementById("customer-problems")?.scrollIntoView({ behavior: "smooth" }), 0);
+        }
+      })
       .catch((error) => console.error("Failed to load saved problem analysis", error));
   }, []);
 
@@ -274,7 +367,15 @@ export function FeatureTrendsPage() {
           </div>
         </header>
 
-        <ProblemChart analysis={problemAnalysis} selectedId={selectedProblemId} onSelect={setSelectedProblemId} />
+        <ProblemChart
+          analysis={problemAnalysis}
+          selectedId={selectedProblemId}
+          onSelect={setSelectedProblemId}
+          onSaved={(analysis) => {
+            setProblemAnalysis(analysis);
+            setSelectedProblemId(null);
+          }}
+        />
 
         <div className={styles.workspace}>
           <aside className={styles.filters} aria-label="Feature filters">
@@ -340,7 +441,13 @@ export function FeatureTrendsPage() {
                         <span className={`${styles.signal} ${feature.signal === "Accelerating" ? styles.signalUp : ""}`}>{feature.signal}</span>
                       </div>
                       <Sparkline values={feature.weeklyCounts} color={color} label={`${feature.label} weekly trend`} />
-                      <h3>{feature.brandCounts[0]?.brand ?? "Industry"}: {feature.label}</h3>
+                      <h3>{feature.label}</h3>
+                      <OemBubbles feature={feature} />
+                      {FEATURE_EXPLANATIONS[feature.id] && (
+                        <p className={styles.explanation}>
+                          <b>What it is · AI-generated</b> {FEATURE_EXPLANATIONS[feature.id]}
+                        </p>
+                      )}
                       <div className={styles.cardProblemTags}>
                         {linkedProblems.map((problem) => (
                           <span key={problem.id}>{problem.name} · {problem.mention_count}</span>
@@ -351,12 +458,6 @@ export function FeatureTrendsPage() {
                       <div className={styles.cardStats}>
                         <span><b>{feature.momentumPctChange === null ? "—" : fmtPct(feature.momentumPctChange)}</b> momentum</span>
                         <span><b>{feature.items.length}</b> related items</span>
-                      </div>
-                      <div className={styles.itemMetadata}>
-                        <span className={styles.categoryBubble}><b>Category</b> {feature.category}</span>
-                        {feature.brandCounts.slice(0, 3).map(({ brand, count }) => (
-                          <span className={styles.brandTag} key={brand}><b>Brand</b> {brand} · {count}</span>
-                        ))}
                       </div>
                       <span className={styles.openHint}>Open trend & evidence →</span>
                     </button>
@@ -380,9 +481,16 @@ export function FeatureTrendsPage() {
             <button type="button" className={styles.closeButton} onClick={() => setSelectedId(null)} aria-label="Close feature detail">×</button>
             <div className={styles.modalHeading}>
               <span className={styles.categoryPill} style={{ "--category-color": CATEGORY_COLORS[selected.category] } as CSSProperties}>{selected.category}</span>
-              <h2 id="feature-detail-title">{selected.brandCounts[0]?.brand ?? "Industry"}: {selected.label}</h2>
+              <h2 id="feature-detail-title">{selected.label}</h2>
               <p>{selected.labelCn}</p>
+              <OemBubbles feature={selected} />
             </div>
+            {FEATURE_EXPLANATIONS[selected.id] && (
+              <div className={styles.detailCallout}>
+                <b>What it is · AI-generated explanation</b>
+                <span>{FEATURE_EXPLANATIONS[selected.id]}</span>
+              </div>
+            )}
             <div className={styles.detailStats}>
               <span><b>{selected.momentumPctChange === null ? "—" : fmtPct(selected.momentumPctChange)}</b> momentum</span>
               <span><b>{selected.volumeRecent}</b> recent articles</span>
@@ -405,7 +513,7 @@ export function FeatureTrendsPage() {
               </div>
             )}
             <div className={styles.relatedHeader}>
-              <div><h3>Related news & detail items</h3><p>All detected brands</p></div>
+              <div><h3>Related news & detail items</h3><p>Chinese headlines with a short English translation</p></div>
             </div>
             <div className={styles.newsList}>
               {selectedNews.map((item) => <NewsDetail key={item.id} item={item} />)}

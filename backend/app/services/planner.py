@@ -5,13 +5,13 @@ Candidates are the new Chinese features tracked in the newsletter (potential imp
   trends    news signal of the new feature + its estimated sales uplift, year 1 -> year 4, taken from the
             related old (Chinese-200) features of the same subcategory, or the category prior if none exists
   sales     BMW 2030 volume in CN, EU and US x the estimated year-4 uplift = extra units/year (scenario)
-  customer  G70 problems identified by the AI Agent from the feedback workbook (mentions per problem)
+  customer  G70 problems identified from the feedback workbook in Feature Radar (mentions per problem)
   features  BMW option-list availability of the attributes behind the related old features (context, not weighted)
 
 The scoring and texts follow frontend/src/mocks/engine.ts, the reference implementation of the contract.
 No observed sales response exists for these features yet, so sales specs are marked as assumption
 and every recommendation carries a flag saying so; assumptionShare stays the trends share as in the contract.
-Every cited record carries a `url` back to its source (news article, AI Agent problem, Impact tab, option list).
+Every cited record carries a `url` back to its source (news article, Feature Radar problem, Impact tab, option list).
 """
 from __future__ import annotations
 
@@ -64,14 +64,14 @@ def uniq(values) -> list:
 
 
 def saved_problems() -> list[dict]:
-    """The latest problem list saved by the AI Agent tab; empty until a workbook was analysed."""
+    """The latest problem list saved from Feature Radar; empty until a workbook was analysed."""
     if not PROBLEM_FILE.exists():
         return []
     return json.loads(PROBLEM_FILE.read_text(encoding="utf-8"))["problems"]
 
 
 def tables() -> dict:
-    """All source records. Rebuilt when the AI Agent saves a new problem list."""
+    """All source records. Rebuilt when Feature Radar saves a new problem list."""
     return _tables(PROBLEM_FILE.stat().st_mtime if PROBLEM_FILE.exists() else 0.0)
 
 
@@ -130,7 +130,7 @@ def catalog() -> dict:
                 {"key": "market", "label": "Market", "options": options((m, f"{m} · {label}") for m, label in MARKETS.items())},
             ]},
             "customer": {"recordCount": len(t["customer"]), "filters": [
-                {"key": "problem", "label": "Problem", "heading": "G70 problem list (AI Agent)",
+                {"key": "problem", "label": "Problem", "heading": "G70 problem list (Feature Radar)",
                  "options": options(t["problems"])},
             ]},
             "features": {"recordCount": len(t["features"]), "filters": [
@@ -196,7 +196,7 @@ def records(key: str, rows: list[dict], t: dict) -> list[dict]:
     total = sum(r["v"] for r in rows) or 1
     out = []
     for r in rows:
-        url = {"sales": IMPACT_URL, "customer": f"/agent#problem-{r.get('problem')}",
+        url = {"sales": IMPACT_URL, "customer": f"/feature-trends#problem-{r.get('problem')}",
                "features": f"/api/engineering/features/{r.get('vehicle')}"}[key]
         out.append({"id": f"{PREFIX[key]}-{t[key].index(r) + 1:03d}", "label": record_label(key, r, names),
                     "url": url, "share": r["v"] / total})

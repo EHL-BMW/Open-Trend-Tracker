@@ -7,6 +7,7 @@ import {
   trendRadarData,
   type BmwDomainStat,
 } from "../content/trendRadar";
+import { HEADLINE_EN, SOURCE_EN } from "../content/translations";
 import { ContentPage } from "./ContentPage";
 import styles from "./NewsletterPage.module.css";
 
@@ -440,8 +441,11 @@ export function NewsletterPage() {
                             >
                               {h.title} ↗
                             </a>
+                            {HEADLINE_EN[h.title] && (
+                              <div className={styles.headlineMeta}>EN · {HEADLINE_EN[h.title]}</div>
+                            )}
                             <div className={styles.headlineMeta}>
-                              {h.source} · {h.date}
+                              {SOURCE_EN[h.source] ?? h.source} · {h.date}
                             </div>
                           </li>
                         ))}
@@ -483,7 +487,7 @@ export function NewsletterPage() {
                     </h3>
                     <div className={styles.statLine}>
                       {t.top_outlets.length > 0
-                        ? t.top_outlets.map(([outlet, count]) => `${outlet} (${count})`).join(" · ")
+                        ? t.top_outlets.map(([outlet, count]) => `${SOURCE_EN[outlet] ?? outlet} (${count})`).join(" · ")
                         : "–"}
                     </div>
 
