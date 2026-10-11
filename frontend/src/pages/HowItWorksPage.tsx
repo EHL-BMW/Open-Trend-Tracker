@@ -22,8 +22,8 @@ export function HowItWorksPage() {
       <section className={styles.section} aria-labelledby="sources">
         <h2 id="sources">Four sources</h2>
         <p>
-          Every recommendation is built from the same four sources. Three of them carry a weight; Features / Engineering
-          only filters and shows what BMW cars already offer.
+          Every recommendation is built from the same four sources. Three of them carry a weight; Product only filters
+          and shows what BMW cars already offer.
         </p>
         <div className={styles.cards}>
           {CATEGORY_ORDER.map((key) => {

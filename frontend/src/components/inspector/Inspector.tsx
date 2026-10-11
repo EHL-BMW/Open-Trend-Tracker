@@ -79,8 +79,8 @@ function WeightOverview({ onSelect }: { onSelect: (key: CategoryKey) => void }) 
         })}
       </div>
       <p className={styles.groupFoot}>
-        Defaults from the backend: Sales {d.sales} / Customer {d.customer} / Trends {d.trends}. Features / Engineering
-        only filters and is not weighted.
+        Defaults from the backend: Sales {d.sales} / Customer {d.customer} / Trends {d.trends}. Product only filters and
+        is not weighted.
       </p>
     </>
   );

@@ -75,9 +75,9 @@ export function OrbitView({ nodes, selected, onSelect, centerSub, headerRight, d
         </svg>
         <div className={styles.center}>
           <b>
-            Product
+            Market
             <br />
-            Management
+            Research
           </b>
           <span>{centerSub}</span>
         </div>

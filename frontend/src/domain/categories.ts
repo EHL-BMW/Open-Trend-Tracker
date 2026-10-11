@@ -5,7 +5,7 @@
 export const CATEGORY_KEYS = ["sales", "customer", "features", "trends"] as const;
 export type CategoryKey = (typeof CATEGORY_KEYS)[number];
 
-/** Sources that carry a weight. Features / Engineering only filters and is shown as context. */
+/** Sources that carry a weight. Product only filters and is shown as context. */
 export const WEIGHTED_KEYS = ["sales", "customer", "trends"] as const;
 export type WeightedKey = (typeof WEIGHTED_KEYS)[number];
 
@@ -60,7 +60,7 @@ export const CATEGORIES: Record<CategoryKey, CategoryMeta> = {
   },
   features: {
     key: "features",
-    name: "Features / Engineering",
+    name: "Product",
     chipLabel: "BMW today",
     colorVar: "--c-features",
     weighted: false,

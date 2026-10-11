@@ -23,7 +23,7 @@ describe("mock analysis engine", () => {
     }
   });
 
-  it("never weights Features / Engineering", () => {
+  it("never weights Product (features)", () => {
     const run = runAnalysis(baseRequest(), "a", "2026-10-11T10:00:00Z");
     for (const rec of run.recommendations) {
       expect(rec.reasoning.contributions.map((c) => c.category)).not.toContain("features");
