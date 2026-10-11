@@ -107,11 +107,13 @@ describe("App", () => {
     renderWithClient(<App />, { route: "/how-it-works" });
     expect(await screen.findByRole("heading", { level: 1, name: "How it works" })).toBeInTheDocument();
   });
-  it("shows the China tech briefing on the Newsletter page", async () => {
+  it("shows the China EV-Tech Trend Radar on the Newsletter page", async () => {
     renderWithClient(<App />, { route: "/newsletter" });
-    expect(await screen.findByRole("heading", { level: 1, name: "China tech briefing" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Megatrends at a glance" })).toBeInTheDocument();
-    expect(screen.getAllByRole("link", { name: /^Read the original/ }).length).toBeGreaterThan(0);
+    expect(await screen.findByRole("heading", { level: 1, name: "China EV-Tech Trend Radar" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Top 3 signals" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Trend map" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "All topics, ranked by priority" })).toBeInTheDocument();
+    expect(screen.getAllByText("Solid-state batteries").length).toBeGreaterThan(0);
   });
   it("recovers when the backend data changed while the page was open", async () => {
     const user = userEvent.setup();

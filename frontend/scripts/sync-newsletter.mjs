@@ -5,12 +5,16 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const here = dirname(fileURLToPath(import.meta.url));
-const source = resolve(here, "../../china-tech-radar/china_megatrends_feed.json");
-const target = resolve(here, "../src/content/china-briefing.json");
+const radarSource = resolve(here, "../../china-tech-radar/china_tech_trends.json");
+const radarTarget = resolve(here, "../src/content/china_tech_trends.json");
+const feedSource = resolve(here, "../../china-tech-radar/china_megatrends_feed.json");
+const feedTarget = resolve(here, "../src/content/china-briefing.json");
 
-if (!existsSync(source)) {
-  console.error(`Feed not found: ${source}`);
-  process.exit(1);
+if (existsSync(radarSource)) {
+  copyFileSync(radarSource, radarTarget);
+  console.log(`Trend radar data copied to ${radarTarget}`);
 }
-copyFileSync(source, target);
-console.log(`Newsletter feed copied to ${target}`);
+if (existsSync(feedSource)) {
+  copyFileSync(feedSource, feedTarget);
+  console.log(`Newsletter feed copied to ${feedTarget}`);
+}
