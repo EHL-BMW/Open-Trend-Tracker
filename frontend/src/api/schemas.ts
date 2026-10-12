@@ -49,8 +49,18 @@ export const technologyForecastSchema = z.object({
   /** Matches an option value of the Trends "technology" filter group. */
   technology: z.string().min(1),
   label: z.string(),
-  currentShare: share,
-  forecastShare: share,
+  /** Signed sales impact as a decimal (for example -0.12 means -12%). */
+  currentShare: z.number(),
+  forecastShare: z.number(),
+  impactByYear: z
+    .array(
+      z.object({
+        year: z.number().int().min(1).max(4),
+        impact: z.number(),
+        pairs: z.number().int().nonnegative(),
+      }),
+    )
+    .optional(),
 });
 
 export const catalogSchema = z.object({
@@ -64,6 +74,9 @@ export const catalogSchema = z.object({
     trends: categoryCatalogSchema,
   }),
   trendForecast: z.array(technologyForecastSchema),
+  impactCoverage: z
+    .object({ validPairCount: z.number().int().nonnegative(), collectionTarget: z.number().int().positive() })
+    .optional(),
   /** Optional wording for the trend chart; the frontend falls back to the China EV adoption copy. */
   trendForecastLabels: z
     .object({ title: z.string(), description: z.string(), current: z.string(), forecast: z.string() })
@@ -179,11 +192,13 @@ const impactPointSchema = z.object({
   impact_pct: z.number(),
   lower_pct: z.number().optional(),
   upper_pct: z.number().optional(),
+  pairs: z.number().int().optional(),
 });
 
 const legacyImpactFeatureSchema = z.object({
   name: z.string(),
   category: z.string(),
+  subcategory: z.string().optional(),
   models: z.array(z.string()),
   pair_count: z.number().int().nonnegative(),
   impact_by_year: z.array(impactPointSchema),
@@ -206,6 +221,7 @@ const newsImpactFeatureSchema = z.object({
 const impactSubcategorySchema = z.object({
   id: z.string(),
   label: z.string(),
+  pair_count: z.number().int().nonnegative().optional(),
   impact_by_year: z.array(impactPointSchema).nullable(),
   legacy_features: z.array(legacyImpactFeatureSchema),
   news_features: z.array(newsImpactFeatureSchema),
@@ -214,6 +230,7 @@ const impactSubcategorySchema = z.object({
 const impactCategorySchema = z.object({
   id: z.string(),
   label: z.string(),
+  pair_count: z.number().int().nonnegative().optional(),
   impact_by_year: z.array(impactPointSchema),
   subcategories: z.array(impactSubcategorySchema),
 });
@@ -225,6 +242,8 @@ export const impactForecastSchema = z.object({
   categories: z.array(impactCategorySchema),
   legacy_feature_count: z.number().int(),
   news_feature_count: z.number().int(),
+  valid_pair_count: z.number().int().nonnegative(),
+  collection_target: z.number().int().positive(),
   method: z.string(),
   status: z.string(),
   caveat: z.string(),

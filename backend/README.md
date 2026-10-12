@@ -169,7 +169,8 @@ estimate, not a sales-fitted or causal model. It uses editable category priors, 
 coverage. When real version-level sales are added, use the observational association outputs above instead
 of treating the scenario priors as measured impact.
 
-Generate the interactive Plotly view for the current 200-pair candidate file:
+Generate the interactive Plotly view for the older keyword-extracted 200-pair file (superseded by the
+Chinese version pairs below, which feed the Impact tab):
 
 ```bash
 uv run python -m app.analysis.interactive_feature_plot
@@ -181,6 +182,42 @@ and feature buttons independently control visibility; every line includes its un
 separate figure uses `data/internal/sales_volumes.xlsx` to estimate BMW sales for 2030-2033. Choose a model,
 market, and multiple features; the baseline extends the selected history's 2025-2030 CAGR and the feature
 scenario applies the same additive impact rates and uncertainty ranges used in the feature plot.
+
+**Chinese version pairs (Impact tab).** Curated in this chat session, not grabbed: the pipeline stays
+deterministic. `data/external/chinese_pairs/` holds four CSVs, every row with a source URL:
+
+- `pairs.csv`: one version change per row (`pair_id, brand, car_model, powertrain, change_type,
+  nameplate_launch, previous_version, previous_launch, current_version, current_launch, source_url`).
+  `nameplate_launch` is the line's first China launch. A nameplate first sold after February of the
+  baseline year is retained with a `partial_baseline` quality flag. Pairs are taken from
+  all Chinese brands, newest launch first, back in time year by year. Only launches whose first full
+  sales year is complete are used.
+- `features.csv`: what the current version added (`pair_id, detail, feature, subcategory, category,
+  evidence, source_url`). `detail` is the OEM's own wording (e.g. "Shenxing 4C LFP battery"), `feature`
+  the shared name used across brands (e.g. "4C+ fast-charging battery"), `subcategory` an id from
+  `SUBCATEGORIES` in `app/analysis/chinese_pairs.py`, and `category` one of the 8 technology domains.
+- `model_sales.csv`: annual China sales per nameplate (`car_model, year, units, series, source, url, note`).
+  `series` names the source series (e.g. `gasgoo_wholesale`, `yiche_registrations`): a year compared with a
+  baseline from a different series is marked `series_break` and not estimated.
+- `market_sales.csv`: CPCA annual passenger-car retail, total and NEV, for the market adjustment.
+
+```bash
+uv run python -m app.analysis.four_year_seeds  # reproducible first 30 complete four-year pairs
+uv run python -m app.analysis.chinese_pairs
+```
+
+This writes `data/analysis/chinese_pairs/`: `pair_sales.csv` (baseline and year 1-4 sales, raw and
+market-adjusted change, `observed` / `missing_sales` / `not_yet_observable`, plus per-year quality flags
+for a partial baseline or successor overlap), `feature_log.csv`,
+`impact.csv` (per feature, subcategory and category: mean market-adjusted change of pairs that added it
+minus pairs that did not, per year, with a 95% interval and n) and `plots/impact_by_subcategory.pdf`.
+Year 1 is the launch year for a January-March launch, otherwise the next calendar year; the baseline is
+the year before the launch year. A valid four-year pair has a numeric baseline and all four annual sales
+comparisons. An item needs 5 pairs with sales in a year (and 5 without it) to get an estimate. The
+results are observational associations, not causal effects; nameplate totals can include successor
+updates and source-table provider changes. To extend the sample, add the next older
+pairs (and their features and sales) to the CSVs and rerun. Newer pairs can be added once their first
+sales year is complete.
 
 **EV/PHEV market table** (`top_500_ev_phev_europe*.csv`, `;`-separated). BMW rows that are our vehicles become the vehicle's own
 external facts: G60 = 5er/i5 Limousine (the Touring is G61, so it is excluded), G70 = 7er/i7. Non-BMW-Group rows in the same segment

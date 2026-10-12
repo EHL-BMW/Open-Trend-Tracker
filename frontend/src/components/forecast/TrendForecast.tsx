@@ -5,8 +5,23 @@ import { StateMessage } from "../common/StateMessage";
 import styles from "./TrendForecast.module.css";
 
 const pct = (x: number, digits = 0) => Number((x * 100).toFixed(digits));
-/** Axis end in steps of 5 percentage points, so small uplifts are not squeezed into a 0–100% axis. */
-const axisMax = (values: number[]) => Math.min(1, Math.max(0.05, Math.ceil(Math.max(0, ...values) * 20) / 20));
+const signedPct = (x: number, digits = 1) => `${x >= 0 ? "+" : ""}${pct(x, digits)}%`;
+
+/** Signed range in steps of 5 percentage points, always including zero. */
+function axisRange(values: number[]) {
+  let lo = Math.min(0, Math.floor(Math.min(...values) * 20) / 20);
+  let hi = Math.max(0, Math.ceil(Math.max(...values) * 20) / 20);
+  if (hi - lo < 0.05) hi = lo + 0.05;
+  return { lo, hi };
+}
+
+const seriesOf = (row: { currentShare: number; forecastShare: number; impactByYear?: { year: number; impact: number; pairs: number }[] }) =>
+  row.impactByYear?.length
+    ? row.impactByYear
+    : [
+        { year: 1, impact: row.currentShare, pairs: 0 },
+        { year: 4, impact: row.forecastShare, pairs: 0 },
+      ];
 
 /** Every technology from the backend forecast: share today vs. forecast year. Rows toggle the filter. */
 export function TrendForecast() {
@@ -23,9 +38,12 @@ export function TrendForecast() {
   const enabled = settings.enabled.trends;
   const toggleable = enabled && Boolean(techGroup);
   const rows = [...trendForecast].sort((a, b) => b.forecastShare - a.forecastShare || a.label.localeCompare(b.label));
-  const max = axisMax(rows.flatMap((r) => [r.currentShare, r.forecastShare]));
-  const digits = max < 0.2 ? 1 : 0;
-  const ticks = [0, 0.25, 0.5, 0.75, 1].map((t) => t * max);
+  const values = rows.flatMap((row) => seriesOf(row).map((point) => point.impact));
+  const range = axisRange(values.length ? values : [0]);
+  const chart = { width: 300, height: 46, padX: 8, padY: 4 };
+  const x = (year: number) => chart.padX + ((year - 1) / 3) * (chart.width - chart.padX * 2);
+  const y = (impact: number) =>
+    chart.padY + ((range.hi - impact) / (range.hi - range.lo)) * (chart.height - chart.padY * 2);
 
   const toggle = (technology: string) =>
     dispatch({ type: "toggleFilter", category: "trends", group: TREND_TECHNOLOGY_GROUP, value: technology });
@@ -43,13 +61,13 @@ export function TrendForecast() {
         <div className={styles.legend}>
           <span>
             <i className={styles.now} />
-            {labels.current}
+            Year 1
           </span>
           <span>
             <i className={styles.fut} />
-            {labels.forecast}
+            Year 4
           </span>
-          <span>pp = percentage points</span>
+          <span>{catalog.impactCoverage ? `${catalog.impactCoverage.validPairCount}/${catalog.impactCoverage.collectionTarget} valid pairs` : "pp = percentage points"}</span>
         </div>
       </div>
 
@@ -61,17 +79,21 @@ export function TrendForecast() {
         <div className={styles.grid} role="group" aria-label="Technologies">
           <span />
           <div className={styles.axis} aria-hidden="true">
-            {ticks.map((t) => (
-              <span key={t} style={{ left: `${(t / max) * 100}%` }}>
-                {pct(t, digits)}%
+            {[1, 2, 3, 4].map((year) => (
+              <span key={year} style={{ left: `${((year - 1) / 3) * 100}%` }}>
+                Y{year}
               </span>
             ))}
           </div>
-          <span />
+          <span className={styles.latestHead}>Y4</span>
           {rows.map((r) => {
             const included = enabled && (!techGroup || selected.includes(r.technology));
-            const delta = Number((pct(r.forecastShare, digits) - pct(r.currentShare, digits)).toFixed(digits));
-            const from = Math.min(r.currentShare, r.forecastShare);
+            const series = seriesOf(r);
+            const first = series[0]!;
+            const last = series.at(-1)!;
+            const delta = last.impact - first.impact;
+            const points = series.map((point) => `${x(point.year)},${y(point.impact)}`).join(" ");
+            const title = `${r.label}: ${series.map((point) => `Y${point.year} ${signedPct(point.impact)}`).join(", ")}`;
             return (
               <div
                 key={r.technology}
@@ -79,7 +101,7 @@ export function TrendForecast() {
                 role={toggleable ? "checkbox" : undefined}
                 aria-checked={toggleable ? included : undefined}
                 tabIndex={toggleable ? 0 : undefined}
-                title={`${r.label}: ${pct(r.currentShare, digits)}% ${labels.current}, ${pct(r.forecastShare, digits)}% ${labels.forecast}`}
+                title={title}
                 onClick={toggleable ? () => toggle(r.technology) : undefined}
                 onKeyDown={
                   toggleable
@@ -94,32 +116,30 @@ export function TrendForecast() {
               >
                 <span className={styles.name}>{r.label}</span>
                 <span className={styles.track}>
-                  <span
-                    className={styles.line}
-                    style={{
-                      left: `${(from / max) * 100}%`,
-                      width: `${(Math.abs(r.forecastShare - r.currentShare) / max) * 100}%`,
-                    }}
-                  />
-                  <span
-                    className={`${styles.dot} ${styles.now}`}
-                    style={{ left: `${(r.currentShare / max) * 100}%` }}
-                  />
-                  <span
-                    className={`${styles.dot} ${styles.fut}`}
-                    style={{ left: `${(r.forecastShare / max) * 100}%` }}
-                  />
+                  <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" aria-hidden="true">
+                    <line className={styles.zero} x1="0" x2={chart.width} y1={y(0)} y2={y(0)} />
+                    <polyline className={styles.seriesLine} points={points} />
+                    {series.map((point, index) => (
+                      <circle
+                        key={point.year}
+                        className={`${styles.seriesDot} ${index === 0 ? styles.seriesDotStart : ""}`}
+                        cx={x(point.year)}
+                        cy={y(point.impact)}
+                        r="3"
+                      />
+                    ))}
+                  </svg>
                 </span>
                 <span className={`${styles.delta} num`}>
-                  {delta >= 0 ? "+" : "−"}
-                  {Math.abs(delta)} pp
+                  <b>{signedPct(last.impact)}</b>
+                  <small>Δ {delta >= 0 ? "+" : ""}{pct(delta, 1)} pp</small>
                 </span>
               </div>
             );
           })}
         </div>
       )}
-      <p className={styles.foot}>Forecasts are assumptions. Sorted by forecast; the ranking uses the forecast value.</p>
+      <p className={styles.foot}>Observational sales associations. Sorted and ranked by Year 4 impact; click a row to include or exclude the feature.</p>
     </section>
   );
 }

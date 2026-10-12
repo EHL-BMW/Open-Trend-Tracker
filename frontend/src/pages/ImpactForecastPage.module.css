@@ -38,8 +38,8 @@
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(3, minmax(82px, 1fr));
-  min-width: 330px;
+  grid-template-columns: repeat(4, minmax(82px, 1fr));
+  min-width: 460px;
   overflow: hidden;
   border: 1px solid var(--sep);
   border-radius: 20px;
@@ -138,6 +138,10 @@
   stroke: var(--sep);
   stroke-width: 1;
 }
+.zeroLine {
+  stroke: var(--label-3);
+  stroke-width: 1;
+}
 .axisLabel {
   fill: var(--label-3);
   font: 11px var(--font-rounded);
@@ -223,6 +227,9 @@
 }
 .featureCard:last-child {
   border-bottom: 0;
+}
+.subcategoryCard {
+  border-top: 2px solid var(--category-color);
 }
 
 .featureTop {

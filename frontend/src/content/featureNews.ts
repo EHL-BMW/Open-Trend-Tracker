@@ -1,4 +1,5 @@
 import briefingRaw from "./china-briefing.json";
+import { HEADLINE_NOTES } from "./headlineNotes";
 import { HEADLINE_EN, SOURCE_EN } from "./translations";
 import { trendRadarData, type TrendTopic } from "./trendRadar";
 
@@ -165,7 +166,7 @@ for (const topic of trendRadarData.topics) {
       category: asCategory(topic.bmw_domain),
       brands,
       title: headline.title,
-      titleEn: HEADLINE_EN[headline.title],
+      titleEn: HEADLINE_EN[headline.title] ?? HEADLINE_NOTES[topic.id]?.[headline.title]?.titleEn,
       source: headline.source,
       sourceEn: SOURCE_EN[headline.source],
       date: headline.date,

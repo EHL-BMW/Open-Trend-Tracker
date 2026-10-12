@@ -15,10 +15,24 @@ const CATEGORY_COLORS = ["#0066b1", "#7b61a8", "#dc7b22", "#087e8b", "#c24c63", 
 const colorAt = (index: number) => CATEGORY_COLORS[index % CATEGORY_COLORS.length]!;
 
 type ImpactPoint = ImpactCategory["impact_by_year"][number];
-type LegacyFeature = ImpactCategory["subcategories"][number]["legacy_features"][number];
 
 function lastPoint(points: ImpactPoint[]) {
   return points.at(-1)!;
+}
+
+const signed = (value: number, digits = 1) => `${value >= 0 ? "+" : ""}${value.toFixed(digits)}%`;
+
+/** Latest estimate of a series, or a note when the category has too few pairs for one. */
+const latestText = (points: ImpactPoint[]) =>
+  points.length
+    ? `${signed(lastPoint(points).impact_pct)} in year ${lastPoint(points).year}`
+    : "too few pairs for an estimate";
+
+/** Value range of a plot. It always includes zero because effects can be negative. */
+function valueRange(values: number[]) {
+  const lo = Math.min(0, ...values);
+  const hi = Math.max(0, ...values);
+  return hi - lo < 1 ? { lo, hi: lo + 1 } : { lo, hi };
 }
 
 function CategoryPlot({
@@ -33,17 +47,19 @@ function CategoryPlot({
   const width = 520;
   const height = 360;
   const pad = { left: 54, right: 58, top: 24, bottom: 48 };
-  const max = Math.max(...categories.flatMap((category) => category.impact_by_year.map((point) => point.impact_pct)), 1);
+  const { lo, hi } = valueRange(
+    categories.flatMap((category) => category.impact_by_year.map((point) => point.impact_pct)),
+  );
   const x = (year: number) => pad.left + ((year - 1) / 3) * (width - pad.left - pad.right);
-  const y = (value: number) => pad.top + (1 - value / max) * (height - pad.top - pad.bottom);
-  const ticks = Array.from({ length: 5 }, (_, index) => (max / 4) * index);
+  const y = (value: number) => pad.top + ((hi - value) / (hi - lo)) * (height - pad.top - pad.bottom);
+  const ticks = Array.from({ length: 5 }, (_, index) => lo + ((hi - lo) / 4) * index);
 
   return (
     <svg
       className={styles.linePlot}
       viewBox={`0 0 ${width} ${height}`}
       role="group"
-      aria-label="Four-year category sales impact scenario. Select a category line to see its features."
+      aria-label="Category sales impact by year after launch. Select a category line to see its features."
     >
       {ticks.map((tick) => (
         <g key={tick}>
@@ -53,12 +69,14 @@ function CategoryPlot({
           </text>
         </g>
       ))}
+      <line x1={pad.left} x2={width - pad.right} y1={y(0)} y2={y(0)} className={styles.zeroLine} />
       {[1, 2, 3, 4].map((year) => (
         <text key={year} x={x(year)} y={height - 15} textAnchor="middle" className={styles.axisLabel}>
           Year {year}
         </text>
       ))}
       {categories.map((category, index) => {
+        if (!category.impact_by_year.length) return null;
         const color = colorAt(index);
         const points = category.impact_by_year.map((point) => `${x(point.year)},${y(point.impact_pct)}`).join(" ");
         const selected = category.id === selectedId;
@@ -70,7 +88,7 @@ function CategoryPlot({
             role="button"
             tabIndex={0}
             aria-pressed={selected}
-            aria-label={`${category.label}: +${end.impact_pct.toFixed(1)}% by year 4`}
+            aria-label={`${category.label}: ${signed(end.impact_pct)} in year ${end.year}`}
             onClick={() => onSelect(category.id)}
             onKeyDown={(event) => {
               if (event.key === "Enter" || event.key === " ") {
@@ -93,7 +111,7 @@ function CategoryPlot({
             ))}
             {selected && (
               <text x={x(end.year) + 10} y={y(end.impact_pct) + 4} className={styles.endLabel} fill={color}>
-                +{end.impact_pct.toFixed(1)}%
+                {signed(end.impact_pct)}
               </text>
             )}
           </g>
@@ -103,13 +121,12 @@ function CategoryPlot({
   );
 }
 
-function FeatureImpactChart({ feature, max, color }: { feature: LegacyFeature; max: number; color: string }) {
+function ImpactChart({ points, lo, hi, color }: { points: ImpactPoint[]; lo: number; hi: number; color: string }) {
   const width = 360;
   const height = 112;
   const pad = { left: 34, right: 10, top: 8, bottom: 20 };
-  const points = feature.impact_by_year;
   const x = (year: number) => pad.left + ((year - 1) / 3) * (width - pad.left - pad.right);
-  const y = (value: number) => pad.top + (1 - value / max) * (height - pad.top - pad.bottom);
+  const y = (value: number) => pad.top + ((hi - value) / (hi - lo)) * (height - pad.top - pad.bottom);
   const line = points.map((point) => `${x(point.year)},${y(point.impact_pct)}`).join(" ");
   const band = [
     ...points.map((point) => `${x(point.year)},${y(point.upper_pct ?? point.impact_pct)}`),
@@ -118,14 +135,15 @@ function FeatureImpactChart({ feature, max, color }: { feature: LegacyFeature; m
 
   return (
     <svg className={styles.featurePlot} viewBox={`0 0 ${width} ${height}`} aria-hidden="true">
-      {[0, max / 2, max].map((tick) => (
+      {[lo, (lo + hi) / 2, hi].map((tick) => (
         <g key={tick}>
           <line x1={pad.left} x2={width - pad.right} y1={y(tick)} y2={y(tick)} className={styles.gridLine} />
           <text x={pad.left - 6} y={y(tick) + 3} textAnchor="end" className={styles.axisLabel}>
-            {tick.toFixed(1)}%
+            {tick.toFixed(0)}%
           </text>
         </g>
       ))}
+      <line x1={pad.left} x2={width - pad.right} y1={y(0)} y2={y(0)} className={styles.zeroLine} />
       {[1, 2, 3, 4].map((year) => (
         <text key={year} x={x(year)} y={height - 4} textAnchor="middle" className={styles.axisLabel}>
           Y{year}
@@ -140,55 +158,97 @@ function FeatureImpactChart({ feature, max, color }: { feature: LegacyFeature; m
   );
 }
 
+function ImpactCard({
+  title,
+  meta,
+  points,
+  range,
+  color,
+  level,
+}: {
+  title: string;
+  meta: string;
+  points: ImpactPoint[];
+  range: { lo: number; hi: number };
+  color: string;
+  level: "subcategory" | "feature";
+}) {
+  const last = lastPoint(points);
+  return (
+    <article className={`${styles.featureCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}>
+      <div className={styles.featureTop}>
+        <div>
+          <strong>{title}</strong>
+          <span>{meta}</span>
+        </div>
+        <div className={styles.impactValue}>
+          <b>{signed(last.impact_pct, 1)}</b>
+          <span>
+            {last.lower_pct?.toFixed(1)} to {last.upper_pct?.toFixed(1)}% · Y{last.year}
+            {last.pairs ? ` · n=${last.pairs}` : ""}
+          </span>
+        </div>
+      </div>
+      <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} />
+    </article>
+  );
+}
+
 function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; color: string }) {
-  const features = category.subcategories.flatMap((subcategory) =>
-    subcategory.legacy_features.map((feature) => ({ feature, subcategory: subcategory.label })),
+  const groups = category.subcategories.filter((sub) => sub.impact_by_year || sub.legacy_features.length);
+  const series = groups.flatMap((sub) => [
+    sub.impact_by_year ?? [],
+    ...sub.legacy_features.map((f) => f.impact_by_year),
+  ]);
+  const range = valueRange(
+    series.flat().flatMap((point) => [point.lower_pct ?? point.impact_pct, point.upper_pct ?? point.impact_pct]),
   );
-  const max = Math.ceil(
-    Math.max(
-      ...features.flatMap(({ feature }) => feature.impact_by_year.map((point) => point.upper_pct ?? point.impact_pct)),
-      1,
-    ),
-  );
+  const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
 
   return (
     <section className={styles.panel} aria-labelledby="legacy-title">
       <div className={styles.panelHeading}>
         <span className={styles.step}>2</span>
         <div>
-          <h2 id="legacy-title">Legacy features</h2>
-          <p>Chinese-200 sales impact · shaded band = uncertainty range</p>
+          <h2 id="legacy-title">Subcategories and features</h2>
+          <p>Chinese version pairs · market-adjusted sales change vs pairs without it · band = 95% interval</p>
         </div>
       </div>
-      {features.length ? (
+      {groups.length ? (
         <div className={styles.featureList}>
-          {features.map(({ feature, subcategory }) => {
-            const last = lastPoint(feature.impact_by_year);
-            return (
-              <article className={styles.featureCard} key={feature.name}>
-                <div className={styles.featureTop}>
-                  <div>
-                    <strong>{feature.name}</strong>
-                    <span>
-                      {subcategory} · {feature.models.length} model{feature.models.length === 1 ? "" : "s"} ·{" "}
-                      {feature.pair_count} pair{feature.pair_count === 1 ? "" : "s"}
-                    </span>
-                  </div>
-                  <div className={styles.impactValue}>
-                    <b>+{last.impact_pct.toFixed(2)}%</b>
-                    <span>
-                      {last.lower_pct?.toFixed(2)}–{last.upper_pct?.toFixed(2)}% · Y4
-                    </span>
-                  </div>
-                </div>
-                <FeatureImpactChart feature={feature} max={max} color={color} />
-              </article>
-            );
-          })}
+          {groups.map((sub) => (
+            <div key={sub.id}>
+              {sub.impact_by_year ? (
+                <ImpactCard
+                  title={sub.label}
+                  meta={`Subcategory · ${plural(sub.pair_count ?? 0, "pair")}`}
+                  points={sub.impact_by_year}
+                  range={range}
+                  color={color}
+                  level="subcategory"
+                />
+              ) : (
+                <p className={styles.emptyEvidence}>
+                  {sub.label}: too few pairs for a subcategory estimate ({plural(sub.pair_count ?? 0, "pair")}).
+                </p>
+              )}
+              {sub.legacy_features.map((feature) => (
+                <ImpactCard
+                  key={feature.name}
+                  title={feature.name}
+                  meta={`Feature · ${plural(feature.models.length, "model")} · ${plural(feature.pair_count, "pair")}`}
+                  points={feature.impact_by_year}
+                  range={range}
+                  color={color}
+                  level="feature"
+                />
+              ))}
+            </div>
+          ))}
         </div>
       ) : (
         <p className={styles.emptyEvidence}>
-          No comparable Chinese-200 feature in this category yet, so no feature-level sales effect is modeled.
+          No Chinese version pair in this category yet, so no feature-level sales effect is estimated.
         </p>
       )}
     </section>
@@ -196,7 +256,9 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
 }
 
 function NewsFeaturePanel({ category, problems }: { category: ImpactCategory; problems: SavedProblemAnalysis | null }) {
-  const ids = new Set(category.subcategories.flatMap((subcategory) => subcategory.news_features.map((feature) => feature.id)));
+  const ids = new Set(
+    category.subcategories.flatMap((subcategory) => subcategory.news_features.map((feature) => feature.id)),
+  );
   const features = featureClusters.filter((feature) => ids.has(feature.id));
 
   return (
@@ -244,11 +306,11 @@ export function ImpactForecastPage() {
       <main className={styles.page}>
         <header className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>Portfolio planning · Four-year scenario</p>
+            <p className={styles.eyebrow}>Portfolio planning · Sales change, years 1–4 after launch</p>
             <h1>Sales Impact Forecast</h1>
             <p className={styles.lead}>
-              Select a category line or label to compare its sales outlook, Chinese-200 features, and the newest
-              related features detected in the news.
+              Select a category line or label to compare its four-year sales outlook, Chinese version-pair features,
+              and the newest related features detected in the news.
             </p>
           </div>
           {forecast.data && (
@@ -258,8 +320,12 @@ export function ImpactForecastPage() {
                 <span>categories</span>
               </div>
               <div>
+                <b>{forecast.data.valid_pair_count}/{forecast.data.collection_target}</b>
+                <span>valid 4-year pairs</span>
+              </div>
+              <div>
                 <b>{forecast.data.legacy_feature_count}</b>
-                <span>legacy features</span>
+                <span>estimated features</span>
               </div>
               <div>
                 <b>{forecast.data.news_feature_count}</b>
@@ -269,7 +335,7 @@ export function ImpactForecastPage() {
           )}
         </header>
 
-        {forecast.isLoading && <StateMessage title="Loading sales-impact scenarios…" />}
+        {forecast.isLoading && <StateMessage title="Loading sales-impact estimates…" />}
         {forecast.isError && (
           <StateMessage
             tone="error"
@@ -297,8 +363,8 @@ export function ImpactForecastPage() {
                     <h2 id="category-forecast-title">Category sales impact</h2>
                     <p>
                       {selected
-                        ? `${selected.label} · +${lastPoint(selected.impact_by_year).impact_pct.toFixed(1)}% by year 4`
-                        : "Four-year cumulative uplift scenario"}
+                        ? `${selected.label} · ${latestText(selected.impact_by_year)}`
+                        : "Market-adjusted sales change vs pairs without the category · click a line to explore"}
                     </p>
                   </div>
                 </div>
@@ -319,7 +385,11 @@ export function ImpactForecastPage() {
                     >
                       <i />
                       {category.label}
-                      <b>+{lastPoint(category.impact_by_year).impact_pct.toFixed(1)}%</b>
+                      <b>
+                        {category.impact_by_year.length
+                          ? `${signed(lastPoint(category.impact_by_year).impact_pct)} · Y${lastPoint(category.impact_by_year).year}`
+                          : "n/a"}
+                      </b>
                     </button>
                   ))}
                 </div>

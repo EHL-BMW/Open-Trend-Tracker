@@ -101,16 +101,16 @@ it in `app/services/planner.py` on real data, replacing the 16 invented mock can
 | Sales | BMW 2030 volume per line and market × conservative (lower-bound) year-4 uplift | scenario, marked as assumption |
 | Product | G60/G70 option-list availability of the matching taxonomy attributes (`BMW_ATTRIBUTES`) | context only |
 
-There is no observed sales response to these features yet (`comparisons_with_sales: 0` in the Chinese analysis), so
-every Sales chip is marked `assumption` and each recommendation carries a flag saying so. `assumptionShare` is the
+The sales response is an observational association from Chinese nameplate pairs, not a causal BMW estimate, so every
+Sales chip remains marked `assumption` and each recommendation carries a flag saying so. `assumptionShare` is the
 trends share, as the contract defines it.
 
 The PM modifies the result in the interface: switch sources on or off, change weights, filter lines, markets,
 feedback vehicles, signals and individual Chinese features, then run. Every run is stored in
 `data/runtime/planner-runs/` and can be reopened from the run history.
 
-`catalog.trendForecastLabels` (optional) relabels the trend chart; the backend uses it to show year 1 / year 4
-sales uplift instead of the mock's "share of bestsellers" wording.
+`catalog.trendForecastLabels` (optional) relabels the trend chart. The live backend also sends `impactByYear` for each
+new feature and `impactCoverage`, so Planner renders signed Year 1-4 sales impact and the valid-pair collection count.
 
 ## Decision dashboard data (PM override layer)
 

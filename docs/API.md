@@ -68,8 +68,13 @@ Everything the PM can choose from. Called once on page load; the UI stays empty 
   },
   "trendForecast": [
     // one entry per technology; `technology` must match an option value of trends → technology
-    { "technology": "800v-charging", "label": "800V fast charging", "currentShare": 0.71, "forecastShare": 0.88 }
-  ]
+    { "technology": "800v-charging", "label": "800V fast charging", "currentShare": -0.11,
+      "forecastShare": -0.29, "impactByYear": [
+        { "year": 1, "impact": -0.11, "pairs": 8 }, { "year": 2, "impact": -0.22, "pairs": 8 },
+        { "year": 3, "impact": -0.23, "pairs": 8 }, { "year": 4, "impact": -0.29, "pairs": 8 }
+      ] }
+  ],
+  "impactCoverage": { "validPairCount": 30, "collectionTarget": 100 }
 }
 ```
 
@@ -80,7 +85,8 @@ Notes
 - `heading` is optional and shown above the group.
 - `collapsible` is optional (`true` = the group starts collapsed and can be expanded, e.g. the product areas).
 - `trendForecastLabels` is optional: `{ "title", "description", "current", "forecast" }` relabels the trend chart
-  (default: technology share today vs. `forecastYear`). The axis scales to the largest value.
+  (default: technology share today vs. `forecastYear`). Signed sales-impact values are valid. `impactByYear` is
+  optional for compatibility; when present, Planner renders the complete Year 1-4 trajectory.
 - A category with `"filters": []` renders an empty state.
 
 ## `POST /analyses`
