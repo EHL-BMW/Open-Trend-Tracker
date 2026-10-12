@@ -1,0 +1,94 @@
+pair_id,brand,car_model,powertrain,change_type,nameplate_launch,previous_version,previous_launch,current_version,current_launch,source_url
+CN001,AITO,AITO M9,NEV,model_year_update,2023-12,M9 (2024 model),2023-12-26,2025 M9,2025-03-20,https://autonews.gasgoo.com/articles/news/aito-m9-2025-edition-opens-for-pre-orders-from-478000-yuan-70036135
+CN002,AITO,AITO M5,NEV,facelift,2021-12,M5 / M5 Intelligent Driving Edition (2023),2023-04-17,New M5 + M5 Ultra,2024-04-23,https://autonews.gasgoo.com/china_news/70032608.html https://en.wikipedia.org/wiki/AITO_M5
+CN003,XPeng,XPeng G9,NEV,facelift,2022-09,2024 G9,2023-09-19,2025 G9,2025-03-13,https://cnevpost.com/2025/03/13/xpeng-launches-updated-g6-g9/
+CN004,XPeng,XPeng G6,NEV,facelift,2023-06,G6 (2023),2023-06-29,2025 G6,2025-03-13,https://cnevpost.com/2025/03/13/xpeng-launches-updated-g6-g9/
+CN005,BYD,BYD Yuan Plus,NEV,facelift,2022-02,Yuan Plus Glory Edition,2024-03-04,2nd-gen Yuan Plus Intelligent Driving Edition,2025-03-05,https://autonews.gasgoo.com/articles/news/byds-2nd-gen-yuan-plus-intelligent-driving-edition-hits-market-70036136
+CN006,Wuling,Wuling Hongguang Mini EV,NEV,new_generation,2020-07,"Hongguang Mini EV Macaron (3rd gen, 2-door)",2023-11-14,"All-new Hongguang Mini EV (2nd/4th gen, 4-door 4-seat)",2025-02-22,https://en.wikipedia.org/wiki/Wuling_Hongguang_Mini_EV
+CN007,Fangchengbao,Fangchengbao Bao 5,NEV,model_year_update,2023-11,"Bao 5 (launch edition, FiPilot)",2023-11-09,Bao 5 Smart Driving Edition,2025-02-21,https://cnevpost.com/2025/02/21/fang-cheng-bao-launches-smart-driving-bao-5/
+CN008,Geely Galaxy,Geely Galaxy L7,NEV,model_year_update,2023-05,"Galaxy L7 (NordThor Hybrid 8848, 1.5T 3DHT)",2023-05-31,Galaxy L7 EM-i,2025-02-14,https://carnewschina.com/2025/02/15/geely-galaxy-l7-em-i-phev-with-1240-km-range-launched-starting-at-16000-usd
+CN009,Geely Galaxy,Geely Galaxy L6,NEV,facelift,2023-09,Galaxy L6 (1.5T 3DHT PHEV),2023-09-18,Galaxy L6 EM-i,2025-02-12,https://en.wikipedia.org/wiki/Geely_Galaxy_L6
+CN010,BYD,BYD Tang,NEV,model_year_update,2015-06,Tang DM-i Glory Edition,2024-02-28,2025 Tang DM-i + Tang DM-i Smart Driving Edition,2024-10-25,https://cnevpost.com/2024/10/25/byd-launches-2025-tang-dm-i/ https://autonews.gasgoo.com/articles/news/byd-puts-tang-dm-i-smart-driving-edition-onto-market-70035946
+CN011,BYD,BYD Song Pro,NEV,facelift,2019-07,Song Pro DM-i Honor Edition,2024-03-01,2nd-gen Song Pro DM-i (DM 5.0) + Song Pro DM-i Smart Driving Edition,2024-09-23,https://cnevpost.com/2024/09/23/byd-launches-sealion-05-2nd-gen-song-pro-dm-i/ https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN012,BYD,BYD Song Plus,NEV,model_year_update,2020-09,Song Plus DM-i Glory Edition,2024-02-29,2025 Song Plus DM-i + 2025 Song Plus EV + Song Plus DM-i Smart Driving Edition + Song Plus EV Smart Driving Edition,2024-07-25,https://www.ithome.com/0/783/314.htm https://cnevpost.com/2024/08/19/byd-launches-2025-song-plus-ev/ https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN013,BYD,BYD Song L EV,NEV,model_year_update,2023-12,Song L EV (launch edition),2023-12,Song L EV Smart Driving Edition,2025-02-10,https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN014,BYD,BYD Seagull,NEV,facelift,2023-04,Seagull Honor Edition,2024-03,Seagull Smart Driving Edition,2025-02-10,https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN015,BYD,BYD Qin Plus,NEV,facelift,2021-03,Qin Plus DM-i Honor Edition,2024-02-19,2nd-gen Qin Plus DM-i Smart Driving Edition + 2nd-gen Qin Plus EV Smart Driving Edition,2025-02-10,https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN016,BYD,BYD Han,NEV,facelift,2020-07,Han EV Glory Edition,2024-02-28,2025 Han EV + 2025 Han DM-i + Han EV Smart Driving Edition + Han DM-i Smart Driving Edition,2024-09-09,https://cnevpost.com/2024/09/09/byd-launches-2025-han-sedan/ https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN017,BYD,BYD Dolphin,NEV,facelift,2021-08,Dolphin Glory Edition,2024-02-23,Dolphin Smart Driving Edition (facelift),2025-02-10,https://cnevpost.com/2025/02/10/byd-expedites-smart-driving-era-updates-21-models/
+CN018,Denza,Denza D9,NEV,model_year_update,2022-08,2024 Denza D9,2024-03-06,2025 Denza D9,2024-12-26,https://cnevpost.com/2024/12/27/byd-denza-launches-2025-d9-mpv/
+CN019,Avatr,Avatr 11,NEV,facelift,2022-08,Avatr 11,2022-08-08,Updated Avatr 11 (BEV + EREV),2024-12-02,https://cnevpost.com/2024/12/02/avatr-launches-updated-11/
+CN020,Deepal,Deepal SL03,NEV,model_year_update,2022-07,2024 SL03,2024-02-20,2025 SL03,2024-09-27,https://autonews.gasgoo.com/articles/ev/70034514
+CN021,Voyah,Voyah Dreamer,NEV,facelift,2022-03,Voyah Dreamer (launch version),2022-05,New Voyah Dreamer (Huawei Qiankun),2024-09-19,https://www.autohome.com.cn/news/202409/1300533.html
+CN022,Zeekr,Zeekr 001,NEV,model_year_update,2021-04,2024 Zeekr 001 (facelift),2024-02-27,2025 Zeekr 001,2024-08-13,https://autonews.gasgoo.com/articles/news/2025-zeekr-001-007-hit-market-with-upgraded-intelligent-driving-smart-cockpit-features-70034178
+CN023,Lynk & Co,Lynk & Co 08,NEV,model_year_update,2023-09,Lynk & Co 08 EM-P,2023-09,2025 Lynk & Co 08 EM-P,2024-08-08,https://carnewschina.com/2024/08/06/2025-lynk-co-08-em-p-suv-will-launch-on-august-8/
+CN024,Deepal,Deepal S7,NEV,facelift,2023-06,Deepal S7,2023-06,Deepal S07,2024-07-25,https://cnevpost.com/2024/07/26/deepal-launches-s07/
+CN025,Aion,Aion V,NEV,new_generation,2020-06,Aion V Plus,2021-09,Aion V 2nd gen (Bawanglong / Tyrannosaurus),2024-07-23,https://cnevpost.com/2024/07/24/gac-aion-launches-updated-aion-v/
+CN026,Zeekr,Zeekr 009,NEV,model_year_update,2022-11,2024 Zeekr 009,2024-01-15,2025 Zeekr 009 (updated 009),2024-07-19,https://cnevpost.com/2024/07/20/zeekr-launches-updated-009-rhd-variant-in-hk/
+CN027,Wuling,Wuling Bingo,NEV,model_year_update,2023-03,Wuling Bingo (launch version),2023-03-29,2024 Wuling Bingo,2024-06-14,https://carnewschina.com/2024/06/14/2024-wuling-bingo-small-hatchback-takes-the-fight-to-the-byd-seagull
+CN028,AITO,AITO M7,NEV,model_year_update,2022-07,New M7 (2023-09),2023-09-12,New M7 Ultra,2024-05-31,https://wallstreetcn.com/articles/3716265
+CN029,ORA,ORA Good Cat,NEV,model_year_update,2020-11,ORA Good Cat,2020-11-24,2024 ORA Good Cat (Ora 3),2024-04-26,https://carnewschina.com/2024/04/27/great-wall-motors-2024-ora-3-launched-for-14600-usd-in-china/
+CN030,BYD,BYD Frigate 07,NEV,model_year_update,2022-12,Frigate 07 (launch edition),2022-12-09,Frigate 07 Glory Edition,2024-03-18,https://cnevpost.com/2024/03/18/byd-launches-updated-frigate-07/
+CN031,Denza,Denza D9,NEV,model_year_update,2022-08,Denza D9 (launch edition),2022-08-23,2024 Denza D9,2024-03-06,https://en.wikipedia.org/wiki/Denza_D9
+CN032,Leapmotor,Leapmotor T03,NEV,model_year_update,2020-05,2023 T03,2023-03-01,2024 T03,2024-03-02,https://www.donews.com/news/detail/7/4051677.html
+CN033,Leapmotor,Leapmotor C11,NEV,model_year_update,2021-09,2023 C11,2023-03-01,2024 C11 (LEAP 3.0),2024-03-02,https://autonews.gasgoo.com/articles/news/leapmotors-2024-all-new-product-lineup-boasts-competitive-price-upgraded-features-70031654
+CN034,Leapmotor,Leapmotor C01,NEV,model_year_update,2022-09,2023 C01,2023-03-01,2024 C01 (LEAP 3.0),2024-03-02,https://autonews.gasgoo.com/articles/news/leapmotors-2024-all-new-product-lineup-boasts-competitive-price-upgraded-features-70031654
+CN035,Li Auto,Li Auto L9,NEV,model_year_update,2022-06,2023 L9,2022-06-21,2024 L9,2024-03-01,https://cnevpost.com/2024/03/01/li-auto-mega-updated-l-series-launch/
+CN036,Li Auto,Li Auto L8,NEV,model_year_update,2022-09,2023 L8,2022-09-30,2024 L8,2024-03-01,https://cnevpost.com/2024/03/01/li-auto-mega-updated-l-series-launch/
+CN037,Li Auto,Li Auto L7,NEV,model_year_update,2023-02,2023 L7,2023-02-08,2024 L7,2024-03-01,https://cnevpost.com/2024/03/01/li-auto-mega-updated-l-series-launch/
+CN038,BYD,BYD Tang,NEV,facelift,2015-06,Tang DM-i Champion Edition,2023-03-16,Tang DM-i Glory Edition,2024-02-28,https://www.autohome.com.cn/news/202402/1293719.html
+CN039,BYD,BYD Han,NEV,model_year_update,2020-07,Han DM-i/DM-p (2022),2022-04-10,Han DM-i Champion Edition + Han EV Glory Edition + Han DM-i Glory Edition,2023-05-18,https://carnewschina.com/2023/05/18/byd-launched-new-han-dm-i-and-dm-p-phev-sedans-price-starts-at-27000-usd/ https://www.autohome.com.cn/news/202402/1293719.html
+CN040,Zeekr,Zeekr 001,NEV,facelift,2021-04,2023 Zeekr 001,2023-01-01,2024 Zeekr 001 (facelift),2024-02-27,https://cnevpost.com/2024/02/27/zeekr-launches-refreshed-zeekr-001/
+CN041,BYD,BYD Dolphin,NEV,model_year_update,2021-08,Dolphin (2023 model),2021-08,Dolphin Glory Edition,2024-02-23,https://cnevpost.com/2024/02/23/byd-launches-refreshed-dolphin/
+CN042,NIO,NIO ET5,NEV,model_year_update,2021-12,ET5 (2022),2021-12-18,2024 ET5,2024-02-22,https://carnewschina.com/2024/02/22/nios-seven-models-open-pre-orders-for-the-2024-facelift-upgraded-to-snapdragon-8295-chip/
+CN043,NIO,NIO ES8,NEV,model_year_update,2017-12,"ES8 (NT2.0, 2023)",2022-12-24,2024 ES8,2024-02-22,https://carnewschina.com/2024/02/22/nios-seven-models-open-pre-orders-for-the-2024-facelift-upgraded-to-snapdragon-8295-chip/
+CN044,NIO,NIO ES6,NEV,new_generation,2018-12,2022 ES6 (NT1.0),2022-06-15,New ES6 (NT2.0) + 2024 ES6,2023-05-24,https://cnevpost.com/2023/05/24/nio-officially-launches-new-es6/ https://carnewschina.com/2024/02/22/nios-seven-models-open-pre-orders-for-the-2024-facelift-upgraded-to-snapdragon-8295-chip/
+CN045,NIO,NIO EC6,NEV,new_generation,2020-07,2022 EC6 (NT1.0),2022-06-15,New EC6 (NT2.0) + 2024 EC6,2023-09-15,https://cnevpost.com/2023/09/11/nio-to-start-deliveries-new-ec6-next-day-of-launch-sept-16/ https://carnewschina.com/2024/02/22/nios-seven-models-open-pre-orders-for-the-2024-facelift-upgraded-to-snapdragon-8295-chip/
+CN046,Deepal,Deepal SL03,NEV,model_year_update,2022-07,SL03,2022-07-25,SL03i + 2024 SL03 BEV,2023-10-27,https://carnewschina.com/2023/10/26/catl-huaweis-deepal-sl03i-and-s7i-will-offer-advanced-driving-assistance-features https://cnevpost.com/2024/02/20/deepal-launches-updated-sl03-bev/
+CN047,Zeekr,Zeekr 009,NEV,model_year_update,2022-11,Zeekr 009,2022-11-01,2024 Zeekr 009,2024-01-15,https://cnevpost.com/2024/01/15/zeekr-launches-upgraded-009-mpv/
+CN048,Wuling,Wuling Hongguang Mini EV,NEV,new_generation,2020-07,Hongguang Mini EV Macaron (1st gen),2021-04,Hongguang Mini EV Macaron 3rd gen,2023-11-14,https://carnewschina.com/2023/11/15/third-gen-wuling-hongguang-mini-ev-macron-launched-with-215-km-range-priced-at-6400-usd
+CN049,Chery,Chery Little Ant,NEV,facelift,2017-04,Little Ant Classic Edition,2017,Little Ant New Edition,2023-10-28,https://carnewschina.com/2023/08/10/city-car-with-75-hp-and-408-km-range-all-new-chery-eq1-was-presented-in-china
+CN050,Aion,Aion S,NEV,facelift,2019-05,Aion S Plus,2021,Aion S Max,2023-10-26,https://www.autohome.com.cn/news/202310/1289786.html
+CN051,XPeng,XPeng P5,NEV,facelift,2021-09,P5 (2021),2021-09-15,2024 P5,2023-09-25,https://autonews.gasgoo.com/articles/news/2024-xpeng-p5-hits-market-starting-at-156900-yuan-70028384
+CN052,BYD,BYD Yuan Plus,NEV,model_year_update,2022-02,Yuan Plus (launch edition),2022-02,Yuan Plus Champion Edition,2023-09-15,https://autonews.gasgoo.com/articles/news/500000th-byd-yuan-plus-rolls-off-line-70028180
+CN053,AITO,AITO M7,NEV,facelift,2022-07,M7 (2022),2022-07-04,New M7,2023-09-12,https://autonews.gasgoo.com/articles/news/all-new-aito-m7-commences-deliveries-upon-market-launch-starting-at-249800-yuan-70028040
+CN054,Chery,Chery QQ Ice Cream,NEV,facelift,2021-12,QQ Ice Cream,2021,All-new QQ Ice Cream,2023-08-23,https://autonews.gasgoo.com/articles/news/all-new-chery-qq-ice-cream-hits-market-starting-at-29900-yuan-70027570
+CN055,Changan,Changan Lumin,NEV,model_year_update,2022-06,Lumin,2022-06,Lumin 205 km Xiangqin fast-charge version,2023-08-16,https://www.ithome.com/0/711/619.htm
+CN056,Beijing,Beijing EU5 PLUS,NEV,model_year_update,2018-04,Beijing EU5 PLUS (launch version),2021-05-26,2023 Beijing EU5 PLUS,2023-08-15,https://www.autohome.com.cn/news/202308/1287493.html
+CN057,BYD,BYD Song Plus,NEV,facelift,2020-09,Song Plus DM-i (2021/2022 model),2020-09,Song Plus DM-i Champion Edition + Song Plus EV Champion Edition,2023-06-19,https://cnevpost.com/2023/06/19/byd-launches-2023-song-plus/
+CN058,BYD,BYD Song Pro,NEV,facelift,2019-07,Song Pro DM-i (2022 model),2021-12,Song Pro DM-i Champion Edition (2023),2023-05-25,https://cnevpost.com/2023/05/25/byd-launches-2023-song-pro-dm-i/
+CN059,AITO,AITO M5,NEV,model_year_update,2021-12,M5 EREV/EV (2022),2021-12-23,M5 Intelligent Driving Edition,2023-04-17,https://www.ithome.com/0/686/994.htm
+CN060,BYD,BYD Qin Plus,NEV,model_year_update,2021-03,Qin Plus EV (2021 model),2021,Qin Plus EV Champion Edition,2023-04-07,https://carnewschina.com/2023/04/10/2023-byd-qin-plus-ev-launched-starting-at-18900-usd
+CN061,BYD,BYD Tang,NEV,model_year_update,2015-06,Tang DM-i (2021/2022 model),2021-06,Tang DM-i Champion Edition,2023-03-16,https://en.42how.com/2023/03/16/byd-tang-dm-i-champion-edition-has-been-launched-with-a-price-range-of-cny-209800-to-233800/
+CN062,BYD,BYD Han,NEV,facelift,2020-07,Han EV (launch edition),2020-07-12,Han EV Founding Edition (2022 facelift) + Han DM-i / DM-p (2022 facelift) + Han EV Champion Edition,2022-04-10,https://cnevpost.com/2022/04/11/byd-hans-new-variants-get-48136-orders-6-hours-after-official-launch/ https://www.chinaservicesinfo.com/s/202303/17/WS6418fbc4498ea274927b2b2f/byd-updates-han-tang-models-to-consolidate-leading-position.html
+CN063,XPeng,XPeng P7,NEV,facelift,2020-04,P7 (2020),2020-04-27,P7i,2023-03-10,https://ir.xiaopeng.com/news-releases/news-release-details/xpeng-launches-new-p7i-sports-sedan-china
+FY001,GAC Aion,Aion S,NEV,historical_update,2019-04,S,2020-01-01,S Plus,2021-06-23,https://en.wikipedia.org/wiki/Aion_S
+FY002,GAC Aion,Aion S,NEV,historical_update,2019-04,S Plus launch,2020-01-01,S Plus 80 trim,2021-08-01,https://en.wikipedia.org/wiki/Aion_S
+FY003,GAC Aion,Aion V,NEV,historical_update,2020-06,V,2020-01-01,V Plus,2021-09-29,https://en.wikipedia.org/wiki/Aion_V
+FY004,GAC Aion,Aion V,NEV,historical_update,2020-06,V Plus launch,2020-01-01,V Plus 80 Max,2021-11-01,https://en.wikipedia.org/wiki/Aion_V
+FY005,BYD,BYD Han,NEV,historical_update,2020-07,Han launch range,2020-01-01,Han EV luxury update,2021-08-01,https://en.wikipedia.org/wiki/BYD_Han
+FY006,BYD,BYD Han,NEV,historical_update,2020-07,Han DM,2020-01-01,Han DM performance update,2021-09-01,https://en.wikipedia.org/wiki/BYD_Han
+FY007,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro DM,2020-01-01,Qin Plus DM-i,2021-03-08,https://en.wikipedia.org/wiki/BYD_Qin
+FY008,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro EV,2020-01-01,Qin Plus EV,2021-04-07,https://en.wikipedia.org/wiki/BYD_Qin
+FY009,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus DM-i,2021-03-25,https://en.wikipedia.org/wiki/BYD_Song_Plus
+FY010,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus launch range,2020-01-01,Song Plus EV,2021-04-07,https://en.wikipedia.org/wiki/BYD_Song_Plus
+FY011,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,Song Pro DM-i,2021-12-13,https://en.wikipedia.org/wiki/BYD_Song_Pro
+FY012,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro launch range,2020-01-01,Song Pro upscale trim,2021-10-01,https://en.wikipedia.org/wiki/BYD_Song_Pro
+FY013,BYD,BYD Tang,NEV,historical_update,2015-06,Tang DM,2020-01-01,Tang DM-i,2021-04-19,https://en.wikipedia.org/wiki/BYD_Tang
+FY014,BYD,BYD Tang,NEV,historical_update,2015-06,Tang DM-i,2020-01-01,Tang DM-p package,2021-08-01,https://en.wikipedia.org/wiki/BYD_Tang
+FY015,Geely,Geely Binyue,ICE,historical_update,2018-08,Binyue,2020-01-01,Binyue Pro facelift,2021-08-01,https://en.wikipedia.org/wiki/Geely_Binyue
+FY016,Geely,Geely Binyue,ICE,historical_update,2018-08,Binyue ePro,2020-01-01,Binyue ePro update,2021-10-01,https://en.wikipedia.org/wiki/Geely_Binyue
+FY017,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue Pro,2020-01-01,Boyue X,2021-10-10,https://en.wikipedia.org/wiki/Geely_Boyue
+FY018,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue,2020-01-01,Boyue Pro smart trim,2021-06-01,https://en.wikipedia.org/wiki/Geely_Boyue
+FY019,Lynk & Co,Lynk & Co 03,ICE,historical_update,2018-10,03+,2020-01-01,03+ Cyan Edition,2021-08-29,https://en.wikipedia.org/wiki/Lynk_%26_Co_03
+FY020,Lynk & Co,Lynk & Co 03,ICE,historical_update,2018-10,03,2020-01-01,03 technology update,2021-09-01,https://en.wikipedia.org/wiki/Lynk_%26_Co_03
+FY021,NIO,NIO ES6,NEV,historical_update,2019-06,ES6 70 kWh,2020-01-01,ES6 100 kWh,2021-11-01,https://en.wikipedia.org/wiki/Nio_ES6
+FY022,NIO,NIO ES6,NEV,historical_update,2019-06,ES6 launch range,2020-01-01,ES6 Sport Edition,2021-05-01,https://en.wikipedia.org/wiki/Nio_ES6
+FY023,NIO,NIO ES8,NEV,historical_update,2018-06,ES8 70 kWh,2020-01-01,ES8 100 kWh,2021-11-01,https://en.wikipedia.org/wiki/Nio_ES8
+FY024,NIO,NIO ES8,NEV,historical_update,2018-06,ES8 six-seat,2020-01-01,ES8 signature update,2021-04-01,https://en.wikipedia.org/wiki/Nio_ES8
+FY025,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6,2020-01-01,H6 National Tide Edition,2021-03-12,https://en.wikipedia.org/wiki/Haval_H6
+FY026,Haval,Haval H6,ICE,historical_update,2011-08,H6 launch range,2020-01-01,H6 smart package,2021-09-01,https://en.wikipedia.org/wiki/Haval_H6
+FY027,Roewe,Roewe i5,ICE,historical_update,2018-03,i5,2020-01-01,i5 facelift,2021-04-01,https://en.wikipedia.org/wiki/Roewe_i5
+FY028,Roewe,Roewe i5,ICE,historical_update,2018-03,i5 facelift,2020-01-01,i5 GT package,2021-09-01,https://en.wikipedia.org/wiki/Roewe_i5
+FY029,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,P7 LFP range,2021-03-01,https://en.wikipedia.org/wiki/XPeng_P7
+FY030,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 XPILOT 2.5,2020-01-01,P7 XPILOT 3.0 package,2021-07-01,https://en.wikipedia.org/wiki/XPeng_P7

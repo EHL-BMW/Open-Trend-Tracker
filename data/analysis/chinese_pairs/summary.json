@@ -1,0 +1,23 @@
+{
+  "pairs": 93,
+  "brands": 24,
+  "launch_range": [
+    "2021-03-01",
+    "2025-03-20"
+  ],
+  "features": 321,
+  "observed_pairs_by_year": {
+    "1": 74,
+    "2": 45,
+    "3": 33,
+    "4": 30
+  },
+  "valid_four_year_pairs": 30,
+  "collection_target": 100,
+  "estimated_items": {
+    "feature": 18,
+    "subcategory": 17,
+    "category": 8
+  },
+  "last_full_sales_year": 2025
+}
