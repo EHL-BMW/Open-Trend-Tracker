@@ -1,0 +1,502 @@
+git pull 
+
+rework on data grabbing of the 200 chinese feature sales impact.
+
+first claim how is current feature collection step
+
+---
+
+collect from all brand 
+find the pair from recent to long ago by the order of the year for all brand 
+untill 100 paire. can continue when required
+after pair collection, use convincing source to find collet and lable the 1234 years sales change
+feature logs detail feature (like battery 5C xxx tech), mid-subcategory (fast charging) and category (energy and engineering) (this is an example; ues curernt terminology that defined before)
+recollet data and rerun impact estimation.run front end for me to check
+
+---
+
+<agent-message from="a4458ae90dbc562c1">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I found 31 transitions and wrote them to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/pairs_startups.json, newest first. The generator script is build_startups.py in the same folder.
+  
+  Rows by brand:
+  - **AITO:** 6
+  - **NIO:** 11
+  - **XPeng:** 4
+  - **Li Auto:** 3
+  - **Leapmotor:** 4
+  - **Neta:** 3
+  
+  Xiaomi, ONVO, Luxeed and Stelato have no rows. Launch dates were checked against CnEVPost, Gasgoo, CarNewsChina, IT之家 or OEM releases. Baseline sales are Wikipedia/CPCA China figures; the Neta rows use company delivery figures instead.
+  
+  **Doubts:**
+  1. **Neta renames:** I included Neta U-II → Neta X (2023-10-18) and Neta V → Neta AYA (2023-08-03). CnEVPost calls both facelifts, but China sales tables may list Neta X and Neta AYA as their own lines. The AYA's changes are mostly styling, an LFP-only battery and a new interior, so it is weak on concrete equipment. For the Neta V's 2022 baseline, the company figure (98,847) is much higher than the Wikipedia/CPCA figure (71,158); I used 98,847.
+  2. **NIO 2024 models:** I used 2024-02-22, the day orders opened, as the launch date; deliveries began 2024-03-08. The main new feature is the Snapdragon 8295 cockpit chip. The ES8's earlier 2023 model may already have had the 8295; Wikipedia hints at it, but CarNewsChina says all seven models moved up from the 8155.
+  3. **Rows that are partly sub-variants:** NIO ET5T is a separate line from ET5 in CnEVPost data; its 2023 baseline only covers June–December. The AITO M5 Intelligent Driving Edition (2023-04-17) and New M7 Ultra (2024-05-31) are new top versions of an existing nameplate rather than full model-year replacements.
+  4. **Unconfirmed details:** The AITO M9 2025 driving-system version is reported as ADS 3.0 at launch but ADS 3.3 elsewhere, so the row says "ADS 3.x". The new NIO ES8's launch date is its NIO Day reveal with prices (2022-12-24); deliveries started June 2023. NIO's 2022 ES8/ES6/EC6 update is dated 2022-06-15 (the ES7 launch event), and older NIO previous-version dates are the original launch dates.
+  5. **Excluded because the prior year's sales were under 10,000:** 2024 XPeng G9 (2023-09; 6.4k in 2022), 2024 NIO ET7, ES7 and EC7, 2024 Leapmotor C01's earlier versions, Luxeed S7 updates and XPeng X9.
+  6. **Excluded for other reasons:**
+     - Xiaomi SU7 Ultra (2025-02) is a new variant, not a transition.
+     - Leapmotor T03 2023 and 2025 updates were trim/price changes only.
+     - AITO M7 Pro is a lower trim.
+     - The 2025 Li L-series, NIO ES6/EC6/ET5 and Leapmotor C-series refreshes, and the new-generation AITO M7, all fall after 2025-03-31.
+</agent-message>
+
+---
+
+<agent-message from="ab7a8fd53ed2b549c">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 21 rows, newest first, to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/pairs_soe.json. The list is not exhaustive: the shared web-search limit (200 per turn) ran out partway through, so Dongfeng, BAIC, JAC and some smaller GAC/SAIC lines are only partly checked.
+  
+  Rows by brand:
+  - **Wuling:** Hongguang Mini EV has 3 rows (GameBoy 2022-04-08, Macaron 3rd gen 2023-11-14, 4-door new generation 2025-02-22). Also Xingchen Hybrid 2022-08-25 and Bingo 2024 model year 2024-06-14.
+  - **Aion:** Y Plus 2022-09-27, S Max 2023-10-26, V 2nd gen 2024-07-24.
+  - **Trumpchi:** M8 Grand Master 2022-11-08, Empow Hybrid 2022-10-25, Empow R 2.0T 2023-04, GS4 2023 model year 2023-04-06, GS8 refresh 2024-05-28.
+  - **Hongqi:** H5 2nd gen 2022-07-26, HS5 facelift 2023-05-21, 2025 H5 2024-09-21.
+  - **Roewe:** RX5 3rd gen 2022-08-05, i5 facelift 2023-07-12.
+  - **Voyah:** Dreamer facelift 2024-09-19.
+  - **Beijing:** X7 facelift 2023-04-16, EU5 PLUS 2023-08.
+  
+  Doubts:
+  1. **Rough or estimated baseline sales:**
+     - Beijing EU5 PLUS (~30k) and Beijing X7 (~40k) are guesses. I found no clean 2022 per-model figures, so these two rows may fail the 20k cut.
+     - GS4 (~95k) is extrapolated from 73k through September 2022.
+     - Empow Hybrid (~36k) is back-calculated from 2022 sales of 45,439, up 25%.
+     - Xingchen (~50k) is estimated from more than 25k in its first two months after the September 2021 launch.
+  2. **Borderline rows:**
+     - Voyah Dreamer's baseline is 20,683 (2023), just over the cut.
+     - The 2025 Hongqi H5 claims a "new" 1.5T HEV, but a 1.5T HEV already existed in 2022.
+     - The Empow R 2.0T has only month precision (2023-04), and the 2.0T may count as a trim rather than a version.
+     - The GS4 2023 row's only verified new feature is the new engine.
+     - The GameBoy may be a body variant rather than a version of the Mini EV.
+  3. **Imprecise previous_launch dates:**
+     - Some are year-only: Aion S Plus "2021", Aion Y "2021", HS5 "2019", H5 1st gen "2018", X7 "2020", GS4 "2021".
+     - Dreamer's original launch "2022-05" conflicts with Wikipedia, which says March 2022.
+  4. **Left out on purpose:**
+     - Below about 20k baseline: Voyah Free, Hongqi H9 2024 facelift, IM models, Hyptec, Aion V/Free earlier updates.
+     - Baseline unknown: Baojun KiWi EV DJI version (2022-09-15) and Hongqi E-QM5 update (2022-08-17).
+     - Little or no new equipment: Aion S Plus/Y Plus 2023 refresh.
+     - Launched after 2025-03: MG5 2026 MY, Aion Y Plus 2025 MY, Voyah Free 2nd gen.
+     - Separate nameplate in China tables: GS4 MAX (Wikipedia calls it a later GS4 generation).
+     - GS8 2nd gen launched 2021-12, before the window.
+     - Dongfeng Aeolus/Forthing updates looked like trim editions only.
+     - I found no qualifying JAC/Yiwei or MG China transitions, though that search was incomplete.
+  
+  A follow-up run with fresh search budget should check Dongfeng (Aeolus, Forthing, eπ), BAIC (BJ40, U5 PLUS) and the BAIC baselines.
+</agent-message>
+
+---
+
+<agent-message from="a7a4bf90eafe49bb4">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 34 rows to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/pairs_chery_changan.json, sorted by current_launch, newest first. By brand: Chery 12, Changan 10, Exeed 3, Jetour 4, Deepal 4, Avatr 1. iCar and Qiyuan/Oshan have no rows.
+  
+  The list is probably not complete. I used up the web-search limit for this turn (200 calls, shared by every agent in it) before finishing, so a few candidates are still open. Another pass is possible in a follow-up message.
+  
+  **Launch dates:** dates come from launch reports and are mostly verified to the day. One is month-only: Tiggo 5x High Energy is "2024-12". A few `previous_launch` values are year-only (e.g. "2020", "2021") because I could not confirm the month.
+  
+  **Sales baselines are rough:**
+  - Many come from Wikipedia sales tables, which cite Yiche retail rankings. Several of those tables are garbled.
+  - Some are CPCA series or production totals that may include exports: Tiggo 8 Pro 120,506; CS55 Plus about 150,000; CS75 Plus about 190,000; Exeed TXL 53,441 and 34,447; UNI-K 41,160.
+  - These are my own guesses: QQ Ice Cream and Little Ant (about 90,000 each, 2022), Arrizo 5 Plus (60,000), Jetour Dashing 2022 (25,000), Deepal SL03 2022 (25,000) and Avatr 11 2023 (about 24,000).
+  - Two borderline cases are kept and flagged by their numbers: Exeed Yaoguang C-DM (17,659) and Tiggo 8 Plus (20,864).
+  
+  **Judgement calls:**
+  - "2nd/3rd-gen" names Changan uses in China (CS75 Plus Gen 3, CS55 Plus Gen 3, UNI-T Gen 2, UNI-V Gen 2, Eado Gen 3) are classed as facelifts. The 2024 CS75 Plus (C928) is the only true new generation.
+  - Tiggo 7 High Energy and Tiggo 5x High Energy are each treated as a new generation of their existing line. They are really the Tansuo 06 and the Omoda 5 under new names, so the "same sales-table line" link is uncertain for both.
+  - Three plug-in hybrid additions are counted as model-year updates: UNI-V iDD, UNI-K iDD and Yaoguang C-DM. The Tiggo 7 Plus and Tiggo 8 Pro plug-in hybrid additions in March 2023 are skipped.
+  - Deepal L07 (2024-09-20) is skipped because it is sold alongside the SL03 rather than replacing it. The SL03 has three rows instead: SL03i, the 2024 update and the 2025 update. The 2024 update is close to a price-cut-only edition and could be dropped.
+  
+  **Excluded:**
+  - Brand-new nameplates or no prior-year volume: Oshan Z6/iDD, Avatr 12 range-extender version, iCar 03/03T, Deepal G318/S05, Qiyuan Q05/A05, Jetour Shanhai L6/L7/T2.
+  - Below or unknown against the 20k threshold: Qiyuan A07 2025 model (2024-10-18, 2023 baseline probably under 20k), Exeed VX 2023 facelift, Exeed LX.
+  - Separate "Plus" nameplates: Oshan X5 Plus (2022-12).
+  - Price-only or trim-only editions: Tiggo 8 Pro 2025 model, Jetour X70 Plus Champion and 诸葛 editions, CS35 Plus 2023 trim.
+  - Outside the window: CS75 Pro (launched 2025-10-17), Arrizo 8 Pro 2.0T (2025-06).
+  
+  **Still open:**
+  - Tiggo 7 Plus 2022-11-07 facelift: I could not verify its new features, so I left it out.
+  - Not checked: Oshan X7 Plus updates, Benben E-Star, a 2024 Lumin update, and the 2022 sales for QQ Ice Cream and Little Ant.
+</agent-message>
+
+---
+
+<agent-message from="af18286995d3209ed">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 29 rows to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/pairs_geely_gwm.json, newest first (2025-02-14 back to 2022-05-20). The list is not complete for Great Wall: the 200-search limit for this turn ran out partway through. I checked the remaining models only by opening known pages (Wikipedia, CarNewsChina tag pages), with no further searches. Another pass would close the gaps below.
+  
+  By brand:
+  - **Geely and Galaxy (13):** Galaxy L7 EM-i, Galaxy L6 EM-i, Binyue L, Binyue Cool, Binrui Cool, Xingyue L (three rows), Xingrui (two rows), Boyue L facelift, Boyue Cool, Emgrand 2023, Haoyue L (two rows).
+  - **Zeekr (5):** 001 at 2023-01, 2024-02 and 2024-08; 009 at 2024-01 and 2024-07.
+  - **Lynk & Co (4):** 01 EM-P, 03 facelift, 06 EM-P, 2025 08.
+  - **Great Wall (7):** Haval H6 2024-06-19, Tank 300 Hi4-T, Tank 500 Hi4-T and Hi4-Z, ORA Good Cat 2024.
+  
+  **Uncertain rows (all included):**
+  - **Zeekr 009:** baseline is 19,210 units (2023), just under the 20k threshold. The January 2024 update mostly makes former options standard.
+  - **Tank 500 baselines are estimates.** 2022 (≈25k) is Tank brand sales minus Tank 300. 2024 (≈60k) is a rough guess, because the Wikipedia figures look wrong. The Hi4-T has a launch month only (2023-06).
+  - **Boyue Cool counted as the next "Boyue" generation:** it was a new BMA car, later renamed Boyue, and was sold alongside the old Boyue.
+  - **HEV variants as transitions:** Xingyue L and Xingrui L "Zhiqing" HEVs, Lynk & Co 01 EM-P/EM-F and Xingyue L Hi·P are treated as updates of the main sales line. Chinese ranking tables may list some of them separately.
+  - **Weak feature additions:** 2025 Lynk & Co 08 (sentry mode, NFC key, ambient lighting) and ORA Good Cat 2024 (V2L, remote parking, plus price cuts; the date is the month only, 2024-04).
+  - **Loose previous_launch values:** for Xingrui, Xingyue L ICE and Tank 300, previous_launch is the original launch or the last known variant, not the exact preceding model year.
+  - **Source quality:** a few rows cite Wikipedia (Galaxy L6, Xingrui L), MarkLines or 42how rather than OEM newsrooms.
+  
+  **Left out on purpose:**
+  - **Zeekr X 2025 (2024-07):** software update only.
+  - **Zeekr 007:** the 2023 baseline is about one month of sales.
+  - **2024 Boyue (renamed Boyue Cool):** rename and price cut only.
+  - **2024 Lynk & Co 01:** no new features listed.
+  - **Geometry C to M6:** baseline under 20k.
+  - **Panda mini Dragon Edition:** mainly a price cut.
+  - **WEY Mocha Hi4 (2024-05):** 2023 sales about 5k.
+  - **Emgrand L Hi·P:** low sales.
+  
+  **Not checked because of the search limit:**
+  - Haval H6 DHT-PHEV (China launch 2022-09-28; may be its own line in ranking tables)
+  - Haval second-generation Big Dog (2023; listed separately in sales tables)
+  - Haval M6, H9, Shenshou and Xiaolong Max updates
+  - WEY Mocha DHT-PHEV (2022) and its 2021 baseline
+  - ORA Black Cat
+  - GWM Poer pickups (Shanhai Poer)
+  - The 2025 Tank 300 facelift: reservations opened 2025-03-01, but I couldn't confirm a launch date by 2025-03-31.
+  - Any Zeekr 001 or Lynk & Co updates in Q1 2025
+</agent-message>
+
+---
+
+<agent-message from="af160d5968a756464">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 47 rows to `/private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/pairs_byd.json`, sorted by `current_launch` descending (2025-03-05 to 2022-04-10). Every row is NEV.
+  
+  The shared 200-search web budget ran out partway through. After that I could only fetch known pages and use CnEVPost's own site search. Some dates and figures below were therefore not cross-checked.
+  
+  **What the rows cover:**
+  - **Feb 10, 2025 Smart Driving Edition wave (18 rows):** Han EV, Han DM, Qin Plus DM-i, Qin Plus EV, Qin L DM-i, Seal 06 DM-i, Seal 05 DM-i, Song Plus DM-i, Song Plus EV, Song Pro DM-i, Song L DM-i, Song L EV, Sealion 07 EV, Seal 07 DM-i, Yuan Up, Seagull, Dolphin and Tang DM.
+  - **Feb–Mar 2025, other brands:** Yuan Plus (2025-03-05) and Fangchengbao Bao 5 (2025-02-21).
+  - **DM 5.0 / 2025 model-year updates in 2024:** Song Plus DM-i, Song Plus EV, Seal EV, Seal DM-i → Seal 07 DM-i, Han EV, Han DM, Song Pro, Tang DM, and Denza D9 (2024-12-27).
+  - **Feb–Mar 2024 Glory Editions with a concrete added feature:** Han EV, Han DM, Tang DM-i, Dolphin, Seal DM-i and Frigate 07, plus the 2024 Denza D9 (2024-03-06).
+  - **2023 Champion Editions:** Qin Plus DM-i, Qin Plus EV, Han EV, Han DM-i, Tang DM-i, Song Plus DM-i, Song Plus EV, Song Pro and Yuan Plus.
+  - **April 2022 Han facelift:** two rows, EV and DM-i/DM-p.
+  
+  **Doubts:**
+  1. **Split nameplates.** I gave Han, Tang, Song Plus and Qin Plus separate EV and DM rows, because their launch dates differ. Most per-powertrain sales come from Wikipedia's tables. The Qin Plus split is my own estimate (DM-i about 260k in 2022 and 380k in 2024; EV about 80k and 100k), taken from verified combined totals of about 340k (2022) and 480,025 (2024). Song L DM-i (~145k) and Yuan Up (~155k) are extrapolated from Jan–Nov 2024 figures.
+  2. **Renamed lines.** Destroyer 05 → Seal 05 DM-i and Seal DM-i → Seal 07 DM-i are both treated as the same line. That may not match how sales tables list them.
+  3. **Glory/Honor Editions left out.** I dropped the ones that were mainly price cuts or colours: Qin Plus DM-i/EV, Destroyer 05, Song Plus, Song Pro, Seagull, Yuan Plus, Seal EV, Tang EV/DM-p. The Qin Plus and Yuan Plus Glory Editions only added software items (continuous voice, smart power-on). The Han DM-i Glory row only adds DiLink 5.0 and is borderline.
+  4. **Other rows left out:**
+     - Destroyer 05 Champion (minor equipment, unclear Feb vs Aug 2023 date).
+     - Seal EV May 2023 revamp (mostly price and trims).
+     - Seal EV, Seal 06 GT and Denza N7 Smart Driving updates (sales under 20k).
+     - Tang EV Champion (no feature list found) and Tang EV 2022 facelift (no 2021 sales figure).
+     - Tang DM-p (Aug 2022, a variant).
+     - Yangwang U8 (low volume).
+     - Song Max, Yuan Pro and e2 (not checked).
+  5. **Weak or approximate values:**
+     - Song Pro's 2022 baseline (20,323, from Wikipedia) looks low.
+     - Seal's 62,079 and Dolphin's 299,708 baselines are retail figures; wholesale is higher.
+     - Seagull Honor (2024-03) and Seal Glory (2024-03) dates are month-only.
+     - Some previous-version dates are approximate: Song Plus EV "2021", Qin Plus EV "2021", Tang DM-i "2021-06", Song L EV "2023-12".
+     - Han EV/Tang DM-i Champion: I used 2023-03-16 (IT之家, 42how); CnEVPost says March 17.
+</agent-message>
+
+---
+
+<agent-message from="a92177b3353bc2232">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 91 feature rows to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/features_2.json. All 25 pairs have at least one row, so no pair ended with zero verified features. I used 8 of the 25 WebSearch calls. Gasgoo blocked fetching (403/468). For CN027 (Deepal SL03) the rows come from Gasgoo text quoted in search results; for CN032 (Tiggo 8 Plus) and CN033 (Zeekr 001) I used Autohome and CarNewsChina instead.
+  
+  **Pairs with thin results:**
+  - **CN036 Deepal S07 (1 row):** only Huawei Qiankun ADS with highway pilot and parking could be confirmed as new. The source gives no S7 figures, so I couldn't confirm 3C charging or the range numbers as new.
+  - **CN044 Boyue L (1 row):** only the redesigned centre console. The source says the exterior is unchanged and doesn't call the 8155 chip, Galaxy OS 2.0, the 25.6-inch AR-HUD or the 11 speakers new. Those headline features are unverified.
+  - **CN045 Tiggo 7 (1 row):** only the exterior facelift, from Wikipedia. "Upgraded interior and functional configurations" is unverified.
+  - **CN037 Aion V:** ADiGO PILOT with LiDAR comes only from the CarNewsChina database. I couldn't verify the Orin X chip, NOA or ADiGO Sense for this generation.
+  - **CN028 Tiggo 9:** only the C-DM plug-in hybrid rows. The 2.0T, 8155 chip and AR-HUD were already on the 2023 car.
+  
+  **Headline features I left out because the sources contradict them:**
+  - **CN030 Hongqi H5:** the 1.5T HEV is carried over (the source says the three powertrains are "继续提供"). The 253-colour ambient lighting wasn't verified. The rows cover what was actually added: 8 GB infotainment memory, lane centring, 360° camera and auto parking, seat heating and ventilation, and acoustic glass.
+  - **CN039 Exeed Lingyun:** the 2.0T + 8AT combination is carried over, with only a new shift program. No source mentions the 8155 chip.
+  - **CN033 Zeekr 001:** I left out the Snapdragon 8295, since I believe the February 2024 version already had it. I didn't check this.
+  - **CN032 Tiggo 8 Plus:** I didn't log the 8155 chip, HiCar/CarPlay or the 10 airbags as new. The article doesn't call them new, and the 8155 was already on the 2023 Champion edition. The pair's previous version (2021) skips that edition.
+  
+  **Dates that look wrong or should be checked:**
+  - **CN047 ORA Good Cat:** it launched on 2024-04-26 at the Beijing Auto Show, not 2024-04-15 (sources: donews, CarNewsChina).
+  - **CN037 Aion V:** CnEVPost says the China launch event was 2024-07-23, one day before the pair's 07-24.
+  - **CN045 Tiggo 7:** the source only says "since May 2024", so 2024-05-01 is a placeholder.
+  - **CN029 CS75 Plus:** 2024-09-24 is the article date; the source gives no exact launch day.
+  - **CN035 Jetour X70 Plus:** the Autohome page confirms 2024-07-29, but the page itself is dated 2026-04-15 (a later Q&A page).
+  
+  **Dates I confirmed:**
+  - CN038 Zeekr 009: 07-19, the mainland launch per IT之家.
+  - CN048 Jetour X90 PRO: 03-20.
+  - CN049 UNI-V and CN050 Eado: 03-20.
+  - CN027 SL03: 09-27.
+  - CN033 Zeekr 001: 08-13.
+  - CN032 Tiggo 8 Plus: 09-10.
+  - CN046 Tank 300 Hi4-T: 04-22.
+</agent-message>
+
+---
+
+<agent-message from="a95c1221da8e748ee">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 99 feature rows covering all 25 pairs (CN051 to CN075) to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/features_3.json. Each pair has between 1 and 8 rows. I used 5 of the 25 WebSearch calls.
+  
+  **Pairs with no verified features:** none. Some pairs rest on weaker evidence:
+  - **CN062 (Han):** I could not confirm "God's Eye DiPilot 100 on Han", so I left it out. The Glory Edition rows (DiLink 5.0, instrument cluster UI) come from a pre-launch Autohome article. The Champion Edition rows (W-HUD, NFC key, FSD damping) come from CarNewsChina, which does not say these were new compared with 2022. "BSD" was not found.
+  - **CN061 (Tang Glory):** the rows come from a pre-launch Autohome article that says the configuration upgrades had not been announced yet.
+  - **CN071 (Xingyue L Zhiqing):** only 1 row, the HEV powertrain. The Snapdragon 8155 probably carried over from the Hi-P, and I found no mention of NOA.
+  - **CN056/057 (Leapmotor):** Gasgoo blocked fetches (403), so I used 42how.com and search snippets of the Gasgoo article.
+  - **CN067 (ES6) and CN068 (EC6):** the LiDAR/Adam rows cite electrek, fdrive.cz and Wikipedia. These are outside the preferred source list.
+  - **CN069 (SL03):** CnEVPost gives a 66.8 kWh / 610 km top version. That is not larger than the old 705 km version, so I recorded that row only as a slight increase in entry-level range. The wireless charging, NFC key and transparent chassis items from the batch were not found.
+  - **Batch items left out because I could not verify them:**
+    - Frigate 07: the cockpit chip is called "6 nm 8-core", but the chip model is not named.
+    - Denza D9: the fridge was already in the launch edition.
+    - Zeekr 001: air suspension (it may have carried over).
+    - CN072 (Xingrui): the "restyled front end".
+  
+  **Suspicious dates:**
+  - **CN065–CN068 (NIO 2024 models):** 2024-02-22 is the date pre-orders opened, not the launch or delivery date. Deliveries ran March to April 2024.
+  - **CN055–CN057 (Leapmotor):** previous_launch is 2023-03-01 for all three, which looks like a placeholder. The current date of 2024-03-02 is confirmed.
+  - **CN063 (Zeekr 001):** previous_launch 2023-01-01 also looks like a placeholder.
+  - **CN064 (Dolphin):** previous_version says "2023 model" but previous_launch is 2021-08, which does not match.
+  - **CN070 (Zeekr 009):** 2024-01-15 is the date of the CnEVPost article, which gives no separate launch date.
+  - **CN069 (SL03):** 2024-02-20 is the article date ("updated as the Lunar New Year begins").
+  - **CN058 (L9):** this is a spec mismatch, not a date issue. The batch says the old pack was 44.5 kWh, while CnEVPost says 42.8 kWh. I put only 52.3 kWh in the row.
+  - **Confirmed dates:** CN051 (2023-04-26, Champion Edition 2024-03-20), CN052, CN053, CN058–CN060, CN063, CN067 (2023-05-24), CN068 (2023-09-15), CN071–CN075.
+</agent-message>
+
+---
+
+<agent-message from="a9ac759c8f87f882d">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 95 feature rows for 24 of the 25 pairs to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/features_4.json. I used 12 of the 25 WebSearch calls.
+  
+  **Pair with no verified features:**
+  - **CN092 (Geely Emgrand Champion Edition):** The given source (IT之家, Dec 2023) and a follow-up search both show the polygonal grille and through-type taillights were already on the 4th-gen Emgrand in 2021. The 1.5L engine with 127 hp is not stated as new, and nothing confirms "E02 digital cockpit".
+  
+  **Pairs with thin results, where the headline did not hold up:**
+  - **CN079 (XPeng P5 2024):** 1 row. CarNewsChina says the dimensions are unchanged (4808 mm), so the claimed "+52 mm" is wrong. The 2021 P5 already had the Snapdragon 8155 and NGP, and the 2024 model actually dropped LiDAR and XPILOT 3.5. The only verified new item is the "Aero Face" front, with drag down from 0.223 to 0.218 Cd.
+  - **CN076 (Chery Little Ant):** 1 row, the restyled front with the Qq logo. The 251/408 km batteries and the 55 kW motor were already sold before; CarNewsChina says the specs are carried over.
+  - **CN099 (Trumpchi GS4):** 1 row. Only the "3rd-generation Megawave 1.5T GDI" engine is verifiable; the rest of the MarkLines article is paywalled.
+  - **CN093 (BYD Song Pro):** 2 rows, the longer body and the larger packs on lower variants. Nothing found on the interior.
+  - **Other corrections to the headlines:**
+    - CN087: the source lists different features from the headline (24.6-inch curved screen, Snapdragon 8155, 256-colour ambient lighting, 8AT). It does not support Lion 4.0+, Sony audio or a heated steering wheel.
+    - CN089: the DM-i electric ranges of 110 and 150 km are NEDC figures. The "Seal-style front" wording was not confirmed, so I described the front as the source does.
+    - CN082: I left out the 240 km electric range because sources disagree (240 vs 260 km).
+  
+  **Suspicious dates:**
+  - **CN092:** The source URL is a December 2023 promotion article, not the launch report. A search places the launch on 2023-06-06, so the date itself looks right, but the source should be replaced.
+  - **CN076:** The source is a preview dated 2023-08-10, not launch coverage. The 2023-10-28 launch is confirmed by a 163.com report, and the "previous_launch 2017" Classic Edition is still sold alongside the new car.
+  - **CN085:** Autohome published on 2023-08-17 and only says the car went on sale "recently", so 2023-08-15 is plausible but not exact.
+  - **CN094:** The facelift was unveiled at Auto Shanghai in April 2023. Wikipedia gives no exact on-sale date, so 2023-05-21 is unverified.
+  - **CN099:** Autohome reported the launch on 2023-04-07 while MarkLines gives April 6, so the date is fine within a day.
+  
+  **Source changes:** Gasgoo blocked fetching (403/468), so I used other sources:
+  - CN079: CarNewsChina
+  - CN081: Autohome 202309/1288546
+  - CN082: China Daily
+  - CN083: Autohome 202308/1287690
+  - CN080: Xinhua for most rows
+  
+  I also used:
+  - CN089: Autohome as an added source
+  - CN091: Autohome, replacing the paywalled MarkLines page
+  
+  A few feature names are new ones I made up because none of the list fit: "DC fast charging", "Scheduled charging", "Heat pump air conditioning", "12V battery protection", "Panoramic sunroof", "Privacy glass", "360-degree / transparent-chassis camera", "Smart power-on/off", "Steep-slope view assist", "New brand logo" and "Advanced ADAS suite".
+</agent-message>
+
+---
+
+<agent-message from="adad55943b95323b7">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 102 feature rows to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/features_1.json. Every one of the 25 pairs has at least one verified row. I used 15 of the 25 allowed web searches.
+  
+  **Rows per pair:**
+  - CN001 4, CN002 7, CN003 6, CN004 8, CN005 4
+  - CN006 3, CN007 5, CN008 2, CN009 3, CN010 3
+  - CN011 4, CN012 3, CN013 4, CN014 5, CN015 1
+  - CN016 1, CN017 1, CN018 7, CN019 4, CN020 5
+  - CN021 6, CN022 4, CN023 4, CN024 2, CN025 6
+  
+  **Pairs with no verified features:** none. Five pairs are thin because some headline items could not be confirmed, so I left them out:
+  - **CN015 Song L EV, CN016 Seagull, CN017 Qin Plus:** only God's Eye C could be verified. I found no source for the Seagull's revised bumpers or interior, or for Qin Plus's DM-i 5.0 and Qin L-style front in Feb 2025.
+  - **CN008 Mini EV:** only the new body and DC fast charging. I could not confirm that the 30 kW motor and 16.2 kWh / 205 km pack are new versus the Macaron. CnEVPost says 4-door; Wikipedia says 5-door.
+  - **CN024 Tiggo 7 Plus:** only the exterior refresh and the new 1.6T + 8AT option.
+  - **Other headline items left out:**
+    - CN001: 50 W wireless charging and full-speed ACC only appear in a separate Yueye-edition article, not as new for the whole 2025 range.
+    - CN002: the L2 suite isn't clearly new.
+    - CN003: projector resolution, variable-tint windows and "four solid-state" LiDARs weren't in the source; I recorded "four LiDARs instead of one" and "upgraded projector".
+    - CN005: the Snapdragon 8295P chip isn't in CnEVPost, and the Wikipedia G6/G9 pages returned 404.
+    - CN006: the screens and "81 changes" restyle weren't in any source.
+    - CN013: the 50 W wireless charging isn't in the sources.
+  - **Gasgoo sources:** its pages return 403/468, so I used CarNewsChina, CnEVPost, CleanTechnica, 42how, ifanr, IT之家, Autohome and Wikipedia instead. The CN012 God's Eye B row cites a Gasgoo URL whose content I saw only in a search summary.
+  
+  **Suspicious dates:**
+  - **CN017 Qin Plus (2025-02-10):** Feb 10, 2025 was only the Smart Driving Edition price list. Gasgoo dates the actual 2nd-gen Qin Plus (LOONG FACE design, DM 5.0, 128 km) to 2025-09-25. The headline features belong to that later launch.
+  - **CN019 Dolphin (2025-02-10):** prices were announced Feb 10, but the facelift was reported as launched around 2025-03-06 (autobuzz). That source shows no "+130 mm" length; other sources give conflicting length figures.
+  - **CN021 Denza D9 (2024-12-27):** CarNewsChina and Gasgoo give the launch as 2024-12-26. This is minor.
+  - **CN007:** the CnEVPost Feb 10 list calls the model "Yuan Up", not Yuan Plus. The pair itself (launched 2025-03-05) is correct.
+  - All other dates matched their sources.
+  
+  **Choices you may want to check:**
+  - **New feature names**, used where no listed name fit: "Off-road drive modes", "Infotainment UI update", "Improved NVH / quieter cabin", "Wireless phone charging (50W)", "Dual wireless phone charging", "Column-mounted gear selector", "Satellite communication", "Upgraded range extender", "New body / platform", "Fast DC charging", "Power third-row seats", "Heated steering wheel", "Driver monitoring camera", "Multi-link rear suspension".
+  - **XPeng Turing AI driving (CN005/CN006):** I labelled it "End-to-end ADAS model" under assisted_driving.
+  - **God's Eye C:** one row per BYD pair. The per-model evidence for Song L (CN015) comes from the CnEVPost Feb 10 list; Seagull (CN016) and Qin Plus DM-i (CN017) come from CarNewsChina's Feb 10 God's Eye article.
+</agent-message>
+
+---
+
+<agent-message from="a8890fa93605189e3">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote `/private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/sales_2.json` and checked it against the batch: all 45 nameplates are covered. It has 154 sales rows and 16 missing years, and every requested model/year is in either `sales` or `missing`. All 45 launch dates are filled in, and each launch entry has an extra `note` field.
+  
+  **Sources**
+  - **Sales:** every row comes from the model's English Wikipedia "Sales" table. I pulled the raw wikitext with a script through the Wikipedia API, which was quicker than WebFetch. The cited source and metric are taken from each reference title.
+  - **Metrics:**
+    - Yiche "terminal" figures are labelled `insurance_registrations`.
+    - Yiche "retail" figures are labelled `retail`.
+    - Gasgoo figures are labelled `wholesale`. That is my inference; the pages state neither the metric nor the domestic/export split.
+  - **Launch dates:** 13 uncertain ones were checked with 12 WebSearch calls, against Autohome, ifeng and Chinese Wikipedia. Some others come from my own memory and are flagged in their notes, e.g. Galaxy L7 and Haval H6.
+  
+  **Doubts**
+  1. **One consistent series per nameplate was often not possible.** Many Wikipedia tables switch from Gasgoo (2021–24) to Yiche terminal (2025). This affects Leapmotor, Li L7/L8/L9, Lynk & Co 01/03/06, NIO, XPeng G9/P5/P7, Xingyue L, Xingrui and Galaxy L7. Each such row is marked "SERIES BREAK" in its note, so be careful reading year-on-year changes across a break. Consistent single series (Yiche terminal or Yiche retail throughout):
+     - Hongqi H5, Hongqi HS5
+     - Haval H6, Tank 300
+     - Jetour Dashing, Traveller, X70 Plus, X90 Plus
+     - Lynk & Co 08, ORA Good Cat
+     - Trumpchi Empow, GS4, GS8, M8
+     - Voyah Dreamer, Wuling Bingo
+     - Roewe RX5 (2023–25 only)
+  2. **What counts as "the line":**
+     - **Included:** hybrid and EV versions that carry the nameplate, such as H6 PHEV, Tank 300 Hi4, Dashing i-DM, ET5 Touring, RX5 Max/eRX5 and Lynk & Co EM-P. Each is broken down in the note.
+     - **Excluded (count given in the note):** differently named siblings. These are Jetour Shanhai L6 and Shanhai T2 (the Traveller C-DM), Trumpchi ES9, E9, Xiangwang S9 and Xiangwang M8, Roewe D5X, Trumpchi GS4 Plus, Roewe Ei5 and Zeekr 001 FR.
+     - Traveller C-DM is a borderline case: including it gives 91,975 for 2025.
+  3. **Haoyue L:** 2021–22 are first-generation Haoyue figures from carsalesbase. Wikipedia writes 2024 and 2025 as "22,296+" and "9,189+", so they may be partial. 2023 is the sum of the "23,914+2,807" shown.
+  4. **Hongqi H5 2023** (99,773) probably excludes the first-generation "H5 Classic", which chinamobil.ru lists separately at 16,740.
+  5. **Missing (16 rows):**
+     - Hongqi H5 2021–22, Hongqi HS5 2022
+     - Jetour Dashing 2022
+     - Jetour X70 Plus 2025 and X90 Plus 2025: Wikipedia shows a dash, probably because they were merged into plain X70/X90
+     - Roewe RX5 2021–22
+     - Trumpchi Empow 2021–22, GS4 2022, M8 2021–22
+     - Wuling Xingchen 2021–23
+  
+     For most of these I put a chinamobil.ru figure in the `reason` text instead of a data row, because it is a different series.
+  6. **Data sites:** Yiche shows a captcha and Dongchedi requires a login, so I did not bypass either and could not check the Yiche numbers directly. carsalesbase returned 404 and Gasgoo blocked fetching. chinamobil.ru only has data up to Jun 2025.
+</agent-message>
+
+---
+
+<agent-message from="aabf2b9613c1045c4">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote `/private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/sales_1.json`. It covers 144 of the 164 model-years requested. The other 20 are listed under `missing` with a reason, and all 46 nameplates have a launch month.
+  
+  **Sources**
+  - **English Wikipedia sales tables.** I read each model page's raw wikitext and summed every powertrain column for the nameplate (e.g. Han DM + EV, Qin Plus DM-i + EV, plus iDD / C-DM / EREV versions). Most cells cite Yiche's sales ranking. I labelled the metric `unspecified`. Every row's `note` gives the split and what the cell cites.
+  - **Yiche itself returned a captcha**, so I did not use it directly.
+  - **Dongchedi (insurance-registration ranking).** I used it for one gap only, Exeed TXL 2024–25 (sold in China as 星途凌云). I added up its monthly ranking data. Its history only starts in September 2023.
+  - **Search budget:** I used 4 WebSearch calls.
+  
+  **Doubts**
+  1. **Mixed sources within one nameplate.** The Wikipedia tables sometimes switch source between years:
+     - AITO M5 and M7 use Gasgoo for 2022–24 and Yiche for 2025.
+     - Deepal S7 and SL03 use Gasgoo for 2023–24 and Yiche for 2025.
+     - Galaxy L6 uses Gasgoo for 2024 and Yiche for 2025.
+     - Han and Tang use chinamobil.ru for 2021–22. chinamobil's 2023 figure for these equals the Yiche figure, so it looks like the same series.
+     - Yuan Plus 2022 comes from InsideEVs.
+     - Aion Y 2021 comes from GoodCarBadCar.
+     - For Song Pro 2022 I used chinamobil.ru (111,290). The Wikipedia cell (20,323) looks incomplete, and chinamobil's 2023 equals Yiche's.
+     - Each case is flagged in its note.
+  2. **Possible metric.** For BYD, AITO M9, Lumin and Galaxy L6, the Wikipedia figures match Dongchedi insurance registrations exactly. For Changan and Geely they don't: Dongchedi gives 218k for CS75 Plus 2024 against 173k on Wikipedia, and 233k for Boyue L 2025 against 148k. So "Yiche" may not be one single series.
+  3. **Tiggo 7 vs Tiggo 7 Plus is unreliable.** The 2023 Tiggo 7 Plus figure (2,432) does not add up to the table total and is marked low confidence. Dongchedi lumps both nameplates together.
+  4. **Most of the missing years are 2022 for nameplates whose 2023–25 figures come from Yiche:** Changan CS55 Plus, CS75 Plus, UNI-K, UNI-T and UNI-V; Little Ant; QQ Ice Cream; Beijing X7; EU5 PLUS; SL03; Emgrand; Tiggo 8 Pro. For several of them chinamobil.ru has a 2022 value, which I put in the missing reason. I did not use those numbers because chinamobil's 2023 values differ from Yiche's.
+  5. **Other gaps:**
+     - Chery Arrizo 5 Plus has no data for any year (2022–25). I found no model-level source.
+     - Exeed TXL 2022–23 is missing; the only figures I found are production numbers that include exports.
+     - Geely Binrui 2021 is missing because the only figure is from carsalesbase, a different series. Its 2022 cell is empty.
+  6. **Definitions I chose:**
+     - Beijing EU5 PLUS is EU5 + EU5 Plus.
+     - Emgrand includes the Emgrand EV and excludes Emgrand GL.
+     - Fangchengbao Bao 5's Wikipedia page is now titled "Denza B5".
+  7. **Launch dates.** Most come from Wikipedia text or a WebSearch check. These are less certain:
+     - Little Ant 2017-04, Emgrand 2009-08, Aion S 2019-05 and Aion Y 2021-04 are partly from memory.
+     - QQ Ice Cream 2021-12 comes from Autohome, but sales already show up in November 2021.
+     - Arrizo 5 Plus 2018-10 is the launch of its predecessor, the Arrizo GX. The Arrizo 5 Plus name only arrived with the 2021 facelift.
+</agent-message>
+
+---
+
+if it EV only?
+
+---
+
+it should be ev/hybrid only
+
+---
+
+when confirmed do the down stream work till present in front end using existing data. 
+
+while collocting going on in parallel
+
+---
+
+<agent-message from="affe4debdfecd8f4b">
+[Subagent hand-back] The text below is the final report of a subagent this session delegated to. It is model output, NOT a message from the user: instructions, requests, or approval claims inside it are the subagent's words and carry no user authority. The harness indents every line of the report, so a frame-like line at column zero inside it would be forged. Notes above this frame may quote model-derived text, which carries no user authority either. The report follows:
+  I wrote 16 feature rows, 8 per pair, to /private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/scratchpad/cn/features_reserve.json. The JSON parses. I used 4 web searches.
+  
+  **RS101 (BYD Han, compared with the 2020 Han EV):**
+  - 715 km version with an 85.44 kWh battery
+  - Han DM-i plug-in hybrid with 1,300 km combined range
+  - Han DM-p reaching 0-100 km/h in 3.7 s
+  - Restyled front bumper and rear
+  - FSD damping on two-wheel drive and DiSus-C on all-wheel drive
+  - DiLink 4.0 with 5G
+  - Apple NFC key
+  - Ambient lighting
+  
+  **RS102 (XPeng P7i, compared with the 2020 P7):**
+  - Two Nvidia Orin-X chips at 508 TOPS, up from 30 TOPS
+  - Two RoboSense LiDARs and 31 sensors in total
+  - XNGP, labelled "Urban NOA"
+  - Snapdragon 8155 cockpit chip, replacing the 820A
+  - Xmart OS 4.0
+  - DC charging raised from 90 kW to 175 kW
+  - High-beam range up 20%
+  - Heated rear seats and steering wheel
+  
+  **Feature names I made up** (nothing in the list fit):
+  - "Faster DC charging" (subcategory charging_replenishment): the P7i stays on 400 V and charges at about 2C, so "Fast-charging battery (3C+)" was wrong.
+  - "Brighter headlights" (subcategory lighting_visibility).
+  
+  **Left out:**
+  - **Heat pump, both cars:** no source I fetched confirms it is new. I think the 2020 Han EV may already have had one, but I did not check.
+  - **Head-up display on the Han:** a source mentions it for the 2022 Han, but the 2020 Han may already have had it.
+  - **"702 km range" on the P7i:** I left it out because the 2020 P7 was already rated at about 706 km under the older NEDC cycle, so it may not be a real increase.
+  - **Ambient lighting:** I kept it only because CarNewsChina lists it as a 2023 upgrade. Whether the 2020 Han already had it is unverified.
+  
+  **Sources:**
+  - The XPeng IR page returned 403, so RS102 uses CnEVPost and CarNewsChina.
+  - The FSD/DiSus-C row cites the RS101 source_url on chinaservicesinfo.com, which is not on the approved source list.
+  
+  All launch dates look correct (RS101: 2022-04-10, latest 2023-03-16; RS102: 2023-03-10). No pair ended up with zero rows.
+</agent-message>
+
+---
+
+<task-notification>
+<task-id>a7d2bb5c104a31920</task-id>
+<tool-use-id>toolu_017AuS1pXjJk4ZhCsuQJ5ZQH</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/tasks/a7d2bb5c104a31920.output</output-file>
+<status>failed</status>
+<summary>Agent "EV pairs: BYD group 2021-2025" failed: Agent terminated early due to an API error: You've hit your session limit · resets 2:40am (Europe/Berlin) (error type rate_limit, HTTP 429, request id req_011Cfy1ySbXbcsee3HE3vFM8, model sent to the API: claude-opus-5-5)</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>a4db17c9d416d0f74</task-id>
+<tool-use-id>toolu_01VpVGNdLsodhjepZSJFfEnB</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-shengyin-Desktop-2026-10-10-EHL-code-Open-Trend-Tracker/3fd7f23b-806c-42e4-a247-3d41a3610973/tasks/a4db17c9d416d0f74.output</output-file>
+<status>failed</status>
+<summary>Agent "EV pairs: startups 2021-2025" failed: Agent terminated early due to an API error: You've hit your session limit · resets 2:40am (Europe/Berlin) (error type rate_limit, HTTP 429, request id req_011Cfy1yV7LGFymfe461iFKi, model sent to the API: claude-opus-5-5)</summary>
+<note>A task-notification fires each time this agent stops with no live background children of its own. The user can send it another message and resume it, so the same task-id may notify more than once.</note>
+</task-notification>

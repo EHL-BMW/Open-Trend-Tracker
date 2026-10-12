@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.11.4",
+  "checkpoint_id": "01M4S0KK8JC97PTYTT3JDKSCH9",
+  "strategy": "manual-commit",
+  "branch": "codex/feature-news-trends-tab",
+  "checkpoints_count": 17,
+  "files_touched": [
+    "backend/README.md",
+    "backend/app/analysis/chinese_pairs.py",
+    "backend/app/grabbers/chinese_official_discovery.py",
+    "backend/app/services/impact_forecast.py",
+    "backend/app/services/planner.py",
+    "backend/tests/test_backend_services.py",
+    "backend/tests/test_chinese_pairs.py",
+    "frontend/src/api/schemas.ts",
+    "frontend/src/pages/ImpactForecastPage.module.css",
+    "frontend/src/pages/ImpactForecastPage.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 300,
+    "cache_creation_tokens": 311393,
+    "cache_read_tokens": 31708334,
+    "output_tokens": 135092,
+    "api_call_count": 140,
+    "subagent_tokens": {
+      "input_tokens": 948,
+      "cache_creation_tokens": 1746268,
+      "cache_read_tokens": 46718103,
+      "output_tokens": 27082,
+      "api_call_count": 478
+    }
+  }
+}

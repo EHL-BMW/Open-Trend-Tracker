@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01CnJdb98x6NokXAjJwmarLU",
+  "agent_id": "af160d5968a756464",
+  "subagent_type": "general-purpose",
+  "task_description": "Pairs: BYD group",
+  "token_usage": {
+    "input_tokens": 118,
+    "cache_creation_tokens": 170174,
+    "cache_read_tokens": 6377216,
+    "output_tokens": 601,
+    "api_call_count": 59
+  },
+  "started_at": "2026-10-12T22:19:23.491135+02:00",
+  "completed_at": "2026-10-12T22:34:39.915781+02:00"
+}

@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01FeQqqYpC5cBBNYYe9UET9j",
+  "agent_id": "a95c1221da8e748ee",
+  "subagent_type": "general-purpose",
+  "task_description": "Features batch 3 (CN051-075)",
+  "token_usage": {
+    "input_tokens": 52,
+    "cache_creation_tokens": 77525,
+    "cache_read_tokens": 2051242,
+    "output_tokens": 384,
+    "api_call_count": 26
+  },
+  "started_at": "2026-10-12T22:37:25.849654+02:00",
+  "completed_at": "2026-10-12T22:43:52.297504+02:00"
+}

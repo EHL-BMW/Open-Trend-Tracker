@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01QBWJcX9f1C2nFgddAfU23Z",
+  "agent_id": "a4458ae90dbc562c1",
+  "subagent_type": "general-purpose",
+  "task_description": "Pairs: new-energy startups",
+  "token_usage": {
+    "input_tokens": 52,
+    "cache_creation_tokens": 129647,
+    "cache_read_tokens": 2681039,
+    "output_tokens": 6421,
+    "api_call_count": 26
+  },
+  "started_at": "2026-10-12T22:19:23.495934+02:00",
+  "completed_at": "2026-10-12T22:29:02.986794+02:00"
+}

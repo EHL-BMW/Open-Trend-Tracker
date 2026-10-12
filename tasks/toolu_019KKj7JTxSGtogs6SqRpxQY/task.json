@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_019KKj7JTxSGtogs6SqRpxQY",
+  "agent_id": "affe4debdfecd8f4b",
+  "subagent_type": "general-purpose",
+  "task_description": "Features for 2 reserve pairs",
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 36912,
+    "cache_read_tokens": 535508,
+    "output_tokens": 204,
+    "api_call_count": 10
+  },
+  "started_at": "2026-10-12T22:55:47.924751+02:00",
+  "completed_at": "2026-10-12T22:58:07.48586+02:00"
+}
