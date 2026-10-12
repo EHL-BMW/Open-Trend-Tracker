@@ -25,15 +25,13 @@ function CategoryPlot({
   categories,
   selectedId,
   onSelect,
-  compact,
 }: {
   categories: ImpactCategory[];
   selectedId: string;
   onSelect: (id: string) => void;
-  compact: boolean;
 }) {
-  const width = compact ? 520 : 820;
-  const height = compact ? 360 : 330;
+  const width = 520;
+  const height = 360;
   const pad = { left: 54, right: 58, top: 24, bottom: 48 };
   const max = Math.max(...categories.flatMap((category) => category.impact_by_year.map((point) => point.impact_pct)), 1);
   const x = (year: number) => pad.left + ((year - 1) / 3) * (width - pad.left - pad.right);
@@ -235,8 +233,9 @@ export function ImpactForecastPage() {
       .catch(() => setProblems(null));
   }, []);
   const categories = forecast.data?.categories ?? [];
-  const selectedIndex = categories.findIndex((category) => category.id === selectedId);
-  const selected = categories.find((category) => category.id === selectedId);
+  const selected = categories.find((category) => category.id === selectedId) ?? categories[0];
+  const activeId = selected?.id ?? "";
+  const selectedIndex = categories.findIndex((category) => category.id === activeId);
   const selectedColor = colorAt(Math.max(selectedIndex, 0));
 
   return (
@@ -248,8 +247,8 @@ export function ImpactForecastPage() {
             <p className={styles.eyebrow}>Portfolio planning · Four-year scenario</p>
             <h1>Sales Impact Forecast</h1>
             <p className={styles.lead}>
-              Start with the category outlook. Click a category line to see the Chinese-200 features behind its estimate
-              and the newest related features detected in the news.
+              Select a category line or label to compare its sales outlook, Chinese-200 features, and the newest
+              related features detected in the news.
             </p>
           </div>
           {forecast.data && (
@@ -288,40 +287,34 @@ export function ImpactForecastPage() {
         {forecast.data && (
           <>
             <div
-              className={`${styles.workspace} ${selected ? styles.workspaceOpen : ""}`}
+              className={styles.workspace}
               style={{ "--category-color": selectedColor } as CSSProperties}
             >
               <section className={styles.panel} aria-labelledby="category-forecast-title">
                 <div className={styles.panelHeading}>
-                  {selected && <span className={styles.step}>1</span>}
+                  <span className={styles.step}>1</span>
                   <div>
                     <h2 id="category-forecast-title">Category sales impact</h2>
                     <p>
                       {selected
                         ? `${selected.label} · +${lastPoint(selected.impact_by_year).impact_pct.toFixed(1)}% by year 4`
-                        : "Four-year cumulative uplift scenario · click a line to explore"}
+                        : "Four-year cumulative uplift scenario"}
                     </p>
                   </div>
-                  {selected && (
-                    <button type="button" className={styles.clearButton} onClick={() => setSelectedId("")}>
-                      All categories
-                    </button>
-                  )}
                 </div>
                 <CategoryPlot
                   categories={categories}
-                  selectedId={selectedId}
-                  onSelect={(id) => setSelectedId(id === selectedId ? "" : id)}
-                  compact={Boolean(selected)}
+                  selectedId={activeId}
+                  onSelect={setSelectedId}
                 />
                 <div className={styles.legend}>
                   {categories.map((category, index) => (
                     <button
                       key={category.id}
                       type="button"
-                      className={category.id === selectedId ? styles.legendActive : ""}
-                      aria-pressed={category.id === selectedId}
-                      onClick={() => setSelectedId(category.id === selectedId ? "" : category.id)}
+                      className={category.id === activeId ? styles.legendActive : ""}
+                      aria-pressed={category.id === activeId}
+                      onClick={() => setSelectedId(category.id)}
                       style={{ "--category-color": colorAt(index) } as CSSProperties}
                     >
                       <i />

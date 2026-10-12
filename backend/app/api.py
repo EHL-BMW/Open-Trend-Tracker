@@ -3,7 +3,11 @@
     uv run uvicorn app.api:app --reload
 """
 import json
+import shutil
+import subprocess
+import sys
 from functools import cache
+from threading import Lock
 
 from fastapi import FastAPI, File, HTTPException, Query, Request, UploadFile
 from fastapi.exceptions import RequestValidationError
@@ -14,18 +18,57 @@ from pydantic import BaseModel, Field
 
 from typing import Literal
 
-from app.paths import RUNTIME_DIR, UNIFIED_DIR, get_openai_api_key, get_openai_model
+from app.paths import ROOT_DIR, RUNTIME_DIR, UNIFIED_DIR, get_openai_api_key, get_openai_model
 from app.services.customer_input import process_document
 from app.services.decision_dashboard import decision_dashboard, save_override
 from app.services.feature_extraction import FeatureExtractionInput, extract_features
 from app.services.forecast import engineering_comparison, forecast_catalog, price_forecast, sales_forecast
 from app.services.impact_forecast import impact_taxonomy
 from app.services.problem_identification import get_saved_g70_problems, identify_uploaded_problems
-from app.services import gap_agent, planner
+from app.services import gap_agent, news_annotations, planner
 
 app = FastAPI(title="Open-Trend-Tracker")
 RUNTIME_DIR.mkdir(parents=True, exist_ok=True)
 app.mount("/api/artifacts", StaticFiles(directory=RUNTIME_DIR), name="runtime-artifacts")
+_trend_refresh_lock = Lock()
+
+
+@app.post("/api/v1/news/annotations/{topic_id}")
+def get_news_annotations(topic_id: str):
+    try:
+        return news_annotations.annotate_topic(topic_id)
+    except KeyError as exc:
+        raise HTTPException(404, f"unknown news feature: {topic_id}") from exc
+    except RuntimeError as exc:
+        raise HTTPException(503, str(exc)) from exc
+    except (ValueError, json.JSONDecodeError) as exc:
+        raise HTTPException(502, f"could not generate news annotations: {exc}") from exc
+
+
+@app.post("/api/refresh-trends")
+def refresh_trends():
+    """Re-scrape the China trend index and sync it to the local frontend."""
+    if not _trend_refresh_lock.acquire(blocking=False):
+        raise HTTPException(409, "a trend refresh is already running")
+    try:
+        radar_dir = ROOT_DIR / "china-tech-radar"
+        result = subprocess.run(
+            [sys.executable, str(radar_dir / "scrape_china_tech_trends.py")],
+            cwd=radar_dir, capture_output=True, text=True, timeout=900,
+        )
+        if result.returncode:
+            raise HTTPException(503, f"trend refresh failed: {result.stderr[-1000:]}")
+        source = radar_dir / "china_tech_trends.json"
+        target = ROOT_DIR / "frontend" / "src" / "content" / "china_tech_trends.json"
+        updated = json.loads(source.read_text(encoding="utf-8"))
+        if not updated.get("totals", {}).get("articles"):
+            raise HTTPException(503, "trend refresh returned no articles; existing page data was kept")
+        shutil.copyfile(source, target)
+        return {"generated_at": updated["generated_at"], "window": updated["window"]}
+    except subprocess.TimeoutExpired as exc:
+        raise HTTPException(504, "trend refresh timed out after 15 minutes") from exc
+    finally:
+        _trend_refresh_lock.release()
 
 
 class DecisionOverride(BaseModel):
@@ -381,5 +424,3 @@ def v1_agent_chat(req: AgentChatRequest):
         domain=req.domain,
         domains=req.domains,
     )
-
-

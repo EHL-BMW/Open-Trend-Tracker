@@ -435,7 +435,7 @@ def main():
     with open(os.path.join(HERE, "china_tech_trends_data.js"), "w", encoding="utf-8") as f:
         f.write("window.CHINA_TRENDS = " + json.dumps(out, ensure_ascii=False) + ";\n")
     with open(os.path.join(HERE, "china_tech_trends_articles.csv"), "w", encoding="utf-8", newline="") as f:
-        w = csv.writer(f)
+        w = csv.writer(f, lineterminator="\n")
         w.writerow(["topic_id", "bmw_domain", "date", "source", "title", "link"])
         dom = {t[0]: t[4] for t in TOPICS}
         for tid, arts in articles.items():

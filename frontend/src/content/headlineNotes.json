@@ -1,0 +1,548 @@
+{
+  "solid_state": {
+    "雄韬股份两连板后披露异动公告 固态电池未形成销售收入": {
+      "titleEn": "Xiongtao says solid-state batteries have generated no sales despite stock surge",
+      "featureSummary": "Xiongtao reports no sales revenue from solid-state batteries; its shares have risen sharply."
+    },
+    "装备制造行业周报（10月第1周）：固态电池产业化持续推进": {
+      "titleEn": "Equipment manufacturing weekly: solid-state battery industrialization advances",
+      "featureSummary": "The roundup reports continued progress toward solid-state battery production, without giving a scale or date."
+    },
+    "小倍观察｜涨停一片，固态电池为什么一年没涨？": {
+      "titleEn": "Why have solid-state batteries made little progress in a year despite stock rallies?",
+      "featureSummary": "The article questions the gap between solid-state battery stock enthusiasm and technological progress."
+    },
+    "行业纵横：固态电池：产业化还有多远？（ 严秀丽）": {
+      "titleEn": "How far away is solid-state battery industrialization?",
+      "featureSummary": "This industry perspective examines how close solid-state batteries are to commercial production."
+    },
+    "固态电池合集": {
+      "titleEn": "Solid-state battery roundup",
+      "featureSummary": "A collection of solid-state battery stories; the headline offers no specific technical claim."
+    },
+    "固态电池量产倒计时：颠覆将至，还是又一次\"画饼\"？": {
+      "titleEn": "Solid-state battery mass production: breakthrough or another empty promise?",
+      "featureSummary": "The article asks whether mass production is approaching or remains an overhyped promise."
+    }
+  },
+  "e2e_vla": {
+    "【视频】十万出头上华为乾崑智驾，这台大六座家用车实际体验如何": {
+      "titleEn": "Video: how does this six-seat family car perform with Huawei assisted driving?",
+      "featureSummary": "The video reviews how Huawei assisted driving performs in a six-seat family car."
+    },
+    "【视频】合资智驾还在难用？东风日产NX8实测解读，能否站稳第一梯队？": {
+      "titleEn": "Video: can the Dongfeng Nissan NX8 reach the top tier of assisted driving?",
+      "featureSummary": "The test reviews the Dongfeng Nissan NX8 driver-assistance experience and whether it competes with leading systems."
+    },
+    "【视频】华为智驾+59度电池！2027款纵横G700能否搅动插混越野市场？": {
+      "titleEn": "Video: Huawei assisted driving and a 59 kWh battery in the 2027 Zongheng G700",
+      "featureSummary": "The G700 combines Huawei driver assistance with a plug-in hybrid off-road format."
+    },
+    "20万元左右的泛越野方盒子 广汽传祺越7城野无界": {
+      "titleEn": "GAC Trumpchi Yue 7: an around-¥200k rugged SUV",
+      "featureSummary": "The story introduces a rugged GAC SUV in the roughly ¥200k segment."
+    },
+    "【视频】智驾还能保障越野安全？怎么样选一台无死角的旗舰越野SUV": {
+      "titleEn": "Video: can assisted driving improve off-road safety?",
+      "featureSummary": "The video considers how assisted driving may support safety while driving off-road."
+    },
+    "【视频】14.99万起，华为智驾塞进方盒子！捷途旅行者7到店实拍": {
+      "titleEn": "Video: Huawei assisted driving arrives in the Jetour Traveller 7 from ¥149,900",
+      "featureSummary": "The showroom video introduces Huawei assisted driving in the Jetour Traveller 7."
+    }
+  },
+  "urban_noa": {
+    "激光雷达+城市NOA下探13万级，三款热门合资纯电SUV高速智驾横评": {
+      "titleEn": "LiDAR and urban NOA reach ¥130k; three joint-venture EV SUVs compared",
+      "featureSummary": "Urban NOA is moving into lower-priced EV SUVs, although the comparison described here focuses on highway assistance."
+    },
+    "智能驾驶板块走强 图达通（02665）涨超23% 城市NOA渗透率突破20% 带动产业链放量-证券之星": {
+      "titleEn": "Smart-driving shares rise as urban NOA penetration exceeds 20%",
+      "featureSummary": "The headline links rising urban NOA adoption to growth in the assisted-driving supply chain."
+    },
+    "【文章图片】元戎位列第二，最新中国城市NOA装机量排行榜发布_第3张": {
+      "titleEn": "DeepRoute ranks second in China's latest urban NOA installation ranking",
+      "featureSummary": "The ranking places DeepRoute second for urban NOA installations; the headline gives no installation count."
+    },
+    "192线激光雷达+城市NOA，德系纯电SUV辅助驾驶进入第一梯队——4车横向对比": {
+      "titleEn": "192-line LiDAR and urban NOA: four German-brand EV SUVs compared",
+      "featureSummary": "The comparison examines urban NOA and LiDAR across four German-brand electric SUVs."
+    },
+    "零跑C 系 OTA 推送：城市领航辅助与洗车模式_新浪新闻": {
+      "titleEn": "Leapmotor C-series OTA adds urban navigation assistance and car-wash mode",
+      "featureSummary": "An OTA update adds urban navigation assistance to Leapmotor C-series vehicles."
+    },
+    "规模化交付深水区，智驾企业该怎么看榜单？三大赛道排名与价值判断": {
+      "titleEn": "How should assisted-driving companies judge delivery rankings?",
+      "featureSummary": "The article considers how delivery rankings should be interpreted across assisted-driving companies."
+    }
+  },
+  "smart_seats": {
+    "禁止隐藏门把手、折叠屏，不能用零重力座椅，买车要告别噱头配置": {
+      "titleEn": "Are hidden handles, folding screens and zero-gravity seats gimmicks to avoid?",
+      "featureSummary": "The article questions whether zero-gravity seats are practical comfort features or mainly sales gimmicks."
+    },
+    "ADB矩阵大灯，前排双零重力座椅，29英寸6K全景屏，CLTC续航780公里！": {
+      "titleEn": "Matrix headlights, dual front zero-gravity seats and a 29-inch screen",
+      "featureSummary": "The vehicle highlights dual front zero-gravity seats as part of its cabin comfort package."
+    },
+    "【视频】综合续航1954km！有四驱可选，还带零重力座椅，16.88万起！": {
+      "titleEn": "Video: 1,954 km combined range, AWD option and zero-gravity seats from ¥168,800",
+      "featureSummary": "Zero-gravity seats are presented as a comfort feature in this long-range SUV."
+    },
+    "26款理想i6进店 双零重力座椅续航780km": {
+      "titleEn": "2026 Li Auto i6 arrives with dual zero-gravity seats and 780 km range",
+      "featureSummary": "The new i6 offers two zero-gravity seats alongside its long-range electric powertrain."
+    },
+    "26款理想i6实车到店，新配色+双零重力座椅，配544马力+续航780km": {
+      "titleEn": "2026 Li Auto i6 spotted with dual zero-gravity seats",
+      "featureSummary": "The showroom preview highlights the i6 dual zero-gravity seats and new cabin styling."
+    },
+    "26款理想i6到店，双零重力座椅续航780km": {
+      "titleEn": "2026 Li Auto i6 reaches dealers with dual zero-gravity seats",
+      "featureSummary": "Dual zero-gravity seats are a highlighted feature of the 2026 i6."
+    }
+  },
+  "battery_swap": {
+    "广东500座蔚来换电站达成，累计换电服务突破1700万次占全国总量约13%": {
+      "titleEn": "NIO reaches 500 swap stations in Guangdong and 17 million swaps",
+      "featureSummary": "NIO reports 500 Guangdong swap stations and more than 17 million cumulative swap services there."
+    },
+    "第五代换电站是什么？广东第500座蔚来换电站达成告诉你答案": {
+      "titleEn": "What is a fifth-generation swap station? NIO opens its 500th Guangdong station",
+      "featureSummary": "NIO's 500th Guangdong station provides context for its fifth-generation swapping technology."
+    },
+    "蔚来五代换电站时间表公布 3月底启用内部测试站": {
+      "titleEn": "NIO schedules internal testing of fifth-generation swap stations for late March",
+      "featureSummary": "NIO has announced a late-March internal test for its fifth-generation battery-swap stations."
+    },
+    "广东500座蔚来换电站达成 今年1-8月产品销量同比增长76.3%": {
+      "titleEn": "NIO reaches 500 Guangdong swap stations; sales rise 76.3% in January–August",
+      "featureSummary": "The swap network has reached 500 stations in Guangdong; the sales figure does not measure swapping use."
+    },
+    "【网通社快报】广东第500座蔚来换电站达成，6城同步上线6座第五代换电站": {
+      "titleEn": "NIO reaches 500 Guangdong swap stations and launches six fifth-generation sites",
+      "featureSummary": "Six fifth-generation swap sites open in six cities as NIO reaches 500 stations in Guangdong."
+    },
+    "蔚来：截至目前，广东蔚来换电站累计换电服务已突破1700万次，占全国换电总量约13%": {
+      "titleEn": "NIO says Guangdong stations have performed over 17 million swaps",
+      "featureSummary": "NIO says Guangdong accounts for about 13% of its nationwide battery-swap volume."
+    }
+  },
+  "ultra_charging": {
+    "理想i6新增的5C超充技术充电速度有多快？": {
+      "titleEn": "How fast is the Li Auto i6's new 5C ultra-fast charging?",
+      "featureSummary": "The article asks about charging speed for the i6's 5C system; the headline gives no measured rate."
+    },
+    "日产NX8纯电版20万内值得买吗？续航650km+5C超充，3个维度说清+FAQ": {
+      "titleEn": "Is the sub-¥200k Nissan NX8 EV worth it with 5C charging?",
+      "featureSummary": "The NX8 EV advertises 5C charging; the headline does not report a real-world charging test."
+    },
+    "理想MEGA配置参数全解析：50.98万全顶配值不值？3个维度说清+FAQ": {
+      "titleEn": "Li Auto MEGA specification review: is the ¥509,800 model worth it?",
+      "featureSummary": "The headline lists a general vehicle review and provides no specific ultra-charging finding."
+    },
+    "聊聊比亚迪“兆瓦闪充”技术的几大亮点": {
+      "titleEn": "Key highlights of BYD's megawatt flash-charging technology",
+      "featureSummary": "The article discusses BYD's megawatt charging technology, but the headline does not list performance figures."
+    },
+    "理想i6的5C超充电池实际充电速度有多快？": {
+      "titleEn": "How fast does the Li Auto i6's 5C battery charge in practice?",
+      "featureSummary": "The article examines real-world 5C charging speed for the i6; the headline supplies no measurement."
+    },
+    "凯迪拉克XT5 PHEV的5C超充实际体验如何？": {
+      "titleEn": "How is the Cadillac XT5 PHEV's 5C charging in real use?",
+      "featureSummary": "The article asks about practical 5C charging performance, without a result in the headline."
+    }
+  },
+  "phone_car_eco": {
+    "奕境X9北京车展亮相 华为乾崑+鸿蒙座舱，预计年内上市": {
+      "titleEn": "Yijing X9 debuts with Huawei Qiankun and HarmonyOS cockpit",
+      "featureSummary": "The X9 brings together Huawei driving assistance and a HarmonyOS cockpit in one connected cabin."
+    },
+    "当领克900、理想L8、问界M7遇上神行者8：30万级SUV的豪华与全地形标杆被重新定义": {
+      "titleEn": "Shenxingzhe 8 enters the ¥300k SUV comparison",
+      "featureSummary": "The comparison weighs family SUV luxury and all-terrain ability in the ¥300k segment."
+    },
+    "【视频】华境S大六座SUV绕不开的选择！华为鸿蒙座舱华为乾崑ADS 5": {
+      "titleEn": "Video: Huajing S six-seat SUV with HarmonyOS cockpit and Huawei ADS 5",
+      "featureSummary": "The Huajing S combines HarmonyOS cockpit software with Huawei assisted driving."
+    },
+    "华为汽车到底有几个品牌？好奇的车友看过来": {
+      "titleEn": "How many car brands does Huawei have?",
+      "featureSummary": "The article explains Huawei’s network of automotive partner brands."
+    },
+    "91%全铝底盘+鸿蒙座舱，深度拆解奕境X9，是否值得入手？": {
+      "titleEn": "Yijing X9 examined: aluminum chassis and HarmonyOS cockpit",
+      "featureSummary": "The X9 review examines its HarmonyOS cockpit alongside chassis and value features."
+    },
+    "增程SUV智能大横评：小米澎程、启境GX7、理想L6谁更值得买+FAQ": {
+      "titleEn": "Range-extender SUV smart-tech comparison: Xiaomi, Qijing and Li Auto",
+      "featureSummary": "The comparison reviews how connected and intelligent features differ among three range-extender SUVs."
+    }
+  },
+  "cockpit_llm": {
+    "2027款深蓝L06四大升级，真实优缺点都说透，看完再买车": {
+      "titleEn": "Four upgrades to the 2027 Deepal L06: pros and cons",
+      "featureSummary": "The review weighs the 2027 Deepal L06 upgrades and their practical value to buyers."
+    },
+    "你手机里的“豆包”，凭什么席卷车圈？": {
+      "titleEn": "Why is the Doubao assistant spreading through cars?",
+      "featureSummary": "The article examines adoption of the Doubao AI assistant in vehicles."
+    },
+    "华为界事不是豆包们的宿命参照": {
+      "titleEn": "Huawei's automotive path is not necessarily a template for Doubao",
+      "featureSummary": "The article compares Doubao’s rise in cars with Huawei’s broader automotive strategy."
+    },
+    "限时11.49万起,2027款深蓝L06上市，磁流变悬架+双AI智能体全安排": {
+      "titleEn": "2027 Deepal L06 launches from ¥114,900 with dual AI agents",
+      "featureSummary": "The upgraded L06 advertises two AI agents; the headline does not describe what each does."
+    },
+    "双车同发，2027款深蓝L06及深蓝L06追风版正式上市": {
+      "titleEn": "2027 Deepal L06 and L06 Zhuifeng launch together",
+      "featureSummary": "The launch introduces two versions of the Deepal L06 and their updated technology package."
+    },
+    "极狐阿尔法T5值得买吗？12万级智能SUV实测解析+FAQ": {
+      "titleEn": "Is the ¥120k Arcfox Alpha T5 smart SUV worth buying?",
+      "featureSummary": "The review evaluates the Arcfox Alpha T5 as an affordable smart SUV."
+    }
+  },
+  "hv_800v": {
+    "拒绝低配低价，全新领克20瞄准A级纯电SUV第一阵营": {
+      "titleEn": "New Lynk & Co 20 targets the top tier of compact electric SUVs",
+      "featureSummary": "The Lynk & Co 20 is positioned as a higher-spec compact electric SUV."
+    },
+    "矩形方向盘+800V高压平台，标致E-T16亮相 下一代E-208值得等吗？": {
+      "titleEn": "Peugeot E-T16 concept brings rectangular wheel and 800V platform",
+      "featureSummary": "The E-T16 concept includes an 800V high-voltage platform; charging performance is not stated."
+    },
+    "【视频】很多人只盯着外观！银河TT最核心的底牌，其实是这套800V高压平台": {
+      "titleEn": "Video: the Galaxy TT's key feature is its 800V platform",
+      "featureSummary": "The video identifies the 800V platform as a central Galaxy TT feature, without performance figures."
+    },
+    "15万级标配800V+激光雷达，领克20越级配置打成标配": {
+      "titleEn": "Lynk & Co 20 makes 800V and LiDAR standard around ¥150k",
+      "featureSummary": "The Lynk & Co 20 brings an 800V platform to the ¥150k segment; the headline omits charging speed."
+    },
+    "【20.68万起！上汽大众ID.ERA 8X上市：最高续航1602km】全新中大型增程SUV上汽大众ID.ERA 8X正式上市，限时权益价20.68-26.98万元。智能化层面搭载激光雷达与Momenta R7世界模型。动力上，该车零百加速4.6秒，依托800V高压平台提供两种电池规格，长续航": {
+      "titleEn": "VW ID.ERA 8X launches from ¥206,800 with an 800V platform",
+      "featureSummary": "The ID.ERA 8X uses an 800V platform and offers two battery sizes; charging rates are not stated."
+    },
+    "大众 ID.AURA T6下半年上市，首搭新CEA电子电气架构，配激光雷达": {
+      "titleEn": "VW ID.AURA T6 to launch with new CEA electronic architecture",
+      "featureSummary": "The ID.AURA T6 launch will introduce VW’s CEA vehicle electronics architecture."
+    }
+  },
+  "active_suspension": {
+    "【视频】实测见真章！蔚来ES9 NOMI全阶语音测试，能否交出满意答卷？": {
+      "titleEn": "Video: NIO ES9 NOMI voice-control test",
+      "featureSummary": "The ES9 video tests the responsiveness of its NOMI voice assistant."
+    },
+    "蔚来ES9内饰发布有点意思也有点作": {
+      "titleEn": "NIO ES9 interior released",
+      "featureSummary": "The ES9 interior reveal highlights its cabin design and equipment."
+    },
+    "尊界V800的官方售价是多少？": {
+      "titleEn": "What is the official price of the Maextro V800?",
+      "featureSummary": "The article answers a buyer question about the Maextro V800 price."
+    },
+    "【视频】家用车千千万，但别去试驾理想!": {
+      "titleEn": "Video: a Li Auto test drive warning",
+      "featureSummary": "The video gives a broad impression of a Li Auto test drive."
+    },
+    "【视频】国庆节，在出国的边缘疯狂试探": {
+      "titleEn": "Video: National Day road-trip teaser",
+      "featureSummary": "The holiday video appears to be a general road-trip or vehicle experience."
+    },
+    "蔚来ES9终于来了": {
+      "titleEn": "The NIO ES9 finally arrives",
+      "featureSummary": "The launch story introduces the NIO ES9 as a new model."
+    }
+  },
+  "lidar": {
+    "图达通三季度激光雷达出货量达26.89 万台": {
+      "titleEn": "Seyond ships 268,900 LiDAR units in the third quarter",
+      "featureSummary": "Seyond reports third-quarter LiDAR shipments of 268,900 units."
+    },
+    "问界M7“闪电”升级896线激光雷达，为何引发部分老车主不满？": {
+      "titleEn": "AITO M7 upgrades to 896-line LiDAR, upsetting some existing owners",
+      "featureSummary": "The M7's 896-line LiDAR upgrade has drawn criticism from some earlier buyers."
+    },
+    "图达通三季度激光雷达出货量达26.89万台": {
+      "titleEn": "Seyond ships 268,900 LiDAR units in the third quarter",
+      "featureSummary": "Seyond reports third-quarter LiDAR shipments of 268,900 units."
+    },
+    "红旗天工07登场，带激光雷达，16.79万起行吗？": {
+      "titleEn": "Hongqi Tiangong 07 arrives with LiDAR from ¥167,900",
+      "featureSummary": "The Tiangong 07 includes LiDAR at a starting price of ¥167,900; the headline gives no sensor specification."
+    },
+    "多花2900块多个座位和激光雷达，零跑C16与C10怎么选？": {
+      "titleEn": "Leapmotor C16 versus C10: ¥2,900 buys an extra seat and LiDAR",
+      "featureSummary": "The comparison asks whether paying ¥2,900 more for LiDAR and a seat is worthwhile."
+    },
+    "【视频】丰田铂智7 2026款 700 Max激光雷达版": {
+      "titleEn": "Video: 2026 Toyota bZ7 700 Max LiDAR edition",
+      "featureSummary": "The 2026 bZ7 variant is identified as LiDAR-equipped; the headline gives no performance assessment."
+    }
+  },
+  "ota": {
+    "零跑汽车宣布C系24款及部分26款车型开始推送OTA更新": {
+      "titleEn": "Leapmotor starts OTA rollout for 2024 C-series and some 2026 models",
+      "featureSummary": "Leapmotor is distributing an over-the-air update to selected C-series vehicles."
+    },
+    "问界M7“闪电”升级896线激光雷达，为何引发部分老车主不满？": {
+      "titleEn": "AITO M7 LiDAR upgrade draws complaints from existing owners",
+      "featureSummary": "The AITO M7 hardware LiDAR change has prompted questions from some existing owners."
+    },
+    "蔚来ES6等车型OTA升级 城区领航提速至100km/h": {
+      "titleEn": "NIO ES6 and other models receive OTA; urban pilot speed rises to 100 km/h",
+      "featureSummary": "A NIO OTA update raises the stated urban navigation-assistance speed limit to 100 km/h."
+    },
+    "深蓝i版车型OTA追踪：三季度更新承诺落空，仍待备案结果": {
+      "titleEn": "Deepal i-series OTA promise missed; approval still pending",
+      "featureSummary": "The planned third-quarter Deepal OTA did not arrive, according to the headline, and approval remains pending."
+    },
+    "方程豹豹8推送第七次OTA升级，新增28项功能优化18项体验": {
+      "titleEn": "Fangchengbao Bao 8 gets seventh OTA with 28 new functions",
+      "featureSummary": "The seventh Bao 8 update adds 28 functions and optimizes 18 experience areas, according to the headline."
+    },
+    "深蓝SL03 极狐阿尔法S 持L3试点牌": {
+      "titleEn": "Deepal SL03 and Arcfox Alpha S hold L3 pilot permits",
+      "featureSummary": "Deepal and Arcfox models are reported to hold L3 pilot permits."
+    }
+  },
+  "sodium_ion": {
+    "宁德时代签欧洲钠电储能订单": {
+      "titleEn": "CATL signs European sodium-ion energy-storage order",
+      "featureSummary": "CATL’s European sodium-ion order points to adoption of this battery chemistry in energy storage."
+    },
+    "15GWh！长天新能源湖南益阳钠电池项目备案通过": {
+      "titleEn": "15 GWh sodium-ion battery project in Yiyang, Hunan, receives filing approval",
+      "featureSummary": "The approved Yiyang project targets 15 GWh of sodium-ion battery capacity, according to the headline."
+    },
+    "率先破局！旭派动力低压辅助电池完成新能源整车配套落地": {
+      "titleEn": "Xupai low-voltage auxiliary battery enters new-energy vehicles",
+      "featureSummary": "Xupai reports vehicle adoption of its low-voltage auxiliary battery."
+    },
+    "众钠能源获数亿元融资，已申请无负极钠电池与叠片结构专利": {
+      "titleEn": "Zhongna Energy raises funding and files sodium-battery patents",
+      "featureSummary": "The company has sought patents for anode-free sodium cells and stacked structures."
+    },
+    "宁德时代再获3GWh欧洲大单，全年钠电订单攀升至70GWh": {
+      "titleEn": "CATL wins another 3 GWh European order; annual sodium-ion orders reach 70 GWh",
+      "featureSummary": "CATL’s reported sodium-ion order volume reaches 70 GWh for the year."
+    },
+    "“沙戈荒”新能源基地储能难题怎么破？兰大探索新路径": {
+      "titleEn": "Lanzhou University explores storage for desert renewable-energy bases",
+      "featureSummary": "Lanzhou University explores new storage approaches for renewable-energy bases in arid regions."
+    }
+  },
+  "robotaxi": {
+    "小马智行-W早盘涨逾7% 正在推进将旗下第七代Robotaxi引入英国伦敦": {
+      "titleEn": "Pony.ai shares rise as it advances seventh-generation robotaxi rollout in London",
+      "featureSummary": "Pony.ai is working to introduce its seventh-generation robotaxi in London."
+    },
+    "美国奥斯汀街头，到处都是Cybercab特斯拉无人驾驶出租车": {
+      "titleEn": "Tesla Cybercabs appear on Austin streets",
+      "featureSummary": "The headline reports Cybercab sightings in Austin, without specifying passenger service or deployment scale."
+    },
+    "小马智行旗下第七代Robotaxi引入英国伦敦 早盘股价涨逾7%": {
+      "titleEn": "Pony.ai brings its seventh-generation robotaxi to London",
+      "featureSummary": "Pony.ai's London robotaxi expansion is the focus; the share-price move is separate."
+    },
+    "貌似缆车的机器人出租车…无方向盘“Zoox”商业运营首日试乘": {
+      "titleEn": "First-day ride in Zoox's steering-wheel-free robotaxi",
+      "featureSummary": "The article describes a first-day commercial ride in Zoox's purpose-built robotaxi."
+    },
+    "港股异动 | 文远知行-W(00800)涨超7% 公司加速推进海外Robotaxi 部署 商业化进程提速": {
+      "titleEn": "WeRide shares rise as overseas robotaxi deployment accelerates",
+      "featureSummary": "The headline links WeRide's share move to faster overseas robotaxi commercialization."
+    },
+    "美国国家公路交通安全管理局已对约1000辆特斯拉Robotaxi开启缺陷调查。针对特斯拉的请愿书称，涉事车辆在学校限速区域处于启用状态时，行驶速度超过了该区域公布的限速。": {
+      "titleEn": "US regulator investigates about 1,000 Tesla robotaxis over school-zone speeds",
+      "featureSummary": "The NHTSA investigation concerns allegations that Tesla robotaxis exceeded posted limits in active school zones."
+    }
+  },
+  "v2g": {
+    "碳酸锂价格暴跌近90%，动力电池回收行业进入洗牌深水区": {
+      "titleEn": "Lithium carbonate price collapse reshapes battery recycling",
+      "featureSummary": "The article examines a battery-recycling shakeout after a sharp drop in lithium carbonate prices."
+    },
+    "远程星享M7E上市，11.39万起配金砖电池": {
+      "titleEn": "Farizon Xingxiang M7E launches from ¥113,900 with a battery pack",
+      "featureSummary": "Farizon introduces an electric commercial vehicle with its specified battery package."
+    },
+    "浙江金华：电动重卡充电站首次参与市场化响应": {
+      "titleEn": "Jinhua electric-truck charging station joins market-based grid response",
+      "featureSummary": "A truck charging station participates in grid demand response in Jinhua."
+    },
+    "停着的车也能赚钱？电动车解锁新副业 车网互动 虚拟电厂": {
+      "titleEn": "Can parked EVs earn money through vehicle-to-grid and virtual power plants?",
+      "featureSummary": "The article explores income from parked EVs supplying grid services through V2G."
+    },
+    "从经销店到电网：雷诺与EDF把V2G装进法国家庭": {
+      "titleEn": "Renault and EDF bring V2G into French homes",
+      "featureSummary": "Renault and EDF are bringing bidirectional vehicle-to-grid charging to households in France."
+    },
+    "充电桩有了智慧“大脑”，“以荷定充”巧解老旧小区充电难题": {
+      "titleEn": "Smart chargers adapt charging to capacity in older neighborhoods",
+      "featureSummary": "Managed charging is used to fit EV charging within older neighborhoods’ electrical capacity."
+    }
+  },
+  "steer_by_wire": {
+    "生态港顺义园1号地再添新伙伴": {
+      "titleEn": "New partner joins Shunyi Eco-Port industrial site",
+      "featureSummary": "The article announces a new business partner at the Shunyi Eco-Port site."
+    },
+    "标致全新跑车曝光,固态电池+线控转向": {
+      "titleEn": "New Peugeot sports car reported with solid-state battery and steer-by-wire",
+      "featureSummary": "The reported Peugeot concept includes steer-by-wire; the headline gives no technical specification."
+    },
+    "【图】引入线控制动和线控转向 搭载固态电池 标致RCZ Vision概念车官图": {
+      "titleEn": "Peugeot RCZ Vision concept shows brake-by-wire and steer-by-wire",
+      "featureSummary": "The concept incorporates both brake-by-wire and steer-by-wire, according to the headline."
+    },
+    "【视频】智己 LS9，重新定义30 万级豪华六座SUV": {
+      "titleEn": "Video: IM LS9 six-seat SUV review",
+      "featureSummary": "The video reviews the IM LS9 as a six-seat luxury SUV."
+    },
+    "下一代E-208？816马力、极速300公里，标致E-T16概念车巴黎首发": {
+      "titleEn": "Peugeot E-T16 concept debuts with 816 hp and 300 km/h top speed",
+      "featureSummary": "The Peugeot E-T16 concept is presented through its high-performance specifications."
+    },
+    "标致RCZ概念车": {
+      "titleEn": "Peugeot RCZ concept car",
+      "featureSummary": "The brief headline introduces the Peugeot RCZ concept car."
+    }
+  },
+  "smart_lighting": {
+    "00后店长深耕社区门店：以暖心服务，让九号店汇聚人间烟火": {
+      "titleEn": "Young store manager builds a neighborhood shop",
+      "featureSummary": "The profile describes how a young manager runs a neighborhood retail store."
+    },
+    "同价位大六座SUV 奕境X9和腾势N8L谁更值？": {
+      "titleEn": "Yijing X9 versus Denza N8L: which six-seat SUV is better value?",
+      "featureSummary": "The comparison asks which of two large six-seat SUVs offers better value."
+    },
+    "阿维塔T09概念版在巴黎车展完成全球首秀": {
+      "titleEn": "Avatr T09 concept makes its global debut in Paris",
+      "featureSummary": "The Avatr T09 concept makes its global debut at the Paris motor show."
+    },
+    "广汽与华为联合，为市场推出一款五座百变空间中大型增程版SUV": {
+      "titleEn": "GAC and Huawei develop a five-seat range-extender SUV",
+      "featureSummary": "GAC and Huawei collaborate on a versatile five-seat range-extender SUV."
+    },
+    "小鹏G9L要去巴黎了 计划登陆64国、车上还带着华为参与研发的大灯": {
+      "titleEn": "XPeng G9L heads to Paris with Huawei-co-developed headlights",
+      "featureSummary": "The G9L features headlights co-developed with Huawei; the headline gives no function details."
+    },
+    "智界V9续航超1250km，华为乾崑智驾+雪鸮增程加持": {
+      "titleEn": "Luxeed V9 claims over 1,250 km range with Huawei assistance",
+      "featureSummary": "The Luxeed V9 is introduced with long range and Huawei driver assistance."
+    }
+  },
+  "central_compute": {
+    "重视OTA持续迭代，11万左右的中大型轿跑推荐看极狐阿尔法S5": {
+      "titleEn": "Arcfox Alpha S5 recommended for frequent OTA updates",
+      "featureSummary": "The recommendation highlights ongoing OTA updates for the Arcfox Alpha S5."
+    },
+    "重视人机交互逻辑，11万左右的中大型轿跑推荐选极狐阿尔法S5": {
+      "titleEn": "Arcfox Alpha S5 recommended for its human-machine interaction",
+      "featureSummary": "The review focuses on the Alpha S5’s human-machine interaction design."
+    },
+    "捷途环游者到店 方盒子+复古圆灯值得期待！": {
+      "titleEn": "Jetour Traveller arrives with retro round lights",
+      "featureSummary": "The Jetour Traveller showroom preview highlights its boxy design and retro headlights."
+    },
+    "赛力斯AI论坛谈未来汽车新架构：中央计算平台融合智驾座舱": {
+      "titleEn": "Seres describes central compute merging driving assistance and cockpit",
+      "featureSummary": "Seres discusses a central computing platform that combines driving-assistance and cockpit functions."
+    },
+    "比亚迪 8T8R 毫米波雷达芯片，把感知计算交给中央大脑": {
+      "titleEn": "BYD 8T8R radar chip sends perception processing to central computer",
+      "featureSummary": "The headline describes radar perception work moving to a central vehicle computer."
+    },
+    "赛力斯刘小飞：汽车架构驶向舱驾融合": {
+      "titleEn": "Seres executive says vehicle architecture is moving toward cockpit-driving fusion",
+      "featureSummary": "Seres forecasts tighter integration of cockpit and assisted-driving computing."
+    }
+  },
+  "l3_autonomy": {
+    "特斯拉欧洲FSD更名TAD": {
+      "titleEn": "Tesla renames FSD to TAD in Europe",
+      "featureSummary": "Tesla changes the European name of its assisted-driving package from FSD to TAD."
+    },
+    "L3、L4级自动驾驶“强标”明年7月实施 明确安全主体责任、接管机制": {
+      "titleEn": "Mandatory L3 and L4 driving standards start next July",
+      "featureSummary": "The reported standards clarify safety responsibility and driver takeover rules for higher automation."
+    },
+    "极限三挑战!岚图梦想家9 L3级有条件自动驾驶实测": {
+      "titleEn": "Voyah Dreamer 9 faces three L3 conditional-driving tests",
+      "featureSummary": "The article reports L3 testing of the Dreamer 9; the headline gives no outcome."
+    },
+    "创新可以快，但验证必须充分！四部门划清汽车安全底线": {
+      "titleEn": "Four ministries draw safety boundaries for vehicle innovation",
+      "featureSummary": "The policy story discusses vehicle safety boundaries for emerging automotive technology."
+    },
+    "尊界V680的自动驾驶辅助功能怎么样？": {
+      "titleEn": "How good are the Maextro V680's assisted-driving features?",
+      "featureSummary": "The article evaluates the Maextro V680’s assisted-driving experience."
+    },
+    "智界RX的L3大餐，还需要火候！": {
+      "titleEn": "Luxeed RX's L3 offering still needs more work",
+      "featureSummary": "The headline suggests Luxeed RX's L3 capabilities are not yet fully mature, without naming a specific gap."
+    }
+  },
+  "adas_chips": {
+    "亚马逊洽谈以约70亿美元收购AI初创企业Decart，拟强化自研芯片生态并拓展3D生成技术": {
+      "titleEn": "Amazon discusses acquiring AI startup Decart for about $7bn",
+      "featureSummary": "Amazon’s proposed AI acquisition is framed around its broader in-house chip ecosystem."
+    },
+    "2026自研芯片旗舰怎么选？麒麟/玄戒/电竞Q3三派横评，看完不踩坑+FAQ": {
+      "titleEn": "2026 in-house smartphone chips compared: Kirin, Xring and Q3",
+      "featureSummary": "The guide compares three families of in-house smartphone chips for 2026 devices."
+    },
+    "英伟达、地平线领跑智驾芯片市场 双方份额差距年内缩小约25个百分点": {
+      "titleEn": "Nvidia and Horizon lead assisted-driving chips as market-share gap narrows",
+      "featureSummary": "The headline says the share gap between the two ADAS-chip suppliers narrowed by roughly 25 percentage points this year."
+    },
+    "理想i6的智能座舱和智驾芯片性能怎么样？": {
+      "titleEn": "How do the Li Auto i6's cockpit and ADAS chips perform?",
+      "featureSummary": "The article examines the i6's cockpit and assisted-driving processors; the headline gives no benchmark result."
+    },
+    "开局之年看中国·潮涌荆楚丨一颗“芯”的突围之战": {
+      "titleEn": "A Chinese chip's breakthrough story",
+      "featureSummary": "The profile tells a broader story about a domestic chip-development breakthrough."
+    },
+    "理想 CTO 谢炎揭秘马赫 M100 研发史：要像苹果一样造芯片": {
+      "titleEn": "Li Auto CTO recounts development of its Mach M100 chip",
+      "featureSummary": "The article discusses Li Auto's in-house Mach M100 chip development, without performance details in the headline."
+    }
+  },
+  "giga_casting": {
+    "一体化压铸板块10月9日涨0.03%，宝武镁业领涨，主力资金净流出3.2亿元": {
+      "titleEn": "Integrated die-casting shares edge up on 9 October",
+      "featureSummary": "The market note tracks integrated die-casting stocks and investor flows on 9 October."
+    },
+    "2026款小鹏G6 vs 零跑C11 专业对比测评": {
+      "titleEn": "2026 XPeng G6 versus Leapmotor C11 comparison",
+      "featureSummary": "The article compares the 2026 XPeng G6 and Leapmotor C11 as vehicles."
+    },
+    "消息称中国供应商拿下雷克萨斯新一代纯电SUV大量零部件订单": {
+      "titleEn": "Chinese suppliers reportedly win Lexus EV parts orders",
+      "featureSummary": "The report says Chinese suppliers won orders for Lexus’s next electric SUV."
+    },
+    "成本低还快！丰田雷克萨斯新车大量用中国零件 日本供应商竞标落败": {
+      "titleEn": "Lexus uses more Chinese parts as Japanese suppliers lose bids",
+      "featureSummary": "The story attributes Lexus’s shift toward Chinese components to cost and delivery speed."
+    },
+    "一汽丰田发布声明，能否震慑不实言论者？": {
+      "titleEn": "FAW Toyota issues a statement about false claims",
+      "featureSummary": "FAW Toyota responds publicly to claims it says are false."
+    },
+    "多概念加持获市场关注 东风科技股价涨停": {
+      "titleEn": "Dongfeng Technology shares hit the daily limit amid multiple themes",
+      "featureSummary": "The market note discusses a share-price jump for Dongfeng Technology."
+    }
+  }
+}

@@ -67,16 +67,16 @@
   font-size: 12px;
 }
 
-/* ---------- workspace: category plot alone, or three panels left to right ---------- */
+/* ---------- comparison above, news features below ---------- */
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
-  align-items: start;
+  align-items: stretch;
 }
-.workspaceOpen {
-  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) minmax(0, 0.9fr);
+.workspace > .panel:last-child {
+  grid-column: 1 / -1;
 }
 
 .panel,
@@ -122,21 +122,6 @@
   background: var(--category-color);
   color: #fff;
   font: 700 13px/1 var(--font-rounded);
-}
-
-.clearButton {
-  flex: none;
-  padding: 7px 12px;
-  border: 1px solid var(--sep);
-  border-radius: 999px;
-  background: var(--fill);
-  color: var(--label-2);
-  font: 600 12px/1 var(--font-rounded);
-  cursor: pointer;
-}
-.clearButton:hover {
-  color: var(--label);
-  border-color: var(--label-3);
 }
 
 /* ---------- category plot ---------- */
@@ -190,7 +175,7 @@
   gap: 8px;
   margin-top: 8px;
 }
-.workspaceOpen .legend {
+.workspace .legend {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
@@ -284,6 +269,7 @@
 
 .newsList {
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
   margin-top: 14px;
 }
@@ -316,15 +302,6 @@
   line-height: 1.5;
 }
 
-@media (max-width: 1180px) {
-  .workspaceOpen {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-  .workspaceOpen > .panel:first-child {
-    grid-column: 1 / -1;
-  }
-}
-
 @media (max-width: 1050px) {
   .hero {
     grid-template-columns: 1fr;
@@ -333,6 +310,9 @@
     width: min(100%, 520px);
   }
   .legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .newsList {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -344,7 +324,7 @@
   .hero {
     padding-top: 42px;
   }
-  .workspaceOpen {
+  .workspace {
     grid-template-columns: minmax(0, 1fr);
   }
   .panel {
@@ -369,7 +349,10 @@
     border-bottom: 0;
   }
   .legend,
-  .workspaceOpen .legend {
+  .workspace .legend {
+    grid-template-columns: 1fr;
+  }
+  .newsList {
     grid-template-columns: 1fr;
   }
 }

@@ -13,6 +13,7 @@ dist/
 # Local analysis scratch space (production logic belongs in backend/app/)
 tmp/
 outputs/
+china-tech-radar/china_trends_cache/
 .DS_Store
 
 # Environment variables & Secrets
@@ -27,4 +28,3 @@ backend/.env.*
 !.env.production
 !.env.example
 !backend/.env.example
-

@@ -1,4 +1,4 @@
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import {
   DOMAIN_COLORS,
   fmtP,
@@ -8,8 +8,14 @@ import {
   type BmwDomainStat,
 } from "../content/trendRadar";
 import { HEADLINE_EN, SOURCE_EN } from "../content/translations";
+import { HEADLINE_NOTES } from "../content/headlineNotes";
 import { ContentPage } from "./ContentPage";
 import styles from "./NewsletterPage.module.css";
+
+interface TopicAnnotations {
+  basis: "headline";
+  items: Array<{ link: string; title_en: string; feature_summary: string }>;
+}
 
 function Sparkline({
   data,
@@ -45,7 +51,36 @@ export function NewsletterPage() {
   const [openTopicId, setOpenTopicId] = useState<string | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [annotationsByTopic, setAnnotationsByTopic] = useState<Record<string, TopicAnnotations>>({});
+  const [annotationErrors, setAnnotationErrors] = useState<Record<string, string>>({});
+  const loadingTopics = useRef(new Set<string>());
   const mapSvgId = useId();
+
+  const loadAnnotations = async (topicId: string) => {
+    if (annotationsByTopic[topicId] || loadingTopics.current.has(topicId)) return;
+    const topic = trendRadarData.topics.find((item) => item.id === topicId);
+    loadingTopics.current.add(topicId);
+    try {
+      const response = await fetch(`/api/v1/news/annotations/${encodeURIComponent(topicId)}`, { method: "POST" });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.detail ?? `HTTP ${response.status}`);
+      setAnnotationsByTopic((current) => ({ ...current, [topicId]: result as TopicAnnotations }));
+      setAnnotationErrors((current) => {
+        const next = { ...current };
+        delete next[topicId];
+        return next;
+      });
+    } catch (error) {
+      if (!topic?.headlines.every((headline) => HEADLINE_NOTES[topicId]?.[headline.title])) {
+        setAnnotationErrors((current) => ({
+          ...current,
+          [topicId]: error instanceof Error ? error.message : "Could not generate news annotations",
+        }));
+      }
+    } finally {
+      loadingTopics.current.delete(topicId);
+    }
+  };
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
@@ -66,13 +101,14 @@ export function NewsletterPage() {
     setIsRefreshing(true);
     try {
       const res = await fetch("/api/refresh-trends", { method: "POST" });
+      const result = await res.json();
       if (res.ok) {
-        showToast("Updated with the latest Chinese automotive coverage.");
+        window.location.reload();
       } else {
-        showToast("Live re-scrape needs the background worker: python3 scrape_china_tech_trends.py");
+        showToast(result.detail ?? `Trend refresh failed (HTTP ${res.status}).`);
       }
     } catch {
-      showToast("Live re-scrape ready: run python3 scrape_china_tech_trends.py to update coverage index.");
+      showToast("Could not reach the trend refresh service. Check that the backend is running.");
     } finally {
       setIsRefreshing(false);
     }
@@ -386,6 +422,7 @@ export function NewsletterPage() {
                   const target = e.currentTarget;
                   if (target.open) {
                     setOpenTopicId(t.id);
+                    void loadAnnotations(t.id);
                   } else if (openTopicId === t.id) {
                     setOpenTopicId(null);
                   }
@@ -429,26 +466,40 @@ export function NewsletterPage() {
                 <div className={styles.topicDetailPanel}>
                   <div>
                     <h3 className={styles.detailHeading}>Latest Chinese headlines</h3>
+                    <p className={styles.headlineHint}>Hover or focus a headline for a feature-focused AI note.</p>
+                    {annotationErrors[t.id] && <p className={styles.annotationError}>{annotationErrors[t.id]}</p>}
                     {t.headlines.length > 0 ? (
                       <ul className={styles.headlineList}>
-                        {t.headlines.map((h, hIdx) => (
-                          <li key={hIdx} className={styles.headlineItem}>
-                            <a
-                              href={h.link}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className={styles.headlineLink}
-                            >
-                              {h.title} ↗
-                            </a>
-                            {HEADLINE_EN[h.title] && (
-                              <div className={styles.headlineMeta}>EN · {HEADLINE_EN[h.title]}</div>
-                            )}
-                            <div className={styles.headlineMeta}>
-                              {SOURCE_EN[h.source] ?? h.source} · {h.date}
-                            </div>
-                          </li>
-                        ))}
+                        {t.headlines.map((h, hIdx) => {
+                          const annotation = annotationsByTopic[t.id]?.items[hIdx];
+                          const note = HEADLINE_NOTES[t.id]?.[h.title];
+                          const translated = annotation?.title_en ?? note?.titleEn ?? HEADLINE_EN[h.title];
+                          return (
+                            <li key={h.link} className={styles.headlineItem}>
+                              <div className={styles.headlineTitleRow}>
+                                <a href={h.link} target="_blank" rel="noopener noreferrer" className={styles.headlineLink}>
+                                  {h.title} ↗
+                                </a>
+                                <button
+                                  type="button"
+                                  className={styles.summaryTrigger}
+                                  aria-label={`Feature summary for ${h.title}`}
+                                  aria-describedby={`summary-${t.id}-${hIdx}`}
+                                >ⓘ</button>
+                              </div>
+                              <div className={styles.headlineTranslation}>
+                                EN · {translated ?? (annotationErrors[t.id] ? "Translation unavailable" : "Generating translation…")}
+                              </div>
+                              <div className={styles.headlineMeta}>{SOURCE_EN[h.source] ?? h.source} · {h.date}</div>
+                              <div id={`summary-${t.id}-${hIdx}`} className={styles.headlineTooltip} role="tooltip">
+                                <b>AI feature summary · based on headline</b>
+                                <p>{annotation?.feature_summary ?? note?.featureSummary ?? (annotationErrors[t.id]
+                                  ? "Summary unavailable until the AI service is configured."
+                                  : "Generating a feature-focused summary…")}</p>
+                              </div>
+                            </li>
+                          );
+                        })}
                       </ul>
                     ) : (
                       <div className={styles.hint}>No articles in the recent window.</div>

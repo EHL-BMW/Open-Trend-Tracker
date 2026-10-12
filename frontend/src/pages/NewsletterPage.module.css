@@ -460,6 +460,7 @@
 }
 
 .headlineItem {
+  position: relative;
   padding: 7px 0;
   border-bottom: 1px dashed var(--sep);
   line-height: 1.5;
@@ -479,6 +480,81 @@
 
 .headlineLink:hover {
   color: var(--blue);
+}
+
+.headlineHint {
+  color: var(--label-3);
+  font-size: 12px;
+  margin: -4px 0 8px;
+}
+
+.annotationError {
+  color: var(--danger);
+  font-size: 12px;
+  margin: 0 0 8px;
+}
+
+.headlineTitleRow {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+}
+
+.summaryTrigger {
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font-size: 14px;
+  cursor: help;
+  padding: 0 3px;
+  flex: none;
+}
+
+.headlineTranslation {
+  color: var(--label-2);
+  font-size: 12.5px;
+  margin-top: 2px;
+}
+
+.headlineTooltip {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% - 2px);
+  left: 8px;
+  width: min(430px, calc(100vw - 60px));
+  padding: 12px 14px;
+  border: 1px solid var(--sep);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--label);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.headlineTooltip b {
+  display: block;
+  color: var(--blue);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.headlineTooltip p {
+  margin: 5px 0 0;
+  line-height: 1.45;
+}
+
+.headlineItem:nth-last-child(-n + 2) .headlineTooltip {
+  top: auto;
+  bottom: calc(100% - 2px);
+}
+
+.headlineItem:hover .headlineTooltip,
+.headlineItem:focus-within .headlineTooltip {
+  opacity: 1;
+  visibility: visible;
 }
 
 .headlineMeta {

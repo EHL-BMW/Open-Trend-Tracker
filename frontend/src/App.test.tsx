@@ -127,6 +127,11 @@ describe("App", () => {
     expect(screen.getByRole("heading", { name: "Trend map" })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "All topics, ranked by priority" })).toBeInTheDocument();
     expect(screen.getAllByText("Solid-state batteries").length).toBeGreaterThan(0);
+    const solidStateRow = document.querySelector("#topic-solid_state summary");
+    expect(solidStateRow).not.toBeNull();
+    await userEvent.setup().click(solidStateRow!);
+    expect(screen.getByText(/Xiongtao says solid-state batteries have generated no sales/)).toBeInTheDocument();
+    expect(screen.getByText(/no sales revenue from solid-state batteries/)).toBeInTheDocument();
   });
   it("recovers when the backend data changed while the page was open", async () => {
     const user = userEvent.setup();
