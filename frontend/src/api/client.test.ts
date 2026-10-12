@@ -3,11 +3,28 @@ import { describe, expect, it, vi } from "vitest";
 import { server } from "../mocks/node";
 import { apiUrl, ApiError } from "./client";
 import { api } from "./endpoints";
+import { technologyForecastSchema } from "./schemas";
 
 describe("api client", () => {
   it("returns validated data", async () => {
     const catalog = await api.getCatalog();
     expect(catalog.categories.sales.filters.map((g) => g.key)).toEqual(["line", "powertrain"]);
+  });
+
+  it("accepts a signed four-year sales-impact trajectory", () => {
+    const result = technologyForecastSchema.parse({
+      technology: "smart-seats",
+      label: "Smart seats",
+      currentShare: 0.12,
+      forecastShare: -0.08,
+      impactByYear: [
+        { year: 1, impact: 0.12, pairs: 8 },
+        { year: 2, impact: 0.04, pairs: 8 },
+        { year: 3, impact: -0.02, pairs: 8 },
+        { year: 4, impact: -0.08, pairs: 8 },
+      ],
+    });
+    expect(result.impactByYear?.map((point) => point.year)).toEqual([1, 2, 3, 4]);
   });
 
   it("turns the backend error body into an ApiError", async () => {

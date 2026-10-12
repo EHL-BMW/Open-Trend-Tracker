@@ -2,14 +2,14 @@
 
 Candidates are the new Chinese features tracked in the newsletter (potential improvements). The sources:
 
-  trends    news signal of the new feature + its estimated sales uplift, year 1 -> year 4, taken from the
-            related old (Chinese-200) features of the same subcategory, or the category prior if none exists
-  sales     BMW 2030 volume in CN, EU and US x the estimated year-4 uplift = extra units/year (scenario)
+  trends    news signal of the new feature + its sales uplift from year 1 to the latest observed year after
+            launch, taken from Chinese version pairs of the same subcategory, or of the category if too few
+  sales     BMW 2030 volume in CN, EU and US x that latest-year uplift = extra units/year (scenario)
   customer  G70 problems identified from the feedback workbook in Feature Radar (mentions per problem)
   features  BMW option-list availability of the attributes behind the related old features (context, not weighted)
 
 The scoring and texts follow frontend/src/mocks/engine.ts, the reference implementation of the contract.
-No observed sales response exists for these features yet, so sales specs are marked as assumption
+The uplift is an observational association from Chinese pairs, not BMW sales, so sales specs are marked as assumption
 and every recommendation carries a flag saying so; assumptionShare stays the trends share as in the contract.
 Every cited record carries a `url` back to its source (news article, Feature Radar problem, Impact tab, option list).
 """
@@ -36,21 +36,30 @@ CHIPS = {"sales": "Sales", "customer": "Customer", "trends": "Trends", "features
 MARKETS = {"CN": "China", "EU": "Europe", "US": "USA"}
 CATALOG_VEHICLES = ["G60", "G70"]
 IMPACT_URL = "/sales-impact-forecast"
-# Old Chinese-derived feature -> BMW taxonomy attributes that describe the same customer function
+# Subcategory -> BMW taxonomy attributes that describe the same customer function
 BMW_ATTRIBUTES = {
-    "900V system + 102 kWh battery": ["hv_battery", "electric_range"],
-    "Charging + battery-swap station network": ["charging"],
-    "World-model ADAS + point-to-point navigation": ["driving_assistance", "navigation"],
-    "5 nm automotive SoC + full-domain E/E architecture": ["operating_concept", "connected_services"],
-    "CDC dampers + hydraulic rear-subframe bushings": ["handling_ride"],
-    "Software-controlled active chassis system": ["handling_ride", "driving_modes"],
-    "Dual cushion airbags + seat-integrated belts": ["safety_overall"],
-    "Integrated cabin display + audio entertainment": ["rear_entertainment", "displays"],
-    "Roof center speaker + Dirac RRM audio": ["audio"],
-    "Second-row zero-gravity seats + leg support": ["seat_features", "rear_space"],
-    "Six-/seven-seat cabin configuration": ["versatility", "interior_space"],
-    "ADB matrix headlights + Double-Dash DRL": ["exterior_lighting"],
-    "New Moon Silver paint + 21-inch wheels": ["exterior_styling", "wheels_tires"],
+    "battery_range": ["hv_battery", "electric_range"],
+    "charging_replenishment": ["charging"],
+    "high_voltage_powertrain": ["efficiency", "powertrain_performance"],
+    "hybrid_powertrain": ["efficiency", "electric_range"],
+    "assisted_driving": ["driving_assistance"],
+    "perception_compute": ["driving_assistance"],
+    "autonomous_mobility": ["driving_assistance"],
+    "cockpit_intelligence": ["voice_assistant", "operating_concept"],
+    "displays_hmi": ["displays", "touchscreen"],
+    "vehicle_compute": ["operating_concept", "connected_services"],
+    "software_lifecycle": ["connected_services"],
+    "cross_device_ecosystem": ["smartphone_integration"],
+    "seating_comfort": ["seat_comfort", "seat_features"],
+    "cabin_entertainment": ["audio", "rear_entertainment"],
+    "passive_safety": ["safety_overall"],
+    "powertrain_performance": ["powertrain_performance"],
+    "ride_body_control": ["handling_ride", "driving_modes"],
+    "by_wire_controls": ["handling_ride"],
+    "body_manufacturing": [],
+    "lighting_visibility": ["exterior_lighting"],
+    "exterior_personalization": ["exterior_styling", "wheels_tires"],
+    "ownership_services": [],
 }
 PREFIX = {"sales": "S", "customer": "C", "features": "F", "trends": "T"}
 
@@ -80,25 +89,35 @@ def _tables(_problems_mtime: float) -> dict:
     history = forecast_catalog()["bmw_sales_history"]
     option_lists = {v: {item["feature_id"]: item for item in engineering_comparison(v)["items"]} for v in CATALOG_VEHICLES}
     candidates, sales, customer, product, trends = {}, [], [], [], []
-    for category in impact_taxonomy()["categories"]:
+    impact = impact_taxonomy()
+    for category in impact["categories"]:
         for sub in category["subcategories"]:
-            old = sub["legacy_features"]
-            estimate = sub["impact_by_year"] or category["impact_by_year"]
+            # Use a subcategory only when its full four-year series is available. Otherwise the
+            # category's complete series is the honest comparable fallback for a new feature.
+            sub_series = sub["impact_by_year"] or []
+            complete_sub_series = len(sub_series) == 4 and {p["year"] for p in sub_series} == {1, 2, 3, 4}
+            basis = [f"{sub['label']} ({sub['pair_count']} pairs)"] + [f["name"] for f in sub["legacy_features"]] \
+                if complete_sub_series else []
+            # no estimate at all (too few pairs in the category): no uplift, flagged below
+            estimate = sub_series if complete_sub_series else category["impact_by_year"] or [{"year": 1, "impact_pct": 0.0}]
             uplift = estimate[-1]["impact_pct"] / 100
             for news in sub["news_features"]:
                 c = news["id"]
                 candidates[c] = news["label"]
-                trends.append({"c": c, "v": uplift, "now": estimate[0]["impact_pct"] / 100, "technology": c,
+                trends.append({"c": c, "v": uplift, "now": estimate[0]["impact_pct"] / 100, "year": estimate[-1]["year"],
+                               "technology": c,
                                "priority": news["priority"] or 0.0, "signal": news["signal"] or "Tracked",
                                "articles": news["volume_recent"], "url": news["headline_url"],
-                               "category": category["label"], "basis": [f["name"] for f in old]})
+                               "category": category["label"], "basis": basis,
+                               "impact_by_year": [{"year": point["year"], "impact": point["impact_pct"] / 100,
+                                                   "pairs": point.get("pairs", 0)} for point in estimate]})
                 for line, by_market in history.items():
                     for market, label in MARKETS.items():
                         units = round(by_market[market][str(FORECAST_YEAR)] * uplift)
                         if units > 0:
                             sales.append({"c": c, "v": units, "line": line, "market": market, "market_label": label})
                 for vehicle, items in option_lists.items():
-                    for attribute in uniq(a for f in old for a in BMW_ATTRIBUTES[f["name"]]):
+                    for attribute in BMW_ATTRIBUTES[sub["id"]]:
                         item = items[attribute]
                         product.append({"c": c, "v": 1, "vehicle": vehicle,
                                         "attribute": item["feature"], "availability": item["availability"]})
@@ -109,7 +128,9 @@ def _tables(_problems_mtime: float) -> dict:
                 customer.append({"c": c, "v": problem["mention_count"], "problem": problem["id"],
                                  "name": problem["name"], "severity": problem["severity"]})
     data = {"candidates": candidates, "problems": [(p["id"], p["name"]) for p in problems], "sales": sales,
-            "customer": customer, "features": product, "trends": trends}
+            "customer": customer, "features": product, "trends": trends,
+            "impact_coverage": {"valid_pair_count": impact["valid_pair_count"],
+                                "collection_target": impact["collection_target"]}}
     data["version"] = hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:12]
     return data
 
@@ -143,13 +164,15 @@ def catalog() -> dict:
             ]},
         },
         "trendForecast": [{"technology": r["technology"], "label": names[r["c"]], "currentShare": r["now"],
-                           "forecastShare": r["v"]} for r in t["trends"]],
+                           "forecastShare": r["v"], "impactByYear": r["impact_by_year"]} for r in t["trends"]],
+        "impactCoverage": {"validPairCount": t["impact_coverage"]["valid_pair_count"],
+                           "collectionTarget": t["impact_coverage"]["collection_target"]},
         "trendForecastLabels": {
             "title": "Estimated sales impact",
-            "description": "Sales uplift of each new feature, estimated from its related old (Chinese-200) features, "
-                           "or the category prior when none exists. Year 1 and year 4 after launch.",
+            "description": "Market-adjusted China sales change after launch, from Chinese version pairs that added "
+                           "features of the same subcategory (or category). Complete Year 1-4 trajectory.",
             "current": "Year 1",
-            "forecast": "Year 4",
+            "forecast": "Latest year",
         },
     }
 
@@ -168,7 +191,7 @@ def market_list(rows: list[dict]) -> list[str]:
 
 
 def basis_text(r: dict) -> str:
-    return ", ".join(r["basis"]) if r["basis"] else f"the {r['category']} category prior"
+    return ", ".join(r["basis"]) if r["basis"] else f"the {r['category']} category estimate"
 
 
 def record_label(key: str, r: dict, names: dict) -> str:
@@ -188,10 +211,10 @@ def records(key: str, rows: list[dict], t: dict) -> list[dict]:
             rid = f"T-{t['trends'].index(r) + 1:03d}"
             out.append({"id": rid, "label": f"News · {names[r['c']]} · {r['signal']} · priority {r['priority']:.1f} · "
                                             f"{r['articles']:,} articles", "url": r["url"]})
-            estimate = f"{pc(r['now'], 1)} year 1 → {pc(r['v'], 1)} year 4"
-            basis = [f"Old feature · {name} · {estimate}" for name in r["basis"]]
+            estimate = f"{pc(r['now'], 1)} year 1 → {pc(r['v'], 1)} year {r['year']}"
+            basis = [f"Chinese pairs · {name} · {estimate}" for name in r["basis"][:1]]
             out += [{"id": f"{rid}.{j}", "label": label, "url": IMPACT_URL}
-                    for j, label in enumerate(basis or [f"Category prior · {r['category']} · {estimate}"], start=1)]
+                    for j, label in enumerate(basis or [f"Category estimate · {r['category']} · {estimate}"], start=1)]
         return [{**x, "share": 1 / len(out)} for x in out]
     total = sum(r["v"] for r in rows) or 1
     out = []
@@ -211,7 +234,7 @@ def phrase(key: str, rows: list[dict]) -> str:
     if key == "customer":
         return f"{sum(r['v'] for r in rows)} mentions across {len(rows)} G70 problem{'s' if len(rows) != 1 else ''}"
     return "; ".join(f"{r['signal'].lower()} in China news, with an estimated sales uplift of {pc(r['now'], 1)} in year 1 "
-                     f"rising to {pc(r['v'], 1)} in year 4 (from {basis_text(r)})" for r in rows)
+                     f"and {pc(r['v'], 1)} in year {r['year']} (from {basis_text(r)})" for r in rows)
 
 
 def analyse(req: dict) -> dict:
@@ -290,7 +313,7 @@ def analyse(req: dict) -> dict:
                           "text": " · ".join(uniq(f"{r['vehicle']} {r['availability'].replace('_', ' ')}" for r in own_product))})
         if on["trends"] and own_trends:
             specs.append({"category": "trends", "label": CHIPS["trends"], "kind": "assumption",
-                          "text": " · ".join(f"{r['signal']} · {pc(r['now'], 1)} → {pc(r['v'], 1)} uplift, year 1 → 4"
+                          "text": " · ".join(f"{r['signal']} · {pc(r['now'], 1)} → {pc(r['v'], 1)} uplift, year 1 → {r['year']}"
                                              for r in own_trends)})
 
         drivers = sorted((k for k in WEIGHTED if parts[k]["points"] > 0), key=lambda k: -parts[k]["points"])
@@ -313,11 +336,11 @@ def analyse(req: dict) -> dict:
             flags.append({"severity": "warning", "message": "More than 30% of the score comes from sales scenarios "
                           "and trends. Treat it as a hypothesis to validate."})
         if any(not r["basis"] for r in own_trends):
-            flags.append({"severity": "warning", "message": "No comparable old feature exists yet: the uplift is the "
-                          "category planning prior, not a feature-level estimate."})
+            flags.append({"severity": "warning", "message": "Too few Chinese pairs in this subcategory: the uplift is the "
+                          "category-level estimate, or zero when the category has none either."})
         if parts["sales"]["own"] or own_trends:
-            flags.append({"severity": "info", "message": "Sales impact is a planning scenario (category prior × "
-                          "feature multiplier from Chinese official release pairs), not a fitted or causal estimate."})
+            flags.append({"severity": "info", "message": "Sales impact is an observational, market-adjusted association "
+                          "from Chinese version pairs, not a causal estimate."})
 
         recommendations.append({
             "id": c, "rank": rank, "title": names[c], "score": round(total, 1), "keep": False,
