@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_017hGD1zktpC9w96x3p7QRG8",
+  "agent_id": "a683898f48acee0c7",
+  "subagent_type": "general-purpose",
+  "task_description": "Research SRNI group 2",
+  "token_usage": {
+    "input_tokens": 112,
+    "cache_creation_tokens": 137002,
+    "cache_read_tokens": 5647287,
+    "output_tokens": 625,
+    "api_call_count": 56
+  },
+  "started_at": "2026-10-13T16:03:30.037202+02:00",
+  "completed_at": "2026-10-13T16:17:22.015132+02:00"
+}

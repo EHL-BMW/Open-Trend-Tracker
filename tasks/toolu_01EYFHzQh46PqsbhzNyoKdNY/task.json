@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01EYFHzQh46PqsbhzNyoKdNY",
+  "agent_id": "a40ffe943d7639266",
+  "subagent_type": "general-purpose",
+  "task_description": "Collect SRNI-eligible pairs",
+  "token_usage": {
+    "input_tokens": 118,
+    "cache_creation_tokens": 473499,
+    "cache_read_tokens": 8110157,
+    "output_tokens": 9297,
+    "api_call_count": 59
+  },
+  "started_at": "2026-10-13T15:58:59.906763+02:00",
+  "completed_at": "2026-10-13T16:30:06.482162+02:00"
+}
