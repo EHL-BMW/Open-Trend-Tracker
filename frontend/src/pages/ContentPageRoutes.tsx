@@ -2,6 +2,7 @@ import { Route } from "react-router-dom";
 import { ROUTES } from "../routes";
 import { AgentPage } from "./AgentPage";
 import { FeatureTrendsPage } from "./FeatureTrendsPage";
+import { TrackedFeaturesPage } from "./TrackedFeaturesPage";
 import { FaqPage } from "./FaqPage";
 import { HowItWorksPage } from "./HowItWorksPage";
 import { NewsletterPage } from "./NewsletterPage";
@@ -13,6 +14,7 @@ export function ContentPageRoutes() {
   return [
     <Route key="agent" path={ROUTES.agent} element={<AgentPage />} />,
     <Route key="feature-trends" path={ROUTES.featureTrends} element={<FeatureTrendsPage />} />,
+    <Route key="tracked-features" path={ROUTES.trackedFeatures} element={<TrackedFeaturesPage />} />,
     <Route key="impact-forecast" path={ROUTES.impactForecast} element={<ImpactForecastPage />} />,
     <Route key="how" path={ROUTES.howItWorks} element={<HowItWorksPage />} />,
     <Route key="faq" path={ROUTES.faq} element={<FaqPage />} />,

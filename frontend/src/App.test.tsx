@@ -98,17 +98,39 @@ describe("App", () => {
     expect(await screen.findAllByRole("button", { name: /^Show reasoning for/ })).toHaveLength(5);
   });
 
-  it("opens on the home page and links to the planner", async () => {
+  it("opens on the home page and links to My Features and tech news", async () => {
+    server.use(
+      http.get("/api/v1/forecast/impact-taxonomy", () =>
+        HttpResponse.json({
+          title: "Demo",
+          as_of: "2026-10-13",
+          horizon_years: [1, 2, 3, 4],
+          categories: [],
+          legacy_feature_count: 0,
+          news_feature_count: 0,
+          valid_pair_count: 0,
+          collection_target: 100,
+          method: "demo",
+          status: "ready",
+          caveat: "",
+          source_plot: "",
+        }),
+      ),
+      http.get("/api/v1/agent/problems", () => HttpResponse.json({ problems: [] })),
+    );
     const user = userEvent.setup();
     renderWithClient(<App />);
     expect(screen.getByRole("heading", { level: 1, name: "OpenTT, Open Trend Tracker" })).toBeInTheDocument();
     expect(screen.getByText(/continuously discovers emerging vehicle features in China/)).toBeInTheDocument();
 
-    await user.click(screen.getByRole("link", { name: "Open the planner" }));
-    expect(await screen.findByRole("heading", { level: 1, name: "Plan your next series update." })).toBeInTheDocument();
+    await user.click(screen.getByRole("link", { name: "Open My Features" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "My Features" })).toBeInTheDocument();
 
     await user.click(screen.getByRole("link", { name: "OpenTT, go to the home page" }));
     expect(await screen.findByText(/continuously discovers emerging vehicle features in China/)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("link", { name: "Explore Latest Tech News" }));
+    expect(await screen.findByRole("heading", { level: 1, name: "China EV-Tech Trend Radar" })).toBeInTheDocument();
   });
 
   it("shows content pages even when the backend is down", async () => {

@@ -99,6 +99,8 @@
   font-size: 13.5px;
 }
 
+.trackButton { display: inline-flex; margin: 4px 0 0 8px; }
+
 .track {
   position: relative;
   min-height: 46px;

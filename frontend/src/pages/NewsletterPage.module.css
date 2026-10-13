@@ -322,6 +322,8 @@
   background: var(--fill);
 }
 
+.topicTrack { display: inline-flex; margin-top: 6px; }
+
 .topicDetails {
   border-bottom: 1px solid var(--sep);
 }

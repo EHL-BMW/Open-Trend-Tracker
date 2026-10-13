@@ -2,6 +2,7 @@ import { TREND_TECHNOLOGY_GROUP } from "../../domain/categories";
 import { selectedValues } from "../../domain/settings";
 import { usePlanner } from "../../state/PlannerContext";
 import { StateMessage } from "../common/StateMessage";
+import { TrackButton } from "../TrackButton";
 import styles from "./TrendForecast.module.css";
 
 const pct = (x: number, digits = 0) => Number((x * 100).toFixed(digits));
@@ -9,7 +10,7 @@ const signedPct = (x: number, digits = 1) => `${x >= 0 ? "+" : ""}${pct(x, digit
 
 /** Signed range in steps of 5 percentage points, always including zero. */
 function axisRange(values: number[]) {
-  let lo = Math.min(0, Math.floor(Math.min(...values) * 20) / 20);
+  const lo = Math.min(0, Math.floor(Math.min(...values) * 20) / 20);
   let hi = Math.max(0, Math.ceil(Math.max(...values) * 20) / 20);
   if (hi - lo < 0.05) hi = lo + 0.05;
   return { lo, hi };
@@ -114,7 +115,7 @@ export function TrendForecast() {
                     : undefined
                 }
               >
-                <span className={styles.name}>{r.label}</span>
+                <span className={styles.name}>{r.label}<span className={styles.trackButton}><TrackButton id={r.technology} label={r.label} compact /></span></span>
                 <span className={styles.track}>
                   <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" aria-hidden="true">
                     <line className={styles.zero} x1="0" x2={chart.width} y1={y(0)} y2={y(0)} />

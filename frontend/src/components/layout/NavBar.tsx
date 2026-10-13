@@ -39,6 +39,7 @@ function NavLinks() {
         <li key={item.to}>
           <NavLink
             to={item.to}
+            data-track-destination={item.to === ROUTES.trackedFeatures ? "" : undefined}
             className={({ isActive }) => (isActive ? styles.active : undefined)}
           >
             {item.label}
@@ -109,6 +110,7 @@ export function NavBar({ mockMode, actions }: Props) {
           <button
             type="button"
             className={styles.menuButton}
+            data-track-menu=""
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Close menu" : "Open menu"}

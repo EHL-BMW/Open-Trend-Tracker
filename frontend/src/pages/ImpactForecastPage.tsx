@@ -5,9 +5,11 @@ import { errorMessage } from "../api/client";
 import { StateMessage } from "../components/common/StateMessage";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
+import { TrackButton } from "../components/TrackButton";
 import { config } from "../config";
 import { featureClusters } from "../content/featureNews";
 import { FeatureCard, type SavedProblemAnalysis } from "./FeatureTrendsPage";
+import { legacyFeatureId } from "../state/trackedFeatures";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./ImpactForecastPage.module.css";
 
@@ -165,6 +167,7 @@ function ImpactCard({
   range,
   color,
   level,
+  trackId,
 }: {
   title: string;
   meta: string;
@@ -172,6 +175,7 @@ function ImpactCard({
   range: { lo: number; hi: number };
   color: string;
   level: "subcategory" | "feature";
+  trackId?: string;
 }) {
   const last = lastPoint(points);
   return (
@@ -190,6 +194,7 @@ function ImpactCard({
         </div>
       </div>
       <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} />
+      {trackId && <TrackButton id={trackId} label={title} />}
     </article>
   );
 }
@@ -241,6 +246,7 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
                   range={range}
                   color={color}
                   level="feature"
+                  trackId={legacyFeatureId(category.id, feature.name)}
                 />
               ))}
             </div>

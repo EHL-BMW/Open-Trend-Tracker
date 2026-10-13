@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
+import { TrackButton } from "../components/TrackButton";
 import { config } from "../config";
 import {
   FEATURE_CATEGORIES,
@@ -12,6 +13,7 @@ import {
   type FeatureNewsItem,
 } from "../content/featureNews";
 import { FEATURE_EXPLANATIONS } from "../content/featureExplanations";
+import { HEADLINE_NOTES } from "../content/headlineNotes";
 import { DOMAIN_COLORS, fmtPct } from "../content/trendRadar";
 import { usePageTitle } from "./usePageTitle";
 import styles from "./FeatureTrendsPage.module.css";
@@ -295,16 +297,26 @@ export function FeatureCard({
       </div>
     </>
   );
-  if (!onOpen) return <article className={`${styles.featureCard} ${styles.featureCardStatic}`}>{body}</article>;
   return (
-    <button type="button" className={styles.featureCard} onClick={onOpen}>
-      {body}
-      <span className={styles.openHint}>Open trend & evidence →</span>
-    </button>
+    <article className={`${styles.featureCard} ${!onOpen ? styles.featureCardStatic : ""}`}>
+      {onOpen ? (
+        <button type="button" className={styles.cardOpen} onClick={onOpen}>
+          {body}
+          <span className={styles.openHint}>Open trend & evidence →</span>
+        </button>
+      ) : body}
+      <div className={styles.cardTrack}><TrackButton id={feature.id} label={feature.label} /></div>
+    </article>
   );
 }
 
-function NewsDetail({ item }: { item: FeatureNewsItem }) {
+interface TopicAnnotations {
+  items: Array<{ link: string; feature_summary: string }>;
+}
+
+function NewsDetail({ item, aiSummary, summaryError }: { item: FeatureNewsItem; aiSummary?: string; summaryError: boolean }) {
+  const summary = aiSummary ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.featureSummary ?? item.summary;
+  const tooltipId = `feature-summary-${item.id}`;
   return (
     <article className={styles.newsItem}>
       <div className={styles.newsMeta}>
@@ -312,9 +324,16 @@ function NewsDetail({ item }: { item: FeatureNewsItem }) {
         <span>{item.publishedLabel ?? item.date}</span>
         {item.impact && <strong>{item.impact}</strong>}
       </div>
-      <a href={item.url} target="_blank" rel="noreferrer" className={styles.newsTitle}>
-        {item.title}
-      </a>
+      <div className={styles.newsTitleRow}>
+        <a href={item.url} target="_blank" rel="noreferrer" className={styles.newsTitle} aria-describedby={tooltipId}>
+          {item.title}
+        </a>
+        <button type="button" className={styles.summaryTrigger} aria-label={`Feature summary for ${item.title}`} aria-describedby={tooltipId}>ⓘ</button>
+        <div id={tooltipId} className={styles.newsTooltip} role="tooltip">
+          <b>AI feature summary · based on headline</b>
+          <p>{summary ?? (summaryError ? "Summary unavailable until the AI service is configured." : "Generating a feature-focused summary…")}</p>
+        </div>
+      </div>
       {item.titleEn && <p className={styles.translation}>EN · {item.titleEn}</p>}
       <div className={styles.brandChips}>
         {item.brands.map((brand) => <span key={brand}>{brand}</span>)}
@@ -337,13 +356,16 @@ function NewsDetail({ item }: { item: FeatureNewsItem }) {
 }
 
 export function FeatureTrendsPage() {
-  usePageTitle("Feature Radar");
+  usePageTitle("Pain Points to Features");
   const allIds = useMemo(() => featureClusters.map((feature) => feature.id), []);
   const [enabledIds, setEnabledIds] = useState<Set<string>>(() => new Set(allIds));
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [selectedProblemId, setSelectedProblemId] = useState<string | null>(null);
   const [problemAnalysis, setProblemAnalysis] = useState<SavedProblemAnalysis | null>(null);
   const [oem, setOem] = useState<string | null>(null);
+  const [annotationsByTopic, setAnnotationsByTopic] = useState<Record<string, TopicAnnotations>>({});
+  const [annotationErrors, setAnnotationErrors] = useState<Set<string>>(() => new Set());
+  const loadingAnnotations = useRef(new Set<string>());
 
   const selected = featureClusters.find((feature) => feature.id === selectedId) ?? null;
   const selectedProblem = problemAnalysis?.problems.find((problem) => problem.id === selectedProblemId) ?? null;
@@ -377,6 +399,19 @@ export function FeatureTrendsPage() {
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [selected]);
 
+  useEffect(() => {
+    if (!selected || annotationsByTopic[selected.id] || annotationErrors.has(selected.id) || loadingAnnotations.current.has(selected.id)) return;
+    loadingAnnotations.current.add(selected.id);
+    fetch(`/api/v1/news/annotations/${encodeURIComponent(selected.id)}`, { method: "POST" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        return response.json() as Promise<TopicAnnotations>;
+      })
+      .then((result) => setAnnotationsByTopic((current) => ({ ...current, [selected.id]: result })))
+      .catch(() => setAnnotationErrors((current) => new Set(current).add(selected.id)))
+      .finally(() => loadingAnnotations.current.delete(selected.id));
+  }, [selected, annotationsByTopic, annotationErrors]);
+
   const setFeature = (id: string, checked: boolean) => {
     setEnabledIds((current) => {
       const next = new Set(current);
@@ -407,11 +442,11 @@ export function FeatureTrendsPage() {
       <main className={styles.page}>
         <header className={styles.hero}>
           <div>
-            <p className={styles.eyebrow}>China intelligence · feature-level view</p>
-            <h1>Feature Radar</h1>
+            <p className={styles.eyebrow}>Customer feedback → solutions</p>
+            <h1>Pain Points to Features</h1>
             <p className={styles.lead}>
-              Every captured item is labelled by vehicle brand, specific feature, and one of eight decision-ready categories.
-              Activate only the signals you want to compare, then open a feature for its trend and evidence.
+              Start with recurring customer pain points, then explore features that could address them. Compare each
+              option's trend, the OEMs discussing it, and the news evidence before deciding what to investigate next.
             </p>
           </div>
           <div className={styles.metaPanel}>
@@ -542,6 +577,7 @@ export function FeatureTrendsPage() {
               <span className={styles.categoryPill} style={{ "--category-color": CATEGORY_COLORS[selected.category] } as CSSProperties}>{selected.category}</span>
               <h2 id="feature-detail-title">{selected.label}</h2>
               <p>{selected.labelCn}</p>
+              <TrackButton id={selected.id} label={selected.label} />
               <OemBubbles feature={selected} />
             </div>
             {FEATURE_EXPLANATIONS[selected.id] && (
@@ -575,7 +611,14 @@ export function FeatureTrendsPage() {
               <div><h3>Related news & detail items</h3><p>Chinese headlines with a short English translation</p></div>
             </div>
             <div className={styles.newsList}>
-              {selectedNews.map((item) => <NewsDetail key={item.id} item={item} />)}
+              {selectedNews.map((item) => (
+                <NewsDetail
+                  key={item.id}
+                  item={item}
+                  aiSummary={annotationsByTopic[selected.id]?.items.find((annotation) => annotation.link === item.url)?.feature_summary}
+                  summaryError={annotationErrors.has(selected.id)}
+                />
+              ))}
             </div>
           </section>
         </div>
@@ -583,4 +626,3 @@ export function FeatureTrendsPage() {
     </>
   );
 }
-

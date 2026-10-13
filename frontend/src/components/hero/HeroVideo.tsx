@@ -98,11 +98,11 @@ export function HeroVideo() {
         </p>
         <TrustPoints />
         <div className={styles.actions}>
-          <Link className={styles.cta} to={ROUTES.planner}>
-            Open the planner
+          <Link className={styles.cta} to={ROUTES.trackedFeatures}>
+            Open My Features
           </Link>
-          <Link className={styles.ctaSecondary} to={ROUTES.featureTrends}>
-            Explore Feature Radar
+          <Link className={styles.ctaSecondary} to={ROUTES.newsletter}>
+            Explore Latest Tech News
           </Link>
         </div>
       </div>
