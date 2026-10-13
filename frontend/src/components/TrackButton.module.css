@@ -20,9 +20,16 @@
 }
 
 .active {
-  border-color: color-mix(in srgb, var(--blue) 35%, var(--sep));
-  background: color-mix(in srgb, var(--blue) 9%, var(--card));
-  color: var(--blue);
+  border-color: color-mix(in srgb, var(--green) 55%, var(--sep));
+  background: color-mix(in srgb, var(--green) 12%, var(--card));
+  color: var(--keep);
+}
+
+.button.active:hover,
+.button.active:focus-visible {
+  border-color: var(--green);
+  background: color-mix(in srgb, var(--green) 18%, var(--card));
+  color: var(--keep);
 }
 
 .compact {

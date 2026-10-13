@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useImpactForecast } from "../api/queries";
-import type { ImpactCategory } from "../api/types";
+import type { ImpactCategory, ImpactForecast } from "../api/types";
 import { FeatureSourceBadge } from "../components/FeatureSourceBadge";
 import { TrackButton } from "../components/TrackButton";
 import { Footer } from "../components/layout/Footer";
@@ -12,6 +12,7 @@ import { FEATURE_CATEGORIES, featureClusters, type FeatureCluster } from "../con
 import { HEADLINE_NOTES } from "../content/headlineNotes";
 import { legacyFeatureExplanation } from "../content/legacyFeatureExplanations";
 import { DOMAIN_COLORS, fmtPct, trendRadarData } from "../content/trendRadar";
+import { legacyDemoSales } from "../domain/demoSales";
 import { ROUTES } from "../routes";
 import { legacyFeatureId, useTrackedFeatures } from "../state/trackedFeatures";
 import type { SavedProblemAnalysis } from "./FeatureTrendsPage";
@@ -28,18 +29,6 @@ type SavedEntry =
       feature: LegacyFeature;
     }
   | { id: string; kind: "pending"; label: string };
-
-function salesForNews(featureId: string, forecast: ImpactCategory[]) {
-  const matched = forecast
-    .flatMap((category) => category.subcategories.map((sub) => ({ category, sub })))
-    .find(({ sub }) => sub.news_features.some((item) => item.id === featureId));
-  return {
-    points: matched?.sub.impact_by_year ?? matched?.category.impact_by_year ?? [],
-    label: matched?.sub.impact_by_year ? `${matched.sub.label} proxy` : "category proxy",
-    category: matched?.category,
-    subcategory: matched?.sub,
-  };
-}
 
 function MiniTrend({ feature }: { feature: FeatureCluster }) {
   const values = feature.weeklyCounts;
@@ -249,19 +238,15 @@ function ReportPreview({
   onOpen,
 }: {
   entry: SavedEntry;
-  forecast: ImpactCategory[];
+  forecast: ImpactForecast | undefined;
   onOpen: () => void;
 }) {
   const label =
     entry.kind === "news" ? entry.feature.label : entry.kind === "legacy" ? entry.feature.name : entry.label;
   const category =
     entry.kind === "news" ? entry.feature.category : entry.kind === "legacy" ? entry.category.label : "Pending data";
-  const points =
-    entry.kind === "news"
-      ? salesForNews(entry.id, forecast).points
-      : entry.kind === "legacy"
-        ? entry.feature.impact_by_year
-        : [];
+  const points = entry.kind === "legacy" ? legacyDemoSales(forecast, entry.category, entry.feature).points : [];
+  const identified = entry.kind === "legacy" && entry.feature.impact_by_year.length > 0;
   const latest = points.at(-1);
   return (
     <article className={styles.previewCard}>
@@ -294,15 +279,19 @@ function ReportPreview({
             {entry.feature.pair_count} Chinese vehicle version pairs · {entry.feature.models.length} models
           </p>
         )}
-        <div className={styles.previewImpact}>
-          <span>Sales impact</span>
-          <b>
-            {latest
-              ? `${latest.impact_pct >= 0 ? "+" : ""}${latest.impact_pct.toFixed(1)}% · Y${latest.year}`
-              : "No estimate yet"}
-          </b>
-          <small>{points.length}/4 years available · observational</small>
-        </div>
+        {entry.kind === "news" ? (
+          <div className={styles.previewImpact}>
+            <span>Sales impact</span>
+            <b>No direct estimate</b>
+            <small>News coverage measures attention, not sales</small>
+          </div>
+        ) : entry.kind === "legacy" ? (
+          <div className={styles.previewImpact}>
+            <span>{identified ? "Sales impact" : "Demo sales impact"}</span>
+            <b>{latest ? `${latest.impact_pct >= 0 ? "+" : ""}${latest.impact_pct.toFixed(1)}% · Y${latest.year}` : "No estimate yet"}</b>
+            <small>{points.length}/4 years available · {identified ? "observational" : "illustrative scenario"}</small>
+          </div>
+        ) : null}
         <span className={styles.openReport}>Open full report →</span>
       </button>
       <div className={styles.previewTrack}>
@@ -426,10 +415,18 @@ function SalesReport({
   points,
   label,
   pairCount,
+  independentNameplates,
+  unavailableReason,
+  basis,
+  identified = false,
 }: {
   points: ImpactCategory["impact_by_year"];
   label: string;
   pairCount?: number;
+  independentNameplates?: number;
+  unavailableReason?: string;
+  basis?: string;
+  identified?: boolean;
 }) {
   const width = 760,
     height = 240,
@@ -454,12 +451,12 @@ function SalesReport({
   ].join(" ");
   return (
     <section className={styles.reportSection}>
-      <h3>Sales impact · years 1–4</h3>
-      <p>
-        {label}. Market-adjusted association from Chinese vehicle version pairs. This is an estimate, not a measured
-        causal lift for this feature.
-      </p>
-      {pairCount !== undefined && <p>{pairCount} paired vehicle records mention this feature or subcategory.</p>}
+      <h3>{identified ? "Sales impact" : "Demo sales impact"} · years 1–4</h3>
+      <p>{points.length
+        ? `${label}. ${basis ?? "Illustrative planning scenario."} ${identified ? "This is an observational estimate, not a measured causal lift." : "This is a demo estimate, not a validated effect of this feature."}`
+        : `${label}. Historical Chinese vehicle version pairs were checked, but no sales effect passed the evidence checks.`}</p>
+      {pairCount !== undefined && <p>{pairCount} paired vehicle records mention this feature or subcategory{independentNameplates !== undefined ? `, across ${independentNameplates} independent nameplates` : ""}.</p>}
+      {!identified && unavailableReason && points.length > 0 && <p className={styles.dataNote}>Historical feature-level estimate unavailable: {unavailableReason}.</p>}
       {points.length ? (
         <>
           <svg
@@ -516,7 +513,7 @@ function SalesReport({
           )}
         </>
       ) : (
-        <p>No sales estimate is available for this feature yet.</p>
+        <p>No sales estimate is available for this feature yet.{unavailableReason ? ` Reason: ${unavailableReason}.` : ""}</p>
       )}
     </section>
   );
@@ -586,7 +583,9 @@ export function TrackedFeaturesPage() {
     );
   });
   const reportEntry = entries.find((entry) => entry.id === reportId);
-  const reportSales = reportEntry?.kind === "news" ? salesForNews(reportEntry.id, categories) : null;
+  const reportLegacySales = reportEntry?.kind === "legacy"
+    ? legacyDemoSales(forecast.data, reportEntry.category, reportEntry.feature)
+    : null;
 
   useEffect(() => {
     if (reportId && !reportEntry) setReportId(null);
@@ -671,7 +670,7 @@ export function TrackedFeaturesPage() {
         ) : (
           <div className={styles.grid}>
             {displayed.map((entry) => (
-              <ReportPreview key={entry.id} entry={entry} forecast={categories} onOpen={() => setReportId(entry.id)} />
+            <ReportPreview key={entry.id} entry={entry} forecast={forecast.data} onOpen={() => setReportId(entry.id)} />
             ))}
           </div>
         )}
@@ -703,13 +702,11 @@ export function TrackedFeaturesPage() {
               <>
                 <NewsOverview feature={reportEntry.feature} />
                 <CoverageReport feature={reportEntry.feature} />
-                {reportSales && (
-                  <SalesReport
-                    points={reportSales.points}
-                    label={`${reportSales.label}${reportSales.subcategory ? ` · ${reportSales.subcategory.label}` : ""}`}
-                    pairCount={reportSales.subcategory?.pair_count ?? reportSales.category?.pair_count}
-                  />
-                )}
+                <section className={styles.reportSection}>
+                  <h3>Sales impact</h3>
+                  <p>No direct sales estimate exists for this news feature. Its coverage trend shows media attention; historical category or launch-bundle sales changes cannot be attributed to this feature.</p>
+                  <Link className={styles.sourceLink} to={ROUTES.impactForecast}>Explore historical sales evidence →</Link>
+                </section>
                 <NewsSignalReport feature={reportEntry.feature} />
                 <NewsEvidence feature={reportEntry.feature} problems={problems} />
               </>
@@ -717,9 +714,13 @@ export function TrackedFeaturesPage() {
               <>
                 <LegacyOverview id={reportEntry.id} category={reportEntry.category} feature={reportEntry.feature} />
                 <SalesReport
-                  points={reportEntry.feature.impact_by_year}
-                  label="Direct feature-level estimate"
+                  points={reportLegacySales?.points ?? []}
+                  label={reportEntry.feature.name}
                   pairCount={reportEntry.feature.pair_count}
+                  independentNameplates={reportEntry.feature.independent_nameplates}
+                  unavailableReason={reportEntry.feature.identification_reason}
+                  basis={reportLegacySales?.basis}
+                  identified={reportLegacySales?.identified}
                 />
                 <LegacyEvidence feature={reportEntry.feature} />
               </>

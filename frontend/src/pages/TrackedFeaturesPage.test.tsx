@@ -5,7 +5,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, expect, it, vi } from "vitest";
 import { TrackButton } from "../components/TrackButton";
 import { featureClusters } from "../content/featureNews";
-import { useTrackedFeatures } from "../state/trackedFeatures";
+import { legacyFeatureId, useTrackedFeatures } from "../state/trackedFeatures";
 import { server } from "../mocks/node";
 import { TrackedFeaturesPage } from "./TrackedFeaturesPage";
 
@@ -23,12 +23,30 @@ vi.mock("../api/queries", () => ({
               label: "Battery & range",
               pair_count: 5,
               impact_by_year: [{ year: 1, impact_pct: 20.8, lower_pct: 10, upper_pct: 30, pairs: 5 }],
-              legacy_features: [],
+              legacy_features: [{
+                name: "Longer-range battery",
+                pair_count: 43,
+                independent_nameplates: 22,
+                identification_reason: "95% interval is too wide for publication",
+                impact_by_year: [],
+                models: [],
+              }],
               news_features: [{ id: "solid_state" }],
             },
           ],
         },
       ],
+      exploratory: { items: [{
+        level: "feature",
+        id: "Longer-range battery",
+        category: "Energy & Charging",
+        panels: { strict: { by_year: [
+          { year: 1, impact_pct: 10 },
+          { year: 2, impact_pct: 12 },
+          { year: 3, impact_pct: 15 },
+          { year: 4, impact_pct: 20 },
+        ] } },
+      }] },
     },
   }),
   useCatalog: () => ({ data: null }),
@@ -61,12 +79,34 @@ describe("My Features", () => {
     await user.click(screen.getByRole("button", { name: `Open report for ${feature.label}` }));
     expect(screen.getByRole("dialog", { name: `${feature.label} report` })).toBeInTheDocument();
     expect(screen.getByRole("heading", { name: "12-week coverage trend" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Sales impact · years 1–4" })).toBeInTheDocument();
-    expect(screen.getAllByText("Not available")).toHaveLength(3);
+    expect(screen.getByRole("heading", { name: "Sales impact" })).toBeInTheDocument();
+    expect(screen.getByText(/No direct sales estimate exists for this news feature/)).toBeInTheDocument();
+    expect(screen.getByText("No direct estimate")).toBeInTheDocument();
+    expect(screen.queryByRole("table", { name: "Sales impact by year" })).not.toBeInTheDocument();
     await user.click(screen.getByRole("button", { name: "Close report" }));
 
     await user.click(screen.getAllByRole("button", { name: `Stop tracking ${feature.label}` })[0]!);
     expect(screen.getByText("No tracked features yet")).toBeInTheDocument();
     expect(screen.getByTestId("tracked-count")).toHaveTextContent("0");
+  });
+
+  it("explains why a legacy feature has no sales estimate", async () => {
+    server.use(http.get("/api/v1/agent/problems", () => HttpResponse.json({ problems: [] })));
+    const user = userEvent.setup();
+    const label = "Longer-range battery";
+    render(
+      <MemoryRouter>
+        <TrackButton id={legacyFeatureId("energy", label)} label={label} />
+        <TrackedFeaturesPage />
+      </MemoryRouter>,
+    );
+
+    await user.click(screen.getByRole("button", { name: `Track ${label}` }));
+    await user.click(screen.getByRole("button", { name: `Open report for ${label}` }));
+    expect(screen.getByText(/43 paired vehicle records.*22 independent nameplates/)).toBeInTheDocument();
+    expect(screen.getByText(/95% interval is too wide for publication/)).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Demo sales impact · years 1–4" })).toBeInTheDocument();
+    expect(screen.getByText(/strict-panel launch-bundle association/)).toBeInTheDocument();
+    expect(screen.getByRole("table", { name: "Sales impact by year" })).toHaveTextContent("+20.0%");
   });
 });
