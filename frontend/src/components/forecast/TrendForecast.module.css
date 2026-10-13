@@ -23,6 +23,17 @@
   max-width: 520px;
 }
 
+.caution {
+  margin: 18px 0 0;
+  padding: 10px 12px;
+  border-left: 3px solid var(--amber);
+  border-radius: 0 8px 8px 0;
+  background: color-mix(in srgb, var(--amber) 7%, var(--card));
+  color: var(--label-2);
+  font-size: 12.5px;
+  line-height: 1.45;
+}
+
 .legend {
   display: flex;
   gap: 14px;
@@ -82,8 +93,17 @@
 }
 
 .row {
-  display: contents;
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(150px, 1fr) minmax(170px, 220px) 88px;
+  column-gap: 10px;
   cursor: pointer;
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
 .row > * {
@@ -91,16 +111,48 @@
   border-top: 1px solid var(--sep);
 }
 
-.row:not([role="checkbox"]) {
-  cursor: default;
+.off > * {
+  opacity: 0.32;
+}
+
+.row:hover .name,
+.row:focus-visible .name {
+  color: var(--blue);
 }
 
 .name {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 7px;
   font-size: 13.5px;
 }
 
-.trackButton { display: inline-flex; margin: 4px 0 0 8px; }
-.sourceBadge { display: inline-flex; margin: 4px 0 0 8px; vertical-align: middle; }
+.selection {
+  display: inline-grid;
+  place-items: center;
+  width: 16px;
+  height: 16px;
+  flex: none;
+  border: 1px solid var(--blue);
+  border-radius: 4px;
+  background: var(--blue);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.off .selection {
+  background: transparent;
+}
+
+.rowActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
 
 .track {
   position: relative;
@@ -118,9 +170,12 @@
 
 .track svg {
   position: absolute;
-  inset: 2px 0;
+  top: 50%;
+  left: 0;
   width: 100%;
-  height: calc(100% - 4px);
+  height: auto;
+  aspect-ratio: 300 / 46;
+  transform: translateY(-50%);
   overflow: visible;
 }
 
@@ -205,23 +260,6 @@
   font-weight: 500;
 }
 
-.off > * {
-  opacity: 0.35;
-}
-
-.row[role="checkbox"]:hover .name {
-  color: var(--blue);
-}
-
-.row:focus-visible {
-  outline: none;
-}
-
-.row:focus-visible .name {
-  color: var(--blue);
-  text-decoration: underline;
-}
-
 .foot {
   font-size: 12.5px;
   color: var(--label-2);
@@ -229,7 +267,8 @@
 }
 
 @media (max-width: 640px) {
-  .grid {
+  .grid,
+  .row {
     grid-template-columns: minmax(105px, 1fr) 150px 72px;
     column-gap: 8px;
   }

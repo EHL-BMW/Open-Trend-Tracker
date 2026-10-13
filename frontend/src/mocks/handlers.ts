@@ -31,6 +31,28 @@ export const handlers = [
     return HttpResponse.json(buildCatalog());
   }),
 
+  http.get(apiUrl("/forecast/impact-taxonomy"), () =>
+    HttpResponse.json({
+      title: "Historical sales evidence",
+      as_of: "",
+      horizon_years: [1, 2, 3, 4],
+      categories: [],
+      legacy_feature_count: 0,
+      isolated_feature_count: 0,
+      news_feature_count: 0,
+      valid_pair_count: 0,
+      collection_target: 200,
+      independent_observation_count: 0,
+      complete_observation_count: 0,
+      independent_nameplate_count: 0,
+      complete_nameplate_count: 0,
+      method: "Mock mode has no paired vehicle sample.",
+      status: "unavailable",
+      caveat: "Historical sales evidence requires the backend data.",
+      source_plot: "",
+    }),
+  ),
+
   http.post(apiUrl("/analyses"), async ({ request }) => {
     await latency(700);
     const parsed = analysisRequestSchema.safeParse(await request.json().catch(() => null));
