@@ -1,8 +1,8 @@
-"""Seed the first 30 reproducible four-year benchmark pairs.
+"""Seed reproducible four-year benchmark pairs.
 
 These are historical China nameplate updates with a complete 2020 baseline and
 2021-2025 annual series.  They are kept separate from the live discovery rows so
-the initial page can be rebuilt while collection continues toward 100 valid pairs.
+the page can be rebuilt while collection continues toward 100 valid pairs.
 
 Run from ``backend/``::
 
@@ -34,6 +34,15 @@ SOURCES = {
     "Haval H6": "https://en.wikipedia.org/wiki/Haval_H6",
     "Roewe i5": "https://en.wikipedia.org/wiki/Roewe_i5",
     "XPeng P7": "https://en.wikipedia.org/wiki/XPeng_P7",
+    "Wuling Hongguang Mini EV": "https://en.wikipedia.org/wiki/Wuling_Hongguang_Mini_EV",
+    "XPeng G3": "https://en.wikipedia.org/wiki/XPeng_G3",
+    "Neta V": "https://en.wikipedia.org/wiki/Neta_V",
+    "Baojun RS-3": "https://en.wikipedia.org/wiki/Baojun_RS-3",
+    "Chery Tiggo 7": "https://en.wikipedia.org/wiki/Chery_Tiggo_7",
+    "Buick Envision": "https://en.wikipedia.org/wiki/Buick_Envision",
+    "Lynk & Co 05": "https://en.wikipedia.org/wiki/Lynk_%26_Co_05",
+    "Exeed TX": "https://en.wikipedia.org/wiki/Exeed_TX",
+    "Geely Jiaji": "https://en.wikipedia.org/wiki/Geely_Jiaji",
 }
 
 NAMEPLATE_LAUNCH = {
@@ -42,6 +51,10 @@ NAMEPLATE_LAUNCH = {
     "Geely Binyue": "2018-08", "Geely Boyue": "2016-03", "Lynk & Co 03": "2018-10",
     "NIO ES6": "2019-06", "NIO ES8": "2018-06", "Haval H6": "2011-08",
     "Roewe i5": "2018-03", "XPeng P7": "2020-04",
+    "Wuling Hongguang Mini EV": "2020-07", "XPeng G3": "2018-12",
+    "Neta V": "2020-11", "Baojun RS-3": "2019-10", "Chery Tiggo 7": "2016-03",
+    "Buick Envision": "2014-10", "Lynk & Co 05": "2020-05",
+    "Exeed TX": "2019-04", "Geely Jiaji": "2019-03",
 }
 
 # Nameplate totals transcribed from the cited annual tables. A single named
@@ -63,6 +76,15 @@ SALES = {
     "Haval H6": [376864, 376158, 246810, 222423, 145291, 91651],
     "Roewe i5": [128804, 144030, 97997, 53925, 60811, 78427],
     "XPeng P7": [15315, 60569, 59066, 46375, 16859, 20872],
+    "Wuling Hongguang Mini EV": [127651, 395451, 404823, 237863, 261141, 424983],
+    "XPeng G3": [11691, 29721, 17336, 5301, 813, 35],
+    "Neta V": [3033, 49646, 71158, 35327, 2638, 11],
+    "Baojun RS-3": [66587, 18202, 2642, 307, 1, 3],
+    "Chery Tiggo 7": [64991, 91331, 53659, 52686, 56556, 45594],
+    "Buick Envision": [167880, 146476, 130181, 143054, 118471, 166894],
+    "Lynk & Co 05": [32502, 22538, 8995, 3264, 819, 77],
+    "Exeed TX": [13482, 37154, 53441, 34447, 34104, 12304],
+    "Geely Jiaji": [28772, 12178, 6933, 2669, 1847, 959],
 }
 
 # Two distinct documented update packages per nameplate. Dates are kept in 2021
@@ -111,6 +133,134 @@ FEATURES = [
     ("Ownership and trim package", "ownership_services", "General & Services"),
 ]
 
+# Additional documented 2021 trims and updates. Each row is a distinct
+# previous/current version pair. Feature evidence is specific to the cited
+# launch source rather than inferred from the annual sales movement.
+CURATED_UPDATES = [
+    {
+        "brand": "Wuling", "model": "Wuling Hongguang Mini EV", "powertrain": "NEV",
+        "previous": "Hongguang Mini EV base range", "current": "Mini EV Macaron Fashion (120 km)",
+        "launch": "2021-04-08", "source": "https://www.sohu.com/a/459689687_115333",
+        "features": [
+            ("Three Macaron colors with optional contrast roof", "Exterior color personalization", "exterior_personalization", "Smart Exterior", "Launch coverage documents three exclusive colors and two roof choices"),
+            ("Driver airbag and pedestrian warning added as standard", "Expanded active and passive safety", "passive_safety", "Smart Cabin", "Macaron launch added standard driver protection and low-speed warning equipment"),
+        ],
+    },
+    {
+        "brand": "Wuling", "model": "Wuling Hongguang Mini EV", "powertrain": "NEV",
+        "previous": "Hongguang Mini EV base range", "current": "Mini EV Macaron Luxury (170 km)",
+        "launch": "2021-04-08", "source": "https://www.sohu.com/a/459689687_115333",
+        "features": [
+            ("170 km single-charge range", "Longer-range battery", "battery_range", "Energy & Charging", "The Luxury version is the documented 170 km Macaron configuration"),
+            ("Three Macaron colors with optional contrast roof", "Exterior color personalization", "exterior_personalization", "Smart Exterior", "Launch coverage documents three exclusive colors and two roof choices"),
+        ],
+    },
+    *[
+        {
+            "brand": "XPeng", "model": "XPeng G3", "powertrain": "NEV",
+            "previous": "XPeng G3", "current": f"XPeng G3i {trim}", "launch": "2021-07-09",
+            "source": "https://cnevpost.com/2021/07/09/xpeng-g3i-goes-on-sale-with-prices-starting-at-about-23100/",
+            "features": [
+                (f"{range_km} km NEDC range", "Longer-range battery", "battery_range", "Energy & Charging", f"The launch lists the {trim} in the {range_km} km range family"),
+                ("X Robot Face light-bar fascia and hidden door handles", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The G3i launch documents the P7/P5-style light bar and hidden handles"),
+                *(([("XPILOT 2.5 assisted-driving hardware", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "N trims include the documented XPILOT 2.5 assistance package")]) if trim.endswith("N") else []),
+            ],
+        }
+        for trim, range_km in (("460G", 460), ("460N", 460), ("520G", 520), ("520N", 520))
+    ],
+    *[
+        {
+            "brand": "Neta", "model": "Neta V", "powertrain": "NEV", "previous": "Neta V",
+            "current": f"Neta V Pro {trim}", "launch": "2021-11-03",
+            "source": "https://carnewschina.com/2021/11/04/neta-v-pro-launched-at-11990-with-a-401km-range/",
+            "features": [
+                ("401 km NEDC range from a 38.54 kWh battery", "Longer-range battery", "battery_range", "Energy & Charging", "Both V Pro versions use the documented 401 km battery configuration"),
+                ("Qihoo 360 in-vehicle cybersecurity protection", "Connected-vehicle security", "software_lifecycle", "Connected Ecosystem", "The V Pro launch identifies the Qihoo 360 safety protection system"),
+            ],
+        }
+        for trim in ("Long Endurance Smart Fun", "Long Endurance Smart Enjoy")
+    ],
+    *[
+        {
+            "brand": "Baojun", "model": "Baojun RS-3", "powertrain": "ICE", "previous": "RS-3 1.5L",
+            "current": f"RS-3 1.5T {trim}", "launch": "2021-01",
+            "source": "https://en.wikipedia.org/wiki/Baojun_RS-3",
+            "features": [
+                ("145 hp 1.5-litre turbo engine", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "The 2021 model-year source documents the 1.5T engine on these trims"),
+                ("Continuously variable automatic transmission", "Powertrain calibration update", "powertrain_performance", "Vehicle Dynamics", "The turbo engine is documented with a continuously variable transmission"),
+            ],
+        }
+        for trim in ("Smart Lofty", "Smart Elite", "Smart Luxury")
+    ],
+    {
+        "brand": "Chery", "model": "Chery Tiggo 7", "powertrain": "ICE",
+        "previous": "second-generation Tiggo 7", "current": "Tiggo 7 Plus 1.5T mild hybrid",
+        "launch": "2021-09-27", "source": "https://en.wikipedia.org/wiki/Chery_Tiggo_7",
+        "features": [
+            ("48-volt mild-hybrid powertrain", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The 2021 Plus launch introduced a documented 48-volt mild-hybrid option"),
+            ("Lion 4.0 infotainment with CarLife and CarPlay", "New infotainment OS", "cockpit_intelligence", "Digital Cockpit & AI", "The updated dashboard runs Chery Lion 4.0 with phone integration"),
+        ],
+    },
+    {
+        "brand": "Chery", "model": "Chery Tiggo 7", "powertrain": "ICE",
+        "previous": "second-generation Tiggo 7", "current": "Tiggo 7 Plus 1.6T",
+        "launch": "2021-09-27", "source": "https://en.wikipedia.org/wiki/Chery_Tiggo_7",
+        "features": [
+            ("1.6-litre turbo powertrain", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "The Plus range includes the documented 1.6-litre turbo engine"),
+            ("Lion 4.0 infotainment with CarLife and CarPlay", "New infotainment OS", "cockpit_intelligence", "Digital Cockpit & AI", "The updated dashboard runs Chery Lion 4.0 with phone integration"),
+        ],
+    },
+    *[
+        {
+            "brand": "Buick", "model": "Buick Envision", "powertrain": "ICE", "previous": "Envision S",
+            "current": f"Envision Plus {variant}", "launch": "2021-06-19",
+            "source": "https://news.gm.com.cn/en/home.detail.html/Pages/news/cn/en/2021/Jun/0619-buick.html",
+            "features": [
+                (seat_detail, "Flexible three-row seating", "seating_comfort", "Smart Cabin", seat_evidence),
+                ("2.0T engine with nine-speed transmission and 48V mild hybrid", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "GM documents the 48V mild-hybrid powertrain across the Envision Plus range"),
+                *(([("FlexRide adaptive damping and intelligent AWD", "Adaptive suspension and AWD", "ride_body_control", "Vehicle Dynamics", "The Avenir source lists FlexRide, continuous damping control and intelligent AWD")]) if variant == "Avenir" else []),
+            ],
+        }
+        for variant, seat_detail, seat_evidence in (
+            ("five-seat", "Five-seat cabin with up to 1,712 L cargo capacity", "GM documents five-seat availability and the maximum cargo volume"),
+            ("seven-seat", "Three-row seven-seat cabin", "GM documents a seven-seat layout for larger families"),
+            ("Avenir", "Diamond-perforated leather seating", "GM documents quilted and embroidered leather for the Avenir trim"),
+        )
+    ],
+    {
+        "brand": "Lynk & Co", "model": "Lynk & Co 05", "powertrain": "ICE", "previous": "Lynk & Co 05",
+        "current": "Lynk & Co 05+", "launch": "2021-08-06", "source": "https://en.wikipedia.org/wiki/Lynk_%26_Co_05",
+        "features": [
+            ("265 hp and 380 Nm 2.0-litre turbo engine", "Higher-output performance powertrain", "powertrain_performance", "Vehicle Dynamics", "The 05+ source documents the higher-output engine tune"),
+            ("Aisin eight-speed transmission with four-wheel drive", "Performance AWD system", "ride_body_control", "Vehicle Dynamics", "The 05+ source documents the transmission and four-wheel drive"),
+        ],
+    },
+    {
+        "brand": "Exeed", "model": "Exeed TX", "powertrain": "ICE", "previous": "TXL pre-facelift",
+        "current": "2021 Exeed TXL facelift", "launch": "2021-01", "source": "https://en.wikipedia.org/wiki/Exeed_TX",
+        "features": [
+            ("Integrated instrument and multimedia displays", "Larger or extra displays", "displays_hmi", "Digital Cockpit & AI", "The facelift source documents integrated digital instrument and center displays"),
+            ("Restyled bumpers and vertical LED daytime running lights", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The facelift source documents the new bumper and vertical DRLs"),
+        ],
+    },
+    {
+        "brand": "Exeed", "model": "Exeed TX", "powertrain": "ICE", "previous": "2021 Exeed TXL facelift",
+        "current": "Exeed Lingyun 400T", "launch": "2021-08-27", "source": "https://en.wikipedia.org/wiki/Exeed_TX",
+        "features": [
+            ("400T performance powertrain package", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "The cited launch chronology identifies the Lingyun 400T version"),
+            ("Lingyun model identity and trim package", "Ownership and trim package", "ownership_services", "General & Services", "The source documents the additional Lingyun name and 400T launch"),
+        ],
+    },
+    {
+        "brand": "Geely", "model": "Geely Jiaji", "powertrain": "ICE", "previous": "Geely Jiaji",
+        "current": "Jiaji Platinum Edition", "launch": "2021-09-26", "source": "https://en.wikipedia.org/wiki/Geely_Jiaji",
+        "features": [
+            ("Redesigned Platinum Edition grille", "Exterior design personalization", "exterior_personalization", "Smart Exterior", "The Platinum Edition source documents a redesigned grille"),
+            ("1.8-litre turbo with seven-speed dual-clutch transmission", "Powertrain calibration update", "powertrain_performance", "Vehicle Dynamics", "The launch source documents the 1.8T and 7DCT combination"),
+        ],
+    },
+]
+
 
 def _read(path: Path) -> list[dict]:
     with path.open(encoding="utf-8-sig", newline="") as stream:
@@ -119,7 +269,7 @@ def _read(path: Path) -> list[dict]:
 
 def _write(path: Path, rows: list[dict]) -> None:
     with path.open("w", encoding="utf-8", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=list(rows[0]))
+        writer = csv.DictWriter(stream, fieldnames=list(rows[0]), lineterminator="\n")
         writer.writeheader()
         writer.writerows(rows)
 
@@ -149,6 +299,23 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
                 "source_url": url,
             })
 
+    for index, update in enumerate(CURATED_UPDATES, len(UPDATES) + 1):
+        pair_id = f"FY{index:03d}"
+        pairs.append({
+            "pair_id": pair_id, "brand": update["brand"], "car_model": update["model"],
+            "powertrain": update["powertrain"], "change_type": "historical_update",
+            "nameplate_launch": NAMEPLATE_LAUNCH[update["model"]],
+            "previous_version": update["previous"], "previous_launch": "2020-01-01",
+            "current_version": update["current"], "current_launch": update["launch"],
+            "source_url": update["source"],
+        })
+        for detail, feature, subcategory, category, evidence in update["features"]:
+            features.append({
+                "pair_id": pair_id, "detail": detail, "feature": feature,
+                "subcategory": subcategory, "category": category, "evidence": evidence,
+                "source_url": update["source"],
+            })
+
     for model, values in SALES.items():
         for year, units in zip(range(2020, 2026), values, strict=True):
             sales.append({
@@ -170,7 +337,11 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
     _write(input_dir / "features.csv", features)
     _write(input_dir / "model_sales.csv", sales)
     _write(input_dir / "market_sales.csv", market)
-    return {"seed_pairs": len(UPDATES), "seed_features": len(UPDATES) * 2, "sales_rows": len(SALES) * 6}
+    return {
+        "seed_pairs": len(UPDATES) + len(CURATED_UPDATES),
+        "seed_features": len(UPDATES) * 2 + sum(len(update["features"]) for update in CURATED_UPDATES),
+        "sales_rows": len(SALES) * 6,
+    }
 
 
 if __name__ == "__main__":

@@ -92,3 +92,23 @@ FY027,Roewe,Roewe i5,ICE,historical_update,2018-03,i5,2020-01-01,i5 facelift,202
 FY028,Roewe,Roewe i5,ICE,historical_update,2018-03,i5 facelift,2020-01-01,i5 GT package,2021-09-01,https://en.wikipedia.org/wiki/Roewe_i5
 FY029,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,P7 LFP range,2021-03-01,https://en.wikipedia.org/wiki/XPeng_P7
 FY030,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 XPILOT 2.5,2020-01-01,P7 XPILOT 3.0 package,2021-07-01,https://en.wikipedia.org/wiki/XPeng_P7
+FY031,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV base range,2020-01-01,Mini EV Macaron Fashion (120 km),2021-04-08,https://www.sohu.com/a/459689687_115333
+FY032,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV base range,2020-01-01,Mini EV Macaron Luxury (170 km),2021-04-08,https://www.sohu.com/a/459689687_115333
+FY033,XPeng,XPeng G3,NEV,historical_update,2018-12,XPeng G3,2020-01-01,XPeng G3i 460G,2021-07-09,https://cnevpost.com/2021/07/09/xpeng-g3i-goes-on-sale-with-prices-starting-at-about-23100/
+FY034,XPeng,XPeng G3,NEV,historical_update,2018-12,XPeng G3,2020-01-01,XPeng G3i 460N,2021-07-09,https://cnevpost.com/2021/07/09/xpeng-g3i-goes-on-sale-with-prices-starting-at-about-23100/
+FY035,XPeng,XPeng G3,NEV,historical_update,2018-12,XPeng G3,2020-01-01,XPeng G3i 520G,2021-07-09,https://cnevpost.com/2021/07/09/xpeng-g3i-goes-on-sale-with-prices-starting-at-about-23100/
+FY036,XPeng,XPeng G3,NEV,historical_update,2018-12,XPeng G3,2020-01-01,XPeng G3i 520N,2021-07-09,https://cnevpost.com/2021/07/09/xpeng-g3i-goes-on-sale-with-prices-starting-at-about-23100/
+FY037,Neta,Neta V,NEV,historical_update,2020-11,Neta V,2020-01-01,Neta V Pro Long Endurance Smart Fun,2021-11-03,https://carnewschina.com/2021/11/04/neta-v-pro-launched-at-11990-with-a-401km-range/
+FY038,Neta,Neta V,NEV,historical_update,2020-11,Neta V,2020-01-01,Neta V Pro Long Endurance Smart Enjoy,2021-11-03,https://carnewschina.com/2021/11/04/neta-v-pro-launched-at-11990-with-a-401km-range/
+FY039,Baojun,Baojun RS-3,ICE,historical_update,2019-10,RS-3 1.5L,2020-01-01,RS-3 1.5T Smart Lofty,2021-01,https://en.wikipedia.org/wiki/Baojun_RS-3
+FY040,Baojun,Baojun RS-3,ICE,historical_update,2019-10,RS-3 1.5L,2020-01-01,RS-3 1.5T Smart Elite,2021-01,https://en.wikipedia.org/wiki/Baojun_RS-3
+FY041,Baojun,Baojun RS-3,ICE,historical_update,2019-10,RS-3 1.5L,2020-01-01,RS-3 1.5T Smart Luxury,2021-01,https://en.wikipedia.org/wiki/Baojun_RS-3
+FY042,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,Tiggo 7 Plus 1.5T mild hybrid,2021-09-27,https://en.wikipedia.org/wiki/Chery_Tiggo_7
+FY043,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,Tiggo 7 Plus 1.6T,2021-09-27,https://en.wikipedia.org/wiki/Chery_Tiggo_7
+FY044,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus five-seat,2021-06-19,https://news.gm.com.cn/en/home.detail.html/Pages/news/cn/en/2021/Jun/0619-buick.html
+FY045,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus seven-seat,2021-06-19,https://news.gm.com.cn/en/home.detail.html/Pages/news/cn/en/2021/Jun/0619-buick.html
+FY046,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus Avenir,2021-06-19,https://news.gm.com.cn/en/home.detail.html/Pages/news/cn/en/2021/Jun/0619-buick.html
+FY047,Lynk & Co,Lynk & Co 05,ICE,historical_update,2020-05,Lynk & Co 05,2020-01-01,Lynk & Co 05+,2021-08-06,https://en.wikipedia.org/wiki/Lynk_%26_Co_05
+FY048,Exeed,Exeed TX,ICE,historical_update,2019-04,TXL pre-facelift,2020-01-01,2021 Exeed TXL facelift,2021-01,https://en.wikipedia.org/wiki/Exeed_TX
+FY049,Exeed,Exeed TX,ICE,historical_update,2019-04,2021 Exeed TXL facelift,2020-01-01,Exeed Lingyun 400T,2021-08-27,https://en.wikipedia.org/wiki/Exeed_TX
+FY050,Geely,Geely Jiaji,ICE,historical_update,2019-03,Geely Jiaji,2020-01-01,Jiaji Platinum Edition,2021-09-26,https://en.wikipedia.org/wiki/Geely_Jiaji
