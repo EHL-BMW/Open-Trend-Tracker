@@ -112,3 +112,53 @@ FY047,Lynk & Co,Lynk & Co 05,ICE,historical_update,2020-05,Lynk & Co 05,2020-01-
 FY048,Exeed,Exeed TX,ICE,historical_update,2019-04,TXL pre-facelift,2020-01-01,2021 Exeed TXL facelift,2021-01,https://en.wikipedia.org/wiki/Exeed_TX
 FY049,Exeed,Exeed TX,ICE,historical_update,2019-04,2021 Exeed TXL facelift,2020-01-01,Exeed Lingyun 400T,2021-08-27,https://en.wikipedia.org/wiki/Exeed_TX
 FY050,Geely,Geely Jiaji,ICE,historical_update,2019-03,Geely Jiaji,2020-01-01,Jiaji Platinum Edition,2021-09-26,https://en.wikipedia.org/wiki/Geely_Jiaji
+FY051,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Upgraded Standard Range Version,2021-05,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY052,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Standard Range Entertainment Edition Upgrade,2021-05,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY053,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Standard Range Industry Customized Edition,2021-06,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY054,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Long Range Entertainment Edition Upgrade,2021-05,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY055,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Long-range Intelligent Version Upgrade,2021-05,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY056,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Co-sport Magic Edition,2021-06,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY057,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Co-loli Witch Edition,2021-06,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY058,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Long Range Industry Customized Edition,2021-06,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY059,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Long Range Industry Customized Intelligent Edition,2021-06,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY060,Neta,Neta V,NEV,historical_update,2020-11,Neta V 2020 range,2020-01-01,Neta V 2021 Web Contract Version,2021-03,https://data.carnewschina.com/database/neta-auto/neta-v/2021/params
+FY061,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro DM,2020-01-01,Qin Plus DM-i 55KM Premium,2021-03-08,https://www.autohome.com.cn/news/202103/1123865.html
+FY062,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro DM,2020-01-01,Qin Plus DM-i 55KM Flagship,2021-03-08,https://www.autohome.com.cn/news/202103/1123865.html
+FY063,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro DM,2020-01-01,Qin Plus DM-i 120KM Premium,2021-03-08,https://www.autohome.com.cn/news/202103/1123865.html
+FY064,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro DM,2020-01-01,Qin Plus DM-i 120KM Flagship,2021-03-08,https://www.autohome.com.cn/news/202103/1123865.html
+FY065,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro EV,2020-01-01,Qin Plus EV Standard Range Luxury,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY066,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro EV,2020-01-01,Qin Plus EV Long Range Luxury,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY067,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro EV,2020-01-01,Qin Plus EV Long Range Premium,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY068,BYD,BYD Qin,NEV,historical_update,2013-12,Qin Pro EV,2020-01-01,Qin Plus EV Ultra-long Range Flagship,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY069,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus DM-i 51KM FWD Premium,2021-03-25,https://www.pcauto.com.cn/nation/2456/24569911.html
+FY070,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus DM-i 51KM FWD Prestige,2021-03-25,https://www.pcauto.com.cn/nation/2456/24569911.html
+FY071,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus DM-i 110KM FWD Flagship,2021-03-25,https://www.pcauto.com.cn/nation/2456/24569911.html
+FY072,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus DM-i 110KM FWD Flagship Plus,2021-03-25,https://www.pcauto.com.cn/nation/2456/24569911.html
+FY073,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus EV Premium,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY074,BYD,BYD Song Plus,NEV,historical_update,2020-09,Song Plus ICE,2020-01-01,Song Plus EV Flagship,2021-04-07,https://www.autohome.com.cn/news/202104/1135388.html
+FY075,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 70 Smart Lead LFP,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY076,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 70 Smart Technology LFP,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY077,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 70 Super Fast Charge NCM,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY078,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 80 Smart Lead NCM,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY079,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 80 Smart Technology NCM,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY080,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 80 Navigation Assisted Driving NCM,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY081,GAC Aion,Aion V,NEV,historical_update,2020-06,Aion V Evolution,2020-01-01,Aion V Plus 90 Ultra-long Range NCM,2021-09-29,https://price.pcauto.com.cn/m109086/config.html
+FY082,GAC Aion,Aion S,NEV,historical_update,2019-04,Aion S,2020-01-01,Aion S Plus 60 Smart Lead,2021-06-23,https://www.autohome.com.cn/news/202106/1169035.html
+FY083,GAC Aion,Aion S,NEV,historical_update,2019-04,Aion S,2020-01-01,Aion S Plus 70 Smart Lead,2021-06-23,https://www.autohome.com.cn/news/202106/1169035.html
+FY084,GAC Aion,Aion S,NEV,historical_update,2019-04,Aion S,2020-01-01,Aion S Plus 70 Technology,2021-06-23,https://www.autohome.com.cn/news/202106/1169035.html
+FY085,GAC Aion,Aion S,NEV,historical_update,2019-04,Aion S,2020-01-01,Aion S Plus 80 Ultra-long Range,2021-06-23,https://www.autohome.com.cn/news/202106/1169035.html
+FY086,GAC Aion,Aion S,NEV,historical_update,2019-04,Aion S,2020-01-01,Aion S Plus 80 Technology,2021-06-23,https://www.autohome.com.cn/news/202106/1169035.html
+FY087,BYD,BYD Tang,NEV,historical_update,2015-06,Tang DM,2020-01-01,Tang DM-i 52KM Luxury,2021-04-19,https://www.autohome.com.cn/news/202104/1138165.html
+FY088,BYD,BYD Tang,NEV,historical_update,2015-06,Tang DM,2020-01-01,Tang DM-i 112KM Premium,2021-04-19,https://www.autohome.com.cn/news/202104/1138165.html
+FY089,BYD,BYD Tang,NEV,historical_update,2015-06,Tang DM,2020-01-01,Tang DM-i 112KM Prestige,2021-04-19,https://www.autohome.com.cn/news/202104/1138165.html
+FY090,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus FWD Elite five-seat,2021-06-19,https://price.pcauto.com.cn/m106824/config.html
+FY091,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus FWD Luxury seven-seat,2021-06-19,https://price.pcauto.com.cn/m106824/config.html
+FY092,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus AWD Luxury seven-seat,2021-06-19,https://price.pcauto.com.cn/m106824/config.html
+FY093,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,Envision Plus AWD Luxury five-seat,2021-06-19,https://price.pcauto.com.cn/m106824/config.html
+FY094,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5T Automatic Urban,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY095,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5T Automatic Champion,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY096,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5GDIT Automatic Champion,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY097,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5GDIT Automatic Luxury,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY098,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5GDIT Automatic Ultra Luxury,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY099,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 2.0GDIT Automatic Champion,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY100,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 2.0GDIT Automatic GT,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html

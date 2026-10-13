@@ -262,6 +262,181 @@ CURATED_UPDATES = [
 ]
 
 
+# Final collection batch: exact 2021 trim-level launches on nameplates whose
+# 2020-2025 annual sales series is already documented above. Month-only source
+# dates are retained at month precision; the analysis only needs year/month for
+# its Jan-Mar versus Apr-Dec alignment rule.
+TARGET_UPDATES = [
+    *[
+        {
+            "brand": "Neta", "model": "Neta V", "powertrain": "NEV",
+            "previous": "Neta V 2020 range", "current": f"Neta V 2021 {trim}",
+            "launch": launch,
+            "source": "https://data.carnewschina.com/database/neta-auto/neta-v/2021/params",
+            "features": [
+                (f"{range_km} km range with {battery} kWh battery", "Longer-range battery", "battery_range", "Energy & Charging", "The 2021 trim table documents this trim's range, battery capacity, and release month"),
+                ("OTA software version 1.7.0", "OTA-connected services", "software_lifecycle", "Connected Ecosystem", "The 2021 specification table records OTA version 1.7.0 for this trim"),
+            ],
+        }
+        for trim, range_km, battery, launch in (
+            ("Upgraded Standard Range Version", 301, 31.2, "2021-05"),
+            ("Standard Range Entertainment Edition Upgrade", 301, 31.2, "2021-05"),
+            ("Standard Range Industry Customized Edition", 301, 31.2, "2021-06"),
+            ("Long Range Entertainment Edition Upgrade", 401, 38.5, "2021-05"),
+            ("Long-range Intelligent Version Upgrade", 401, 38.5, "2021-05"),
+            ("Co-sport Magic Edition", 401, 38.5, "2021-06"),
+            ("Co-loli Witch Edition", 401, 38.5, "2021-06"),
+            ("Long Range Industry Customized Edition", 401, 38.5, "2021-06"),
+            ("Long Range Industry Customized Intelligent Edition", 401, 38.5, "2021-06"),
+            ("Web Contract Version", 401, 38.5, "2021-03"),
+        )
+    ],
+    *[
+        {
+            "brand": "BYD", "model": "BYD Qin", "powertrain": "NEV",
+            "previous": "Qin Pro DM", "current": f"Qin Plus DM-i {trim}",
+            "launch": "2021-03-08", "source": "https://www.autohome.com.cn/news/202103/1123865.html",
+            "features": [
+                (f"{range_km} km electric range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch price table separates the DM-i range into documented 55 km and 120 km trims"),
+                ("DM-i plug-in hybrid system with Blade battery", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The launch documents the DM-i system and Blade battery across the four trims"),
+            ],
+        }
+        for trim, range_km in (
+            ("55KM Premium", 55), ("55KM Flagship", 55),
+            ("120KM Premium", 120), ("120KM Flagship", 120),
+        )
+    ],
+    *[
+        {
+            "brand": "BYD", "model": "BYD Qin", "powertrain": "NEV",
+            "previous": "Qin Pro EV", "current": f"Qin Plus EV {trim}",
+            "launch": "2021-04-07", "source": "https://www.autohome.com.cn/news/202104/1135388.html",
+            "features": [
+                (f"{range_km} km NEDC range with Blade battery", "Longer-range battery", "battery_range", "Energy & Charging", "The launch documents 400, 500, and 600 km versions using lithium-iron-phosphate Blade batteries"),
+                ("EV Dragon Face with arrow-feather headlamps", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The launch documents the closed EV fascia and arrow-feather lamp design"),
+            ],
+        }
+        for trim, range_km in (
+            ("Standard Range Luxury", 400), ("Long Range Luxury", 500),
+            ("Long Range Premium", 500), ("Ultra-long Range Flagship", 600),
+        )
+    ],
+    *[
+        {
+            "brand": "BYD", "model": "BYD Song Plus", "powertrain": "NEV",
+            "previous": "Song Plus ICE", "current": f"Song Plus DM-i {trim}",
+            "launch": "2021-03-25", "source": "https://www.pcauto.com.cn/nation/2456/24569911.html",
+            "features": [
+                (f"{range_km} km electric range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch table documents the 51 km and 110 km DM-i trim families"),
+                ("DM-i plug-in hybrid system with Blade battery", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The launch documents BYD's DM-i system and Blade battery"),
+            ],
+        }
+        for trim, range_km in (
+            ("51KM FWD Premium", 51), ("51KM FWD Prestige", 51),
+            ("110KM FWD Flagship", 110), ("110KM FWD Flagship Plus", 110),
+        )
+    ],
+    *[
+        {
+            "brand": "BYD", "model": "BYD Song Plus", "powertrain": "NEV",
+            "previous": "Song Plus ICE", "current": f"Song Plus EV {trim}",
+            "launch": "2021-04-07", "source": "https://www.autohome.com.cn/news/202104/1135388.html",
+            "features": [
+                ("Lithium-iron-phosphate Blade battery", "Longer-range battery", "battery_range", "Energy & Charging", "The joint launch documents Blade batteries for the newly launched Song Plus EV"),
+                ("EV-specific exterior treatment", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The launch identifies Song Plus EV as a new battery-electric derivative with an EV-specific design"),
+            ],
+        }
+        for trim in ("Premium", "Flagship")
+    ],
+    *[
+        {
+            "brand": "GAC Aion", "model": "Aion V", "powertrain": "NEV",
+            "previous": "Aion V Evolution", "current": f"Aion V Plus {trim}",
+            "launch": "2021-09-29", "source": "https://price.pcauto.com.cn/m109086/config.html",
+            "features": [
+                (f"{range_km} km NEDC range", "Longer-range battery", "battery_range", "Energy & Charging", "The 2021 Plus configuration table documents this trim and range family"),
+                *(([("High-rate rapid-charging battery", "Faster DC charging", "charging_replenishment", "Energy & Charging", "The configuration table identifies this trim as the Super Fast Charge version")]) if "Super Fast Charge" in trim else []),
+                *(([("Navigation assisted-driving package", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "The configuration table identifies the Navigation Assisted Driving trim")]) if "Navigation" in trim else []),
+            ],
+        }
+        for trim, range_km in (
+            ("70 Smart Lead LFP", 500), ("70 Smart Technology LFP", 500),
+            ("70 Super Fast Charge NCM", 500), ("80 Smart Lead NCM", 600),
+            ("80 Smart Technology NCM", 600), ("80 Navigation Assisted Driving NCM", 600),
+            ("90 Ultra-long Range NCM", 702),
+        )
+    ],
+    *[
+        {
+            "brand": "GAC Aion", "model": "Aion S", "powertrain": "NEV",
+            "previous": "Aion S", "current": f"Aion S Plus {trim}",
+            "launch": "2021-06-23", "source": "https://www.autohome.com.cn/news/202106/1169035.html",
+            "features": [
+                (f"{range_km} km NEDC range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch documents 410, 510, and 602 km range families for the five trims"),
+                *(([("Technology trim driver-assistance package", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "The launch configuration separates the Technology grade from the Smart Lead grade")]) if "Technology" in trim else []),
+            ],
+        }
+        for trim, range_km in (
+            ("60 Smart Lead", 410), ("70 Smart Lead", 510), ("70 Technology", 510),
+            ("80 Ultra-long Range", 602), ("80 Technology", 602),
+        )
+    ],
+    *[
+        {
+            "brand": "BYD", "model": "BYD Tang", "powertrain": "NEV",
+            "previous": "Tang DM", "current": f"Tang DM-i {trim}",
+            "launch": "2021-04-19", "source": "https://www.autohome.com.cn/news/202104/1138165.html",
+            "features": [
+                (f"{range_km} km electric range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch documents 52 km and 112 km battery configurations"),
+                ("1.5T DM-i plug-in hybrid with Blade battery", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The launch documents the new 1.5T hybrid system and lithium-iron-phosphate Blade battery"),
+                ("DiPilot driving assistance", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "The launch lists adaptive cruise, forward collision warning, emergency braking, and lane departure warning"),
+            ],
+        }
+        for trim, range_km in (("52KM Luxury", 52), ("112KM Premium", 112), ("112KM Prestige", 112))
+    ],
+    *[
+        {
+            "brand": "Buick", "model": "Buick Envision", "powertrain": "ICE",
+            "previous": "Envision S", "current": f"Envision Plus {trim}",
+            "launch": "2021-06-19", "source": "https://price.pcauto.com.cn/m106824/config.html",
+            "features": [
+                (seat_detail, "Flexible three-row seating", "seating_comfort", "Smart Cabin", "The 2021 configuration table documents this exact seating and drivetrain trim"),
+                ("2.0T engine, nine-speed transmission, and 48V mild hybrid", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "GM's launch documentation specifies this powertrain across the Envision Plus range"),
+                *(([("Intelligent all-wheel drive", "Performance AWD system", "ride_body_control", "Vehicle Dynamics", "The exact trim is documented as an all-wheel-drive version")]) if trim.startswith("AWD") else []),
+            ],
+        }
+        for trim, seat_detail in (
+            ("FWD Elite five-seat", "Five-seat Elite cabin"),
+            ("FWD Luxury seven-seat", "Three-row seven-seat Luxury cabin"),
+            ("AWD Luxury seven-seat", "All-wheel-drive three-row seven-seat cabin"),
+            ("AWD Luxury five-seat", "All-wheel-drive five-seat cabin"),
+        )
+    ],
+    *[
+        {
+            "brand": "Haval", "model": "Haval H6", "powertrain": "ICE",
+            "previous": "second-generation H6", "current": f"H6 China-Chic {trim}",
+            "launch": "2021-03-23", "source": "https://www.autohome.com.cn/news/202103/1129511.html",
+            "features": [
+                (powertrain, "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "The launch table documents the powertrain for this exact China-Chic trim"),
+                ("Redesigned exterior and interior", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The launch documents the second-generation H6-based edition's new exterior and interior design"),
+            ],
+        }
+        for trim, powertrain in (
+            ("1.5T Automatic Urban", "1.5T engine with automatic transmission"),
+            ("1.5T Automatic Champion", "1.5T engine with automatic transmission"),
+            ("1.5GDIT Automatic Champion", "1.5GDIT engine with seven-speed dual-clutch transmission"),
+            ("1.5GDIT Automatic Luxury", "1.5GDIT engine with seven-speed dual-clutch transmission"),
+            ("1.5GDIT Automatic Ultra Luxury", "1.5GDIT engine with seven-speed dual-clutch transmission"),
+            ("2.0GDIT Automatic Champion", "2.0GDIT engine with automatic transmission"),
+            ("2.0GDIT Automatic GT", "2.0GDIT engine with automatic transmission"),
+        )
+    ],
+]
+
+ALL_CURATED_UPDATES = [*CURATED_UPDATES, *TARGET_UPDATES]
+
+
 def _read(path: Path) -> list[dict]:
     with path.open(encoding="utf-8-sig", newline="") as stream:
         return list(csv.DictReader(stream))
@@ -299,7 +474,7 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
                 "source_url": url,
             })
 
-    for index, update in enumerate(CURATED_UPDATES, len(UPDATES) + 1):
+    for index, update in enumerate(ALL_CURATED_UPDATES, len(UPDATES) + 1):
         pair_id = f"FY{index:03d}"
         pairs.append({
             "pair_id": pair_id, "brand": update["brand"], "car_model": update["model"],
@@ -338,8 +513,8 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
     _write(input_dir / "model_sales.csv", sales)
     _write(input_dir / "market_sales.csv", market)
     return {
-        "seed_pairs": len(UPDATES) + len(CURATED_UPDATES),
-        "seed_features": len(UPDATES) * 2 + sum(len(update["features"]) for update in CURATED_UPDATES),
+        "seed_pairs": len(UPDATES) + len(ALL_CURATED_UPDATES),
+        "seed_features": len(UPDATES) * 2 + sum(len(update["features"]) for update in ALL_CURATED_UPDATES),
         "sales_rows": len(SALES) * 6,
     }
 
