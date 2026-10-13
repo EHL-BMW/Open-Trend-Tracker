@@ -192,10 +192,10 @@ def test_live_impact_taxonomy_maps_every_news_topic():
     assert result["status"] == "insufficient_independent_data"
     assert result["news_feature_count"] == 21
     assert result["isolated_feature_count"] == 0
-    assert result["independent_observation_count"] == 99
-    assert result["complete_observation_count"] == 36
-    assert result["independent_nameplate_count"] == 65
-    assert result["complete_nameplate_count"] == 28
+    assert result["independent_observation_count"] == 161
+    assert result["complete_observation_count"] == 97
+    assert result["independent_nameplate_count"] == 125
+    assert result["complete_nameplate_count"] == 86
     assert not any(c["impact_by_year"] for c in result["categories"])
     news = {n["id"] for c in result["categories"] for sub in c["subcategories"] for n in sub["news_features"]}
     assert len(news) == 21

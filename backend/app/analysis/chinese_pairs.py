@@ -17,7 +17,8 @@ and the pair has a numeric baseline plus four annual observations. Partial basel
 later successor launches are retained as quality flags rather than silently dropping points.
 
 Sales change is market-adjusted: excess = ln(S_k / S_base) - ln(M_k / M_base), with M the NEV
-or ICE passenger market. Repeated trim rows that reuse the same nameplate sales trajectory are
+or ICE passenger market. SRNI-CAR observations use the total market aggregated from the same
+monthly source, avoiding a denominator/provider mismatch. Repeated trim rows that reuse the same nameplate sales trajectory are
 collapsed before estimation. On the balanced four-year panel, the coefficient for an item is
 estimated after partialling out supported peer items, bundle size, powertrain, baseline scale,
 calendar year and recorded data-quality flags. Standard errors are clustered by nameplate.
@@ -44,6 +45,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from app.paths import DATA_DIR, EXTERNAL_DIR
+from app.analysis.srni_panel import SRNI_SERIES
 
 INPUT_DIR = EXTERNAL_DIR / "chinese_pairs"
 OUTPUT_DIR = DATA_DIR / "analysis" / "chinese_pairs"
@@ -121,8 +123,14 @@ def load(input_dir: Path = INPUT_DIR) -> tuple[list[dict], list[dict], dict, dic
     sales: dict[str, dict[str, dict[int, int]]] = defaultdict(lambda: defaultdict(dict))
     for row in read_csv(input_dir / "model_sales.csv"):
         sales[row["car_model"]][row["series"]][int(row["year"])] = int(row["units"])
-    market = {int(r["year"]): {"NEV": int(r["nev_retail"]), "ICE": int(r["total_retail"]) - int(r["nev_retail"])}
+    market = {int(r["year"]): {"NEV": int(r["nev_retail"]),
+                               "ICE": int(r["total_retail"]) - int(r["nev_retail"]),
+                               "TOTAL": int(r["total_retail"])}
               for r in read_csv(input_dir / "market_sales.csv")}
+    srni_market_path = input_dir / "srni_market_sales.csv"
+    if srni_market_path.exists():
+        for row in read_csv(srni_market_path):
+            market.setdefault(int(row["year"]), {})["SRNI_TOTAL"] = int(row["total_units"])
     return pairs, features, sales, market
 
 
@@ -150,10 +158,12 @@ def pair_sales(pairs: list[dict], sales: dict, market: dict) -> list[dict]:
         series = pick_series(sales[model], base_year, years)
         chosen = sales[model].get(series, {})
         base = chosen.get(base_year)
+        market_segment = "SRNI_TOTAL" if series == SRNI_SERIES else segment
         row = {"pair_id": p["pair_id"], "brand": p["brand"], "car_model": model, "powertrain": segment,
                "change_type": p["change_type"], "current_version": p["current_version"],
                "current_launch": p["current_launch"], "successor_launch": later[0] if later else "",
                "nameplate_launch": p["nameplate_launch"], "sales_series": series,
+               "market_denominator": market_segment,
                "baseline_year": base_year, "baseline_sales": base}
         for k in YEARS:
             year = first + k - 1
@@ -164,9 +174,12 @@ def pair_sales(pairs: list[dict], sales: dict, market: dict) -> list[dict]:
             broken = units is None and any(year in v for v in sales[model].values()) and \
                 any(base_year in v for v in sales[model].values())
             change = excess = None
-            if units and base and year in market and base_year in market:
+            if (units and base and year in market and base_year in market
+                    and market_segment in market[year] and market_segment in market[base_year]):
                 change = units / base - 1
-                excess = math.log(units / base) - math.log(market[year][segment] / market[base_year][segment])
+                excess = math.log(units / base) - math.log(
+                    market[year][market_segment] / market[base_year][market_segment]
+                )
             row[f"year_{k}"] = year
             row[f"sales_year_{k}"] = units
             row[f"change_pct_year_{k}"] = None if change is None else round(change * 100, 2)
@@ -183,6 +196,10 @@ def pair_sales(pairs: list[dict], sales: dict, market: dict) -> list[dict]:
                 flags.append("provider_change")
             row[f"quality_year_{k}"] = ";".join(flags)
         row["valid_four_year_pair"] = all(row[f"status_year_{k}"] == "observed" for k in YEARS)
+        row["publication_eligible"] = (
+            row["valid_four_year_pair"] and series != "four_year_nameplate" and not partial
+            and not any("successor_overlap" in row[f"quality_year_{k}"] for k in YEARS)
+        )
         rows.append(row)
     return rows
 
@@ -204,7 +221,8 @@ def independent_observations(pair_rows: list[dict], features: list[dict]) -> tup
         parents[("subcategory", feature["subcategory"])] = (feature["subcategory"], feature["category"])
         parents[("category", feature["category"])] = ("", feature["category"])
 
-    identity_fields = ["car_model", "powertrain", "sales_series", "baseline_year", "baseline_sales"]
+    identity_fields = ["car_model", "powertrain", "sales_series", "market_denominator",
+                       "baseline_year", "baseline_sales"]
     for year in YEARS:
         identity_fields.extend((f"year_{year}", f"sales_year_{year}"))
     grouped: dict[tuple, dict] = {}
@@ -213,9 +231,14 @@ def independent_observations(pair_rows: list[dict], features: list[dict]) -> tup
         observation = grouped.setdefault(key, {
             "brand": pair["brand"], "car_model": pair["car_model"], "powertrain": pair["powertrain"],
             "sales_series": pair["sales_series"], "baseline_year": pair["baseline_year"],
+            "market_denominator": pair["market_denominator"],
             "baseline_sales": pair["baseline_sales"], "pair_ids": set(),
+            "publication_eligible": True,
             "items": defaultdict(set), "quality": defaultdict(set),
         })
+        observation["publication_eligible"] = (
+            observation["publication_eligible"] and pair["publication_eligible"]
+        )
         observation["pair_ids"].add(pair["pair_id"])
         for level in ("feature", "subcategory", "category"):
             observation["items"][level].update(membership[pair["pair_id"]][level])
@@ -239,6 +262,8 @@ def serializable_observations(observations: list[dict]) -> list[dict]:
             "observation_id": observation["observation_id"], "brand": observation["brand"],
             "car_model": observation["car_model"], "powertrain": observation["powertrain"],
             "sales_series": observation["sales_series"], "pair_count": len(observation["pair_ids"]),
+            "market_denominator": observation["market_denominator"],
+            "publication_eligible": observation["publication_eligible"],
             "pair_ids": json.dumps(sorted(observation["pair_ids"])),
             "categories": json.dumps(sorted(observation["items"]["category"]), ensure_ascii=False),
             "subcategories": json.dumps(sorted(observation["items"]["subcategory"]), ensure_ascii=False),
@@ -275,7 +300,8 @@ def _unit_effect(log_effect: float, observations: list[dict], year: int) -> tupl
 
 def isolated_effect(observations: list[dict], level: str, target: str, names: list[str], year: int) -> dict:
     """FWL event-study coefficient with nameplate-clustered uncertainty on a balanced panel."""
-    balanced = [o for o in observations if all(o[f"status_year_{k}"] == "observed" for k in YEARS)]
+    balanced = [o for o in observations if o["publication_eligible"]
+                and all(o[f"status_year_{k}"] == "observed" for k in YEARS)]
     target_values = np.array([target in o["items"][level] for o in balanced], dtype=float)
     treated = [o for o, value in zip(balanced, target_values, strict=True) if value]
     untreated = [o for o, value in zip(balanced, target_values, strict=True) if not value]
@@ -459,6 +485,9 @@ def run(input_dir: Path = INPUT_DIR, output_dir: Path = OUTPUT_DIR) -> dict:
                                                for o in observations),
         "complete_four_year_nameplates": len({o["car_model"] for o in observations
                                                if all(o[f"status_year_{k}"] == "observed" for k in YEARS)}),
+        "publication_eligible_observations": sum(bool(o["publication_eligible"]) for o in observations),
+        "publication_eligible_nameplates": len({o["car_model"] for o in observations
+                                                if o["publication_eligible"]}),
         "estimated_items": {level: sum(r["level"] == level and r["identification_status"] == "identified"
                                                for r in impact_rows)
                             for level in ("feature", "subcategory", "category")},

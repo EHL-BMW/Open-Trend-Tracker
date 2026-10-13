@@ -1,8 +1,8 @@
 """Seed reproducible four-year benchmark pairs.
 
-These are historical China nameplate updates with a complete 2020 baseline and
-2021-2025 annual series.  They are kept separate from the live discovery rows so
-the page can be rebuilt while collection continues toward 200 valid pairs.
+These are historical China nameplate updates with a complete pre-update baseline
+and four annual post-update observations. They are kept separate from the live
+discovery rows so the page can be rebuilt from source-linked evidence.
 
 Run from ``backend/``::
 
@@ -14,6 +14,12 @@ import csv
 from pathlib import Path
 
 from app.paths import EXTERNAL_DIR
+from app.analysis.srni_panel import (
+    SRNI_DOWNLOAD,
+    SRNI_SERIES,
+    SRNI_SALES,
+    SRNI_UPDATES,
+)
 
 INPUT_DIR = EXTERNAL_DIR / "chinese_pairs"
 SERIES = "four_year_nameplate"
@@ -47,6 +53,15 @@ SOURCES = {
     "Geely Jiaji": "https://en.wikipedia.org/wiki/Geely_Jiaji",
     "Geely Xingrui": "https://en.wikipedia.org/wiki/Geely_Xingrui",
     "Ora Good Cat": "https://en.wikipedia.org/wiki/Ora_Good_Cat",
+    "Neta U": "https://en.wikipedia.org/wiki/Neta_U",
+    "Geometry A": "https://en.wikipedia.org/wiki/Geometry_A",
+    "Leapmotor T03": "https://en.wikipedia.org/wiki/Leapmotor_T03",
+    "BYD Song Max": "https://en.wikipedia.org/wiki/BYD_Song_Max",
+    "Changan CS75": "https://en.wikipedia.org/wiki/Changan_CS75",
+    "Changan CS55": "https://en.wikipedia.org/wiki/Changan_CS55",
+    "Changan CS35 Plus": "https://en.wikipedia.org/wiki/Changan_CS35_Plus",
+    "Changan Eado": "https://en.wikipedia.org/wiki/Changan_Eado",
+    "Changan UNI-K": "https://en.wikipedia.org/wiki/Changan_UNI-K",
 }
 
 NAMEPLATE_LAUNCH = {
@@ -60,6 +75,9 @@ NAMEPLATE_LAUNCH = {
     "Chevrolet Menlo": "2020-02", "Buick Envision": "2014-10", "Buick GL8": "2000-05",
     "Lynk & Co 05": "2020-05", "Exeed TX": "2019-04", "Geely Jiaji": "2019-03",
     "Geely Xingrui": "2020-11", "Ora Good Cat": "2020-11",
+    "Neta U": "2020-03", "Geometry A": "2019-04", "Leapmotor T03": "2020-05",
+    "BYD Song Max": "2017-09", "Changan CS75": "2014-04", "Changan CS55": "2017-07",
+    "Changan CS35 Plus": "2018-10", "Changan Eado": "2012-03", "Changan UNI-K": "2021-03",
 }
 
 # Nameplate totals transcribed from the cited annual tables. A single named
@@ -94,53 +112,20 @@ SALES = {
     "Geely Jiaji": [28772, 12178, 6933, 2669, 1847, 959],
     "Geely Xingrui": [19094, 133596, 110747, 121924, 162052, 142606],
     "Ora Good Cat": [2016, 50931, 52800, 71418, 47426, 30161],
+    "Neta U": [8281, 69674, 75298, 34884, 15370, 124],
+    "Geometry A": [5051, 14986, 53361, 18481, 17484, 12027],
+    "Leapmotor T03": [9831, 40245, 61919, 38454, 66884, 47442],
+    "BYD Song Max": [25392, 10668, 11050, 3720, 291, 1],
+    "Changan CS75": [266824, 281862, 237615, 253611, 225278, 217522],
+    "Changan CS55": [109929, 140579, 152794, 130386, 140198, 123963],
+    "Changan CS35 Plus": [95211, 80152, 76968, 71740, 66122, 30970],
+    "Changan Eado": [174912, 170198, 154141, 164099, 157328, 195607],
 }
 
-# Two distinct documented update packages per nameplate. Dates are kept in 2021
-# so the four comparable post-launch years are complete by the 2025 dataset.
-UPDATES = [
-    ("GAC Aion", "Aion S", "NEV", "S", "S Plus", "2021-06-23"),
-    ("GAC Aion", "Aion S", "NEV", "S Plus launch", "S Plus 80 trim", "2021-08-01"),
-    ("GAC Aion", "Aion V", "NEV", "V", "V Plus", "2021-09-29"),
-    ("GAC Aion", "Aion V", "NEV", "V Plus launch", "V Plus 80 Max", "2021-11-01"),
-    ("BYD", "BYD Han", "NEV", "Han launch range", "Han EV luxury update", "2021-08-01"),
-    ("BYD", "BYD Han", "NEV", "Han DM", "Han DM performance update", "2021-09-01"),
-    ("BYD", "BYD Qin", "NEV", "Qin Pro DM", "Qin Plus DM-i", "2021-03-08"),
-    ("BYD", "BYD Qin", "NEV", "Qin Pro EV", "Qin Plus EV", "2021-04-07"),
-    ("BYD", "BYD Song Plus", "NEV", "Song Plus ICE", "Song Plus DM-i", "2021-03-25"),
-    ("BYD", "BYD Song Plus", "NEV", "Song Plus launch range", "Song Plus EV", "2021-04-07"),
-    ("BYD", "BYD Song Pro", "NEV", "Song Pro DM", "Song Pro DM-i", "2021-12-13"),
-    ("BYD", "BYD Song Pro", "NEV", "Song Pro launch range", "Song Pro upscale trim", "2021-10-01"),
-    ("BYD", "BYD Tang", "NEV", "Tang DM", "Tang DM-i", "2021-04-19"),
-    ("BYD", "BYD Tang", "NEV", "Tang DM-i", "Tang DM-p package", "2021-08-01"),
-    ("Geely", "Geely Binyue", "ICE", "Binyue", "Binyue Pro facelift", "2021-08-01"),
-    ("Geely", "Geely Binyue", "ICE", "Binyue ePro", "Binyue ePro update", "2021-10-01"),
-    ("Geely", "Geely Boyue", "ICE", "Boyue Pro", "Boyue X", "2021-10-10"),
-    ("Geely", "Geely Boyue", "ICE", "Boyue", "Boyue Pro smart trim", "2021-06-01"),
-    ("Lynk & Co", "Lynk & Co 03", "ICE", "03+", "03+ Cyan Edition", "2021-08-29"),
-    ("Lynk & Co", "Lynk & Co 03", "ICE", "03", "03 technology update", "2021-09-01"),
-    ("NIO", "NIO ES6", "NEV", "ES6 70 kWh", "ES6 100 kWh", "2021-11-01"),
-    ("NIO", "NIO ES6", "NEV", "ES6 launch range", "ES6 Sport Edition", "2021-05-01"),
-    ("NIO", "NIO ES8", "NEV", "ES8 70 kWh", "ES8 100 kWh", "2021-11-01"),
-    ("NIO", "NIO ES8", "NEV", "ES8 six-seat", "ES8 signature update", "2021-04-01"),
-    ("Haval", "Haval H6", "ICE", "third-generation H6", "H6 National Tide Edition", "2021-03-12"),
-    ("Haval", "Haval H6", "ICE", "H6 launch range", "H6 smart package", "2021-09-01"),
-    ("Roewe", "Roewe i5", "ICE", "i5", "i5 facelift", "2021-04-01"),
-    ("Roewe", "Roewe i5", "ICE", "i5 facelift", "i5 GT package", "2021-09-01"),
-    ("XPeng", "XPeng P7", "NEV", "P7 launch range", "P7 LFP range", "2021-03-01"),
-    ("XPeng", "XPeng P7", "NEV", "P7 XPILOT 2.5", "P7 XPILOT 3.0 package", "2021-07-01"),
-]
-
-FEATURES = [
-    ("Longer-range battery", "battery_range", "Energy & Charging"),
-    ("Advanced driver assistance", "assisted_driving", "Driving Assistance"),
-    ("Upgraded cockpit computing", "cockpit_intelligence", "Digital Cockpit & AI"),
-    ("Chassis and performance tuning", "ride_body_control", "Vehicle Dynamics"),
-    ("Comfort and cabin upgrade", "seating_comfort", "Smart Cabin"),
-    ("OTA-connected services", "software_lifecycle", "Connected Ecosystem"),
-    ("Lighting and exterior redesign", "lighting_visibility", "Smart Exterior"),
-    ("Ownership and trim package", "ownership_services", "General & Services"),
-]
+# UNI-K first sold in 2021, so there is intentionally no invented 2020 value.
+IRREGULAR_SALES = {
+    "Changan UNI-K": {2021: 36503, 2022: 41160, 2023: 41129, 2024: 35392, 2025: 9954},
+}
 
 # Additional documented 2021 trims and updates. Each row is a distinct
 # previous/current version pair. Feature evidence is specific to the cited
@@ -782,7 +767,98 @@ EXPANSION_UPDATES = [
 ]
 
 
-ALL_CURATED_UPDATES = [*CURATED_UPDATES, *TARGET_UPDATES, *EXPANSION_UPDATES]
+VERIFIED_PANEL_UPDATES = [
+    {
+        "brand": "Neta", "model": "Neta U", "powertrain": "NEV",
+        "previous": "Neta U", "current": "2021 Neta U Pro", "launch": "2021-03-01",
+        "source": "https://en.42how.com/2021/03/01/2021-nezha-u-offers-a-610-kilometer-driving-range-version/",
+        "features": [
+            ("400, 500, or 610 km NEDC range", "Longer-range battery", "battery_range", "Energy & Charging", "The U Pro launch lists three range families and a new 610 km version"),
+            ("Transparent A-pillar 2.0 with navigation and blind-spot view", "Expanded display-based visibility", "displays_hmi", "Digital Cockpit & AI", "The launch documents the upgraded A-pillar display and its navigation and visibility functions"),
+            ("Sentry mode, intelligent parking search, and remote parking", "Advanced parking assistance", "assisted_driving", "Driving Assistance", "The U Pro launch documents the added parking and remote-control functions"),
+        ],
+    },
+    {
+        "brand": "Geely", "model": "Geometry A", "powertrain": "NEV",
+        "previous": "Geometry A", "current": "Geometry A Pro", "launch": "2021-04",
+        "source": "https://autonews.gasgoo.com/articles/news/geelys-bev-brand-teases-geometry-a-pro-with-nedc-range-of-up-to-600km-70018012",
+        "features": [
+            ("70 kWh battery and up to 600 km NEDC range", "Longer-range battery", "battery_range", "Energy & Charging", "The A Pro release documents the 600 km range and higher-density battery"),
+            ("150 kW motor with 310 Nm", "Higher-output electric powertrain", "powertrain_performance", "Vehicle Dynamics", "The A Pro release documents the upgraded 150 kW motor"),
+        ],
+    },
+    {
+        "brand": "Leapmotor", "model": "Leapmotor T03", "powertrain": "NEV",
+        "previous": "2021 Leapmotor T03", "current": "2022 Leapmotor T03", "launch": "2021-12-28",
+        "source": "https://www.autohome.com.cn/news/202112/1233151.html",
+        "features": [
+            ("80 kW motor on four 403 km versions", "Higher-output electric powertrain", "powertrain_performance", "Vehicle Dynamics", "The model-year launch documents the 80 kW upgrade on the four long-range versions"),
+            ("Three cameras, one mmWave radar, and 11 ultrasonic sensors for L2 assistance", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "The 2022 launch documents the sensor suite and L2 functions"),
+            ("Voice control, reversing camera, EPB, and auto hold", "Upgraded cockpit computing", "cockpit_intelligence", "Digital Cockpit & AI", "The launch lists the newly added voice and digital convenience functions"),
+        ],
+    },
+    {
+        "brand": "BYD", "model": "BYD Song Max", "powertrain": "NEV",
+        "previous": "Song Max DM", "current": "Song Max DM-i", "launch": "2022-03-12",
+        "source": "https://carnewschina.com/2022/03/11/byds-phev-mpv-song-max-dm-i-leak-ahead-of-launch-price-to-be-27500-usd/",
+        "features": [
+            ("DM-i plug-in-hybrid system", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The launch documents replacement of the prior DM powertrain by BYD's DM-i system"),
+            ("51 km or 105 km NEDC electric range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch configuration documents two electric-range families, including a new 105 km version"),
+        ],
+    },
+    {
+        "brand": "Changan", "model": "Changan CS75", "powertrain": "ICE",
+        "previous": "first-generation CS75 Plus", "current": "second-generation CS75 Plus", "launch": "2022-02-28",
+        "source": "https://www.autohome.com.cn/news/202202/1239263.html",
+        "features": [
+            ("Blue Whale 1.5T or 2.0T engine with standard Aisin eight-speed transmission", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "The six-version launch table documents both engines and the standard eight-speed transmission"),
+            ("Full-width front lighting and redesigned front fascia", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The launch documents the full-width lamp treatment and redesigned fascia"),
+        ],
+    },
+    {
+        "brand": "Changan", "model": "Changan CS55", "powertrain": "ICE",
+        "previous": "first-generation CS55 Plus", "current": "second-generation CS55 Plus", "launch": "2021-09-06",
+        "source": "https://www.changan.com.cn/cars_m/cs55plus_2021/index.html",
+        "features": [
+            ("138 kW Blue Whale NE 1.5T direct-injection engine", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "Changan's product page documents the new-generation Blue Whale powertrain"),
+            ("IACC adaptive cruise and AEB with pedestrian recognition", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "Changan's configuration table documents IACC and AEB-P on the Navigation grade"),
+            ("Continuous split digital dual displays", "Larger or extra displays", "displays_hmi", "Digital Cockpit & AI", "Changan's configuration table documents the dual-screen cockpit"),
+        ],
+    },
+    {
+        "brand": "Changan", "model": "Changan CS35 Plus", "powertrain": "ICE",
+        "previous": "2019 CS35 Plus", "current": "2021 CS35 Plus facelift", "launch": "2021-01",
+        "source": "https://info.xcar.com.cn/202103/news_2056965_1.html",
+        "features": [
+            ("Redesigned front and rear exterior", "Lighting and exterior redesign", "lighting_visibility", "Smart Exterior", "The facelift launch documents the revised front graphics and rear styling"),
+        ],
+    },
+    {
+        "brand": "Changan", "model": "Changan Eado", "powertrain": "ICE",
+        "previous": "Eado Plus", "current": "2021 Eado Plus", "launch": "2021-03",
+        "source": "https://static.cninfo.com.cn/finalpage/2022-04-28/1213168443.PDF",
+        "features": [
+            ("BlueCore NE 1.4T engine and seven-speed wet DCT", "Turbocharged powertrain upgrade", "powertrain_performance", "Vehicle Dynamics", "Changan's annual report documents the 2021 model's powertrain"),
+            ("inCall 3.0S interactive system", "Upgraded cockpit computing", "cockpit_intelligence", "Digital Cockpit & AI", "Changan's annual report documents the connected interactive system"),
+            ("540-degree camera, ACC stop-and-go, and lane-departure warning", "Advanced driver assistance", "assisted_driving", "Driving Assistance", "Changan's annual report lists the camera and assistance package"),
+        ],
+    },
+    {
+        "brand": "Changan", "model": "Changan UNI-K", "powertrain": "NEV",
+        "previous": "UNI-K 2.0T", "current": "UNI-K iDD", "launch": "2022-03-10",
+        "source": "https://www.autohome.com.cn/news/202203/1239837.html",
+        "features": [
+            ("Blue Whale 1.5T iDD plug-in-hybrid system", "New hybrid system", "hybrid_powertrain", "Energy & Charging", "The launch identifies UNI-K iDD as Changan's first production model with the iDD system"),
+            ("30.7 kWh battery and 130 km NEDC electric range", "Longer-range battery", "battery_range", "Energy & Charging", "The launch documents the battery and electric-only range"),
+        ],
+    },
+]
+
+
+ALL_CURATED_UPDATES = [
+    *CURATED_UPDATES, *TARGET_UPDATES, *EXPANSION_UPDATES,
+    *VERIFIED_PANEL_UPDATES, *SRNI_UPDATES,
+]
 
 
 def _read(path: Path) -> list[dict]:
@@ -800,35 +876,18 @@ def _write(path: Path, rows: list[dict]) -> None:
 def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
     pairs = [row for row in _read(input_dir / "pairs.csv") if not row["pair_id"].startswith("FY")]
     features = [row for row in _read(input_dir / "features.csv") if not row["pair_id"].startswith("FY")]
-    sales = [row for row in _read(input_dir / "model_sales.csv") if row["series"] != SERIES]
+    sales = [row for row in _read(input_dir / "model_sales.csv")
+             if row["series"] not in {SERIES, SRNI_SERIES}]
 
-    for index, (brand, model, powertrain, previous, current, launch) in enumerate(UPDATES, 1):
-        pair_id = f"FY{index:03d}"
-        url = SOURCES[model]
-        pairs.append({
-            "pair_id": pair_id, "brand": brand, "car_model": model, "powertrain": powertrain,
-            "change_type": "historical_update", "nameplate_launch": NAMEPLATE_LAUNCH[model],
-            "previous_version": previous, "previous_launch": "2020-01-01",
-            "current_version": current, "current_launch": launch, "source_url": url,
-        })
-        # Two rotating families give every category enough with/without pairs for
-        # all four annual estimates while keeping one pair as the unit of evidence.
-        for offset in (0, 3):
-            feature, subcategory, category = FEATURES[(index - 1 + offset) % len(FEATURES)]
-            features.append({
-                "pair_id": pair_id, "detail": feature, "feature": feature,
-                "subcategory": subcategory, "category": category,
-                "evidence": f"Feature family coded from the cited {current} update chronology",
-                "source_url": url,
-            })
-
-    for index, update in enumerate(ALL_CURATED_UPDATES, len(UPDATES) + 1):
+    for index, update in enumerate(ALL_CURATED_UPDATES, 1):
         pair_id = f"FY{index:03d}"
         pairs.append({
             "pair_id": pair_id, "brand": update["brand"], "car_model": update["model"],
-            "powertrain": update["powertrain"], "change_type": "historical_update",
-            "nameplate_launch": NAMEPLATE_LAUNCH[update["model"]],
-            "previous_version": update["previous"], "previous_launch": "2020-01-01",
+            "powertrain": update["powertrain"],
+            "change_type": update.get("change_type", "historical_update"),
+            "nameplate_launch": update.get("nameplate_launch", NAMEPLATE_LAUNCH.get(update["model"], "")),
+            "previous_version": update["previous"],
+            "previous_launch": update.get("previous_launch", "2020-01-01"),
             "current_version": update["current"], "current_launch": update["launch"],
             "source_url": update["source"],
         })
@@ -846,6 +905,21 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
                 "source": "Cited annual nameplate sales table", "url": SOURCES[model],
                 "note": "Six-year continuous benchmark series; provider changes inside the source table are a quality caveat",
             })
+    for model, by_year in IRREGULAR_SALES.items():
+        for year, units in by_year.items():
+            sales.append({
+                "car_model": model, "year": year, "units": units, "series": SERIES,
+                "source": "Cited annual nameplate sales table", "url": SOURCES[model],
+                "note": "Continuous available benchmark series; provider changes inside the source table are a quality caveat",
+            })
+    for model, by_year in SRNI_SALES.items():
+        for year, units in by_year.items():
+            sales.append({
+                "car_model": model, "year": year, "units": units, "series": SRNI_SERIES,
+                "source": "SRNI-CAR peer-reviewed monthly vehicle-series dataset",
+                "url": SRNI_DOWNLOAD,
+                "note": "Annual sum of monthly sales for the exact source series in srni_car_manifest.json; no imputation",
+            })
 
     market = _read(input_dir / "market_sales.csv")
     if not any(row["year"] == "2020" for row in market):
@@ -861,9 +935,10 @@ def sync(input_dir: Path = INPUT_DIR) -> dict[str, int]:
     _write(input_dir / "model_sales.csv", sales)
     _write(input_dir / "market_sales.csv", market)
     return {
-        "seed_pairs": len(UPDATES) + len(ALL_CURATED_UPDATES),
-        "seed_features": len(UPDATES) * 2 + sum(len(update["features"]) for update in ALL_CURATED_UPDATES),
-        "sales_rows": len(SALES) * 6,
+        "seed_pairs": len(ALL_CURATED_UPDATES),
+        "seed_features": sum(len(update["features"]) for update in ALL_CURATED_UPDATES),
+        "sales_rows": (len(SALES) * 6 + sum(len(rows) for rows in IRREGULAR_SALES.values())
+                       + sum(len(rows) for rows in SRNI_SALES.values())),
     }
 
 

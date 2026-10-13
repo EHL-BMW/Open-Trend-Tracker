@@ -1,23 +1,25 @@
 {
-  "pairs": 263,
-  "brands": 30,
+  "pairs": 298,
+  "brands": 50,
   "launch_range": [
-    "2021-01",
+    "2017-01-09",
     "2025-03-20"
   ],
-  "features": 661,
+  "features": 784,
   "observed_pairs_by_year": {
-    "1": 246,
-    "2": 216,
-    "3": 203,
-    "4": 200
+    "1": 281,
+    "2": 252,
+    "3": 238,
+    "4": 234
   },
-  "valid_four_year_pairs": 200,
+  "valid_four_year_pairs": 234,
   "collection_target": 200,
-  "independent_observations": 99,
-  "independent_nameplates": 65,
-  "complete_four_year_observations": 36,
-  "complete_four_year_nameplates": 28,
+  "independent_observations": 161,
+  "independent_nameplates": 125,
+  "complete_four_year_observations": 97,
+  "complete_four_year_nameplates": 86,
+  "publication_eligible_observations": 49,
+  "publication_eligible_nameplates": 49,
   "estimated_items": {
     "feature": 0,
     "subcategory": 0,
