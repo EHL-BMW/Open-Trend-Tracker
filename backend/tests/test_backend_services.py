@@ -93,8 +93,8 @@ def test_planner_contract_ranks_news_features_from_real_sources(tmp_path, monkey
     client = TestClient(app)
     catalog = client.get("/api/v1/catalog").json()
     assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) == 21
-    assert catalog["impactCoverage"]["collectionTarget"] == 100
-    assert catalog["impactCoverage"]["validPairCount"] == 100
+    assert catalog["impactCoverage"]["collectionTarget"] == 200
+    assert catalog["impactCoverage"]["validPairCount"] == 200
     assert all([point["year"] for point in row["impactByYear"]] == [1, 2, 3, 4]
                for row in catalog["trendForecast"])
     assert any(point["impact"] < 0 for row in catalog["trendForecast"] for point in row["impactByYear"])

@@ -251,7 +251,7 @@ def run(input_dir: Path = INPUT_DIR, output_dir: Path = OUTPUT_DIR) -> dict:
         "features": len(features),
         "observed_pairs_by_year": {k: sum(r[f"status_year_{k}"] == "observed" for r in pair_rows) for k in YEARS},
         "valid_four_year_pairs": sum(r["valid_four_year_pair"] for r in pair_rows),
-        "collection_target": 100,
+        "collection_target": 200,
         "estimated_items": {level: sum(r["level"] == level and r["impact_pct_year_1"] is not None for r in impact_rows)
                             for level in ("feature", "subcategory", "category")},
         "last_full_sales_year": max(market),

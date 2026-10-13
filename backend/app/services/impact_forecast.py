@@ -128,7 +128,7 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
         "legacy_feature_count": len(features),
         "news_feature_count": len(news_by_id),
         "valid_pair_count": summary.get("valid_four_year_pairs", 0),
-        "collection_target": summary.get("collection_target", 100),
+        "collection_target": summary.get("collection_target", 200),
         "method": "market-adjusted China sales change after a version launch: pairs that added the item minus "
                   "pairs that did not, per year after launch, with a 95% interval",
         "status": "observational_sales_association",

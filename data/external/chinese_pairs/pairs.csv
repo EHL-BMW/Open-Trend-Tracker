@@ -162,3 +162,103 @@ FY097,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-
 FY098,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 1.5GDIT Automatic Ultra Luxury,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
 FY099,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 2.0GDIT Automatic Champion,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
 FY100,Haval,Haval H6,ICE,historical_update,2011-08,second-generation H6,2020-01-01,H6 China-Chic 2.0GDIT Automatic GT,2021-03-23,https://www.autohome.com.cn/news/202103/1129511.html
+FY101,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Fashion 120KM NCM,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY102,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Fashion 120KM LFP,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY103,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Sandwich 120KM NCM,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY104,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Sandwich 120KM LFP,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY105,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Premium 170KM NCM,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY106,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Premium 170KM LFP,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY107,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Sandwich 170KM NCM,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY108,Wuling,Wuling Hongguang Mini EV,NEV,historical_update,2020-07,Hongguang Mini EV 2020 range,2020-01-01,2021 Mini EV Macaron Sandwich 170KM LFP,2021-04-08,https://db.auto.sohu.com/trim_155998/
+FY109,Roewe,Roewe i5,ICE,historical_update,2018-03,Roewe i5,2020-01-01,2021 i5 1.5L Manual Platinum,2021-04-23,https://www.autohome.com.cn/news/202104/1142857.html
+FY110,Roewe,Roewe i5,ICE,historical_update,2018-03,Roewe i5,2020-01-01,2021 i5 1.5L Manual Diamond,2021-04-23,https://www.autohome.com.cn/news/202104/1142857.html
+FY111,Roewe,Roewe i5,ICE,historical_update,2018-03,Roewe i5,2020-01-01,2021 i5 1.5L CVT Platinum,2021-04-23,https://www.autohome.com.cn/news/202104/1142857.html
+FY112,Roewe,Roewe i5,ICE,historical_update,2018-03,Roewe i5,2020-01-01,2021 i5 1.5L CVT Diamond,2021-04-23,https://www.autohome.com.cn/news/202104/1142857.html
+FY113,Roewe,Roewe i5,ICE,historical_update,2018-03,Roewe i5,2020-01-01,2021 i5 1.5L CVT Starlight,2021-04-23,https://www.autohome.com.cn/news/202104/1142857.html
+FY114,Roewe,Roewe i5,ICE,historical_update,2018-03,2021 Roewe i5 facelift,2020-01-01,2021 i5 GT DCT Gale,2021-08-29,https://www.autohome.com.cn/news/202108/1193079.html
+FY115,Roewe,Roewe i5,ICE,historical_update,2018-03,2021 Roewe i5 facelift,2020-01-01,2021 i5 GT DCT Sonic,2021-08-29,https://www.autohome.com.cn/news/202108/1193079.html
+FY116,Roewe,Roewe i5,ICE,historical_update,2018-03,2021 Roewe i5 facelift,2020-01-01,2021 i5 GT DCT Lightspeed,2021-08-29,https://www.autohome.com.cn/news/202108/1193079.html
+FY117,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 240T Manual Gold,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY118,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 240T DCT Platinum,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY119,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 240T DCT Diamond,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY120,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 260T DCT Starlight,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY121,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 260T DCT Glory,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY122,Geely,Geely Binyue,ICE,historical_update,2018-08,Geely Binyue Pro,2020-01-01,2021 Binyue 260T DCT Battle,2021-08-14,https://www.autohome.com.cn/news/202108/1189514.html
+FY123,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue Pro,2020-01-01,2021 Boyue X 1.8TD DCT Smart Connected,2021-10-10,https://www.autohome.com.cn/news/202110/1216936.html
+FY124,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue Pro,2020-01-01,2021 Boyue X 1.8TD DCT Smart,2021-10-10,https://www.autohome.com.cn/news/202110/1216936.html
+FY125,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue Pro,2020-01-01,2021 Boyue X 1.8TD DCT Premium,2021-10-10,https://www.autohome.com.cn/news/202110/1216936.html
+FY126,Geely,Geely Boyue,ICE,historical_update,2016-03,Boyue Pro,2020-01-01,2021 Boyue X 1.8TD DCT Lead,2021-10-10,https://www.autohome.com.cn/news/202110/1216936.html
+FY127,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T 6MT Luxury,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY128,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T CVT Fashion,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY129,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T CVT Luxury,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY130,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T CVT Premium,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY131,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T CVT Flagship,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY132,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus 1.5T CVT 48V Premium,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY133,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus Kunpeng 1.6TGDI DCT Luxury,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY134,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus Kunpeng 1.6TGDI DCT Premium,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY135,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,second-generation Tiggo 7,2020-01-01,2021 Tiggo 7 Plus Kunpeng 1.6TGDI DCT Flagship,2021-09-27,https://www.autohome.com.cn/news/202109/1211775.html
+FY136,Geely,Geely Jiaji,ICE,historical_update,2019-03,Geely Jiaji,2020-01-01,2021 Jiaji Platinum 1.8TD DCT Comfort,2021-09-26,https://www.autohome.com.cn/news/202109/1209948.html
+FY137,Geely,Geely Jiaji,ICE,historical_update,2019-03,Geely Jiaji,2020-01-01,2021 Jiaji Platinum 1.8TD DCT Luxury,2021-09-26,https://www.autohome.com.cn/news/202109/1209948.html
+FY138,Geely,Geely Jiaji,ICE,historical_update,2019-03,Geely Jiaji,2020-01-01,2021 Jiaji Platinum 1.8TD DCT Premium,2021-09-26,https://www.autohome.com.cn/news/202109/1209948.html
+FY139,Exeed,Exeed TX,ICE,historical_update,2019-04,Exeed TXL facelift,2020-01-01,2021 Lingyun 400T Star Rui,2021-08-27,https://www.autohome.com.cn/news/202108/1195927.html
+FY140,Exeed,Exeed TX,ICE,historical_update,2019-04,Exeed TXL facelift,2020-01-01,2021 Lingyun 400T Star Rui Pro,2021-08-27,https://www.autohome.com.cn/news/202108/1195927.html
+FY141,Exeed,Exeed TX,ICE,historical_update,2019-04,Exeed TXL facelift,2020-01-01,2021 Lingyun 400T Star Zun,2021-08-27,https://www.autohome.com.cn/news/202108/1195927.html
+FY142,Exeed,Exeed TX,ICE,historical_update,2019-04,Exeed TXL facelift,2020-01-01,2021 Lingyun 400T Star Rui AWD,2021-08-27,https://www.autohome.com.cn/news/202108/1195927.html
+FY143,Exeed,Exeed TX,ICE,historical_update,2019-04,Exeed TXL facelift,2020-01-01,2021 Lingyun 400T Star Zun AWD,2021-08-27,https://www.autohome.com.cn/news/202108/1195927.html
+FY144,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6 1.5T,2020-01-01,2021 third-generation H6 2.0T FWD Max,2021-01-11,https://info.xcar.com.cn/202101/news_2055449_1.html
+FY145,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6 1.5T,2020-01-01,2021 third-generation H6 2.0T Intelligent AWD Max,2021-01-11,https://info.xcar.com.cn/202101/news_2055449_1.html
+FY146,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6 1.5T,2020-01-01,2021 third-generation H6 2.0T Intelligent AWD Supreme,2021-01-11,https://info.xcar.com.cn/202101/news_2055449_1.html
+FY147,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6,2020-01-01,2021 third-generation H6 1.5T Supreme Plus,2021-08-27,https://www.autohome.com.cn/news/202108/1195925.html
+FY148,Haval,Haval H6,ICE,historical_update,2011-08,third-generation H6,2020-01-01,2021 third-generation H6 2.0T Supreme Plus,2021-08-27,https://www.autohome.com.cn/news/202108/1195925.html
+FY149,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro 1.5T Manual Elite,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY150,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro 1.5T Automatic Elite,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY151,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro 1.5T Automatic Luxury,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY152,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro Xiaoyun Automatic Elite,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY153,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro Xiaoyun Automatic Luxury,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY154,BYD,BYD Song Pro,ICE,historical_update,2019-07,Song Pro,2020-01-01,2021 second-generation Song Pro Xiaoyun Automatic Premium,2021-04-12,https://www.autohome.com.cn/news/202104/1137035.html
+FY155,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,2021 Song Pro DM-i 51KM Luxury,2021-12-22,https://www.autohome.com.cn/news/202112/1232037.html
+FY156,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,2021 Song Pro DM-i 51KM Premium,2021-12-22,https://www.autohome.com.cn/news/202112/1232037.html
+FY157,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,2021 Song Pro DM-i 51KM Prestige,2021-12-22,https://www.autohome.com.cn/news/202112/1232037.html
+FY158,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,2021 Song Pro DM-i 110KM Flagship,2021-12-22,https://www.autohome.com.cn/news/202112/1232037.html
+FY159,BYD,BYD Song Pro,NEV,historical_update,2019-07,Song Pro DM,2020-01-01,2021 Song Pro DM-i 110KM Flagship Pro,2021-12-22,https://www.autohome.com.cn/news/202112/1232037.html
+FY160,BYD,BYD Qin,NEV,historical_update,2013-12,Qin EV fleet range,2020-01-01,2021 Qin EV 400KM Travel,2021-07,https://www.autohome.com.cn/news/202107/1172653.html
+FY161,BYD,BYD Qin,NEV,historical_update,2013-12,Qin EV fleet range,2020-01-01,2021 Qin EV 400KM Lead,2021-07,https://www.autohome.com.cn/news/202107/1172653.html
+FY162,BYD,BYD Tang,NEV,historical_update,2015-06,Tang EV 2020 range,2020-01-01,2021 Tang EV Long Range Prestige,2021-04-07,https://www.autohome.com.cn/drive/202105/1157492.html
+FY163,BYD,BYD Tang,NEV,historical_update,2015-06,Tang EV 2020 range,2020-01-01,2021 Tang EV AWD High Performance Prestige,2021-04-07,https://www.autohome.com.cn/drive/202105/1157492.html
+FY164,BYD,BYD Tang,NEV,historical_update,2015-06,Tang EV 2020 range,2020-01-01,2021 Tang EV AWD High Performance Founding Flagship,2021-04-07,https://www.autohome.com.cn/drive/202105/1157492.html
+FY165,BYD,BYD Han,NEV,historical_update,2020-07,Han EV 2020 range,2020-01-01,2021 Han EV Standard Range Luxury,2021-07-31,https://www.ithome.com/0/566/745.htm
+FY166,BYD,BYD Han,NEV,historical_update,2020-07,Han EV 2020 range,2020-01-01,2021 Han EV Extended Range Premium Aurora Blue,2021-09-28,https://www.autohome.com.cn/news/202109/1212328.html
+FY167,BYD,BYD Han,NEV,historical_update,2020-07,Han EV 2020 range,2020-01-01,2021 Han EV AWD Performance Flagship Aurora Blue,2021-09-28,https://www.autohome.com.cn/news/202109/1212328.html
+FY168,BYD,BYD Han,NEV,historical_update,2020-07,Han EV 2020 range,2020-01-01,2021 Han EV Extended Range Premium Golden Orange interior,2021-09-28,https://www.autohome.com.cn/news/202109/1212328.html
+FY169,BYD,BYD Han,NEV,historical_update,2020-07,Han EV 2020 range,2020-01-01,2021 Han EV AWD Performance Flagship Golden Orange interior,2021-09-28,https://www.autohome.com.cn/news/202109/1212328.html
+FY170,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,2021 P7 RWD Standard Range Smart Enjoy,2021-03-03,https://www.xiaopeng.com/news/company_news/3801.html
+FY171,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,2021 P7 RWD Standard Range Smart Premium,2021-03-03,https://www.xiaopeng.com/news/company_news/3801.html
+FY172,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,2021 P7 480G,2021-09-30,https://www.ithome.com/0/578/478.htm
+FY173,XPeng,XPeng P7,NEV,historical_update,2020-04,P7 launch range,2020-01-01,2021 P7 670G,2021-09-30,https://www.ithome.com/0/578/478.htm
+FY174,Baojun,Baojun RS-3,ICE,historical_update,2019-10,Baojun RS-3,2020-01-01,2021 RS-3 SOODA Player,2021-11-15,https://www.autohome.com.cn/news/202111/1224665.html
+FY175,Baojun,Baojun RS-3,ICE,historical_update,2019-10,Baojun RS-3,2020-01-01,2021 RS-3 SOODA Pioneer,2021-11-15,https://www.autohome.com.cn/news/202111/1224665.html
+FY176,Baojun,Baojun RS-3,ICE,historical_update,2019-10,Baojun RS-3,2020-01-01,2021 RS-3 SOODA Master,2021-11-15,https://www.autohome.com.cn/news/202111/1224665.html
+FY177,Baojun,Baojun RS-3,ICE,historical_update,2019-10,Baojun RS-3,2020-01-01,2021 RS-3 SOODA Super God,2021-11-15,https://www.autohome.com.cn/news/202111/1224665.html
+FY178,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,Tiggo 7 Plus,2020-01-01,2021 Tiggo 7 Super Energy 1.5T CVT Super Guard,2021-12-10,https://www.autohome.com.cn/news/202112/1229341.html
+FY179,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,Tiggo 7 Plus,2020-01-01,2021 Tiggo 7 Super Energy 1.5T CVT Super Warrior,2021-12-10,https://www.autohome.com.cn/news/202112/1229341.html
+FY180,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,Tiggo 7 Plus,2020-01-01,2021 Tiggo 7 Super Energy 1.5T CVT Super Hero,2021-12-10,https://www.autohome.com.cn/news/202112/1229341.html
+FY181,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,Tiggo 7 Plus,2020-01-01,2021 Tiggo 7 Super Energy 1.6TGDI DCT Super Warrior,2021-12-10,https://www.autohome.com.cn/news/202112/1229341.html
+FY182,Chery,Chery Tiggo 7,ICE,historical_update,2016-03,Tiggo 7 Plus,2020-01-01,2021 Tiggo 7 Super Energy 1.6TGDI DCT Super Hero,2021-12-10,https://www.autohome.com.cn/news/202112/1229341.html
+FY183,Geely,Geely Xingrui,ICE,historical_update,2020-11,Geely Xingrui,2020-01-01,2021 Xingrui Space-Time Haoyue,2021-06-11,https://www.autohome.com.cn/news/202106/1163200.html
+FY184,Geely,Geely Xingrui,ICE,historical_update,2020-11,Geely Xingrui,2020-01-01,2021 Xingrui Space-Time Xingchen,2021-06-11,https://www.autohome.com.cn/news/202106/1163200.html
+FY185,Ora,Ora Good Cat,NEV,historical_update,2020-11,Ora Good Cat,2020-01-01,2021 Ora Good Cat GT Mulan Edition,2021-08-29,https://cs.com.cn/qc/202108/t20210830_6199402.html
+FY186,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo 2020 range,2020-01-01,2022 Menlo Xinghe,2021-11-20,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Nov/1120-chevrolet.html
+FY187,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo 2020 range,2020-01-01,2022 Menlo Xingyun,2021-11-20,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Nov/1120-chevrolet.html
+FY188,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo 2020 range,2020-01-01,2022 Menlo Xingyu,2021-11-20,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Nov/1120-chevrolet.html
+FY189,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo,2020-01-01,2021 Menlo Mickey Magic Xingxiang,2021-06-01,https://www.autohome.com.cn/news/202106/1159695.html
+FY190,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo,2020-01-01,2021 Menlo Mickey Magic Xinghe,2021-06-01,https://www.autohome.com.cn/news/202106/1159695.html
+FY191,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo,2020-01-01,2021 Menlo Mickey Magic Xingyun,2021-06-01,https://www.autohome.com.cn/news/202106/1159695.html
+FY192,Chevrolet,Chevrolet Menlo,NEV,historical_update,2020-02,Chevrolet Menlo,2020-01-01,2021 Menlo Mickey Magic Xingyu,2021-06-01,https://www.autohome.com.cn/news/202106/1159695.html
+FY193,Buick,Buick GL8,ICE,historical_update,2000-05,Buick GL8 Avenir,2020-01-01,2022 GL8 Avenir seven-seat Qinli,2021-07-19,https://www.autohome.com.cn/news/202107/1179780.html
+FY194,Buick,Buick GL8,ICE,historical_update,2000-05,Buick GL8 Avenir,2020-01-01,2022 GL8 Avenir six-seat Xianli,2021-07-19,https://www.autohome.com.cn/news/202107/1179780.html
+FY195,Buick,Buick GL8,ICE,historical_update,2000-05,Buick GL8 Avenir,2020-01-01,2022 GL8 Avenir four-seat Zunli,2021-07-19,https://www.autohome.com.cn/news/202107/1179780.html
+FY196,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,2021 Envision Plus 652T five-seat Elite,2021-06-19,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Jun/0619-buick.html
+FY197,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,2021 Envision Plus 652T five-seat Luxury,2021-06-19,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Jun/0619-buick.html
+FY198,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,2021 Envision Plus 652T seven-seat Luxury,2021-06-19,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Jun/0619-buick.html
+FY199,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,2021 Envision Plus Avenir five-seat,2021-06-19,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Jun/0619-buick.html
+FY200,Buick,Buick Envision,ICE,historical_update,2014-10,Envision S,2020-01-01,2021 Envision Plus Avenir seven-seat,2021-06-19,https://news.gm.com.cn/zh/home.detail.html/Pages/news/cn/zh/2021/Jun/0619-buick.html
