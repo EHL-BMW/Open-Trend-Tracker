@@ -16,7 +16,11 @@ function axisRange(values: number[]) {
   return { lo, hi };
 }
 
-const seriesOf = (row: { currentShare: number; forecastShare: number; impactByYear?: { year: number; impact: number; pairs: number }[] }) =>
+const seriesOf = (row: {
+  currentShare: number;
+  forecastShare: number;
+  impactByYear?: { year: number; impact: number; pairs: number }[];
+}) =>
   row.impactByYear?.length
     ? row.impactByYear
     : [
@@ -68,7 +72,11 @@ export function TrendForecast() {
             <i className={styles.fut} />
             Year 4
           </span>
-          <span>{catalog.impactCoverage ? `${catalog.impactCoverage.validPairCount}/${catalog.impactCoverage.collectionTarget} valid pairs` : "pp = percentage points"}</span>
+          <span>
+            {catalog.impactCoverage
+              ? `${catalog.impactCoverage.completeNameplateCount ?? 0}/${catalog.impactCoverage.independentNameplateCount ?? 0} complete independent nameplates`
+              : "pp = percentage points"}
+          </span>
         </div>
       </div>
 
@@ -133,14 +141,20 @@ export function TrendForecast() {
                 </span>
                 <span className={`${styles.delta} num`}>
                   <b>{signedPct(last.impact)}</b>
-                  <small>Δ {delta >= 0 ? "+" : ""}{pct(delta, 1)} pp</small>
+                  <small>
+                    Δ {delta >= 0 ? "+" : ""}
+                    {pct(delta, 1)} pp
+                  </small>
                 </span>
               </div>
             );
           })}
         </div>
       )}
-      <p className={styles.foot}>Observational sales associations. Sorted and ranked by Year 4 impact; click a row to include or exclude the feature.</p>
+      <p className={styles.foot}>
+        Only effects passing balanced-panel, independent-nameplate and clustered-uncertainty gates are used. A flat zero
+        line means the effect is not identified yet; click a row to include or exclude the news signal.
+      </p>
     </section>
   );
 }

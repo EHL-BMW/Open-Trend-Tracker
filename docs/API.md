@@ -74,7 +74,14 @@ Everything the PM can choose from. Called once on page load; the UI stays empty 
         { "year": 3, "impact": -0.23, "pairs": 8 }, { "year": 4, "impact": -0.29, "pairs": 8 }
       ] }
   ],
-  "impactCoverage": { "validPairCount": 30, "collectionTarget": 100 }
+  "impactCoverage": {
+    "validPairCount": 200,
+    "collectionTarget": 200,
+    "independentObservationCount": 99,
+    "completeObservationCount": 36,
+    "independentNameplateCount": 65,
+    "completeNameplateCount": 28
+  }
 }
 ```
 
@@ -87,6 +94,9 @@ Notes
 - `trendForecastLabels` is optional: `{ "title", "description", "current", "forecast" }` relabels the trend chart
   (default: technology share today vs. `forecastYear`). Signed sales-impact values are valid. `impactByYear` is
   optional for compatibility; when present, Planner renders the complete Year 1-4 trajectory.
+- Sales effects are emitted only when the balanced event-study passes independent-nameplate, residual-variation,
+  leverage and clustered-uncertainty gates. Otherwise `impactByYear` is a four-point neutral series and the UI labels
+  it as not identified; neutral values must not be interpreted as a measured zero effect.
 - A category with `"filters": []` renders an empty state.
 
 ## `POST /analyses`

@@ -1,7 +1,9 @@
-"""Category, subcategory and feature sales impact for the Impact tab.
+"""Conditional category, subcategory and feature sales effects for the Impact tab.
 
-The numbers come from ``app.analysis.chinese_pairs``: the market-adjusted China sales change
-of version pairs that added a feature, minus that of pairs that did not, per year after launch.
+The numbers come from the balanced event-study in ``app.analysis.chinese_pairs``. Duplicate trim
+trajectories are collapsed and every target is conditioned on supported peers, bundle size,
+powertrain, baseline scale, calendar year and recorded quality flags. Exact feature values are
+withheld when a feature cannot be separated from its launch bundle or uncertainty is too large.
 News topics are attached to a subcategory as recent signals only: they get no sales effect of
 their own.
 """
@@ -43,13 +45,20 @@ def _number(value: str) -> float | None:
 
 
 def _series(row: dict) -> list[dict]:
-    """Impact points for the years that have an estimate."""
+    """Only expose a complete four-year series that passed every publication gate."""
+    if row.get("identification_status") != "identified":
+        return []
     return [
         {"year": year,
          "impact_pct": float(row[f"impact_pct_year_{year}"]),
          "lower_pct": float(row[f"lower_pct_year_{year}"]),
          "upper_pct": float(row[f"upper_pct_year_{year}"]),
-         "pairs": int(float(row[f"n_with_year_{year}"]))}
+         "incremental_units": int(float(row[f"incremental_units_year_{year}"])),
+         "lower_units": int(float(row[f"lower_units_year_{year}"])),
+         "upper_units": int(float(row[f"upper_units_year_{year}"])),
+         "observations": int(float(row[f"n_with_year_{year}"])),
+         "nameplates": int(float(row[f"nameplates_with_year_{year}"])),
+         "pairs": int(float(row[f"nameplates_with_year_{year}"]))}
         for year in YEARS if _number(row[f"impact_pct_year_{year}"]) is not None
     ]
 
@@ -87,10 +96,13 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
     by_level = {(row["level"], row["name"]): row for row in rows}
     features = [
         {"name": row["name"], "category": row["category"], "subcategory": row["subcategory"],
-         "models": json.loads(row["models"]), "pair_count": int(row["pair_count"]), "impact_by_year": _series(row)}
+         "models": json.loads(row["models"]), "pair_count": int(row["pair_count"]),
+         "independent_count": int(row["independent_count"]),
+         "independent_nameplates": int(row["independent_nameplates"]),
+         "identification_status": row["identification_status"],
+         "identification_reason": row["identification_reason"], "impact_by_year": _series(row)}
         for row in rows if row["level"] == "feature"
     ]
-    features = [f for f in features if f["impact_by_year"]]
     categories = []
     for category in CATEGORIES:
         subcategories = []
@@ -105,6 +117,10 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
                 "id": sub_id,
                 "label": label,
                 "pair_count": int(row["pair_count"]) if row else 0,
+                "independent_count": int(row["independent_count"]) if row else 0,
+                "independent_nameplates": int(row["independent_nameplates"]) if row else 0,
+                "identification_status": row["identification_status"] if row else "not_identified",
+                "identification_reason": row["identification_reason"] if row else "no historical feature evidence",
                 "impact_by_year": (_series(row) or None) if row else None,
                 "legacy_features": sorted((f for f in features if f["subcategory"] == sub_id),
                                           key=lambda f: -f["pair_count"]),
@@ -116,6 +132,10 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
                 "id": category.lower().replace(" & ", "-").replace(" ", "-"),
                 "label": category,
                 "pair_count": int(row["pair_count"]) if row else 0,
+                "independent_count": int(row["independent_count"]) if row else 0,
+                "independent_nameplates": int(row["independent_nameplates"]) if row else 0,
+                "identification_status": row["identification_status"] if row else "not_identified",
+                "identification_reason": row["identification_reason"] if row else "no historical feature evidence",
                 "impact_by_year": _series(row) if row else [],  # empty: too few pairs for an estimate
                 "subcategories": subcategories,
             })
@@ -126,15 +146,22 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
         "horizon_years": list(YEARS),
         "categories": categories,
         "legacy_feature_count": len(features),
+        "isolated_feature_count": sum(bool(feature["impact_by_year"]) for feature in features),
         "news_feature_count": len(news_by_id),
         "valid_pair_count": summary.get("valid_four_year_pairs", 0),
         "collection_target": summary.get("collection_target", 200),
-        "method": "market-adjusted China sales change after a version launch: pairs that added the item minus "
-                  "pairs that did not, per year after launch",
-        "status": "observational_sales_association",
-        "caveat": "Observational association from Chinese version pairs, not a causal estimate. A valid pair has a "
-                  "numeric baseline and all four annual sales comparisons. Nameplate totals can span successor updates "
-                  "or provider changes; those quality flags remain in the research output. News signals are context only.",
+        "independent_observation_count": summary.get("independent_observations", 0),
+        "complete_observation_count": summary.get("complete_four_year_observations", 0),
+        "independent_nameplate_count": summary.get("independent_nameplates", 0),
+        "complete_nameplate_count": summary.get("complete_four_year_nameplates", 0),
+        "method": "balanced four-year, market-adjusted event study; duplicate trim trajectories collapsed; target "
+                  "feature partialled from supported peer features, bundle size, powertrain, baseline scale, calendar "
+                  "year and recorded quality flags; uncertainty clustered by nameplate",
+        "status": "conditional_counterfactual" if any(c["impact_by_year"] for c in categories)
+                  else "insufficient_independent_data",
+        "caveat": "No value is published unless all four years pass treated/control nameplate, residual-variation, "
+                  "degrees-of-freedom, leverage and clustered-uncertainty gates. This controls observed differences but "
+                  "does not prove causality; price, incentives, supply and unrecorded redesign changes may remain.",
         "source_plot": "data/analysis/chinese_pairs/plots/impact_by_subcategory.pdf",
     }
 

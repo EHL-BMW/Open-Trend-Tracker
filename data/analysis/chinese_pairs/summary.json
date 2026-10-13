@@ -14,10 +14,14 @@
   },
   "valid_four_year_pairs": 200,
   "collection_target": 200,
+  "independent_observations": 99,
+  "independent_nameplates": 65,
+  "complete_four_year_observations": 36,
+  "complete_four_year_nameplates": 28,
   "estimated_items": {
-    "feature": 30,
-    "subcategory": 19,
-    "category": 8
+    "feature": 0,
+    "subcategory": 0,
+    "category": 0
   },
   "last_full_sales_year": 2025
 }

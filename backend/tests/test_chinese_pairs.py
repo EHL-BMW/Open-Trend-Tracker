@@ -47,7 +47,7 @@ def test_first_sales_year_skips_mixed_launch_year():
     assert first_sales_year("2024-04") == 2025
 
 
-def test_run_estimates_market_adjusted_contrast(tmp_path):
+def test_run_requires_balanced_four_year_panel_before_publication(tmp_path):
     (tmp_path / "in").mkdir()
     _fixture(tmp_path / "in")
     summary = run(tmp_path / "in", tmp_path / "out")
@@ -63,9 +63,9 @@ def test_run_estimates_market_adjusted_contrast(tmp_path):
     with (tmp_path / "out" / "impact.csv").open(encoding="utf-8") as stream:
         rows = {(r["level"], r["name"]): r for r in csv.DictReader(stream)}
     charging = rows[("subcategory", "charging_replenishment")]
-    assert float(charging["impact_pct_year_1"]) == pytest.approx((2.02 / 1.57 - 1) * 100, abs=0.5)
-    assert float(charging["lower_pct_year_1"]) < float(charging["impact_pct_year_1"]) < float(charging["upper_pct_year_1"])
-    # every pair added a screen, so there is no comparison group
+    assert charging["impact_pct_year_1"] == ""
+    assert "complete four-year" in charging["identification_reason"]
+    # Every pair added a screen, so there is no comparison group either.
     assert rows[("feature", "Larger centre screen")]["impact_pct_year_1"] == ""
     assert (tmp_path / "out" / "plots" / "impact_by_subcategory.pdf").stat().st_size > 0
 
@@ -73,9 +73,69 @@ def test_run_estimates_market_adjusted_contrast(tmp_path):
     news.write_text('{"generated_at": "2026-10-01", "topics": []}', encoding="utf-8")
     taxonomy = build_impact_taxonomy(tmp_path / "out" / "impact.csv", news)
     energy = next(c for c in taxonomy["categories"] if c["label"] == "Energy & Charging")
-    assert [p["year"] for p in energy["impact_by_year"]] == [1]
+    # A one-year diagnostic must not be published as a four-year feature value.
+    assert energy["impact_by_year"] == []
+    assert energy["identification_status"] == "not_identified"
     sub = next(s for s in energy["subcategories"] if s["id"] == "charging_replenishment")
     assert sub["legacy_features"][0]["name"] == "5C fast charging"
+
+
+def test_duplicate_trim_trajectories_become_one_independent_observation(tmp_path):
+    _fixture(tmp_path)
+    with (tmp_path / "pairs.csv").open(encoding="utf-8", newline="") as stream:
+        pairs = list(csv.DictReader(stream))
+    pairs.append({**pairs[0], "pair_id": "P10", "current_version": "v2 premium trim"})
+    _write(tmp_path / "pairs.csv", pairs)
+    with (tmp_path / "features.csv").open(encoding="utf-8", newline="") as stream:
+        features = list(csv.DictReader(stream))
+    features.append({**features[0], "pair_id": "P10", "feature": "Premium charging port"})
+    _write(tmp_path / "features.csv", features)
+
+    summary = run(tmp_path, tmp_path / "out")
+    assert summary["pairs"] == 11
+    assert summary["independent_observations"] == 10
+    with (tmp_path / "out" / "independent_observations.csv").open(encoding="utf-8") as stream:
+        observations = list(csv.DictReader(stream))
+    assert len(observations) == 10
+    assert next(row for row in observations if row["car_model"] == "Car 0")["pair_count"] == "2"
+
+
+def test_balanced_panel_recovers_known_conditional_effect(tmp_path):
+    pairs, features, sales = [], [], []
+    for i in range(20):
+        model = f"Balanced Car {i}"
+        pairs.append({"pair_id": f"B{i}", "brand": f"Brand {i % 4}", "car_model": model, "powertrain": "NEV",
+                      "change_type": "facelift", "nameplate_launch": "2020-01", "previous_version": "v1",
+                      "previous_launch": "2020-01", "current_version": "v2", "current_launch": "2023-02-10",
+                      "source_url": "https://example.com"})
+        if i < 10:
+            features.append({"pair_id": f"B{i}", "detail": "5C battery", "feature": "5C fast charging",
+                             "subcategory": "charging_replenishment", "category": "Energy & Charging",
+                             "evidence": "quote", "source_url": "https://example.com"})
+        features.append({"pair_id": f"B{i}", "detail": "new display", "feature": "Larger centre screen",
+                         "subcategory": "displays_hmi", "category": "Digital Cockpit & AI",
+                         "evidence": "quote", "source_url": "https://example.com"})
+        sales.append({"car_model": model, "year": 2022, "units": 10_000})
+        sales.extend({"car_model": model, "year": year, "units": 12_000 if i < 10 else 10_000}
+                     for year in range(2023, 2027))
+    _write(tmp_path / "pairs.csv", pairs)
+    _write(tmp_path / "features.csv", features)
+    _write(tmp_path / "model_sales.csv", [{**row, "series": "retail", "source": "s", "url": "u"}
+                                           for row in sales])
+    _write(tmp_path / "market_sales.csv", [
+        {"year": year, "total_retail": 20_000_000, "nev_retail": 4_000_000, "source": "s", "url": "u"}
+        for year in range(2022, 2027)
+    ])
+
+    summary = run(tmp_path, tmp_path / "out")
+    assert summary["complete_four_year_observations"] == 20
+    with (tmp_path / "out" / "impact.csv").open(encoding="utf-8") as stream:
+        rows = {(row["level"], row["name"]): row for row in csv.DictReader(stream)}
+    charging = rows[("subcategory", "charging_replenishment")]
+    assert charging["identification_status"] == "identified"
+    for year in range(1, 5):
+        assert float(charging[f"impact_pct_year_{year}"]) == pytest.approx(20.0, abs=0.01)
+        assert int(charging[f"incremental_units_year_{year}"]) == 2_000
 
 
 def test_changes_stay_within_one_sales_series(tmp_path):
@@ -129,8 +189,13 @@ def test_feature_rows_must_use_known_subcategory(tmp_path):
 
 def test_live_impact_taxonomy_maps_every_news_topic():
     result = impact_taxonomy()
-    assert result["status"] == "observational_sales_association"
+    assert result["status"] == "insufficient_independent_data"
     assert result["news_feature_count"] == 21
-    assert any(c["impact_by_year"] for c in result["categories"])
+    assert result["isolated_feature_count"] == 0
+    assert result["independent_observation_count"] == 99
+    assert result["complete_observation_count"] == 36
+    assert result["independent_nameplate_count"] == 65
+    assert result["complete_nameplate_count"] == 28
+    assert not any(c["impact_by_year"] for c in result["categories"])
     news = {n["id"] for c in result["categories"] for sub in c["subcategories"] for n in sub["news_features"]}
     assert len(news) == 21
