@@ -23,17 +23,15 @@ function lastPoint(points: ImpactPoint[]) {
 }
 
 const signed = (value: number, digits = 1) => `${value >= 0 ? "+" : ""}${value.toFixed(digits)}%`;
-const signedUnits = (value: number) => `${value >= 0 ? "+" : ""}${Math.round(value).toLocaleString()} vehicles`;
 
-/** Latest estimate of a series, or a note when it did not pass the identification gates. */
+/** Latest estimate of a series, or a note when the category has too few pairs for one. */
 const latestText = (points: ImpactPoint[]) =>
   points.length
-    ? `${signedUnits(lastPoint(points).incremental_units ?? 0)} per nameplate (${signed(lastPoint(points).impact_pct)}) in year ${lastPoint(points).year}`
-    : "effect not independently identified";
+    ? `${signed(lastPoint(points).impact_pct)} in year ${lastPoint(points).year}`
+    : "too few pairs for an estimate";
 
 /** Value range of a plot. It always includes zero because effects can be negative. */
 function valueRange(values: number[]) {
-  if (!values.length) return { lo: -1, hi: 1 };
   const lo = Math.min(0, ...values);
   const hi = Math.max(0, ...values);
   return hi - lo < 1 ? { lo, hi: lo + 1 } : { lo, hi };
@@ -189,21 +187,18 @@ function ImpactCard({
           <span>{meta}</span>
         </div>
         <div className={styles.impactValue}>
-          <b>{signedUnits(last.incremental_units ?? 0)}</b>
+          <b>{signed(last.impact_pct, 1)}</b>
           <span>
-            {signed(last.impact_pct, 1)} · Y{last.year}
-            {last.lower_units !== undefined && last.upper_units !== undefined
-              ? ` · 95% range ${last.lower_units.toLocaleString()} to ${last.upper_units.toLocaleString()}`
-              : ""}
-            {last.nameplates ? ` · ${last.nameplates} nameplates` : ""}
+            Y{last.year}
+            {last.pairs ? ` · n=${last.pairs}` : ""}
           </span>
         </div>
       </div>
       <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} />
       {missingYears.length > 0 && (
         <p className={styles.missingYears}>
-          Y{missingYears.join(", Y")} unavailable: each year needs observed sales from at least five pairs in this group
-          and five comparison pairs.
+          Y{missingYears.join(", Y")} unavailable: each year needs observed sales from at least five pairs in this
+          group and five comparison pairs.
         </p>
       )}
       {trackId && <TrackButton id={trackId} label={title} />}
@@ -228,7 +223,7 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
         <span className={styles.step}>2</span>
         <div>
           <h2 id="legacy-title">Subcategories and features</h2>
-          <p>Balanced independent panel · conditional event-study effect · band = clustered 95% interval</p>
+          <p>Chinese version pairs · market-adjusted sales change vs pairs without it</p>
         </div>
       </div>
       {groups.length ? (
@@ -238,7 +233,7 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
               {sub.impact_by_year ? (
                 <ImpactCard
                   title={sub.label}
-                  meta={`Subcategory · ${plural(sub.independent_nameplates, "independent nameplate")}`}
+                  meta={`Subcategory · ${plural(sub.pair_count ?? 0, "pair")}`}
                   points={sub.impact_by_year}
                   range={range}
                   color={color}
@@ -246,32 +241,21 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
                 />
               ) : (
                 <p className={styles.emptyEvidence}>
-                  {sub.label}: {sub.identification_reason} (
-                  {plural(sub.independent_nameplates, "independent nameplate")}).
+                  {sub.label}: too few pairs for a subcategory estimate ({plural(sub.pair_count ?? 0, "pair")}).
                 </p>
               )}
-              {sub.legacy_features.map((feature) =>
-                feature.impact_by_year.length ? (
-                  <ImpactCard
-                    key={feature.name}
-                    title={feature.name}
-                    meta={`Feature · ${plural(feature.independent_nameplates, "independent nameplate")}`}
-                    points={feature.impact_by_year}
-                    range={range}
-                    color={color}
-                    level="feature"
-                    trackId={legacyFeatureId(category.id, feature.name)}
-                  />
-                ) : (
-                  <div key={feature.name}>
-                    <p className={styles.emptyEvidence}>
-                      {feature.name}: {feature.identification_reason} (
-                      {plural(feature.independent_nameplates, "independent nameplate")}).
-                    </p>
-                    <TrackButton id={legacyFeatureId(category.id, feature.name)} label={feature.name} />
-                  </div>
-                ),
-              )}
+              {sub.legacy_features.map((feature) => (
+                <ImpactCard
+                  key={feature.name}
+                  title={feature.name}
+                  meta={`Feature · ${plural(feature.models.length, "model")} · ${plural(feature.pair_count, "pair")}`}
+                  points={feature.impact_by_year}
+                  range={range}
+                  color={color}
+                  level="feature"
+                  trackId={legacyFeatureId(category.id, feature.name)}
+                />
+              ))}
             </div>
           ))}
         </div>
@@ -338,8 +322,8 @@ export function ImpactForecastPage() {
             <p className={styles.eyebrow}>Portfolio planning · Sales change, years 1–4 after launch</p>
             <h1>Sales Impact Forecast</h1>
             <p className={styles.lead}>
-              Estimates appear only when independent nameplates separate a feature from market movement and its launch
-              bundle. Unidentified effects stay unavailable instead of becoming an unsupported sales claim.
+              Select a category line or label to compare its four-year sales outlook, Chinese version-pair features,
+              and the newest related features detected in the news.
             </p>
           </div>
           {forecast.data && (
@@ -349,14 +333,12 @@ export function ImpactForecastPage() {
                 <span>categories</span>
               </div>
               <div>
-                <b>
-                  {forecast.data.complete_nameplate_count}/{forecast.data.independent_nameplate_count}
-                </b>
-                <span>complete / independent nameplates</span>
+                <b>{forecast.data.valid_pair_count}/{forecast.data.collection_target}</b>
+                <span>valid 4-year pairs</span>
               </div>
               <div>
-                <b>{forecast.data.isolated_feature_count}</b>
-                <span>identified features</span>
+                <b>{forecast.data.legacy_feature_count}</b>
+                <span>estimated features</span>
               </div>
               <div>
                 <b>{forecast.data.news_feature_count}</b>
@@ -383,7 +365,10 @@ export function ImpactForecastPage() {
 
         {forecast.data && (
           <>
-            <div className={styles.workspace} style={{ "--category-color": selectedColor } as CSSProperties}>
+            <div
+              className={styles.workspace}
+              style={{ "--category-color": selectedColor } as CSSProperties}
+            >
               <section className={styles.panel} aria-labelledby="category-forecast-title">
                 <div className={styles.panelHeading}>
                   <span className={styles.step}>1</span>
@@ -396,16 +381,11 @@ export function ImpactForecastPage() {
                     </p>
                   </div>
                 </div>
-                {categories.some((category) => category.impact_by_year.length) ? (
-                  <CategoryPlot categories={categories} selectedId={activeId} onSelect={setSelectedId} />
-                ) : (
-                  <StateMessage compact title="No four-year effect passes the evidence gates">
-                    All {forecast.data.valid_pair_count} complete trim pairs were used, then repeated sales trajectories
-                    were collapsed. The balanced analysis has {forecast.data.complete_observation_count} independent
-                    trajectories across {forecast.data.complete_nameplate_count} nameplates—insufficient to separate a
-                    feature from its launch bundle with acceptable uncertainty.
-                  </StateMessage>
-                )}
+                <CategoryPlot
+                  categories={categories}
+                  selectedId={activeId}
+                  onSelect={setSelectedId}
+                />
                 <div className={styles.legend}>
                   {categories.map((category, index) => (
                     <button

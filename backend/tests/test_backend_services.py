@@ -95,13 +95,9 @@ def test_planner_contract_ranks_news_features_from_real_sources(tmp_path, monkey
     assert len(catalog["trendForecast"]) == len(planner.tables()["candidates"]) == 21
     assert catalog["impactCoverage"]["collectionTarget"] == 200
     assert catalog["impactCoverage"]["validPairCount"] == 200
-    assert catalog["impactCoverage"]["independentObservationCount"] == 99
-    assert catalog["impactCoverage"]["completeObservationCount"] == 36
-    assert catalog["impactCoverage"]["independentNameplateCount"] == 65
-    assert catalog["impactCoverage"]["completeNameplateCount"] == 28
     assert all([point["year"] for point in row["impactByYear"]] == [1, 2, 3, 4]
                for row in catalog["trendForecast"])
-    assert all(point["impact"] == 0 for row in catalog["trendForecast"] for point in row["impactByYear"])
+    assert any(point["impact"] < 0 for row in catalog["trendForecast"] for point in row["impactByYear"])
     assert [o["value"] for o in catalog["categories"]["sales"]["filters"][0]["options"]] == ["CN", "EU", "US"]
     everything = {key: {group["key"]: [o["value"] for o in group["options"]] for group in source["filters"]}
                   for key, source in catalog["categories"].items()}
@@ -114,7 +110,7 @@ def test_planner_contract_ranks_news_features_from_real_sources(tmp_path, monkey
     assert first["fingerprint"] == again["fingerprint"]
     assert set(titles) <= set(planner.tables()["candidates"].values())
     top = first["recommendations"][0]
-    assert {spec["category"]: spec["kind"] for spec in top["specs"]}["sales"] == "missing"
+    assert {spec["category"]: spec["kind"] for spec in top["specs"]}["sales"] == "assumption"
     assert abs(top["assumptionShare"] - top["reasoning"]["contributions"][2]["points"] / top["score"]) < 0.01
     cited = [r for item in top["reasoning"]["contributions"] + top["reasoning"]["context"] for r in item["records"]]
     assert cited and all(r["url"] for r in cited)

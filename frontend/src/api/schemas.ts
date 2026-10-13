@@ -75,14 +75,7 @@ export const catalogSchema = z.object({
   }),
   trendForecast: z.array(technologyForecastSchema),
   impactCoverage: z
-    .object({
-      validPairCount: z.number().int().nonnegative(),
-      collectionTarget: z.number().int().positive(),
-      independentObservationCount: z.number().int().nonnegative().optional(),
-      completeObservationCount: z.number().int().nonnegative().optional(),
-      independentNameplateCount: z.number().int().nonnegative().optional(),
-      completeNameplateCount: z.number().int().nonnegative().optional(),
-    })
+    .object({ validPairCount: z.number().int().nonnegative(), collectionTarget: z.number().int().positive() })
     .optional(),
   /** Optional wording for the trend chart; the frontend falls back to the China EV adoption copy. */
   trendForecastLabels: z
@@ -200,11 +193,6 @@ const impactPointSchema = z.object({
   lower_pct: z.number().optional(),
   upper_pct: z.number().optional(),
   pairs: z.number().int().optional(),
-  incremental_units: z.number().int().optional(),
-  lower_units: z.number().int().optional(),
-  upper_units: z.number().int().optional(),
-  observations: z.number().int().nonnegative().optional(),
-  nameplates: z.number().int().nonnegative().optional(),
 });
 
 const legacyImpactFeatureSchema = z.object({
@@ -213,10 +201,6 @@ const legacyImpactFeatureSchema = z.object({
   subcategory: z.string().optional(),
   models: z.array(z.string()),
   pair_count: z.number().int().nonnegative(),
-  independent_count: z.number().int().nonnegative(),
-  independent_nameplates: z.number().int().nonnegative(),
-  identification_status: z.string(),
-  identification_reason: z.string(),
   impact_by_year: z.array(impactPointSchema),
 });
 
@@ -238,10 +222,6 @@ const impactSubcategorySchema = z.object({
   id: z.string(),
   label: z.string(),
   pair_count: z.number().int().nonnegative().optional(),
-  independent_count: z.number().int().nonnegative(),
-  independent_nameplates: z.number().int().nonnegative(),
-  identification_status: z.string(),
-  identification_reason: z.string(),
   impact_by_year: z.array(impactPointSchema).nullable(),
   legacy_features: z.array(legacyImpactFeatureSchema),
   news_features: z.array(newsImpactFeatureSchema),
@@ -251,10 +231,6 @@ const impactCategorySchema = z.object({
   id: z.string(),
   label: z.string(),
   pair_count: z.number().int().nonnegative().optional(),
-  independent_count: z.number().int().nonnegative(),
-  independent_nameplates: z.number().int().nonnegative(),
-  identification_status: z.string(),
-  identification_reason: z.string(),
   impact_by_year: z.array(impactPointSchema),
   subcategories: z.array(impactSubcategorySchema),
 });
@@ -265,14 +241,9 @@ export const impactForecastSchema = z.object({
   horizon_years: z.array(z.number().int()),
   categories: z.array(impactCategorySchema),
   legacy_feature_count: z.number().int(),
-  isolated_feature_count: z.number().int().nonnegative(),
   news_feature_count: z.number().int(),
   valid_pair_count: z.number().int().nonnegative(),
   collection_target: z.number().int().positive(),
-  independent_observation_count: z.number().int().nonnegative(),
-  complete_observation_count: z.number().int().nonnegative(),
-  independent_nameplate_count: z.number().int().nonnegative(),
-  complete_nameplate_count: z.number().int().nonnegative(),
   method: z.string(),
   status: z.string(),
   caveat: z.string(),

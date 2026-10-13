@@ -97,21 +97,20 @@ it in `app/services/planner.py` on real data, replacing the 16 invented mock can
 |---|---|---|
 | candidates | the 13 selected Chinese-derived features (`forecast_catalog()`) | — |
 | Customer | keyword-quantified F70/G60/G70 feedback: pain = negative, praise = positive mentions | evidence |
-| Trends / Competition | China news priority; an isolated four-year sales effect only when identified | assumption |
-| Sales | BMW 2030 volume per line and market × identified year-4 uplift; absent when not identified | scenario, marked as assumption |
+| Trends / Competition | sales-impact trend per feature, year 1 → year 4 after launch | assumption |
+| Sales | BMW 2030 volume per line and market × conservative (lower-bound) year-4 uplift | scenario, marked as assumption |
 | Product | G60/G70 option-list availability of the matching taxonomy attributes (`BMW_ATTRIBUTES`) | context only |
 
-The sales response is a balanced, market-adjusted event-study association, not a causal BMW estimate. Duplicate trim
-trajectories are collapsed, uncertainty is clustered by nameplate, and an effect is withheld unless all four years pass
-the identification gates. Sales chips remain `assumption`; `assumptionShare` is the trends share defined by the contract.
+The sales response is an observational association from Chinese nameplate pairs, not a causal BMW estimate, so every
+Sales chip remains marked `assumption` and each recommendation carries a flag saying so. `assumptionShare` is the
+trends share, as the contract defines it.
 
 The PM modifies the result in the interface: switch sources on or off, change weights, filter lines, markets,
 feedback vehicles, signals and individual Chinese features, then run. Every run is stored in
 `data/runtime/planner-runs/` and can be reopened from the run history.
 
 `catalog.trendForecastLabels` (optional) relabels the trend chart. The live backend also sends `impactByYear` for each
-new feature and `impactCoverage`, so Planner renders the Year 1-4 result and distinguishes raw pair coverage from
-independent, complete nameplate coverage. A neutral line means “not identified,” not a measured zero effect.
+new feature and `impactCoverage`, so Planner renders signed Year 1-4 sales impact and the valid-pair collection count.
 
 ## Decision dashboard data (PM override layer)
 

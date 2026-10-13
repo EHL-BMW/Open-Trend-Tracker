@@ -2,15 +2,15 @@
 
 Candidates are the new Chinese features tracked in the newsletter (potential improvements). The sources:
 
-  trends    news signal of the new feature + an identified four-year sales effect for its subcategory, when
-            the independent-nameplate event study passes every coverage and uncertainty gate
+  trends    news signal of the new feature + its sales uplift from year 1 to the latest observed year after
+            launch, taken from Chinese version pairs of the same subcategory, or of the category if too few
   sales     BMW 2030 volume in CN, EU and US x that latest-year uplift = extra units/year (scenario)
   customer  G70 problems identified from the feedback workbook in Feature Radar (mentions per problem)
   features  BMW option-list availability of the attributes behind the related old features (context, not weighted)
 
 The scoring and texts follow frontend/src/mocks/engine.ts, the reference implementation of the contract.
-When no effect is identified, the planner receives a neutral four-year trajectory rather than treating a noisy
-association as sales lift. Sales specs remain scenario assumptions and every recommendation carries a flag saying so.
+The uplift is an observational association from Chinese pairs, not BMW sales, so sales specs are marked as assumption
+and every recommendation carries a flag saying so; assumptionShare stays the trends share as in the contract.
 Every cited record carries a `url` back to its source (news article, Feature Radar problem, Impact tab, option list).
 """
 from __future__ import annotations
@@ -92,29 +92,25 @@ def _tables(_problems_mtime: float) -> dict:
     impact = impact_taxonomy()
     for category in impact["categories"]:
         for sub in category["subcategories"]:
-            # A category-wide effect is not a substitute for a feature effect. Neutral points keep
-            # the planner contract stable when the subcategory is not independently identified.
+            # Use a subcategory only when its full four-year series is available. Otherwise the
+            # category's complete series is the honest comparable fallback for a new feature.
             sub_series = sub["impact_by_year"] or []
             complete_sub_series = len(sub_series) == 4 and {p["year"] for p in sub_series} == {1, 2, 3, 4}
-            basis = [f"{sub['label']} ({sub['independent_nameplates']} independent nameplates)"] \
+            basis = [f"{sub['label']} ({sub['pair_count']} pairs)"] + [f["name"] for f in sub["legacy_features"]] \
                 if complete_sub_series else []
-            estimate = sub_series if complete_sub_series else [
-                {"year": year, "impact_pct": 0.0, "incremental_units": 0, "nameplates": 0, "observations": 0}
-                for year in range(1, 5)
-            ]
+            # no estimate at all (too few pairs in the category): no uplift, flagged below
+            estimate = sub_series if complete_sub_series else category["impact_by_year"] or [{"year": 1, "impact_pct": 0.0}]
             uplift = estimate[-1]["impact_pct"] / 100
             for news in sub["news_features"]:
                 c = news["id"]
                 candidates[c] = news["label"]
                 trends.append({"c": c, "v": uplift, "now": estimate[0]["impact_pct"] / 100, "year": estimate[-1]["year"],
                                "technology": c,
-                               "score_value": news["priority"] or 0.0,
-                               "effect_identified": complete_sub_series,
                                "priority": news["priority"] or 0.0, "signal": news["signal"] or "Tracked",
                                "articles": news["volume_recent"], "url": news["headline_url"],
                                "category": category["label"], "basis": basis,
                                "impact_by_year": [{"year": point["year"], "impact": point["impact_pct"] / 100,
-                                                   "pairs": point.get("nameplates", 0)} for point in estimate]})
+                                                   "pairs": point.get("pairs", 0)} for point in estimate]})
                 for line, by_market in history.items():
                     for market, label in MARKETS.items():
                         units = round(by_market[market][str(FORECAST_YEAR)] * uplift)
@@ -134,11 +130,7 @@ def _tables(_problems_mtime: float) -> dict:
     data = {"candidates": candidates, "problems": [(p["id"], p["name"]) for p in problems], "sales": sales,
             "customer": customer, "features": product, "trends": trends,
             "impact_coverage": {"valid_pair_count": impact["valid_pair_count"],
-                                "collection_target": impact["collection_target"],
-                                "independent_observation_count": impact["independent_observation_count"],
-                                "complete_observation_count": impact["complete_observation_count"],
-                                "independent_nameplate_count": impact["independent_nameplate_count"],
-                                "complete_nameplate_count": impact["complete_nameplate_count"]}}
+                                "collection_target": impact["collection_target"]}}
     data["version"] = hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()[:12]
     return data
 
@@ -174,16 +166,11 @@ def catalog() -> dict:
         "trendForecast": [{"technology": r["technology"], "label": names[r["c"]], "currentShare": r["now"],
                            "forecastShare": r["v"], "impactByYear": r["impact_by_year"]} for r in t["trends"]],
         "impactCoverage": {"validPairCount": t["impact_coverage"]["valid_pair_count"],
-                           "collectionTarget": t["impact_coverage"]["collection_target"],
-                           "independentObservationCount": t["impact_coverage"]["independent_observation_count"],
-                           "completeObservationCount": t["impact_coverage"]["complete_observation_count"],
-                           "independentNameplateCount": t["impact_coverage"]["independent_nameplate_count"],
-                           "completeNameplateCount": t["impact_coverage"]["complete_nameplate_count"]},
+                           "collectionTarget": t["impact_coverage"]["collection_target"]},
         "trendForecastLabels": {
             "title": "Estimated sales impact",
-            "description": "Conditional China sales effect from a balanced four-year event study after collapsing "
-                           "duplicate trims and controlling for market growth and observed launch-bundle differences. "
-                           "A flat zero line means the effect is not independently identified yet.",
+            "description": "Market-adjusted China sales change after launch, from Chinese version pairs that added "
+                           "features of the same subcategory (or category). Complete Year 1-4 trajectory.",
             "current": "Year 1",
             "forecast": "Latest year",
         },
@@ -204,7 +191,7 @@ def market_list(rows: list[dict]) -> list[str]:
 
 
 def basis_text(r: dict) -> str:
-    return ", ".join(r["basis"]) if r["basis"] else "no independently identified feature effect"
+    return ", ".join(r["basis"]) if r["basis"] else f"the {r['category']} category estimate"
 
 
 def record_label(key: str, r: dict, names: dict) -> str:
@@ -227,8 +214,7 @@ def records(key: str, rows: list[dict], t: dict) -> list[dict]:
             estimate = f"{pc(r['now'], 1)} year 1 → {pc(r['v'], 1)} year {r['year']}"
             basis = [f"Chinese pairs · {name} · {estimate}" for name in r["basis"][:1]]
             out += [{"id": f"{rid}.{j}", "label": label, "url": IMPACT_URL}
-                    for j, label in enumerate(basis or [f"Feature effect not independently identified · {r['category']}"],
-                                              start=1)]
+                    for j, label in enumerate(basis or [f"Category estimate · {r['category']} · {estimate}"], start=1)]
         return [{**x, "share": 1 / len(out)} for x in out]
     total = sum(r["v"] for r in rows) or 1
     out = []
@@ -247,13 +233,8 @@ def phrase(key: str, rows: list[dict]) -> str:
         return f"about {units:,} extra BMW units per year in {markets} in the scenario"
     if key == "customer":
         return f"{sum(r['v'] for r in rows)} mentions across {len(rows)} G70 problem{'s' if len(rows) != 1 else ''}"
-    return "; ".join(
-        (f"{r['signal'].lower()} in China news, with an isolated sales effect of {pc(r['now'], 1)} in year 1 "
-         f"and {pc(r['v'], 1)} in year {r['year']} (from {basis_text(r)})")
-        if r["effect_identified"] else
-        f"{r['signal'].lower()} in China news; its independent sales effect is not identified yet"
-        for r in rows
-    )
+    return "; ".join(f"{r['signal'].lower()} in China news, with an estimated sales uplift of {pc(r['now'], 1)} in year 1 "
+                     f"and {pc(r['v'], 1)} in year {r['year']} (from {basis_text(r)})" for r in rows)
 
 
 def analyse(req: dict) -> dict:
@@ -272,10 +253,7 @@ def analyse(req: dict) -> dict:
     product = [r for r in t["features"] if r["vehicle"] in pick("features", "vehicle")]
     ids = list(names)
     priority = {r["c"]: r["priority"] for r in t["trends"]}
-    raw = {
-        k: {c: sum((r["score_value"] if k == "trends" else r["v"]) for r in rows[k] if r["c"] == c) for c in ids}
-        for k in WEIGHTED
-    }
+    raw = {k: {c: sum(r["v"] for r in rows[k] if r["c"] == c) for c in ids} for k in WEIGHTED}
     best = {k: max(raw[k].values(), default=0) for k in WEIGHTED}
 
     def rank_text(key: str, c: str) -> str:
@@ -335,8 +313,7 @@ def analyse(req: dict) -> dict:
                           "text": " · ".join(uniq(f"{r['vehicle']} {r['availability'].replace('_', ' ')}" for r in own_product))})
         if on["trends"] and own_trends:
             specs.append({"category": "trends", "label": CHIPS["trends"], "kind": "assumption",
-                          "text": " · ".join((f"{r['signal']} · {pc(r['now'], 1)} → {pc(r['v'], 1)} isolated uplift, year 1 → {r['year']}"
-                                               if r["effect_identified"] else f"{r['signal']} · sales effect not identified")
+                          "text": " · ".join(f"{r['signal']} · {pc(r['now'], 1)} → {pc(r['v'], 1)} uplift, year 1 → {r['year']}"
                                              for r in own_trends)})
 
         drivers = sorted((k for k in WEIGHTED if parts[k]["points"] > 0), key=lambda k: -parts[k]["points"])
@@ -359,11 +336,11 @@ def analyse(req: dict) -> dict:
             flags.append({"severity": "warning", "message": "More than 30% of the score comes from sales scenarios "
                           "and trends. Treat it as a hypothesis to validate."})
         if any(not r["basis"] for r in own_trends):
-            flags.append({"severity": "warning", "message": "The feature's independent sales effect did not pass the "
-                          "four-year coverage and clustered-uncertainty gates; the planner uses no sales uplift."})
+            flags.append({"severity": "warning", "message": "Too few Chinese pairs in this subcategory: the uplift is the "
+                          "category-level estimate, or zero when the category has none either."})
         if parts["sales"]["own"] or own_trends:
-            flags.append({"severity": "info", "message": "Trend ranking uses the China news priority signal. Any displayed "
-                          "sales effect is a conditional event-study estimate, not a causal claim."})
+            flags.append({"severity": "info", "message": "Sales impact is an observational, market-adjusted association "
+                          "from Chinese version pairs, not a causal estimate."})
 
         recommendations.append({
             "id": c, "rank": rank, "title": names[c], "score": round(total, 1), "keep": False,
