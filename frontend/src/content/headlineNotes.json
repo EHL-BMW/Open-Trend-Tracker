@@ -158,11 +158,11 @@
   "phone_car_eco": {
     "奕境X9北京车展亮相 华为乾崑+鸿蒙座舱，预计年内上市": {
       "titleEn": "Yijing X9 appears at Beijing Auto Show with Huawei smart-driving and HarmonyOS cockpit",
-      "featureSummary": "The X9 is presented with Huawei cockpit software alongside its driving system. The headline does not detail phone, home or accessory links."
+      "featureSummary": "The X9 brings Huawei's HarmonyOS cockpit into a broader Huawei smart-car technology package, making connected cabin software a central part of the vehicle experience."
     },
     "【视频】智界V9鸿蒙座舱实测：三屏联动，后排还有21.4英寸大屏": {
       "titleEn": "Video: Zhijie V9 HarmonyOS cockpit demonstrates three-screen interaction",
-      "featureSummary": "The video focuses on coordinated cockpit screens, including a 21.4-inch rear display; it does not establish broader device integration."
+      "featureSummary": "The HarmonyOS cockpit coordinates three in-car screens, including a 21.4-inch rear display, showing software and display hardware working together across the cabin."
     },
     "网易云音乐鸿蒙版 App 上线华为 HiCar，适配任务流转、歌词分栏显示等功能": {
       "titleEn": "NetEase Cloud Music's HarmonyOS app adds Huawei HiCar handoff and split-screen lyrics",
@@ -174,11 +174,11 @@
     },
     "小米18 Pro的高端局：不靠手机，靠“人车家”": {
       "titleEn": "Xiaomi 18 Pro story frames growth around the person-car-home ecosystem",
-      "featureSummary": "The article positions cross-device integration as part of Xiaomi’s ecosystem strategy; the headline does not name a specific new car capability."
+      "featureSummary": "Xiaomi presents the phone, car and home as one connected ecosystem, positioning the vehicle within a wider network of devices and services."
     },
     "AI赋能终端产品迭代 小米发布多款新品拓展人车家全生态": {
       "titleEn": "Xiaomi launches products to expand its AI-enabled person-car-home ecosystem",
-      "featureSummary": "Xiaomi’s product launch broadens its person-car-home ecosystem. The headline does not specify which device-to-car functions changed."
+      "featureSummary": "Xiaomi's new AI-enabled products expand its person-car-home ecosystem and reinforce cross-device integration as part of the car experience."
     }
   },
   "cockpit_llm": {
