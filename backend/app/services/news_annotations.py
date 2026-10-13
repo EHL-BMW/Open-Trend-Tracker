@@ -37,7 +37,7 @@ def annotate_topic(topic_id: str) -> dict:
 
     model = get_openai_model()
     fingerprint = hashlib.sha256(json.dumps(
-        {"annotation_version": 1, "model": model, "topic": topic_id, "headlines": headlines},
+        {"annotation_version": 2, "model": model, "topic": topic_id, "headlines": headlines},
         ensure_ascii=False, sort_keys=True,
     ).encode("utf-8")).hexdigest()[:20]
     cache_file = CACHE_DIR / f"{topic_id}-{fingerprint}.json"
@@ -52,6 +52,12 @@ def annotate_topic(topic_id: str) -> dict:
         {"index": index, "headline": item["title"], "outlet": item["source"]}
         for index, item in enumerate(headlines)
     ]
+    ecosystem_guidance = (
+        "For connected device and accessory ecosystems, treat HarmonyOS cockpits, coordinated cabin screens, "
+        "HiCar handoff, in-car apps, person-car-home services and connected accessories as relevant signals. "
+        "Describe the connection actually named in each headline without inventing phone, home or accessory functions. "
+        if topic_id == "phone_car_eco" else ""
+    )
     try:
         response = OpenAI(api_key=key, timeout=60).responses.create(
             model=model,
@@ -62,6 +68,7 @@ def annotate_topic(topic_id: str) -> dict:
             "If the headline covers several subjects, leave unrelated subjects out. "
             "Use only facts present in the headline. Do not invent article details, results, dates, or numbers. "
             "If the headline is a question or too vague, say what it examines rather than claiming an answer. "
+            + ecosystem_guidance +
             "Return exactly one item per input index."
             ),
             input=json.dumps({"feature": topic["label_en"], "headlines": source_items}, ensure_ascii=False),
