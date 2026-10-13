@@ -6,10 +6,13 @@
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
   align-items: end;
-  gap: 48px;
+  gap: 40px;
   padding: 64px 0 42px;
+}
+.hero > div:first-child {
+  min-width: 0;
 }
 
 .eyebrow,
@@ -38,8 +41,9 @@
 
 .stats {
   display: grid;
-  grid-template-columns: repeat(4, minmax(82px, 1fr));
-  min-width: 460px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  width: 100%;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--sep);
   border-radius: 20px;
@@ -60,7 +64,7 @@
 }
 .stats b {
   color: var(--blue);
-  font: 700 26px/1 var(--font-rounded);
+  font: 700 clamp(18px, 1.8vw, 24px)/1 var(--font-rounded);
 }
 .stats span {
   color: var(--label-2);
@@ -348,7 +352,7 @@
   line-height: 1.5;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1180px) {
   .hero {
     grid-template-columns: 1fr;
   }
