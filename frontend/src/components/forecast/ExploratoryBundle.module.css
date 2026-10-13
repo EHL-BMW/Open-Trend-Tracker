@@ -1,0 +1,172 @@
+.section {
+  margin-top: 24px;
+  padding: 24px;
+  border: 1px dashed color-mix(in srgb, var(--amber) 55%, var(--sep));
+  border-radius: 24px;
+  background: var(--card);
+}
+
+.heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.heading h2 {
+  margin: 0;
+  font: 700 clamp(20px, 2.2vw, 26px) / 1.15 var(--font-display);
+  letter-spacing: -0.03em;
+}
+.heading p {
+  margin: 5px 0 0;
+  color: var(--label-2);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.badge {
+  flex: none;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: var(--warn-bg);
+  color: var(--amber);
+  font: 700 11px/1 var(--font-rounded);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.caveat {
+  margin: 16px 0 0;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: var(--warn-bg);
+  color: var(--label);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  margin-top: 16px;
+}
+.controls > span {
+  color: var(--label-2);
+  font-size: 12px;
+}
+
+.toggle {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 10px;
+  background: var(--fill);
+}
+.toggle button {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--label-2);
+  font: 600 13px/1.2 var(--font-text);
+  cursor: pointer;
+}
+.toggle button[aria-pressed="true"] {
+  background: var(--card);
+  color: var(--label);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.tableWrap {
+  margin-top: 14px;
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.table th,
+.table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--sep);
+  text-align: left;
+  vertical-align: top;
+}
+.table thead th {
+  color: var(--label-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.categoryRow th {
+  font-weight: 700;
+}
+.subRow th {
+  padding-left: 26px;
+  color: var(--label-2);
+  font-weight: 500;
+}
+.featureRow th {
+  padding-left: 44px;
+  color: var(--label-3);
+  font-weight: 400;
+}
+.selected {
+  background: color-mix(in srgb, var(--blue) 5%, transparent);
+}
+
+.count,
+.none {
+  color: var(--label-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.value b {
+  display: block;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+.value span {
+  color: var(--label-3);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.value:not(.up):not(.down) b {
+  color: var(--label-2);
+}
+
+.up b,
+.direction.up {
+  color: var(--keep);
+}
+.down b,
+.direction.down {
+  color: var(--danger);
+}
+.direction {
+  white-space: nowrap;
+  font-weight: 600;
+}
+.direction.mixed {
+  color: var(--label-3);
+  font-weight: 500;
+}
+
+.footnote {
+  margin: 14px 0 0;
+  color: var(--label-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 18px;
+    border-radius: 18px;
+  }
+}

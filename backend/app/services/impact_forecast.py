@@ -5,7 +5,8 @@ trajectories are collapsed and every target is conditioned on supported peers, b
 powertrain, baseline scale, calendar year and recorded quality flags. Exact feature values are
 withheld when a feature cannot be separated from its launch bundle or uncertainty is too large.
 News topics are attached to a subcategory as recent signals only: they get no sales effect of
-their own.
+their own. ``exploratory`` carries the bundle-level associations from
+``app.analysis.bundle_exploratory``: labelled exploratory and never mixed into the gated values.
 """
 from __future__ import annotations
 
@@ -61,6 +62,65 @@ def _series(row: dict) -> list[dict]:
          "pairs": int(float(row[f"nameplates_with_year_{year}"]))}
         for year in YEARS if _number(row[f"impact_pct_year_{year}"]) is not None
     ]
+
+
+def _direction(by_panel: dict[str, dict]) -> str:
+    """Sign agreement of the strict and broad panels over the years both estimate."""
+    years = [{p["year"]: p["impact_pct"] for p in by_panel[panel]["by_year"]} for panel in ("strict", "broad")
+             if panel in by_panel]
+    shared = sorted(set(years[0]) & set(years[1])) if len(years) == 2 else []
+    if not shared:
+        return "single_panel"
+    signs = {value > 0 for panel in years for year, value in panel.items() if year in shared}
+    return "mixed" if len(signs) == 2 else ("up" if signs.pop() else "down")
+
+
+def _exploratory(path: Path) -> dict | None:
+    if not path.exists():
+        return None
+    with path.open(encoding="utf-8", newline="") as stream:
+        rows = list(csv.DictReader(stream))
+    items: dict[tuple[str, str], dict] = {}
+    panel_sizes: dict[str, int] = {}
+    for row in rows:
+        panel_sizes[row["panel"]] = int(row["panel_nameplates"])
+        item = items.setdefault((row["level"], row["name"]), {
+            "level": row["level"], "id": row["name"], "label": row["label"], "category": row["category"],
+            "subcategory": row["subcategory"], "panels": {}})
+        panel = item["panels"].setdefault(row["panel"], {
+            "nameplates_with": int(row["nameplates_with"]), "nameplates_without": int(row["nameplates_without"]),
+            "by_year": []})
+        panel["by_year"].append({"year": int(row["year"]), "impact_pct": float(row["impact_pct"]),
+                                 "lower_pct": float(row["lower_pct"]), "upper_pct": float(row["upper_pct"]),
+                                 "excludes_zero": row["excludes_zero"] == "True"})
+    # category row, then each subcategory followed by its features
+    subcategory_order = {name: i for i, name in enumerate(SUBCATEGORIES)}
+    ordered = sorted(items.values(), key=lambda i: (
+        CATEGORIES.index(i["category"]), subcategory_order.get(i["subcategory"], -1), i["level"] == "feature",
+        i["label"]))
+    for item in ordered:
+        item["direction"] = _direction(item["panels"])
+    return {
+        "panels": [
+            {"id": "strict", "label": "Strict", "nameplates": panel_sizes.get("strict", 0),
+             "description": "publication-eligible trajectories only: one sales source, full baseline year, "
+                            "no successor update inside the four years"},
+            {"id": "broad", "label": "Broad", "nameplates": panel_sizes.get("broad", 0),
+             "description": "every complete four-year trajectory, including mixed-source series and "
+                            "overlapping updates; these quality flags enter as controls"},
+        ],
+        "items": ordered,
+        "estimate_count": len(rows),
+        "excludes_zero_count": sum(row["excludes_zero"] == "True" for row in rows),
+        "method": "launches whose bundle contained the item vs launches whose bundle did not; market-adjusted "
+                  "log sales change controlled for powertrain, baseline scale, calendar year and data-quality "
+                  "flags; 95% interval clustered by nameplate",
+        "caveat": "Exploratory, not publication-grade: the item is not separated from what launched with it, "
+                  "and no interval-width gate is applied. OEMs often refresh models that are already declining, "
+                  "so a negative value can reflect which models got the update rather than harm from it. "
+                  "With many estimates about 1 in 20 intervals excludes zero by chance; trust a direction "
+                  "only when both panels and several years agree.",
+    }
 
 
 def _load_news(path: Path) -> tuple[dict, dict[str, dict]]:
@@ -163,6 +223,7 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
                   "degrees-of-freedom, leverage and clustered-uncertainty gates. This controls observed differences but "
                   "does not prove causality; price, incentives, supply and unrecorded redesign changes may remain.",
         "source_plot": "data/analysis/chinese_pairs/plots/impact_by_subcategory.pdf",
+        "exploratory": _exploratory(impact_path.with_name("bundle_exploratory.csv")),
     }
 
 

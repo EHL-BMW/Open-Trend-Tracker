@@ -34,3 +34,4 @@ export type AnalysisRunSummary = z.infer<typeof analysisRunSummarySchema>;
 export type ImpactForecast = z.infer<typeof impactForecastSchema>;
 export type ImpactCategory = ImpactForecast["categories"][number];
 export type ImpactSubcategory = ImpactCategory["subcategories"][number];
+export type ImpactExploratory = NonNullable<ImpactForecast["exploratory"]>;

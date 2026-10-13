@@ -1,8 +1,9 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import { useImpactForecast } from "../api/queries";
-import type { ImpactCategory } from "../api/types";
+import type { ImpactCategory, ImpactExploratory } from "../api/types";
 import { errorMessage } from "../api/client";
 import { StateMessage } from "../components/common/StateMessage";
+import { ExploratoryBundle, PanelToggle, type PanelId } from "../components/forecast/ExploratoryBundle";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
 import { TrackButton } from "../components/TrackButton";
@@ -31,9 +32,26 @@ const latestText = (points: ImpactPoint[]) =>
     ? `${signedUnits(lastPoint(points).incremental_units ?? 0)} per nameplate (${signed(lastPoint(points).impact_pct)}) in year ${lastPoint(points).year}`
     : "effect not independently identified";
 
+/** Exploratory points of one item in one panel, in the shape the charts draw. */
+type ExploratoryLookup = (level: "category" | "subcategory" | "feature", id: string) => ImpactPoint[];
+
+function exploratoryLookup(data: ImpactExploratory | null | undefined, panel: PanelId): ExploratoryLookup {
+  const byKey = new Map((data?.items ?? []).map((item) => [`${item.level}:${item.id}`, item.panels[panel]]));
+  return (level, id) => {
+    const estimate = byKey.get(`${level}:${id}`);
+    return (estimate?.by_year ?? []).map((point) => ({ ...point, nameplates: estimate!.nameplates_with }));
+  };
+}
+
+// Exploratory intervals can reach thousands of percent; the axis stops here and the band is clipped.
+const AXIS_MIN = -100;
+const AXIS_MAX = 400;
+const clamp = (value: number) => Math.min(AXIS_MAX, Math.max(AXIS_MIN, value));
+
 /** Value range of a plot. It always includes zero because effects can be negative. */
-function valueRange(values: number[]) {
-  if (!values.length) return { lo: -1, hi: 1 };
+function valueRange(raw: number[]) {
+  if (!raw.length) return { lo: -1, hi: 1 };
+  const values = raw.map(clamp);
   const lo = Math.min(0, ...values);
   const hi = Math.max(0, ...values);
   return hi - lo < 1 ? { lo, hi: lo + 1 } : { lo, hi };
@@ -41,19 +59,21 @@ function valueRange(values: number[]) {
 
 function CategoryPlot({
   categories,
+  seriesFor,
+  dashed,
   selectedId,
   onSelect,
 }: {
   categories: ImpactCategory[];
+  seriesFor: (category: ImpactCategory) => ImpactPoint[];
+  dashed: boolean;
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
   const width = 520;
   const height = 360;
   const pad = { left: 54, right: 58, top: 24, bottom: 48 };
-  const { lo, hi } = valueRange(
-    categories.flatMap((category) => category.impact_by_year.map((point) => point.impact_pct)),
-  );
+  const { lo, hi } = valueRange(categories.flatMap((category) => seriesFor(category).map((point) => point.impact_pct)));
   const x = (year: number) => pad.left + ((year - 1) / 3) * (width - pad.left - pad.right);
   const y = (value: number) => pad.top + ((hi - value) / (hi - lo)) * (height - pad.top - pad.bottom);
   const ticks = Array.from({ length: 5 }, (_, index) => lo + ((hi - lo) / 4) * index);
@@ -80,11 +100,12 @@ function CategoryPlot({
         </text>
       ))}
       {categories.map((category, index) => {
-        if (!category.impact_by_year.length) return null;
+        const series = seriesFor(category);
+        if (!series.length) return null;
         const color = colorAt(index);
-        const points = category.impact_by_year.map((point) => `${x(point.year)},${y(point.impact_pct)}`).join(" ");
+        const points = series.map((point) => `${x(point.year)},${y(point.impact_pct)}`).join(" ");
         const selected = category.id === selectedId;
-        const end = lastPoint(category.impact_by_year);
+        const end = lastPoint(series);
         return (
           <g
             key={category.id}
@@ -107,10 +128,11 @@ function CategoryPlot({
               fill="none"
               stroke={color}
               strokeWidth={selected ? 4.5 : 3}
+              strokeDasharray={dashed ? "9 6" : undefined}
               strokeLinejoin="round"
               strokeLinecap="round"
             />
-            {category.impact_by_year.map((point) => (
+            {series.map((point) => (
               <circle key={point.year} cx={x(point.year)} cy={y(point.impact_pct)} r={selected ? 5 : 4} fill={color} />
             ))}
             {selected && (
@@ -125,12 +147,25 @@ function CategoryPlot({
   );
 }
 
-function ImpactChart({ points, lo, hi, color }: { points: ImpactPoint[]; lo: number; hi: number; color: string }) {
+function ImpactChart({
+  points,
+  lo,
+  hi,
+  color,
+  dashed,
+}: {
+  points: ImpactPoint[];
+  lo: number;
+  hi: number;
+  color: string;
+  dashed: boolean;
+}) {
   const width = 360;
   const height = 112;
   const pad = { left: 34, right: 10, top: 8, bottom: 20 };
   const x = (year: number) => pad.left + ((year - 1) / 3) * (width - pad.left - pad.right);
-  const y = (value: number) => pad.top + ((hi - value) / (hi - lo)) * (height - pad.top - pad.bottom);
+  const y = (value: number) =>
+    pad.top + ((hi - Math.min(hi, Math.max(lo, value))) / (hi - lo)) * (height - pad.top - pad.bottom);
   const line = points.map((point) => `${x(point.year)},${y(point.impact_pct)}`).join(" ");
   const band = [
     ...points.map((point) => `${x(point.year)},${y(point.upper_pct ?? point.impact_pct)}`),
@@ -154,7 +189,14 @@ function ImpactChart({ points, lo, hi, color }: { points: ImpactPoint[]; lo: num
         </text>
       ))}
       <polygon points={band} fill={color} fillOpacity={0.16} />
-      <polyline points={line} fill="none" stroke={color} strokeWidth="2.5" strokeLinejoin="round" />
+      <polyline
+        points={line}
+        fill="none"
+        stroke={color}
+        strokeWidth="2.5"
+        strokeDasharray={dashed ? "6 4" : undefined}
+        strokeLinejoin="round"
+      />
       {points.map((point) => (
         <circle key={point.year} cx={x(point.year)} cy={y(point.impact_pct)} r="3" fill={color} />
       ))}
@@ -170,6 +212,7 @@ function ImpactCard({
   color,
   level,
   trackId,
+  exploratory = false,
 }: {
   title: string;
   meta: string;
@@ -178,9 +221,34 @@ function ImpactCard({
   color: string;
   level: "subcategory" | "feature";
   trackId?: string;
+  exploratory?: boolean;
 }) {
   const last = lastPoint(points);
   const missingYears = [1, 2, 3, 4].filter((year) => !points.some((point) => point.year === year));
+  if (exploratory) {
+    return (
+      <article
+        className={`${styles.featureCard} ${styles.exploratoryCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}
+      >
+        <div className={styles.featureTop}>
+          <div>
+            <strong>{title}</strong>
+            <span>{meta}</span>
+          </div>
+          <div className={styles.impactValue}>
+            <b>{signed(last.impact_pct, 0)}</b>
+            <span>
+              Y{last.year} · 95% {signed(last.lower_pct ?? last.impact_pct, 0)} to{" "}
+              {signed(last.upper_pct ?? last.impact_pct, 0)}
+              {last.nameplates ? ` · ${last.nameplates} nameplates with it` : ""}
+            </span>
+          </div>
+        </div>
+        <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} dashed />
+        {trackId && <TrackButton id={trackId} label={title} />}
+      </article>
+    );
+  }
   return (
     <article className={`${styles.featureCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}>
       <div className={styles.featureTop}>
@@ -199,7 +267,7 @@ function ImpactCard({
           </span>
         </div>
       </div>
-      <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} />
+      <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} dashed={false} />
       {missingYears.length > 0 && (
         <p className={styles.missingYears}>
           Y{missingYears.join(", Y")} unavailable: each year needs observed sales from at least five pairs in this group
@@ -211,11 +279,23 @@ function ImpactCard({
   );
 }
 
-function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; color: string }) {
+function LegacyFeaturePanel({
+  category,
+  color,
+  explore,
+  panelLabel,
+}: {
+  category: ImpactCategory;
+  color: string;
+  explore: ExploratoryLookup;
+  panelLabel: string;
+}) {
   const groups = category.subcategories.filter((sub) => sub.impact_by_year || sub.legacy_features.length);
   const series = groups.flatMap((sub) => [
-    sub.impact_by_year ?? [],
-    ...sub.legacy_features.map((feature) => feature.impact_by_year),
+    sub.impact_by_year ?? explore("subcategory", sub.id),
+    ...sub.legacy_features.map((feature) =>
+      feature.impact_by_year.length ? feature.impact_by_year : explore("feature", feature.name),
+    ),
   ]);
   const range = valueRange(
     series.flat().flatMap((point) => [point.lower_pct ?? point.impact_pct, point.upper_pct ?? point.impact_pct]),
@@ -228,7 +308,10 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
         <span className={styles.step}>2</span>
         <div>
           <h2 id="legacy-title">Subcategories and features</h2>
-          <p>Balanced independent panel · conditional event-study effect · band = clustered 95% interval</p>
+          <p>
+            Balanced independent panel · conditional event-study effect · band = clustered 95% interval. Dashed cards
+            are exploratory launch-bundle associations ({panelLabel} panel), shown where no gated effect exists.
+          </p>
         </div>
       </div>
       {groups.length ? (
@@ -243,6 +326,16 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
                   range={range}
                   color={color}
                   level="subcategory"
+                />
+              ) : explore("subcategory", sub.id).length ? (
+                <ImpactCard
+                  title={sub.label}
+                  meta={`Subcategory · exploratory · not identified: ${sub.identification_reason}`}
+                  points={explore("subcategory", sub.id)}
+                  range={range}
+                  color={color}
+                  level="subcategory"
+                  exploratory
                 />
               ) : (
                 <p className={styles.emptyEvidence}>
@@ -261,6 +354,18 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
                     color={color}
                     level="feature"
                     trackId={legacyFeatureId(category.id, feature.name)}
+                  />
+                ) : explore("feature", feature.name).length ? (
+                  <ImpactCard
+                    key={feature.name}
+                    title={feature.name}
+                    meta={`Feature · exploratory · not identified: ${feature.identification_reason}`}
+                    points={explore("feature", feature.name)}
+                    range={range}
+                    color={color}
+                    level="feature"
+                    trackId={legacyFeatureId(category.id, feature.name)}
+                    exploratory
                   />
                 ) : (
                   <div key={feature.name}>
@@ -316,6 +421,7 @@ export function ImpactForecastPage() {
   usePageTitle("Sales Impact Forecast");
   const forecast = useImpactForecast();
   const [selectedId, setSelectedId] = useState("");
+  const [panelId, setPanelId] = useState<PanelId>("strict");
   const [problems, setProblems] = useState<SavedProblemAnalysis | null>(null);
   useEffect(() => {
     fetch(`${config.apiBaseUrl}/agent/problems`)
@@ -328,6 +434,14 @@ export function ImpactForecastPage() {
   const activeId = selected?.id ?? "";
   const selectedIndex = categories.findIndex((category) => category.id === activeId);
   const selectedColor = colorAt(Math.max(selectedIndex, 0));
+  const exploratory = forecast.data?.exploratory;
+  const explore = exploratoryLookup(exploratory, panelId);
+  const panelLabel = exploratory?.panels.find((panel) => panel.id === panelId)?.label ?? "";
+  // Gated estimates win; exploratory lines are drawn only while no category passes the gates.
+  const gated = categories.some((category) => category.impact_by_year.length);
+  const showExploratory = !gated && categories.some((category) => explore("category", category.label).length);
+  const seriesFor = (category: ImpactCategory) =>
+    showExploratory ? explore("category", category.label) : category.impact_by_year;
 
   return (
     <>
@@ -390,14 +504,32 @@ export function ImpactForecastPage() {
                   <div>
                     <h2 id="category-forecast-title">Category sales impact</h2>
                     <p>
-                      {selected
-                        ? `${selected.label} · ${latestText(selected.impact_by_year)}`
-                        : "Market-adjusted sales change vs pairs without the category · click a line to explore"}
+                      {selected && showExploratory && seriesFor(selected).length
+                        ? `${selected.label} · exploratory ${signed(lastPoint(seriesFor(selected)).impact_pct, 0)} in year ${lastPoint(seriesFor(selected)).year} (${panelLabel} panel)`
+                        : selected
+                          ? `${selected.label} · ${latestText(selected.impact_by_year)}`
+                          : "Market-adjusted sales change vs pairs without the category · click a line to explore"}
                     </p>
                   </div>
                 </div>
-                {categories.some((category) => category.impact_by_year.length) ? (
-                  <CategoryPlot categories={categories} selectedId={activeId} onSelect={setSelectedId} />
+                {showExploratory && exploratory && (
+                  <div className={styles.exploratoryNote}>
+                    <span className={styles.exploratoryBadge}>Exploratory</span>
+                    <p>
+                      No effect passes the publication gates. Dashed lines are launch-bundle associations: launches that
+                      included the category vs launches that did not. Not causal; see the caveats below.
+                    </p>
+                    <PanelToggle data={exploratory} panelId={panelId} onChange={setPanelId} />
+                  </div>
+                )}
+                {gated || showExploratory ? (
+                  <CategoryPlot
+                    categories={categories}
+                    seriesFor={seriesFor}
+                    dashed={showExploratory}
+                    selectedId={activeId}
+                    onSelect={setSelectedId}
+                  />
                 ) : (
                   <StateMessage compact title="No four-year effect passes the evidence gates">
                     All {forecast.data.valid_pair_count} complete trim pairs were used, then repeated sales trajectories
@@ -419,8 +551,8 @@ export function ImpactForecastPage() {
                       <i />
                       {category.label}
                       <b>
-                        {category.impact_by_year.length
-                          ? `${signed(lastPoint(category.impact_by_year).impact_pct)} · Y${lastPoint(category.impact_by_year).year}`
+                        {seriesFor(category).length
+                          ? `${signed(lastPoint(seriesFor(category)).impact_pct, 0)} · Y${lastPoint(seriesFor(category)).year}`
                           : "n/a"}
                       </b>
                     </button>
@@ -428,9 +560,25 @@ export function ImpactForecastPage() {
                 </div>
               </section>
 
-              {selected && <LegacyFeaturePanel category={selected} color={selectedColor} />}
+              {selected && (
+                <LegacyFeaturePanel
+                  category={selected}
+                  color={selectedColor}
+                  explore={explore}
+                  panelLabel={panelLabel}
+                />
+              )}
               {selected && <NewsFeaturePanel category={selected} problems={problems} />}
             </div>
+
+            {exploratory && (
+              <ExploratoryBundle
+                data={exploratory}
+                selectedCategory={selected?.label}
+                panelId={panelId}
+                onPanelChange={setPanelId}
+              />
+            )}
 
             <aside className={styles.methodNote}>
               <div>

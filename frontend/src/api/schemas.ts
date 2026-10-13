@@ -259,6 +259,50 @@ const impactCategorySchema = z.object({
   subcategories: z.array(impactSubcategorySchema),
 });
 
+const exploratoryPointSchema = z.object({
+  year: z.number().int().min(1).max(4),
+  impact_pct: z.number(),
+  lower_pct: z.number(),
+  upper_pct: z.number(),
+  excludes_zero: z.boolean(),
+});
+
+const exploratoryPanelEstimateSchema = z.object({
+  nameplates_with: z.number().int().nonnegative(),
+  nameplates_without: z.number().int().nonnegative(),
+  by_year: z.array(exploratoryPointSchema),
+});
+
+/** Bundle-level associations: exploratory, never part of the gated values above. */
+const exploratorySchema = z.object({
+  panels: z.array(
+    z.object({
+      id: z.enum(["strict", "broad"]),
+      label: z.string(),
+      nameplates: z.number().int().nonnegative(),
+      description: z.string(),
+    }),
+  ),
+  items: z.array(
+    z.object({
+      level: z.enum(["category", "subcategory", "feature"]),
+      id: z.string(),
+      label: z.string(),
+      category: z.string(),
+      subcategory: z.string(),
+      direction: z.enum(["up", "down", "mixed", "single_panel"]),
+      panels: z.object({
+        strict: exploratoryPanelEstimateSchema.optional(),
+        broad: exploratoryPanelEstimateSchema.optional(),
+      }),
+    }),
+  ),
+  estimate_count: z.number().int().nonnegative(),
+  excludes_zero_count: z.number().int().nonnegative(),
+  method: z.string(),
+  caveat: z.string(),
+});
+
 export const impactForecastSchema = z.object({
   title: z.string(),
   as_of: z.string(),
@@ -277,6 +321,7 @@ export const impactForecastSchema = z.object({
   status: z.string(),
   caveat: z.string(),
   source_plot: z.string(),
+  exploratory: exploratorySchema.nullable().optional(),
 });
 
 export const apiErrorBodySchema = z.object({

@@ -215,7 +215,15 @@ Year 1 is the launch year for a January-March launch, otherwise the next calenda
 the year before the launch year. A valid four-year pair has a numeric baseline and all four annual sales
 comparisons. An item needs 5 pairs with sales in a year (and 5 without it) to get an estimate. The
 results are observational associations, not causal effects; nameplate totals can include successor
-updates and source-table provider changes. To extend the sample, add the next older
+updates and source-table provider changes.
+
+`bundle_exploratory.csv` (`app/analysis/bundle_exploratory.py`) is shown on the Forecast page as a separate,
+labelled exploratory section. It compares launches whose bundle contained a category, subcategory or feature with
+launches whose bundle did not, without separating the item from what launched with it and without the
+interval-width gate. It does this on two panels: `strict` (publication-eligible trajectories) and `broad`
+(every complete trajectory, quality flags as controls). It never feeds the gated values.
+
+To extend the sample, add the next older
 pairs (and their features and sales) to the CSVs and rerun. Newer pairs can be added once their first
 sales year is complete.
 

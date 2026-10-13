@@ -78,6 +78,8 @@ def test_run_requires_balanced_four_year_panel_before_publication(tmp_path):
     assert energy["identification_status"] == "not_identified"
     sub = next(s for s in energy["subcategories"] if s["id"] == "charging_replenishment")
     assert sub["legacy_features"][0]["name"] == "5C fast charging"
+    # No complete four-year trajectory, so no exploratory association either.
+    assert taxonomy["exploratory"] is None
 
 
 def test_duplicate_trim_trajectories_become_one_independent_observation(tmp_path):
@@ -136,6 +138,15 @@ def test_balanced_panel_recovers_known_conditional_effect(tmp_path):
     for year in range(1, 5):
         assert float(charging[f"impact_pct_year_{year}"]) == pytest.approx(20.0, abs=0.01)
         assert int(charging[f"incremental_units_year_{year}"]) == 2_000
+
+    news = tmp_path / "news.json"
+    news.write_text('{"generated_at": "2026-10-01", "topics": []}', encoding="utf-8")
+    exploratory = build_impact_taxonomy(tmp_path / "out" / "impact.csv", news)["exploratory"]
+    assert [panel["nameplates"] for panel in exploratory["panels"]] == [20, 20]
+    item = next(i for i in exploratory["items"] if i["id"] == "charging_replenishment")
+    assert item["direction"] == "up"
+    for panel in item["panels"].values():
+        assert [point["impact_pct"] for point in panel["by_year"]] == pytest.approx([20.0] * 4, abs=0.01)
 
 
 def test_changes_stay_within_one_sales_series(tmp_path):

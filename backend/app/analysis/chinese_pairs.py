@@ -470,6 +470,12 @@ def run(input_dir: Path = INPUT_DIR, output_dir: Path = OUTPUT_DIR) -> dict:
     write_csv(observation_rows, output_dir / "independent_observations.csv")
     write_csv(features, output_dir / "feature_log.csv")
     write_csv(impact_rows, output_dir / "impact.csv")
+    from app.analysis.bundle_exploratory import bundle_rows  # imports this module's constants
+    bundle = bundle_rows(observations, parents)
+    if bundle:
+        write_csv(bundle, output_dir / "bundle_exploratory.csv")
+    else:
+        (output_dir / "bundle_exploratory.csv").unlink(missing_ok=True)
     plot(impact_rows, output_dir / "plots" / "impact_by_subcategory.pdf")
     summary = {
         "pairs": len(pairs),
