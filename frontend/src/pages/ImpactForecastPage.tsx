@@ -178,6 +178,7 @@ function ImpactCard({
   trackId?: string;
 }) {
   const last = lastPoint(points);
+  const missingYears = [1, 2, 3, 4].filter((year) => !points.some((point) => point.year === year));
   return (
     <article className={`${styles.featureCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}>
       <div className={styles.featureTop}>
@@ -194,6 +195,12 @@ function ImpactCard({
         </div>
       </div>
       <ImpactChart points={points} lo={range.lo} hi={range.hi} color={color} />
+      {missingYears.length > 0 && (
+        <p className={styles.missingYears}>
+          Y{missingYears.join(", Y")} unavailable: each year needs observed sales from at least five pairs in this
+          group and five comparison pairs.
+        </p>
+      )}
       {trackId && <TrackButton id={trackId} label={title} />}
     </article>
   );

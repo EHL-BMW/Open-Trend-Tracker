@@ -272,6 +272,13 @@
   margin-top: 8px;
 }
 
+.missingYears {
+  margin: 2px 0 0;
+  color: var(--label-3);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
 /* ---------- new features from recent news (Feature Radar cards) ---------- */
 
 .newsList {
