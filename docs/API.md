@@ -97,6 +97,10 @@ Notes
 - Sales effects are emitted only when the balanced event-study passes independent-nameplate, residual-variation,
   leverage and clustered-uncertainty gates. Otherwise `impactByYear` is a four-point neutral series and the UI labels
   it as not identified; neutral values must not be interpreted as a measured zero effect.
+- `exploratoryByYear` is optional: `[{ "year", "impact", "lower", "upper", "nameplates" }]`, the strict-panel
+  exploratory launch-bundle association of the technology's subcategory from Impact Analysis (decimals, like
+  `impact`). Planner draws it dashed where no effect is identified and cites it in the reasoning; it never enters the
+  score.
 - A category with `"filters": []` renders an empty state.
 
 ## `POST /analyses`

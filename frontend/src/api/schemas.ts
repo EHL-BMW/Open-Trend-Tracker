@@ -61,6 +61,18 @@ export const technologyForecastSchema = z.object({
       }),
     )
     .optional(),
+  /** Exploratory launch-bundle association of the feature's subcategory (Impact Analysis); never scored. */
+  exploratoryByYear: z
+    .array(
+      z.object({
+        year: z.number().int().min(1).max(4),
+        impact: z.number(),
+        lower: z.number(),
+        upper: z.number(),
+        nameplates: z.number().int().nonnegative(),
+      }),
+    )
+    .optional(),
 });
 
 export const catalogSchema = z.object({

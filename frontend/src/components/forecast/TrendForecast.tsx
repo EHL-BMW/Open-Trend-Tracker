@@ -1,4 +1,6 @@
+import { Link } from "react-router-dom";
 import { TREND_TECHNOLOGY_GROUP } from "../../domain/categories";
+import { ROUTES } from "../../routes";
 import { selectedValues } from "../../domain/settings";
 import { usePlanner } from "../../state/PlannerContext";
 import { StateMessage } from "../common/StateMessage";
@@ -16,11 +18,20 @@ function axisRange(values: number[]) {
   return { lo, hi };
 }
 
-const seriesOf = (row: {
+type Row = {
   currentShare: number;
   forecastShare: number;
   impactByYear?: { year: number; impact: number; pairs: number }[];
-}) =>
+  exploratoryByYear?: { year: number; impact: number }[];
+};
+
+/** The scored (gated) series is flat zero when no effect is identified. */
+const identified = (row: Row) => Boolean(row.impactByYear?.some((point) => point.impact !== 0));
+
+/** Exploratory Impact Analysis curve, shown only where no gated effect exists. */
+const exploratoryOf = (row: Row) => (identified(row) ? [] : (row.exploratoryByYear ?? []));
+
+const seriesOf = (row: Row) =>
   row.impactByYear?.length
     ? row.impactByYear
     : [
@@ -42,8 +53,15 @@ export function TrendForecast() {
   const selected = selectedValues(settings, "trends", TREND_TECHNOLOGY_GROUP);
   const enabled = settings.enabled.trends;
   const toggleable = enabled && Boolean(techGroup);
-  const rows = [...trendForecast].sort((a, b) => b.forecastShare - a.forecastShare || a.label.localeCompare(b.label));
-  const values = rows.flatMap((row) => seriesOf(row).map((point) => point.impact));
+  const shown = (row: Row) => {
+    const exploratory = exploratoryOf(row);
+    return exploratory.length ? exploratory : seriesOf(row);
+  };
+  const latest = (row: Row) => shown(row).at(-1)?.impact ?? 0;
+  const rows = [...trendForecast].sort(
+    (a, b) => b.forecastShare - a.forecastShare || latest(b) - latest(a) || a.label.localeCompare(b.label),
+  );
+  const values = rows.flatMap((row) => [...seriesOf(row), ...exploratoryOf(row)].map((point) => point.impact));
   const range = axisRange(values.length ? values : [0]);
   const chart = { width: 300, height: 46, padX: 8, padY: 4 };
   const x = (year: number) => chart.padX + ((year - 1) / 3) * (chart.width - chart.padX * 2);
@@ -97,12 +115,15 @@ export function TrendForecast() {
           <span className={styles.latestHead}>Y4</span>
           {rows.map((r) => {
             const included = enabled && (!techGroup || selected.includes(r.technology));
-            const series = seriesOf(r);
+            const exploratory = exploratoryOf(r);
+            const series = shown(r);
             const first = series[0]!;
             const last = series.at(-1)!;
             const delta = last.impact - first.impact;
             const points = series.map((point) => `${x(point.year)},${y(point.impact)}`).join(" ");
-            const title = `${r.label}: ${series.map((point) => `Y${point.year} ${signedPct(point.impact)}`).join(", ")}`;
+            const title =
+              `${r.label}: ${series.map((point) => `Y${point.year} ${signedPct(point.impact)}`).join(", ")}` +
+              (exploratory.length ? " (exploratory bundle association, not scored)" : "");
             return (
               <div
                 key={r.technology}
@@ -123,15 +144,25 @@ export function TrendForecast() {
                     : undefined
                 }
               >
-                <span className={styles.name}>{r.label}<span className={styles.trackButton}><TrackButton id={r.technology} label={r.label} compact /></span></span>
+                <span className={styles.name}>
+                  {r.label}
+                  <span className={styles.trackButton}>
+                    <TrackButton id={r.technology} label={r.label} compact />
+                  </span>
+                </span>
                 <span className={styles.track}>
                   <svg viewBox={`0 0 ${chart.width} ${chart.height}`} preserveAspectRatio="none" aria-hidden="true">
                     <line className={styles.zero} x1="0" x2={chart.width} y1={y(0)} y2={y(0)} />
-                    <polyline className={styles.seriesLine} points={points} />
+                    <polyline
+                      className={`${styles.seriesLine} ${exploratory.length ? styles.exploratoryLine : ""}`}
+                      points={points}
+                    />
                     {series.map((point, index) => (
                       <circle
                         key={point.year}
-                        className={`${styles.seriesDot} ${index === 0 ? styles.seriesDotStart : ""}`}
+                        className={`${styles.seriesDot} ${index === 0 ? styles.seriesDotStart : ""} ${
+                          exploratory.length ? styles.exploratoryDot : ""
+                        }`}
                         cx={x(point.year)}
                         cy={y(point.impact)}
                         r="3"
@@ -139,8 +170,9 @@ export function TrendForecast() {
                     ))}
                   </svg>
                 </span>
-                <span className={`${styles.delta} num`}>
+                <span className={`${styles.delta} num ${exploratory.length ? styles.exploratoryDelta : ""}`}>
                   <b>{signedPct(last.impact)}</b>
+                  {exploratory.length > 0 && <small>exploratory</small>}
                   <small>
                     Δ {delta >= 0 ? "+" : ""}
                     {pct(delta, 1)} pp
@@ -152,8 +184,10 @@ export function TrendForecast() {
         </div>
       )}
       <p className={styles.foot}>
-        Only effects passing balanced-panel, independent-nameplate and clustered-uncertainty gates are used. A flat zero
-        line means the effect is not identified yet; click a row to include or exclude the news signal.
+        Only effects passing balanced-panel, independent-nameplate and clustered-uncertainty gates enter the score. A
+        dashed line is the exploratory launch-bundle association of the feature&apos;s subcategory from{" "}
+        <Link to={ROUTES.impactForecast}>Impact Analysis</Link> (strict panel): context only, not scored and not causal.
+        A flat zero line means there is no estimate at all. Click a row to include or exclude the news signal.
       </p>
     </section>
   );

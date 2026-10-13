@@ -240,3 +240,26 @@
     display: none;
   }
 }
+
+.exploratoryLine {
+  stroke: var(--amber);
+  stroke-dasharray: 5 4;
+}
+
+.exploratoryDot {
+  fill: var(--amber);
+  stroke: var(--amber);
+}
+
+.exploratoryDelta b {
+  color: var(--amber);
+}
+
+.exploratoryDelta small {
+  display: block;
+  color: var(--amber);
+}
+
+.seriesDotStart.exploratoryDot {
+  fill: var(--card);
+}

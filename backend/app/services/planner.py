@@ -10,7 +10,8 @@ Candidates are the new Chinese features tracked in the newsletter (potential imp
 
 The scoring and texts follow frontend/src/mocks/engine.ts, the reference implementation of the contract.
 When no effect is identified, the planner receives a neutral four-year trajectory rather than treating a noisy
-association as sales lift. Sales specs remain scenario assumptions and every recommendation carries a flag saying so.
+association as sales lift. The exploratory launch-bundle association of the subcategory (strict panel, Impact
+Analysis) is attached for display and citation only: it never enters the score. Sales specs remain scenario assumptions and every recommendation carries a flag saying so.
 Every cited record carries a `url` back to its source (news article, Feature Radar problem, Impact tab, option list).
 """
 from __future__ import annotations
@@ -35,7 +36,7 @@ NAMES = {"sales": "Sales", "customer": "Customer", "trends": "Trends / Competiti
 CHIPS = {"sales": "Sales", "customer": "Customer", "trends": "Trends", "features": "Product"}
 MARKETS = {"CN": "China", "EU": "Europe", "US": "USA"}
 CATALOG_VEHICLES = ["G60", "G70"]
-IMPACT_URL = "/sales-impact-forecast"
+IMPACT_URL = "/impact-analysis"
 # Subcategory -> BMW taxonomy attributes that describe the same customer function
 BMW_ATTRIBUTES = {
     "battery_range": ["hv_battery", "electric_range"],
@@ -72,6 +73,15 @@ def uniq(values) -> list:
     return list(dict.fromkeys(values))
 
 
+def exploratory_series(impact: dict) -> dict[str, list[dict]]:
+    """Strict-panel exploratory points per subcategory id; shown and cited, never scored."""
+    items = (impact.get("exploratory") or {}).get("items", [])
+    return {item["id"]: [{"year": p["year"], "impact": p["impact_pct"] / 100, "lower": p["lower_pct"] / 100,
+                          "upper": p["upper_pct"] / 100, "nameplates": item["panels"]["strict"]["nameplates_with"]}
+                         for p in item["panels"]["strict"]["by_year"]]
+            for item in items if item["level"] == "subcategory" and "strict" in item["panels"]}
+
+
 def saved_problems() -> list[dict]:
     """The latest problem list saved from Feature Radar; empty until a workbook was analysed."""
     if not PROBLEM_FILE.exists():
@@ -90,6 +100,7 @@ def _tables(_problems_mtime: float) -> dict:
     option_lists = {v: {item["feature_id"]: item for item in engineering_comparison(v)["items"]} for v in CATALOG_VEHICLES}
     candidates, sales, customer, product, trends = {}, [], [], [], []
     impact = impact_taxonomy()
+    exploratory = exploratory_series(impact)
     for category in impact["categories"]:
         for sub in category["subcategories"]:
             # A category-wide effect is not a substitute for a feature effect. Neutral points keep
@@ -113,6 +124,7 @@ def _tables(_problems_mtime: float) -> dict:
                                "priority": news["priority"] or 0.0, "signal": news["signal"] or "Tracked",
                                "articles": news["volume_recent"], "url": news["headline_url"],
                                "category": category["label"], "basis": basis,
+                               "subcategory": sub["label"], "exploratory": exploratory.get(sub["id"], []),
                                "impact_by_year": [{"year": point["year"], "impact": point["impact_pct"] / 100,
                                                    "pairs": point.get("nameplates", 0)} for point in estimate]})
                 for line, by_market in history.items():
@@ -172,7 +184,8 @@ def catalog() -> dict:
             ]},
         },
         "trendForecast": [{"technology": r["technology"], "label": names[r["c"]], "currentShare": r["now"],
-                           "forecastShare": r["v"], "impactByYear": r["impact_by_year"]} for r in t["trends"]],
+                           "forecastShare": r["v"], "impactByYear": r["impact_by_year"],
+                           "exploratoryByYear": r["exploratory"]} for r in t["trends"]],
         "impactCoverage": {"validPairCount": t["impact_coverage"]["valid_pair_count"],
                            "collectionTarget": t["impact_coverage"]["collection_target"],
                            "independentObservationCount": t["impact_coverage"]["independent_observation_count"],
@@ -183,7 +196,8 @@ def catalog() -> dict:
             "title": "Estimated sales impact",
             "description": "Conditional China sales effect from a balanced four-year event study after collapsing "
                            "duplicate trims and controlling for market growth and observed launch-bundle differences. "
-                           "A flat zero line means the effect is not independently identified yet.",
+                           "Where no effect is identified, the dashed line is the exploratory launch-bundle "
+                           "association from Impact Analysis (strict panel): shown for context, never scored.",
             "current": "Year 1",
             "forecast": "Latest year",
         },
@@ -201,6 +215,15 @@ def fingerprint(req: dict) -> str:
 
 def market_list(rows: list[dict]) -> list[str]:
     return [m for m in MARKETS if any(r["market"] == m for r in rows)]
+
+
+def exploratory_text(r: dict) -> str:
+    """Year 1 -> year 4 exploratory association of the feature's subcategory, or '' when there is none."""
+    if not r["exploratory"]:
+        return ""
+    first, last = r["exploratory"][0], r["exploratory"][-1]
+    return (f"exploratory bundle association of {r['subcategory']} (strict panel, {first['nameplates']} nameplates): "
+            f"{pc(first['impact'])} year {first['year']} → {pc(last['impact'])} year {last['year']}, not scored")
 
 
 def basis_text(r: dict) -> str:
@@ -226,9 +249,11 @@ def records(key: str, rows: list[dict], t: dict) -> list[dict]:
                                             f"{r['articles']:,} articles", "url": r["url"]})
             estimate = f"{pc(r['now'], 1)} year 1 → {pc(r['v'], 1)} year {r['year']}"
             basis = [f"Chinese pairs · {name} · {estimate}" for name in r["basis"][:1]]
-            out += [{"id": f"{rid}.{j}", "label": label, "url": IMPACT_URL}
-                    for j, label in enumerate(basis or [f"Feature effect not independently identified · {r['category']}"],
-                                              start=1)]
+            if not basis:
+                basis = [f"Feature effect not independently identified · {r['category']}"]
+                if r["exploratory"]:
+                    basis.append(f"Impact Analysis · {exploratory_text(r)}")
+            out += [{"id": f"{rid}.{j}", "label": label, "url": IMPACT_URL} for j, label in enumerate(basis, start=1)]
         return [{**x, "share": 1 / len(out)} for x in out]
     total = sum(r["v"] for r in rows) or 1
     out = []
@@ -252,6 +277,7 @@ def phrase(key: str, rows: list[dict]) -> str:
          f"and {pc(r['v'], 1)} in year {r['year']} (from {basis_text(r)})")
         if r["effect_identified"] else
         f"{r['signal'].lower()} in China news; its independent sales effect is not identified yet"
+        + (f" ({exploratory_text(r)})" if r["exploratory"] else "")
         for r in rows
     )
 
@@ -336,7 +362,11 @@ def analyse(req: dict) -> dict:
         if on["trends"] and own_trends:
             specs.append({"category": "trends", "label": CHIPS["trends"], "kind": "assumption",
                           "text": " · ".join((f"{r['signal']} · {pc(r['now'], 1)} → {pc(r['v'], 1)} isolated uplift, year 1 → {r['year']}"
-                                               if r["effect_identified"] else f"{r['signal']} · sales effect not identified")
+                                               if r["effect_identified"] else
+                                               f"{r['signal']} · sales effect not identified"
+                                               + (f" · exploratory {pc(r['exploratory'][0]['impact'])} → "
+                                                  f"{pc(r['exploratory'][-1]['impact'])}, not scored"
+                                                  if r["exploratory"] else ""))
                                              for r in own_trends)})
 
         drivers = sorted((k for k in WEIGHTED if parts[k]["points"] > 0), key=lambda k: -parts[k]["points"])

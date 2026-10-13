@@ -102,6 +102,8 @@ def test_planner_contract_ranks_news_features_from_real_sources(tmp_path, monkey
     assert all([point["year"] for point in row["impactByYear"]] == [1, 2, 3, 4]
                for row in catalog["trendForecast"])
     assert all(point["impact"] == 0 for row in catalog["trendForecast"] for point in row["impactByYear"])
+    # exploratory Impact Analysis curves are attached for display; the score above still uses no uplift
+    assert any(row["exploratoryByYear"] for row in catalog["trendForecast"])
     assert [o["value"] for o in catalog["categories"]["sales"]["filters"][0]["options"]] == ["CN", "EU", "US"]
     everything = {key: {group["key"]: [o["value"] for o in group["options"]] for group in source["filters"]}
                   for key, source in catalog["categories"].items()}
