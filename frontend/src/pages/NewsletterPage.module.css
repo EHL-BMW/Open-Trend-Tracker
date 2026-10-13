@@ -322,7 +322,35 @@
   background: var(--fill);
 }
 
-.topicTrack { display: inline-flex; margin-top: 6px; }
+.topicIdentity {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+}
+
+.topicIdentity b {
+  line-height: 1.25;
+}
+
+.topicIdentity .cn {
+  margin-left: 0;
+}
+
+.topicActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.topicActions > span:first-child {
+  color: var(--label-2);
+  background: var(--fill);
+  border-color: var(--sep);
+}
 
 .topicDetails {
   border-bottom: 1px solid var(--sep);

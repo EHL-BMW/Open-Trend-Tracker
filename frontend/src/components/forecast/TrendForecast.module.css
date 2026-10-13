@@ -100,6 +100,7 @@
 }
 
 .trackButton { display: inline-flex; margin: 4px 0 0 8px; }
+.sourceBadge { display: inline-flex; margin: 4px 0 0 8px; vertical-align: middle; }
 
 .track {
   position: relative;

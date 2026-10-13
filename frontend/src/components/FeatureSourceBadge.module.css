@@ -1,0 +1,21 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  flex: none;
+  padding: 4px 9px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font: 700 11px/1.2 var(--font-rounded);
+  white-space: nowrap;
+}
+
+.legacy {
+  color: #a46a25;
+  background: color-mix(in srgb, #a46a25 10%, var(--card));
+}
+
+.news {
+  color: var(--blue);
+  background: color-mix(in srgb, var(--blue) 10%, var(--card));
+}

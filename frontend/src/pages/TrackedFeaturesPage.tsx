@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useImpactForecast } from "../api/queries";
 import type { ImpactCategory } from "../api/types";
+import { FeatureSourceBadge } from "../components/FeatureSourceBadge";
 import { TrackButton } from "../components/TrackButton";
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
@@ -9,6 +10,7 @@ import { config } from "../config";
 import { FEATURE_EXPLANATIONS } from "../content/featureExplanations";
 import { FEATURE_CATEGORIES, featureClusters, type FeatureCluster } from "../content/featureNews";
 import { HEADLINE_NOTES } from "../content/headlineNotes";
+import { legacyFeatureExplanation } from "../content/legacyFeatureExplanations";
 import { DOMAIN_COLORS, fmtPct, trendRadarData } from "../content/trendRadar";
 import { ROUTES } from "../routes";
 import { legacyFeatureId, useTrackedFeatures } from "../state/trackedFeatures";
@@ -63,12 +65,15 @@ function NewsOverview({ feature }: { feature: FeatureCluster }) {
   return (
     <article className={styles.card}>
       <div className={styles.cardHead}>
-        <span
-          className={styles.category}
-          style={{ "--category-color": DOMAIN_COLORS[feature.category] ?? "#0066b1" } as React.CSSProperties}
-        >
-          {feature.category}
-        </span>
+        <div className={styles.sourceRow}>
+          <span
+            className={styles.category}
+            style={{ "--category-color": DOMAIN_COLORS[feature.category] ?? "#0066b1" } as React.CSSProperties}
+          >
+            {feature.category}
+          </span>
+          <FeatureSourceBadge source="news" />
+        </div>
         <TrackButton id={feature.id} label={feature.label} compact />
       </div>
       <h2>{feature.label}</h2>
@@ -179,11 +184,18 @@ function LegacyOverview({ category, feature, id }: { category: ImpactCategory; f
   return (
     <article className={styles.card}>
       <div className={styles.cardHead}>
-        <span className={styles.category}>{category.label}</span>
+        <div className={styles.sourceRow}>
+          <span className={styles.category}>{category.label}</span>
+          <FeatureSourceBadge source="legacy" />
+        </div>
         <TrackButton id={id} label={feature.name} compact />
       </div>
       <h2>{feature.name}</h2>
       <p className={styles.muted}>Feature identified in Chinese vehicle version pairs</p>
+      <div className={styles.reportIntro}>
+        <b>What it is · AI-generated explanation</b>
+        <p>{legacyFeatureExplanation(feature.name)}</p>
+      </div>
       <div className={styles.reportFacts}>
         <span>
           <b>{feature.pair_count}</b> paired records
@@ -254,11 +266,14 @@ function ReportPreview({
   return (
     <article className={styles.previewCard}>
       <button type="button" className={styles.previewOpen} onClick={onOpen} aria-label={`Open report for ${label}`}>
-        <span
-          className={styles.category}
-          style={{ "--category-color": DOMAIN_COLORS[category] ?? "#0066b1" } as React.CSSProperties}
-        >
-          {category}
+        <span className={styles.sourceRow}>
+          <span
+            className={styles.category}
+            style={{ "--category-color": DOMAIN_COLORS[category] ?? "#0066b1" } as React.CSSProperties}
+          >
+            {category}
+          </span>
+          {entry.kind !== "pending" && <FeatureSourceBadge source={entry.kind} />}
         </span>
         <h2>{label}</h2>
         {entry.kind === "news" && (

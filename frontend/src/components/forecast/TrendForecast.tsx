@@ -5,6 +5,7 @@ import { selectedValues } from "../../domain/settings";
 import { usePlanner } from "../../state/PlannerContext";
 import { StateMessage } from "../common/StateMessage";
 import { TrackButton } from "../TrackButton";
+import { FeatureSourceBadge } from "../FeatureSourceBadge";
 import styles from "./TrendForecast.module.css";
 
 const pct = (x: number, digits = 0) => Number((x * 100).toFixed(digits));
@@ -146,6 +147,7 @@ export function TrendForecast() {
               >
                 <span className={styles.name}>
                   {r.label}
+                  <span className={styles.sourceBadge}><FeatureSourceBadge source="news" /></span>
                   <span className={styles.trackButton}>
                     <TrackButton id={r.technology} label={r.label} compact />
                   </span>

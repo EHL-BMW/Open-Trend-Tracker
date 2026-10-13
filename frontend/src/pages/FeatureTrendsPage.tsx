@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react"
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
 import { TrackButton } from "../components/TrackButton";
+import { FeatureSourceBadge } from "../components/FeatureSourceBadge";
 import { config } from "../config";
 import {
   FEATURE_CATEGORIES,
@@ -273,7 +274,10 @@ export function FeatureCard({
   const body = (
     <>
       <div className={styles.cardTop}>
-        <span className={styles.categoryPill} style={{ "--category-color": color } as CSSProperties}>{feature.category}</span>
+        <span className={styles.cardSource}>
+          <span className={styles.categoryPill} style={{ "--category-color": color } as CSSProperties}>{feature.category}</span>
+          <FeatureSourceBadge source="news" />
+        </span>
         <span className={`${styles.signal} ${feature.signal === "Accelerating" ? styles.signalUp : ""}`}>{feature.signal}</span>
       </div>
       <Sparkline values={feature.weeklyCounts} color={color} label={`${feature.label} weekly trend`} />
@@ -574,7 +578,10 @@ export function FeatureTrendsPage() {
           <section className={styles.modal} role="dialog" aria-modal="true" aria-labelledby="feature-detail-title">
             <button type="button" className={styles.closeButton} onClick={() => setSelectedId(null)} aria-label="Close feature detail">×</button>
             <div className={styles.modalHeading}>
-              <span className={styles.categoryPill} style={{ "--category-color": CATEGORY_COLORS[selected.category] } as CSSProperties}>{selected.category}</span>
+              <span className={styles.cardSource}>
+                <span className={styles.categoryPill} style={{ "--category-color": CATEGORY_COLORS[selected.category] } as CSSProperties}>{selected.category}</span>
+                <FeatureSourceBadge source="news" />
+              </span>
               <h2 id="feature-detail-title">{selected.label}</h2>
               <p>{selected.labelCn}</p>
               <TrackButton id={selected.id} label={selected.label} />

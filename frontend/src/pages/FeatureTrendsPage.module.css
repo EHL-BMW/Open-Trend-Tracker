@@ -432,6 +432,12 @@
   justify-content: space-between;
   gap: 10px;
 }
+.cardSource {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
 
 .categoryPill {
   display: inline-flex;

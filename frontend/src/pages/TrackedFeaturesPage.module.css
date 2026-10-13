@@ -171,6 +171,12 @@
   justify-content: space-between;
   gap: 12px;
 }
+.sourceRow {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
 .category {
   display: inline-flex;
   padding: 7px 11px;

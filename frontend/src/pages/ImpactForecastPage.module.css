@@ -232,6 +232,36 @@
 .featureCard:last-child {
   border-bottom: 0;
 }
+.unestimatedFeature {
+  padding-block: 18px;
+}
+.unestimatedHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+}
+.unestimatedHeading > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.unestimatedHeading strong {
+  color: var(--label);
+  font-size: 14px;
+  line-height: 1.3;
+}
+.unestimatedHeading > div span {
+  color: var(--label-3);
+  font-size: 11px;
+}
+.unestimatedReason {
+  margin: 10px 0;
+  color: var(--label-3);
+  font-size: 12px;
+  line-height: 1.45;
+}
 .subcategoryCard {
   border-top: 2px solid var(--category-color);
 }

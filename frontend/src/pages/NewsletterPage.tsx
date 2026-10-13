@@ -10,6 +10,7 @@ import {
 import { HEADLINE_EN, SOURCE_EN } from "../content/translations";
 import { HEADLINE_NOTES } from "../content/headlineNotes";
 import { TrackButton } from "../components/TrackButton";
+import { FeatureSourceBadge } from "../components/FeatureSourceBadge";
 import { ContentPage } from "./ContentPage";
 import styles from "./NewsletterPage.module.css";
 
@@ -431,11 +432,13 @@ export function NewsletterPage() {
               >
                 <summary className={styles.topicRow}>
                   <span className={`${styles.mono} ${styles.hint}`}>{idx + 1}</span>
-                  <div>
+                  <div className={styles.topicIdentity}>
                     <b>{t.label_en}</b>
-                    <br />
                     <span className={styles.cn}>{t.label_cn}</span>
-                    <span className={styles.topicTrack}><TrackButton id={t.id} label={t.label_en} compact /></span>
+                    <span className={styles.topicActions}>
+                      <FeatureSourceBadge source="news" />
+                      <TrackButton id={t.id} label={t.label_en} compact />
+                    </span>
                   </div>
                   <span className={`${styles.domBadge} ${styles.hideSm}`}>
                     <i className={styles.domBadgeDot} style={{ backgroundColor: color }} />

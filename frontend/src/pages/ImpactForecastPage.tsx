@@ -7,6 +7,7 @@ import { ExploratoryBundle, PanelToggle, type PanelId } from "../components/fore
 import { Footer } from "../components/layout/Footer";
 import { NavBar } from "../components/layout/NavBar";
 import { TrackButton } from "../components/TrackButton";
+import { FeatureSourceBadge } from "../components/FeatureSourceBadge";
 import { config } from "../config";
 import { featureClusters } from "../content/featureNews";
 import { FeatureCard, type SavedProblemAnalysis } from "./FeatureTrendsPage";
@@ -230,6 +231,7 @@ function ImpactCard({
       <article
         className={`${styles.featureCard} ${styles.exploratoryCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}
       >
+        {level === "feature" && <FeatureSourceBadge source="legacy" />}
         <div className={styles.featureTop}>
           <div>
             <strong>{title}</strong>
@@ -251,6 +253,7 @@ function ImpactCard({
   }
   return (
     <article className={`${styles.featureCard} ${level === "subcategory" ? styles.subcategoryCard : ""}`}>
+      {level === "feature" && <FeatureSourceBadge source="legacy" />}
       <div className={styles.featureTop}>
         <div>
           <strong>{title}</strong>
@@ -307,7 +310,7 @@ function LegacyFeaturePanel({
       <div className={styles.panelHeading}>
         <span className={styles.step}>2</span>
         <div>
-          <h2 id="legacy-title">Subcategories and features</h2>
+          <h2 id="legacy-title">Legacy features & subcategories</h2>
           <p>
             Balanced independent panel · conditional event-study effect · band = clustered 95% interval. Dashed cards
             are exploratory launch-bundle associations ({panelLabel} panel), shown where no gated effect exists.
@@ -368,13 +371,19 @@ function LegacyFeaturePanel({
                     exploratory
                   />
                 ) : (
-                  <div key={feature.name}>
-                    <p className={styles.emptyEvidence}>
-                      {feature.name}: {feature.identification_reason} (
-                      {plural(feature.independent_nameplates, "independent nameplate")}).
+                  <article key={feature.name} className={`${styles.featureCard} ${styles.unestimatedFeature}`}>
+                    <div className={styles.unestimatedHeading}>
+                      <div>
+                        <strong>{feature.name}</strong>
+                        <span>{plural(feature.independent_nameplates, "independent nameplate")}</span>
+                      </div>
+                      <FeatureSourceBadge source="legacy" />
+                    </div>
+                    <p className={styles.unestimatedReason}>
+                      Sales estimate unavailable · {feature.identification_reason}
                     </p>
                     <TrackButton id={legacyFeatureId(category.id, feature.name)} label={feature.name} />
-                  </div>
+                  </article>
                 ),
               )}
             </div>
@@ -400,7 +409,7 @@ function NewsFeaturePanel({ category, problems }: { category: ImpactCategory; pr
       <div className={styles.panelHeading}>
         <span className={styles.step}>3</span>
         <div>
-          <h2 id="news-title">New features in the news</h2>
+          <h2 id="news-title">News features</h2>
           <p>Market signal, not causal lift · sorted by priority</p>
         </div>
       </div>
