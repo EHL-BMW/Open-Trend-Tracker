@@ -464,7 +464,6 @@ function SalesReport({
             <div role="row">
               <b>Year</b>
               <b>Estimate</b>
-              <b>95% interval</b>
               <b>Pairs</b>
             </div>
             {[1, 2, 3, 4].map((year) => {
@@ -475,11 +474,6 @@ function SalesReport({
                   <strong>
                     {point ? `${point.impact_pct >= 0 ? "+" : ""}${point.impact_pct.toFixed(1)}%` : "Not available"}
                   </strong>
-                  <span>
-                    {point?.lower_pct !== undefined && point.upper_pct !== undefined
-                      ? `${point.lower_pct.toFixed(1)}% to ${point.upper_pct.toFixed(1)}%`
-                      : "—"}
-                  </span>
                   <span>{point?.pairs ?? "—"}</span>
                 </div>
               );

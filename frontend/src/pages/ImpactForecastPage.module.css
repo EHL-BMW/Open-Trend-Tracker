@@ -214,7 +214,7 @@
   background: color-mix(in srgb, var(--category-color) 8%, var(--card));
 }
 
-/* ---------- legacy features with uncertainty band ---------- */
+/* ---------- legacy feature estimates ---------- */
 
 .featureList {
   display: grid;

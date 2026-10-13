@@ -189,7 +189,7 @@ function ImpactCard({
         <div className={styles.impactValue}>
           <b>{signed(last.impact_pct, 1)}</b>
           <span>
-            {last.lower_pct?.toFixed(1)} to {last.upper_pct?.toFixed(1)}% · Y{last.year}
+            Y{last.year}
             {last.pairs ? ` · n=${last.pairs}` : ""}
           </span>
         </div>
@@ -210,7 +210,7 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
   const groups = category.subcategories.filter((sub) => sub.impact_by_year || sub.legacy_features.length);
   const series = groups.flatMap((sub) => [
     sub.impact_by_year ?? [],
-    ...sub.legacy_features.map((f) => f.impact_by_year),
+    ...sub.legacy_features.map((feature) => feature.impact_by_year),
   ]);
   const range = valueRange(
     series.flat().flatMap((point) => [point.lower_pct ?? point.impact_pct, point.upper_pct ?? point.impact_pct]),
@@ -223,7 +223,7 @@ function LegacyFeaturePanel({ category, color }: { category: ImpactCategory; col
         <span className={styles.step}>2</span>
         <div>
           <h2 id="legacy-title">Subcategories and features</h2>
-          <p>Chinese version pairs · market-adjusted sales change vs pairs without it · band = 95% interval</p>
+          <p>Chinese version pairs · market-adjusted sales change vs pairs without it</p>
         </div>
       </div>
       {groups.length ? (

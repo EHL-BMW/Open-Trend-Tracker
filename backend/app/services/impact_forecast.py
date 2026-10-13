@@ -130,7 +130,7 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
         "valid_pair_count": summary.get("valid_four_year_pairs", 0),
         "collection_target": summary.get("collection_target", 200),
         "method": "market-adjusted China sales change after a version launch: pairs that added the item minus "
-                  "pairs that did not, per year after launch, with a 95% interval",
+                  "pairs that did not, per year after launch",
         "status": "observational_sales_association",
         "caveat": "Observational association from Chinese version pairs, not a causal estimate. A valid pair has a "
                   "numeric baseline and all four annual sales comparisons. Nameplate totals can span successor updates "
