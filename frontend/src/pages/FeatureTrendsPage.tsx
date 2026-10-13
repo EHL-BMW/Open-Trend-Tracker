@@ -258,7 +258,7 @@ function linkedProblems(analysis: SavedProblemAnalysis | null, featureId: string
   return (analysis?.problems ?? []).filter((problem) => problem.possible_feature_ids.includes(featureId)).slice(0, 3);
 }
 
-/** Feature card, shared with the Sales Impact Forecast tab. With onOpen it opens the trend & evidence view. */
+/** Feature card, shared with the Impact Analysis tab. With onOpen it opens the trend & evidence view. */
 export function FeatureCard({
   feature,
   analysis,

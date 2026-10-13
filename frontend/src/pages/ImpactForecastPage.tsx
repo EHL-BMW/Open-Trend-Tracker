@@ -418,7 +418,7 @@ function NewsFeaturePanel({ category, problems }: { category: ImpactCategory; pr
 }
 
 export function ImpactForecastPage() {
-  usePageTitle("Sales Impact Forecast");
+  usePageTitle("Impact Analysis");
   const forecast = useImpactForecast();
   const [selectedId, setSelectedId] = useState("");
   const [panelId, setPanelId] = useState<PanelId>("strict");
@@ -450,7 +450,7 @@ export function ImpactForecastPage() {
         <header className={styles.hero}>
           <div>
             <p className={styles.eyebrow}>Portfolio planning · Sales change, years 1–4 after launch</p>
-            <h1>Sales Impact Forecast</h1>
+            <h1>Impact Analysis</h1>
             <p className={styles.lead}>
               Estimates appear only when independent nameplates separate a feature from market movement and its launch
               bundle. Unidentified effects stay unavailable instead of becoming an unsupported sales claim.

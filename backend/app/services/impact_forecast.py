@@ -201,7 +201,7 @@ def build_impact_taxonomy(impact_path: Path, news_path: Path, summary_path: Path
             })
 
     return {
-        "title": "Sales Impact Forecast",
+        "title": "Impact Analysis",
         "as_of": news_source["generated_at"],
         "horizon_years": list(YEARS),
         "categories": categories,

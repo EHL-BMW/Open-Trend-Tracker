@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { ContentPage } from "./ContentPage";
 import styles from "./FaqPage.module.css";
+import { impactFaqs } from "./faqImpact";
 
-type CategoryFilter = "all" | "catalog" | "cleaning" | "domains" | "math" | "backlog";
+type CategoryFilter = "all" | "catalog" | "cleaning" | "domains" | "math" | "backlog" | "impactData" | "impactMath";
 
 interface FaqItem {
   id: string;
@@ -382,9 +383,14 @@ export function FaqPage() {
         </>
       ),
     },
+    ...impactFaqs,
   ];
 
-  const filteredFaqs = filter === "all" ? faqs : faqs.filter((f) => f.category === filter || f.category === "all");
+  // a tab's own questions first, then the general ones
+  const filteredFaqs =
+    filter === "all"
+      ? faqs
+      : [...faqs.filter((f) => f.category === filter), ...faqs.filter((f) => f.category === "all")];
 
   return (
     <ContentPage
@@ -466,6 +472,20 @@ export function FaqPage() {
           onClick={() => setFilter("backlog")}
         >
           Phase 5: Engineering Backlog
+        </button>
+        <button
+          type="button"
+          className={`${styles.filterBtn} ${filter === "impactData" ? styles.active : ""}`}
+          onClick={() => setFilter("impactData")}
+        >
+          Impact 1: Data Collection
+        </button>
+        <button
+          type="button"
+          className={`${styles.filterBtn} ${filter === "impactMath" ? styles.active : ""}`}
+          onClick={() => setFilter("impactMath")}
+        >
+          Impact 2: Analysis &amp; Calculation
         </button>
       </div>
 

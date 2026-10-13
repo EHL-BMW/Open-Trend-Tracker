@@ -456,3 +456,127 @@
   padding: 2px 6px;
   border-radius: 6px;
 }
+
+/* ---------- Impact flow charts, gate table, references ---------- */
+
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 18px 0;
+  padding: 18px 16px;
+  background: var(--fill);
+  border: 1px solid var(--sep);
+  border-radius: 16px;
+}
+
+.flowRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.flowStep {
+  width: min(100%, 440px);
+  padding: 10px 14px;
+  background: var(--card);
+  border: 1px solid var(--sep);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.flowAccent {
+  border-color: color-mix(in srgb, var(--blue) 45%, var(--sep));
+  background: color-mix(in srgb, var(--card) 90%, var(--blue));
+}
+
+.flowWarn {
+  border-style: dashed;
+  border-color: color-mix(in srgb, var(--amber) 55%, var(--sep));
+  background: color-mix(in srgb, var(--card) 90%, var(--amber));
+}
+
+.flowTitle {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--label);
+}
+
+.flowDetail {
+  margin-top: 2px;
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--label-2);
+}
+
+.flowArrow {
+  padding: 4px 0;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--label-3);
+}
+
+.flowBranch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  width: min(100%, 640px);
+}
+
+.flowBranch .flowStep {
+  width: 100%;
+}
+
+@media (max-width: 520px) {
+  .flowBranch {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gateTable {
+  display: block;
+  width: 100%;
+  margin: 14px 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.gateTable th,
+.gateTable td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--sep);
+  text-align: left;
+  vertical-align: top;
+}
+
+.gateTable th {
+  color: var(--label-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.gateTable td:nth-child(2) {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.refList {
+  margin: 8px 0 0;
+  padding-left: 22px;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.refList li {
+  margin-bottom: 8px;
+}
+
+.panelContent a {
+  color: var(--blue);
+}

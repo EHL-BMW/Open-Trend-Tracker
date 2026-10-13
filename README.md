@@ -5,7 +5,7 @@ Build an AI-powered application that turns customer feedback, product and sales 
 
 | Trend tracking | Impact forecast | Decision with transparency |
 | --- | --- | --- |
-| [![Feature Radar: new features from Chinese news, filtered by OEM](docs/screenshots/02-trend-tracking.png)](docs/screenshots/02-trend-tracking.png) | [![Sales Impact Forecast: category, old features with uncertainty, new features in the news](docs/screenshots/03-impact.png)](docs/screenshots/03-impact.png) | [![Planner: Top 5 with the reasoning graph from source records to the score](docs/screenshots/04-decision.png)](docs/screenshots/04-decision.png) |
+| [![Feature Radar: new features from Chinese news, filtered by OEM](docs/screenshots/02-trend-tracking.png)](docs/screenshots/02-trend-tracking.png) | [![Impact Analysis: category, old features with uncertainty, new features in the news](docs/screenshots/03-impact.png)](docs/screenshots/03-impact.png) | [![Planner: Top 5 with the reasoning graph from source records to the score](docs/screenshots/04-decision.png)](docs/screenshots/04-decision.png) |
 | New vehicle features from Chinese news, with momentum, OEMs and the BMW customer problems they could solve. | Category outlook → old features with their uncertainty band → related new features from the news. | Every Top 5 recommendation traced from source records, through weighted sources, to its score. |
 
 <sub>Customer problem names, mention counts and BMW sales figures are blurred in these screenshots.</sub>

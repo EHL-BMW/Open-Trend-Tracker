@@ -212,7 +212,7 @@ function LegacyEvidence({ feature }: { feature: LegacyFeature }) {
       </div>
       <p className={styles.muted}>A matching news trend has not been linked to this historical feature.</p>
       <Link className={styles.sourceLink} to={ROUTES.impactForecast}>
-        Explore in Sales Impact Forecast →
+        Explore in Impact Analysis →
       </Link>
     </section>
   );
@@ -594,7 +594,7 @@ export function TrackedFeaturesPage() {
           <p className={styles.eyebrow}>Your watchlist · across OpenTT</p>
           <h1>My Features</h1>
           <p>
-            Track a feature from Newsletter, Feature Radar, Sales Impact Forecast or Planner. Its evidence is collected
+            Track a feature from Newsletter, Feature Radar, Impact Analysis or Planner. Its evidence is collected
             here and refreshes with the demo data.
           </p>
           <strong>{entries.length} tracked features</strong>

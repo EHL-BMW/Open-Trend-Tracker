@@ -4,7 +4,7 @@ export const ROUTES = {
   agent: "/agent",
   featureTrends: "/feature-trends",
   trackedFeatures: "/tracked-features",
-  impactForecast: "/sales-impact-forecast",
+  impactForecast: "/impact-analysis",
   newsletter: "/newsletter",
   howItWorks: "/how-it-works",
   faq: "/faq",
@@ -14,7 +14,7 @@ export const ROUTES = {
 export const NAV_ITEMS = [
   { to: ROUTES.newsletter, label: "Newsletter" },
   { to: ROUTES.featureTrends, label: "Pain Points" },
-  { to: ROUTES.impactForecast, label: "Sales Impact Forecast" },
+  { to: ROUTES.impactForecast, label: "Impact Analysis" },
   { to: ROUTES.trackedFeatures, label: "My Features" },
   { to: ROUTES.agent, label: "AI Agent" },
   { to: ROUTES.planner, label: "Planner" },
