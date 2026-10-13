@@ -34,7 +34,7 @@ export const FEATURE_EXPLANATIONS: Record<string, string> = {
   ota:
     "Over-the-air software updates delivered wirelessly to the car. Chinese brands ship frequent updates that add features after purchase, so the car improves over time; regulations such as UN R156 and GB 44496 govern how updates are managed.",
   phone_car_eco:
-    "Ecosystems that link the phone, the car and the smart home, such as Huawei HarmonyOS, Xiaomi HyperOS and NIO's devices. Apps, accounts and tasks move seamlessly between devices, for example continuing navigation from the phone or controlling home devices from the car.",
+    "Connected ecosystems let cars work with phones, wearables, smart homes and compatible in-car accessories. Shared software and hardware capabilities allow apps, services and controls to continue across devices, from a phone-to-car handoff to a car-home routine or a modular accessory.",
   smart_seats:
     "Comfort-focused seating and cabin features: zero-gravity reclining seats, massage, heating and ventilation, six- or seven-seat layouts and climate that adapts to each passenger. Chinese family SUVs compete heavily on this rear-seat comfort.",
   active_suspension:

@@ -138,20 +138,34 @@ function NewsEvidence({ feature, problems }: { feature: FeatureCluster; problems
       <div className={styles.section}>
         <h3>Related news · {feature.items.length}</h3>
         <div className={styles.news}>
-          {feature.items.map((item) => (
-            <div key={item.id}>
-              <a href={item.url} target="_blank" rel="noreferrer">
-                {item.title} ↗
-              </a>
-              {item.titleEn && <span className={styles.newsTranslation}>EN · {item.titleEn}</span>}
-              <small>
-                {item.sourceEn ?? item.source} · {item.date}
-              </small>
-              {(HEADLINE_NOTES[feature.id]?.[item.title]?.featureSummary ?? item.summary) && (
-                <p>{HEADLINE_NOTES[feature.id]?.[item.title]?.featureSummary ?? item.summary}</p>
-              )}
-            </div>
-          ))}
+          {feature.items.map((item) => {
+            const summary = HEADLINE_NOTES[feature.id]?.[item.title]?.featureSummary ?? item.summary;
+            const tooltipId = `tracked-news-summary-${item.id}`;
+            return (
+              <div key={item.id}>
+                <div className={styles.newsTitleRow}>
+                  <a href={item.url} target="_blank" rel="noreferrer" aria-describedby={tooltipId}>
+                    {item.title} ↗
+                  </a>
+                  <button
+                    type="button"
+                    className={styles.summaryTrigger}
+                    aria-label={`Feature summary for ${item.title}`}
+                    aria-describedby={tooltipId}
+                  >ⓘ</button>
+                  <div id={tooltipId} className={styles.newsTooltip} role="tooltip">
+                    <b>AI feature summary · based on headline</b>
+                    <p>{summary ?? "No feature-focused summary is available for this article."}</p>
+                  </div>
+                </div>
+                {item.titleEn && <span className={styles.newsTranslation}>EN · {item.titleEn}</span>}
+                <small>
+                  {item.sourceEn ?? item.source} · {item.date}
+                </small>
+                {summary && <p>{summary}</p>}
+              </div>
+            );
+          })}
         </div>
       </div>
       <Link className={styles.sourceLink} to={ROUTES.featureTrends}>

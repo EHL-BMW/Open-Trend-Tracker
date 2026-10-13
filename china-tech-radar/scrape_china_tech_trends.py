@@ -38,14 +38,18 @@ Output: china_tech_trends.json  +  china_tech_trends_data.js (for the web page)
 
 Usage:  python3 scrape_china_tech_trends.py            (incremental, uses cache)
         python3 scrape_china_tech_trends.py --no-cache (full refetch)
+        python3 scrape_china_tech_trends.py --refresh-topic phone_car_eco
+                                                    (reuse other topics and the saved date window)
 """
 
 import csv
+import argparse
 import datetime as dt
 import hashlib
 import json
 import math
 import os
+import re
 import statistics
 import sys
 import time
@@ -61,6 +65,41 @@ WEEKS = 12            # history depth
 RECENT_WEEKS = 4      # "recent" window for momentum
 FEED_CAP = 100        # Google News RSS max items per query
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126 Safari/537.36"
+
+# Search for cross-device capabilities, not every vehicle announcement that happens to
+# mention a cockpit OS. The vehicle context also keeps general IoT/accessory news out.
+ECOSYSTEM_QUERY = (
+    '("人车家全生态" OR "人车家生态" OR "车家互联" OR "车手互联" OR '
+    '"生态域" OR "CarIoT" OR "车载生态配件" OR "车载智能配件" OR "智能生态配件" OR '
+    '"车载配件生态" OR "手机车机互联" OR "跨端流转") 汽车'
+)
+ECOSYSTEM_QUERIES = (
+    ECOSYSTEM_QUERY, '"HiCar" 车机', '"NIO Link" 汽车',
+    '"鸿蒙座舱" 汽车', '"人车家" 汽车',
+)
+ECOSYSTEM_DISPLAY_QUERY = " OR ".join(f"({query})" for query in ECOSYSTEM_QUERIES)
+ECOSYSTEM_HEADLINE = re.compile(
+    r"车家互联|车手互联|生态域|CarIoT|车载生态配件|车载智能配件|"
+    r"车载配件生态|手机车机互联|NIO\s*Link|\bHiCar\b",
+    re.IGNORECASE,
+)
+ECOSYSTEM_CROSS_DEVICE = re.compile(r"跨端流转|设备能力共享|软硬件协同|跨设备互联|多设备协同")
+ECOSYSTEM_COCKPIT_CAPABILITY = re.compile(
+    r"多屏流转|跨端|互联|生态|交互|智能家居|车机体验|座舱体验|家庭智能座舱|一碰就连"
+)
+ECOSYSTEM_CAR_CONTEXT = re.compile(r"汽车|车机|车载|座舱|智能车|车企|车型")
+ECOSYSTEM_SPAM = re.compile(r"\+FAQ|亚博|博彩|娱乐城", re.IGNORECASE)
+
+
+def topic_headline_relevant(topic_id, title):
+    """Keep only ecosystem headlines; the RSS search may match a term in the article body."""
+    if topic_id != "phone_car_eco":
+        return True
+    return not ECOSYSTEM_SPAM.search(title) and bool(ECOSYSTEM_HEADLINE.search(title) or
+                ("智能生态配件" in title and ECOSYSTEM_CAR_CONTEXT.search(title)) or
+                ("人车家" in title and ECOSYSTEM_CAR_CONTEXT.search(title)) or
+                ("鸿蒙座舱" in title and ECOSYSTEM_COCKPIT_CAPABILITY.search(title)) or
+                (ECOSYSTEM_CROSS_DEVICE.search(title) and ECOSYSTEM_CAR_CONTEXT.search(title)))
 
 # --------------------------------------------------------------------------
 # Topic taxonomy: Chinese queries -> BMW customer-feedback domain
@@ -81,7 +120,7 @@ TOPICS = [
     ("adas_chips", "In-house ADAS chips", "智驾芯片", '"智驾芯片" OR "自研芯片" 汽车', "Driving Assistance"),
     ("cockpit_llm", "Cockpit LLMs & AI agents", "座舱大模型 / AI智能体", '"座舱大模型" OR "车载大模型" OR "AI智能体" 座舱', "Digital Cockpit & AI"),
     ("central_compute", "Central compute / cockpit-driving fusion", "舱驾一体 / 中央计算", '"舱驾一体" OR "中央计算平台" OR "中央集中式"', "Digital Cockpit & AI"),
-    ("phone_car_eco", "Phone-car-home ecosystems", "鸿蒙座舱 / 人车家", '"鸿蒙座舱" OR "人车家" OR "HarmonyOS" 汽车', "Connected Ecosystem"),
+    ("phone_car_eco", "Connected device & accessory ecosystems", "生态域 / 人车家 / 智能配件", ECOSYSTEM_DISPLAY_QUERY, "Connected Ecosystem"),
     ("ota", "OTA software updates", "OTA升级", '"OTA升级" 汽车 OR "OTA" 车型 升级', "Connected Ecosystem"),
     ("steer_by_wire", "Steer/brake-by-wire chassis", "线控转向 / 线控底盘", '"线控转向" OR "线控底盘" OR "线控制动"', "Vehicle Dynamics & Safety"),
     ("active_suspension", "Active suspension", "主动悬架", '"主动悬架" OR "全主动悬架"', "Vehicle Dynamics & Safety"),
@@ -192,26 +231,39 @@ def fetch_day_adaptive(query, day_start, day_end, use_cache):
 
 def scrape_topic(topic, windows, use_cache):
     tid, _, _, query, _ = topic
+    queries = ECOSYSTEM_QUERIES if tid == "phone_car_eco" else (query,)
     collected = []
     saturated_days = 0
     resolved_days = 0
     recovered_articles = 0
 
     for (start, end) in windows:
-        items = fetch_rss(query, start, end, use_cache)
-        if len(items) >= FEED_CAP - 2:  # Saturated weekly window -> split into days
-            items = []
-            d = start
-            while d < end:
-                day_items, unres, rec = fetch_day_adaptive(query, d, d + dt.timedelta(days=1), use_cache)
-                if rec > 0:
-                    resolved_days += 1
-                    recovered_articles += rec
-                if unres:
-                    saturated_days += 1
-                items.extend(day_items)
-                d += dt.timedelta(days=1)
-        collected.extend(items)
+        for search_query in queries:
+            items = fetch_rss(search_query, start, end, use_cache)
+            if len(items) >= FEED_CAP - 2:  # Saturated weekly window -> split into days
+                items = []
+                d = start
+                while d < end:
+                    day_items, unres, rec = fetch_day_adaptive(search_query, d, d + dt.timedelta(days=1), use_cache)
+                    if rec > 0:
+                        resolved_days += 1
+                        recovered_articles += rec
+                    if unres:
+                        saturated_days += 1
+                    items.extend(day_items)
+                    d += dt.timedelta(days=1)
+            collected.extend(item for item in items if topic_headline_relevant(tid, item["title"]))
+
+    if tid == "phone_car_eco":
+        # Keep individually reviewed items from the earlier, broader news snapshot.
+        # RSS search is ranked and does not reliably return the same older stories
+        # after a query changes; retain only items still inside this run's window.
+        reference_path = os.path.join(HERE, "ecosystem_reference_articles.csv")
+        with open(reference_path, encoding="utf-8", newline="") as stream:
+            for article in csv.DictReader(stream):
+                date = dt.date.fromisoformat(article["date"])
+                if windows[0][0] <= date < windows[-1][1]:
+                    collected.append(article)
 
     # De-duplicate across windows
     seen, uniq = set(), []
@@ -299,19 +351,50 @@ def load_bmw_domains():
         doms[k]["exposure"] = round(raw[k] / mx, 3)
     return doms
 
+
+def load_previous_articles():
+    """Reuse the other topics from the existing export when refreshing one query."""
+    with open(os.path.join(HERE, "china_tech_trends.json"), encoding="utf-8") as stream:
+        previous = json.load(stream)
+    by_topic = {topic[0]: [] for topic in TOPICS}
+    with open(os.path.join(HERE, "china_tech_trends_articles.csv"), encoding="utf-8", newline="") as stream:
+        for row in csv.DictReader(stream):
+            if row["topic_id"] in by_topic:
+                by_topic[row["topic_id"]].append({key: row[key] for key in ("date", "source", "title", "link")})
+    return previous, by_topic
+
 # --------------------------------------------------------------------------
 def main():
-    use_cache = "--no-cache" not in sys.argv
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--no-cache", action="store_true")
+    parser.add_argument("--refresh-topic", choices=[topic[0] for topic in TOPICS])
+    args = parser.parse_args()
+    use_cache = not args.no_cache
     os.makedirs(CACHE_DIR, exist_ok=True)
-    today = dt.date.today()
+    previous, prior_articles = load_previous_articles() if args.refresh_topic else (None, None)
+    today = dt.date.fromisoformat(previous["window"]["end"]) if previous else dt.date.today()
     end0 = today + dt.timedelta(days=1)
     # oldest -> newest 7-day windows
     windows = [(end0 - dt.timedelta(days=7 * (k + 1)), end0 - dt.timedelta(days=7 * k))
                for k in reversed(range(WEEKS))]
-    print(f"Scraping {len(TOPICS)} topics x {WEEKS} weeks ({windows[0][0]} -> {today}) ...")
+    if args.refresh_topic:
+        print(f"Refreshing {args.refresh_topic} over {WEEKS} weeks ({windows[0][0]} -> {today}); reusing all other topics ...")
+    else:
+        print(f"Scraping {len(TOPICS)} topics x {WEEKS} weeks ({windows[0][0]} -> {today}) ...")
 
-    with ThreadPoolExecutor(max_workers=4) as ex:
-        results = list(ex.map(lambda t: scrape_topic(t, windows, use_cache), TOPICS))
+    if args.refresh_topic:
+        prior_topics = {topic["id"]: topic for topic in previous["topics"]}
+        def refresh_or_reuse(topic):
+            tid = topic[0]
+            if tid == args.refresh_topic:
+                return scrape_topic(topic, windows, use_cache)
+            old = prior_topics[tid]
+            return (tid, prior_articles[tid], old.get("saturated_days", 0),
+                    old.get("resolved_quota_days", 0), old.get("recovered_quota_articles", 0))
+        results = [refresh_or_reuse(topic) for topic in TOPICS]
+    else:
+        with ThreadPoolExecutor(max_workers=4) as ex:
+            results = list(ex.map(lambda t: scrape_topic(t, windows, use_cache), TOPICS))
     articles = {tid: arts for tid, arts, *rest in results}
     saturation = {tid: rest[0] for tid, arts, *rest in results}
     resolved_quota_days = {tid: rest[1] for tid, arts, *rest in results}
@@ -409,7 +492,7 @@ def main():
 
     all_sources = {a["source"] for arts in articles.values() for a in arts}
     out = {
-        "generated_at": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
+        "generated_at": previous["generated_at"] if previous else dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
         "window": {"start": windows[0][0].isoformat(), "end": today.isoformat(),
                    "weeks": WEEKS, "recent_weeks": RECENT_WEEKS,
                    "week_starts": [s.isoformat() for s, _ in windows]},

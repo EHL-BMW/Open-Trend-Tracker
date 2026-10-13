@@ -106,7 +106,7 @@ export const SHORT_TOPIC_NAMES: Record<string, string> = {
   adas_chips: "ADAS chips",
   cockpit_llm: "Cockpit AI",
   central_compute: "Central compute",
-  phone_car_eco: "Phone-car ecosystem",
+  phone_car_eco: "Connected ecosystem",
   ota: "OTA",
   steer_by_wire: "Steer-by-wire",
   active_suspension: "Active suspension",
