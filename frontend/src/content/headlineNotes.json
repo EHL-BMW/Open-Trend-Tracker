@@ -6,7 +6,7 @@
     },
     "装备制造行业周报（10月第1周）：固态电池产业化持续推进": {
       "titleEn": "Equipment manufacturing weekly: solid-state battery industrialization advances",
-      "featureSummary": "The roundup reports continued progress toward solid-state battery production, without giving a scale or date."
+      "featureSummary": "The weekly industry roundup focuses on the continuing push to turn solid-state battery research into commercial manufacturing."
     },
     "小倍观察｜涨停一片，固态电池为什么一年没涨？": {
       "titleEn": "Why have solid-state batteries made little progress in a year despite stock rallies?",
@@ -18,7 +18,7 @@
     },
     "固态电池合集": {
       "titleEn": "Solid-state battery roundup",
-      "featureSummary": "A collection of solid-state battery stories; the headline offers no specific technical claim."
+      "featureSummary": "This roundup brings together several solid-state battery developments and frames them as a single industry topic."
     },
     "固态电池量产倒计时：颠覆将至，还是又一次\"画饼\"？": {
       "titleEn": "Solid-state battery mass production: breakthrough or another empty promise?",
@@ -62,7 +62,7 @@
     },
     "【文章图片】元戎位列第二，最新中国城市NOA装机量排行榜发布_第3张": {
       "titleEn": "DeepRoute ranks second in China's latest urban NOA installation ranking",
-      "featureSummary": "The ranking places DeepRoute second for urban NOA installations; the headline gives no installation count."
+      "featureSummary": "A new Chinese urban NOA installation ranking places DeepRoute second, highlighting supplier competition as deployments expand."
     },
     "192线激光雷达+城市NOA，德系纯电SUV辅助驾驶进入第一梯队——4车横向对比": {
       "titleEn": "192-line LiDAR and urban NOA: four German-brand EV SUVs compared",
@@ -118,7 +118,7 @@
     },
     "广东500座蔚来换电站达成 今年1-8月产品销量同比增长76.3%": {
       "titleEn": "NIO reaches 500 Guangdong swap stations; sales rise 76.3% in January–August",
-      "featureSummary": "The swap network has reached 500 stations in Guangdong; the sales figure does not measure swapping use."
+      "featureSummary": "NIO marks its 500th Guangdong battery-swap station alongside a reported 76.3% year-on-year rise in vehicle sales from January to August."
     },
     "【网通社快报】广东第500座蔚来换电站达成，6城同步上线6座第五代换电站": {
       "titleEn": "NIO reaches 500 Guangdong swap stations and launches six fifth-generation sites",
@@ -132,27 +132,33 @@
   "ultra_charging": {
     "理想i6新增的5C超充技术充电速度有多快？": {
       "titleEn": "How fast is the Li Auto i6's new 5C ultra-fast charging?",
-      "featureSummary": "The article asks about charging speed for the i6's 5C system; the headline gives no measured rate."
+      "featureSummary": "The article says the 2026 i6's 96 kWh 5C battery charges from 30% to 80% in about 10 minutes on a Li Auto 5C charger; it also discusses longer range and charging-network support.",
+      "basis": "article"
     },
     "日产NX8纯电版20万内值得买吗？续航650km+5C超充，3个维度说清+FAQ": {
       "titleEn": "Is the sub-¥200k Nissan NX8 EV worth it with 5C charging?",
-      "featureSummary": "The NX8 EV advertises 5C charging; the headline does not report a real-world charging test."
+      "featureSummary": "The buying guide says the NX8 EV pairs a 650 km CLTC range with 5C charging. It estimates 480–550 km in mixed use and says peak charging requires a compatible 800V charger.",
+      "basis": "article"
     },
     "理想MEGA配置参数全解析：50.98万全顶配值不值？3个维度说清+FAQ": {
       "titleEn": "Li Auto MEGA specification review: is the ¥509,800 model worth it?",
-      "featureSummary": "The headline lists a general vehicle review and provides no specific ultra-charging finding."
+      "featureSummary": "The MEGA buying guide lists 5C charging among its standard technologies and repeats Li Auto's claim of up to 500 km of range added in 10 minutes; actual speed depends on charger power and battery temperature.",
+      "basis": "article"
     },
     "聊聊比亚迪“兆瓦闪充”技术的几大亮点": {
       "titleEn": "Key highlights of BYD's megawatt flash-charging technology",
-      "featureSummary": "The article discusses BYD's megawatt charging technology, but the headline does not list performance figures."
+      "featureSummary": "The article describes BYD's battery-to-charger system: a 1,000 V, 1,000 A, 1 MW charging target, its claimed 400 km of range in five minutes, and plans for a wider megawatt-charger network.",
+      "basis": "article"
     },
     "理想i6的5C超充电池实际充电速度有多快？": {
       "titleEn": "How fast does the Li Auto i6's 5C battery charge in practice?",
-      "featureSummary": "The article examines real-world 5C charging speed for the i6; the headline supplies no measurement."
+      "featureSummary": "The article reports a 30%–80% charge in about 10 minutes for the i6's 96 kWh 5C battery, then discusses the vehicle's 780 km rear-drive CLTC range and long-distance charging use.",
+      "basis": "article"
     },
     "凯迪拉克XT5 PHEV的5C超充实际体验如何？": {
       "titleEn": "How is the Cadillac XT5 PHEV's 5C charging in real use?",
-      "featureSummary": "The article asks about practical 5C charging performance, without a result in the headline."
+      "featureSummary": "The article reports roughly 15 minutes to charge the XT5 PHEV from 30% to 80%, using a 35.5 kWh 5C battery; it frames this as enough to add around 100 km of electric range.",
+      "basis": "article"
     }
   },
   "phone_car_eco": {
@@ -196,7 +202,7 @@
     },
     "限时11.49万起,2027款深蓝L06上市，磁流变悬架+双AI智能体全安排": {
       "titleEn": "2027 Deepal L06 launches from ¥114,900 with dual AI agents",
-      "featureSummary": "The upgraded L06 advertises two AI agents; the headline does not describe what each does."
+      "featureSummary": "The 2027 Deepal L06 launch places two AI agents alongside its suspension upgrade as headline technology features."
     },
     "双车同发，2027款深蓝L06及深蓝L06追风版正式上市": {
       "titleEn": "2027 Deepal L06 and L06 Zhuifeng launch together",
@@ -218,15 +224,15 @@
     },
     "【视频】很多人只盯着外观！银河TT最核心的底牌，其实是这套800V高压平台": {
       "titleEn": "Video: the Galaxy TT's key feature is its 800V platform",
-      "featureSummary": "The video identifies the 800V platform as a central Galaxy TT feature, without performance figures."
+      "featureSummary": "The video presents the Galaxy TT’s 800V electrical platform as a central technical feature beneath its exterior styling."
     },
     "15万级标配800V+激光雷达，领克20越级配置打成标配": {
       "titleEn": "Lynk & Co 20 makes 800V and LiDAR standard around ¥150k",
-      "featureSummary": "The Lynk & Co 20 brings an 800V platform to the ¥150k segment; the headline omits charging speed."
+      "featureSummary": "The Lynk & Co 20 makes an 800V platform and LiDAR standard equipment in the roughly ¥150,000 segment."
     },
     "【20.68万起！上汽大众ID.ERA 8X上市：最高续航1602km】全新中大型增程SUV上汽大众ID.ERA 8X正式上市，限时权益价20.68-26.98万元。智能化层面搭载激光雷达与Momenta R7世界模型。动力上，该车零百加速4.6秒，依托800V高压平台提供两种电池规格，长续航": {
       "titleEn": "VW ID.ERA 8X launches from ¥206,800 with an 800V platform",
-      "featureSummary": "The ID.ERA 8X uses an 800V platform and offers two battery sizes; charging rates are not stated."
+      "featureSummary": "The ID.ERA 8X launch pairs an 800V electrical platform and two battery sizes with an extended-range powertrain and up to 1,602 km of stated range."
     },
     "大众 ID.AURA T6下半年上市，首搭新CEA电子电气架构，配激光雷达": {
       "titleEn": "VW ID.AURA T6 to launch with new CEA electronic architecture",
@@ -274,7 +280,7 @@
     },
     "红旗天工07登场，带激光雷达，16.79万起行吗？": {
       "titleEn": "Hongqi Tiangong 07 arrives with LiDAR from ¥167,900",
-      "featureSummary": "The Tiangong 07 includes LiDAR at a starting price of ¥167,900; the headline gives no sensor specification."
+      "featureSummary": "The Hongqi Tiangong 07 is introduced with LiDAR and a starting price of ¥167,900, positioning advanced sensing in a lower price band."
     },
     "多花2900块多个座位和激光雷达，零跑C16与C10怎么选？": {
       "titleEn": "Leapmotor C16 versus C10: ¥2,900 buys an extra seat and LiDAR",
@@ -282,7 +288,7 @@
     },
     "【视频】丰田铂智7 2026款 700 Max激光雷达版": {
       "titleEn": "Video: 2026 Toyota bZ7 700 Max LiDAR edition",
-      "featureSummary": "The 2026 bZ7 variant is identified as LiDAR-equipped; the headline gives no performance assessment."
+      "featureSummary": "The video spotlights the LiDAR-equipped 700 Max version of Toyota’s 2026 bZ7."
     }
   },
   "ota": {
@@ -344,7 +350,7 @@
     },
     "美国奥斯汀街头，到处都是Cybercab特斯拉无人驾驶出租车": {
       "titleEn": "Tesla Cybercabs appear on Austin streets",
-      "featureSummary": "The headline reports Cybercab sightings in Austin, without specifying passenger service or deployment scale."
+      "featureSummary": "The report describes Tesla Cybercab vehicles seen on Austin streets as the company advances its robotaxi program."
     },
     "小马智行旗下第七代Robotaxi引入英国伦敦 早盘股价涨逾7%": {
       "titleEn": "Pony.ai brings its seventh-generation robotaxi to London",
@@ -396,7 +402,7 @@
     },
     "标致全新跑车曝光,固态电池+线控转向": {
       "titleEn": "New Peugeot sports car reported with solid-state battery and steer-by-wire",
-      "featureSummary": "The reported Peugeot concept includes steer-by-wire; the headline gives no technical specification."
+      "featureSummary": "The reported Peugeot sports-car concept combines steer-by-wire with a proposed solid-state battery."
     },
     "【图】引入线控制动和线控转向 搭载固态电池 标致RCZ Vision概念车官图": {
       "titleEn": "Peugeot RCZ Vision concept shows brake-by-wire and steer-by-wire",
@@ -434,7 +440,7 @@
     },
     "小鹏G9L要去巴黎了 计划登陆64国、车上还带着华为参与研发的大灯": {
       "titleEn": "XPeng G9L heads to Paris with Huawei-co-developed headlights",
-      "featureSummary": "The G9L features headlights co-developed with Huawei; the headline gives no function details."
+      "featureSummary": "XPeng’s G9L is presented for international expansion with headlights developed in collaboration with Huawei."
     },
     "智界V9续航超1250km，华为乾崑智驾+雪鸮增程加持": {
       "titleEn": "Luxeed V9 claims over 1,250 km range with Huawei assistance",
@@ -478,7 +484,7 @@
     },
     "极限三挑战!岚图梦想家9 L3级有条件自动驾驶实测": {
       "titleEn": "Voyah Dreamer 9 faces three L3 conditional-driving tests",
-      "featureSummary": "The article reports L3 testing of the Dreamer 9; the headline gives no outcome."
+      "featureSummary": "The article covers three challenging tests of the Voyah Dreamer 9’s L3 conditional-automation functions."
     },
     "创新可以快，但验证必须充分！四部门划清汽车安全底线": {
       "titleEn": "Four ministries draw safety boundaries for vehicle innovation",
@@ -490,7 +496,7 @@
     },
     "智界RX的L3大餐，还需要火候！": {
       "titleEn": "Luxeed RX's L3 offering still needs more work",
-      "featureSummary": "The headline suggests Luxeed RX's L3 capabilities are not yet fully mature, without naming a specific gap."
+      "featureSummary": "The commentary argues that the Luxeed RX’s L3 conditional-automation package still needs refinement."
     }
   },
   "adas_chips": {
@@ -508,7 +514,7 @@
     },
     "理想i6的智能座舱和智驾芯片性能怎么样？": {
       "titleEn": "How do the Li Auto i6's cockpit and ADAS chips perform?",
-      "featureSummary": "The article examines the i6's cockpit and assisted-driving processors; the headline gives no benchmark result."
+      "featureSummary": "The article examines how the i6’s cockpit and driver-assistance chips support in-car interaction and driving functions."
     },
     "开局之年看中国·潮涌荆楚丨一颗“芯”的突围之战": {
       "titleEn": "A Chinese chip's breakthrough story",
@@ -516,7 +522,7 @@
     },
     "理想 CTO 谢炎揭秘马赫 M100 研发史：要像苹果一样造芯片": {
       "titleEn": "Li Auto CTO recounts development of its Mach M100 chip",
-      "featureSummary": "The article discusses Li Auto's in-house Mach M100 chip development, without performance details in the headline."
+      "featureSummary": "Li Auto’s CTO describes the development of its in-house Mach M100 chip and the company’s push to control core computing hardware."
     }
   },
   "giga_casting": {

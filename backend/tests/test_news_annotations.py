@@ -24,6 +24,7 @@ def test_demo_annotations_work_without_api_key(tmp_path, monkeypatch):
 
     assert result["items"][0]["title_en"] == "Solid-state batteries"
     assert result["items"][0]["feature_summary"] == "The story covers solid-state batteries."
+    assert result["items"][0]["basis"] == "headline"
 
 
 def test_topic_annotations_are_feature_focused_and_cached(tmp_path, monkeypatch):

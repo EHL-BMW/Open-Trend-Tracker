@@ -315,11 +315,12 @@ export function FeatureCard({
 }
 
 interface TopicAnnotations {
-  items: Array<{ link: string; feature_summary: string }>;
+  items: Array<{ link: string; feature_summary: string; basis?: "article" | "headline" }>;
 }
 
-function NewsDetail({ item, aiSummary, summaryError }: { item: FeatureNewsItem; aiSummary?: string; summaryError: boolean }) {
+function NewsDetail({ item, aiSummary, summaryBasis, summaryError }: { item: FeatureNewsItem; aiSummary?: string; summaryBasis?: "article" | "headline"; summaryError: boolean }) {
   const summary = aiSummary ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.featureSummary ?? item.summary;
+  const basis = summaryBasis ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.basis;
   const tooltipId = `feature-summary-${item.id}`;
   return (
     <article className={styles.newsItem}>
@@ -334,7 +335,7 @@ function NewsDetail({ item, aiSummary, summaryError }: { item: FeatureNewsItem; 
         </a>
         <button type="button" className={styles.summaryTrigger} aria-label={`Feature summary for ${item.title}`} aria-describedby={tooltipId}>ⓘ</button>
         <div id={tooltipId} className={styles.newsTooltip} role="tooltip">
-          <b>AI feature summary · based on headline</b>
+          <b>{basis === "article" ? "Article summary" : "Feature summary · based on headline"}</b>
           <p>{summary ?? (summaryError ? "Summary unavailable until the AI service is configured." : "Generating a feature-focused summary…")}</p>
         </div>
       </div>
@@ -623,6 +624,7 @@ export function FeatureTrendsPage() {
                   key={item.id}
                   item={item}
                   aiSummary={annotationsByTopic[selected.id]?.items.find((annotation) => annotation.link === item.url)?.feature_summary}
+                  summaryBasis={annotationsByTopic[selected.id]?.items.find((annotation) => annotation.link === item.url)?.basis}
                   summaryError={annotationErrors.has(selected.id)}
                 />
               ))}

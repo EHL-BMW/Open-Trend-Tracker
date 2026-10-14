@@ -133,7 +133,8 @@ function NewsEvidence({ feature, problems }: { feature: FeatureCluster; problems
         <h3>Related news · {feature.items.length}</h3>
         <div className={styles.news}>
           {feature.items.map((item) => {
-            const summary = HEADLINE_NOTES[feature.id]?.[item.title]?.featureSummary ?? item.summary;
+            const note = HEADLINE_NOTES[feature.id]?.[item.title];
+            const summary = note?.featureSummary ?? item.summary;
             const tooltipId = `tracked-news-summary-${item.id}`;
             return (
               <div key={item.id}>
@@ -148,7 +149,7 @@ function NewsEvidence({ feature, problems }: { feature: FeatureCluster; problems
                     aria-describedby={tooltipId}
                   >ⓘ</button>
                   <div id={tooltipId} className={styles.newsTooltip} role="tooltip">
-                    <b>AI feature summary · based on headline</b>
+                    <b>{note?.basis === "article" ? "Article summary" : "Feature summary · based on headline"}</b>
                     <p>{summary ?? "No feature-focused summary is available for this article."}</p>
                   </div>
                 </div>

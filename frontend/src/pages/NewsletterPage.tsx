@@ -16,7 +16,7 @@ import styles from "./NewsletterPage.module.css";
 
 interface TopicAnnotations {
   basis: "headline";
-  items: Array<{ link: string; title_en: string; feature_summary: string }>;
+  items: Array<{ link: string; title_en: string; feature_summary: string; basis?: "article" | "headline" }>;
 }
 
 function Sparkline({
@@ -497,7 +497,7 @@ export function NewsletterPage() {
                               </div>
                               <div className={styles.headlineMeta}>{SOURCE_EN[h.source] ?? h.source} · {h.date}</div>
                               <div id={`summary-${t.id}-${hIdx}`} className={styles.headlineTooltip} role="tooltip">
-                                <b>AI feature summary · based on headline</b>
+                                <b>{annotation?.basis === "article" || note?.basis === "article" ? "Article summary" : "Feature summary · based on headline"}</b>
                                 <p>{annotation?.feature_summary ?? note?.featureSummary ?? (annotationErrors[t.id]
                                   ? "Summary unavailable until the AI service is configured."
                                   : "Generating a feature-focused summary…")}</p>
