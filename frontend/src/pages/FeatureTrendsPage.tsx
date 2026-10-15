@@ -315,11 +315,11 @@ export function FeatureCard({
 }
 
 interface TopicAnnotations {
-  items: Array<{ link: string; feature_summary: string; basis?: "article" | "headline" }>;
+  items: Array<{ link: string; feature_summary: string; basis?: "article" | "headline" | "title" }>;
 }
 
-function NewsDetail({ item, aiSummary, summaryBasis, summaryError }: { item: FeatureNewsItem; aiSummary?: string; summaryBasis?: "article" | "headline"; summaryError: boolean }) {
-  const summary = aiSummary ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.featureSummary ?? item.summary;
+function NewsDetail({ item, aiSummary, summaryBasis }: { item: FeatureNewsItem; aiSummary?: string; summaryBasis?: "article" | "headline" | "title" }) {
+  const summary = aiSummary ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.featureSummary ?? item.summary ?? item.title;
   const basis = summaryBasis ?? HEADLINE_NOTES[item.featureId]?.[item.title]?.basis;
   const tooltipId = `feature-summary-${item.id}`;
   return (
@@ -335,8 +335,8 @@ function NewsDetail({ item, aiSummary, summaryBasis, summaryError }: { item: Fea
         </a>
         <button type="button" className={styles.summaryTrigger} aria-label={`Feature summary for ${item.title}`} aria-describedby={tooltipId}>ⓘ</button>
         <div id={tooltipId} className={styles.newsTooltip} role="tooltip">
-          <b>{basis === "article" ? "Article summary" : "Feature summary · based on headline"}</b>
-          <p>{summary ?? (summaryError ? "Summary unavailable until the AI service is configured." : "Generating a feature-focused summary…")}</p>
+          <b>{basis === "article" ? "Article summary" : basis === "title" ? "Original headline · summary pending" : "Feature summary · based on headline"}</b>
+          <p>{summary}</p>
         </div>
       </div>
       {item.titleEn && <p className={styles.translation}>EN · {item.titleEn}</p>}
@@ -625,7 +625,6 @@ export function FeatureTrendsPage() {
                   item={item}
                   aiSummary={annotationsByTopic[selected.id]?.items.find((annotation) => annotation.link === item.url)?.feature_summary}
                   summaryBasis={annotationsByTopic[selected.id]?.items.find((annotation) => annotation.link === item.url)?.basis}
-                  summaryError={annotationErrors.has(selected.id)}
                 />
               ))}
             </div>

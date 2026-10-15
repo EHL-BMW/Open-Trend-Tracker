@@ -23,6 +23,36 @@
     "固态电池量产倒计时：颠覆将至，还是又一次\"画饼\"？": {
       "titleEn": "Solid-state battery mass production: breakthrough or another empty promise?",
       "featureSummary": "The article asks whether mass production is approaching or remains an overhyped promise."
+    },
+    "全市场首批！把握固态电池升级红利！": {
+      "titleEn": "Early-market solid-state battery investing opportunity",
+      "featureSummary": "The market commentary frames solid-state battery upgrades as an emerging investment theme.",
+      "basis": "headline"
+    },
+    "行业首条吉瓦时级固态电池技改升级产线在广州投产": {
+      "titleEn": "Guangzhou starts a gigawatt-hour solid-state battery retrofit line",
+      "featureSummary": "The report says a gigawatt-hour-scale solid-state battery production line has started operating in Guangzhou.",
+      "basis": "headline"
+    },
+    "巨湾技研吉瓦时级全固态电池产线竣工正式投产": {
+      "titleEn": "Greater Bay Technology completes a gigawatt-hour all-solid-state battery line",
+      "featureSummary": "Greater Bay Technology says its gigawatt-hour all-solid-state battery line has been completed and put into operation.",
+      "basis": "headline"
+    },
+    "宁德时代固态电池来了！快充10分钟跑2000km，2027年开始批量生产": {
+      "titleEn": "CATL solid-state battery report targets 2027 batch production",
+      "featureSummary": "The article claims CATL is aiming for batch production in 2027 and highlights a very fast-charging range figure.",
+      "basis": "headline"
+    },
+    "巨湾技研吉瓦时级全固态电池产线正式投产": {
+      "titleEn": "Greater Bay Technology starts its gigawatt-hour all-solid-state line",
+      "featureSummary": "The story covers Greater Bay Technology's start of production on a gigawatt-hour-scale all-solid-state battery line.",
+      "basis": "headline"
+    },
+    "中日韩一起锚定2030！固态电池，大决战来了": {
+      "titleEn": "China, Japan and Korea target 2030 for solid-state batteries",
+      "featureSummary": "The article presents 2030 as a competitive milestone for solid-state battery development in three Asian markets.",
+      "basis": "headline"
     }
   },
   "e2e_vla": {
@@ -49,6 +79,36 @@
     "【视频】14.99万起，华为智驾塞进方盒子！捷途旅行者7到店实拍": {
       "titleEn": "Video: Huawei assisted driving arrives in the Jetour Traveller 7 from ¥149,900",
       "featureSummary": "The showroom video introduces Huawei assisted driving in the Jetour Traveller 7."
+    },
+    "智能体验好的大五座怎么选：小鹏G9L、智界R7与理想L6智能横评+FAQ": {
+      "titleEn": "Five-seat smart-SUV comparison: XPeng G9L, Luxeed R7 and Li L6",
+      "featureSummary": "The buying guide compares the smart-driving and cabin experience of three large five-seat SUVs.",
+      "basis": "headline"
+    },
+    "2026智驾算力运营白皮书：智驾算力下半场，从堆卡走向精细化运营": {
+      "titleEn": "2026 intelligent-driving compute operations white paper",
+      "featureSummary": "The white paper argues that assisted-driving compute is shifting from adding hardware toward more efficient operation.",
+      "basis": "headline"
+    },
+    "零跑C系OTA推送城区NAP全国开通，激光雷达车型智驾能力再升级": {
+      "titleEn": "Leapmotor C-series OTA opens urban NAP nationwide",
+      "featureSummary": "Leapmotor says its OTA enables city navigation assistance nationwide and upgrades LiDAR-equipped cars.",
+      "basis": "headline"
+    },
+    "智能体验好的大五座候选清单，小鹏G9L第二代VLA全系标配入榜": {
+      "titleEn": "XPeng G9L enters five-seat SUV shortlist with second-generation VLA",
+      "featureSummary": "The shortlist highlights second-generation VLA technology as standard equipment on the XPeng G9L.",
+      "basis": "headline"
+    },
+    "智能体验好的大五座SUV盘点，小鹏G9L凭第二代VLA全系标配入榜": {
+      "titleEn": "Five-seat smart SUVs: XPeng G9L makes the list",
+      "featureSummary": "The roundup cites the XPeng G9L's standard second-generation VLA system as a reason to consider it.",
+      "basis": "headline"
+    },
+    "舱驾一体哪家强？小鹏G9L与智界R7、理想L6智能大五座横评+选购清单": {
+      "titleEn": "Cockpit-driving integration comparison and buying list",
+      "featureSummary": "The guide compares how XPeng G9L, Luxeed R7 and Li L6 combine cabin intelligence with driving assistance.",
+      "basis": "headline"
     }
   },
   "urban_noa": {
@@ -75,6 +135,36 @@
     "规模化交付深水区，智驾企业该怎么看榜单？三大赛道排名与价值判断": {
       "titleEn": "How should assisted-driving companies judge delivery rankings?",
       "featureSummary": "The article considers how delivery rankings should be interpreted across assisted-driving companies."
+    },
+    "12.99万起！310km纯电续航+城市领航兜底，宋Ultra DM-i越级搅局": {
+      "titleEn": "BYD Song Ultra DM-i starts at ¥129,900 with urban navigation assistance",
+      "featureSummary": "The launch story positions city navigation assistance alongside electric range and price in the Song Ultra DM-i's value proposition.",
+      "basis": "headline"
+    },
+    "192线激光雷达+城市NOA，三款德系智舱智驾纯电SUV深度横评：谁才是真正的“听劝”第一梯队？": {
+      "titleEn": "Three German EV SUVs compared on LiDAR and urban NOA",
+      "featureSummary": "The comparison examines 192-line LiDAR and city navigation assistance across three electric SUVs.",
+      "basis": "headline"
+    },
+    "三款合资纯电SUV高速辅助横评：从L2巡航到城市领航，德系智稳新标杆如何定义「全家人的安全半径」": {
+      "titleEn": "Three joint-venture EV SUVs compared from L2 to city navigation",
+      "featureSummary": "The review compares highway assistance and city navigation functions with a family-safety focus.",
+      "basis": "headline"
+    },
+    "大众ID.ERA 5S万台交付，8.99万元起": {
+      "titleEn": "Volkswagen ID.ERA 5S reaches 10,000 deliveries",
+      "featureSummary": "The report covers ID.ERA 5S deliveries and its starting price; urban NOA is not the stated focus.",
+      "basis": "headline"
+    },
+    "德系纯电SUV辅助驾驶可靠性横评：当听劝的ID.AURA T6遇上192线激光雷达，谁才是家庭智稳之选？": {
+      "titleEn": "German EV SUV driver-assistance reliability comparison",
+      "featureSummary": "The article compares driver-assistance reliability, including a model equipped with 192-line LiDAR.",
+      "basis": "headline"
+    },
+    "高山8 HEV四季度上市，无充电桩家庭闭眼等？3个维度拆解+FAQ": {
+      "titleEn": "Wey Gaoshan 8 HEV fourth-quarter buyer guide",
+      "featureSummary": "The buying guide considers the upcoming hybrid MPV for households without home charging; urban NOA is not the stated focus.",
+      "basis": "headline"
     }
   },
   "smart_seats": {
@@ -101,6 +191,36 @@
     "26款理想i6到店，双零重力座椅续航780km": {
       "titleEn": "2026 Li Auto i6 reaches dealers with dual zero-gravity seats",
       "featureSummary": "Dual zero-gravity seats are a highlighted feature of the 2026 i6."
+    },
+    "理想i6的零重力座椅有什么特别之处？": {
+      "titleEn": "What makes the Li Auto i6 zero-gravity seat distinctive?",
+      "featureSummary": "The piece discusses the i6's zero-gravity seating as a cabin-comfort feature.",
+      "basis": "headline"
+    },
+    "零重力座椅从选装变标配？智界R7用户选择说明一切": {
+      "titleEn": "Are zero-gravity seats becoming standard on the Luxeed R7?",
+      "featureSummary": "The article uses Luxeed R7 buyer choices to discuss demand for zero-gravity seats.",
+      "basis": "headline"
+    },
+    "理想L9五米二车长配零重力座椅，全家出行不委屈": {
+      "titleEn": "Li Auto L9 combines a large cabin with zero-gravity seats",
+      "featureSummary": "The story highlights zero-gravity seats and space for family travel in the Li Auto L9.",
+      "basis": "headline"
+    },
+    "2026款理想i6升级双零重力座椅与5C电池": {
+      "titleEn": "2026 Li Auto i6 adds two zero-gravity seats and a 5C battery",
+      "featureSummary": "The model update pairs dual zero-gravity seats with a new fast-charging battery.",
+      "basis": "headline"
+    },
+    "坐进尊界V800体验流动星空顶与零重力座椅": {
+      "titleEn": "Inside the Maextro V800: starry roof and zero-gravity seats",
+      "featureSummary": "The cabin preview highlights a panoramic starry-roof effect and zero-gravity seats.",
+      "basis": "headline"
+    },
+    "全家坐着都舒服的SUV横评：小鹏G9L、理想L6与问界M7对比+FAQ": {
+      "titleEn": "Family SUV comfort comparison: G9L, L6 and M7",
+      "featureSummary": "The comparison focuses on how three SUVs accommodate and comfort a family.",
+      "basis": "headline"
     }
   },
   "battery_swap": {
@@ -127,6 +247,31 @@
     "蔚来：截至目前，广东蔚来换电站累计换电服务已突破1700万次，占全国换电总量约13%": {
       "titleEn": "NIO says Guangdong stations have performed over 17 million swaps",
       "featureSummary": "NIO says Guangdong accounts for about 13% of its nationwide battery-swap volume."
+    },
+    "蔚来东莞高埗充换电站项目备案复核通过 总投资420万元": {
+      "titleEn": "NIO Dongguan station project cleared after filing review",
+      "featureSummary": "The report repeats the approval of a ¥4.2 million charge-and-swap station project in Dongguan.",
+      "basis": "headline"
+    },
+    "共推河南重卡充换电网络建设 特来电与中豫格林战略合作": {
+      "titleEn": "TELD and Zhongyu Green partner on Henan truck swapping",
+      "featureSummary": "The companies plan to develop charging and battery-swap infrastructure for heavy trucks in Henan.",
+      "basis": "headline"
+    },
+    "西安到霍尔果斯3605公里33座换电站可全程换电": {
+      "titleEn": "Thirty-three swap stations cover a 3,605 km Xi'an–Horgos route",
+      "featureSummary": "The article describes a long-distance battery-swap corridor with 33 stations along the route.",
+      "basis": "headline"
+    },
+    "新能源市场太卷了！蔚来广东第500座换电站达成，6城同步上线第五代换电站": {
+      "titleEn": "NIO reaches 500 Guangdong swap stations",
+      "featureSummary": "NIO says six cities are opening fifth-generation stations as Guangdong reaches its 500th swap station.",
+      "basis": "headline"
+    },
+    "支持23块电池，还能给萤火虫换电？蔚来第五代换电站即将发布": {
+      "titleEn": "NIO previews a fifth-generation station supporting 23 packs",
+      "featureSummary": "The preview discusses capacity for 23 battery packs and possible Firefly compatibility in the next-generation station.",
+      "basis": "headline"
     }
   },
   "ultra_charging": {
@@ -159,6 +304,36 @@
       "titleEn": "How is the Cadillac XT5 PHEV's 5C charging in real use?",
       "featureSummary": "The article reports roughly 15 minutes to charge the XT5 PHEV from 30% to 80%, using a 35.5 kWh 5C battery; it frames this as enough to add around 100 km of electric range.",
       "basis": "article"
+    },
+    "充电最快的新能源大五座横评：小鹏G9L、极氪7X、智界R7谁更快？": {
+      "titleEn": "Fast-charging five-seat SUVs: XPeng G9L, Zeekr 7X and Luxeed R7",
+      "featureSummary": "The comparison looks at charging speed across three large five-seat electric SUVs.",
+      "basis": "headline"
+    },
+    "超快充大五座SUV怎么选：小鹏G9L、极氪7X与理想L6补能横评+选购清单": {
+      "titleEn": "Fast-charging SUV buying guide: G9L, 7X and L6",
+      "featureSummary": "The guide compares replenishment options for the XPeng G9L, Zeekr 7X and Li Auto L6.",
+      "basis": "headline"
+    },
+    "9分钟补能450km：小鹏G9L与极氪7X、智界R7、理想L6充电横评+FAQ": {
+      "titleEn": "Claimed 450 km in nine minutes: four-SUV charging comparison",
+      "featureSummary": "The article compares stated charging performance for the G9L, 7X, R7 and L6, including a nine-minute range claim.",
+      "basis": "headline"
+    },
+    "充电快的大五座SUV盘点，小鹏G9L全域800V 5C超充值得优先看": {
+      "titleEn": "XPeng G9L highlighted for 800V and 5C charging",
+      "featureSummary": "The roundup presents the G9L's 800V architecture and 5C charging as reasons to shortlist it.",
+      "basis": "headline"
+    },
+    "25万预算新能源SUV横评：小鹏G9L、理想L6、极氪7X怎么选": {
+      "titleEn": "¥250,000 SUV comparison: G9L, L6 and Zeekr 7X",
+      "featureSummary": "The buying guide weighs three SUVs, including their charging and long-distance usability.",
+      "basis": "headline"
+    },
+    "理想i6新款2026纯电续航780km真能跑？3个维度说清终于等到了+FAQ": {
+      "titleEn": "2026 Li Auto i6 range and charging buying guide",
+      "featureSummary": "The guide questions how its stated 780 km electric range translates to use and discusses the 5C charging package.",
+      "basis": "headline"
     }
   },
   "phone_car_eco": {
@@ -185,6 +360,16 @@
     "AI赋能终端产品迭代 小米发布多款新品拓展人车家全生态": {
       "titleEn": "Xiaomi launches products to expand its AI-enabled person-car-home ecosystem",
       "featureSummary": "Xiaomi's new AI-enabled products expand its person-car-home ecosystem and reinforce cross-device integration as part of the car experience."
+    },
+    "极空间私有云车机版上线鸿蒙座舱，携手鸿蒙座舱共建人车家全场景存储生态": {
+      "titleEn": "ZSpace private cloud app joins HarmonyOS cockpit",
+      "featureSummary": "The in-car ZSpace app brings private-cloud storage into HarmonyOS cockpit and links it to a broader person-car-home ecosystem.",
+      "basis": "headline"
+    },
+    "鸿蒙生态全栈适配！极空间私有云车机版上线鸿蒙座舱": {
+      "titleEn": "ZSpace private cloud gains full HarmonyOS cockpit support",
+      "featureSummary": "The integration adapts ZSpace's private-cloud service for HarmonyOS cockpit use.",
+      "basis": "headline"
     }
   },
   "cockpit_llm": {
@@ -211,6 +396,36 @@
     "极狐阿尔法T5值得买吗？12万级智能SUV实测解析+FAQ": {
       "titleEn": "Is the ¥120k Arcfox Alpha T5 smart SUV worth buying?",
       "featureSummary": "The review evaluates the Arcfox Alpha T5 as an affordable smart SUV."
+    },
+    "千亿赛道座次重排！AI原生座舱全面上位，舱驾一体暗战升级": {
+      "titleEn": "AI-native cockpits and cockpit-driving integration reshape the sector",
+      "featureSummary": "The industry analysis describes the rise of AI-native cabin software and tighter integration with driving systems.",
+      "basis": "headline"
+    },
+    "晚点独家丨地平线敲定征程7目标算力，舱驾一体产品命名“星空”": {
+      "titleEn": "Horizon plans Journey 7 compute and Starry Sky platform",
+      "featureSummary": "The exclusive report discusses Horizon's target compute for Journey 7 and a cockpit-driving product called Starry Sky.",
+      "basis": "headline"
+    },
+    "AI原生座舱加速落地，行业迈入端云协同量产新阶段": {
+      "titleEn": "AI-native cockpits move toward cloud-edge production",
+      "featureSummary": "The article discusses production deployment of AI-native cockpits using both in-car and cloud computing.",
+      "basis": "headline"
+    },
+    "23.59万起 比亚迪大汉树立9系旗舰新标杆": {
+      "titleEn": "BYD flagship sedan launches from ¥235,900",
+      "featureSummary": "The launch story positions a new BYD flagship sedan; the headline does not identify a cockpit AI function.",
+      "basis": "headline"
+    },
+    "从语音到AI，四款纯电SUV座舱实测：谁才是真正的“家庭智选”？": {
+      "titleEn": "Four electric SUV cockpits compared from voice to AI",
+      "featureSummary": "The test compares voice interaction and newer AI cabin features across four SUVs.",
+      "basis": "headline"
+    },
+    "2027款深蓝L06上市限时11.49万起，主打性价比的小鹏 MONAM03不香了？": {
+      "titleEn": "Deepal L06 launch compared with XPeng MONA M03",
+      "featureSummary": "The price-focused comparison discusses the 2027 L06; cockpit AI is not the headline's central claim.",
+      "basis": "headline"
     }
   },
   "hv_800v": {
@@ -237,6 +452,36 @@
     "大众 ID.AURA T6下半年上市，首搭新CEA电子电气架构，配激光雷达": {
       "titleEn": "VW ID.AURA T6 to launch with new CEA electronic architecture",
       "featureSummary": "The ID.AURA T6 launch will introduce VW’s CEA vehicle electronics architecture."
+    },
+    "2026年800V高压纯电轿跑推荐：长途出行有哪些选择？": {
+      "titleEn": "2026 800V electric coupes for long-distance travel",
+      "featureSummary": "The buying guide looks at 800V electric coupes through the lens of long-distance charging and usability.",
+      "basis": "headline"
+    },
+    "全新一代宝马i3全球首秀，800V高压平台+大圆柱电池": {
+      "titleEn": "New BMW i3 debuts with 800V platform",
+      "featureSummary": "The global debut pairs an 800V high-voltage system with large cylindrical battery cells.",
+      "basis": "headline"
+    },
+    "845km续航、800V高压，全新宝马X5首发": {
+      "titleEn": "New BMW X5 debuts with 845 km range and 800V",
+      "featureSummary": "The launch story highlights stated 845 km range and an 800V architecture.",
+      "basis": "headline"
+    },
+    "15万配齐800V+激光雷达，上汽集团把家底搬上工博会": {
+      "titleEn": "SAIC brings 800V and LiDAR to the ¥150,000 segment",
+      "featureSummary": "The exhibition report presents 800V charging hardware and LiDAR at a lower price point.",
+      "basis": "headline"
+    },
+    "搭载800V高压平台的新能源SUV有哪些优势？": {
+      "titleEn": "What advantages does an 800V electric SUV offer?",
+      "featureSummary": "The explainer examines how an 800V platform can affect charging and vehicle electrical performance.",
+      "basis": "headline"
+    },
+    "四电机+800V 高压平台打造，用上大圆柱电池，BMW M 新世代概念车亮相": {
+      "titleEn": "BMW M Neue Klasse concept uses four motors and 800V",
+      "featureSummary": "The concept preview combines four motors, an 800V platform and large cylindrical cells.",
+      "basis": "headline"
     }
   },
   "active_suspension": {
@@ -263,6 +508,36 @@
     "蔚来ES9终于来了": {
       "titleEn": "The NIO ES9 finally arrives",
       "featureSummary": "The launch story introduces the NIO ES9 as a new model."
+    },
+    "【视频】理想L8砍掉鸡肋小屏换大AR-HUD，是真听劝还是真香？": {
+      "titleEn": "Li Auto L8 video asks whether its AR-HUD upgrade works",
+      "featureSummary": "The video focuses on an AR-HUD and screen change in the L8; active suspension is not the stated subject.",
+      "basis": "headline"
+    },
+    "比问界M9贵12万，奔驰新一代GLE还是国内“9系”的严父吗？": {
+      "titleEn": "New Mercedes GLE compared with AITO M9",
+      "featureSummary": "The comparison asks how the new GLE fares against premium Chinese SUVs; the headline does not identify a suspension result.",
+      "basis": "headline"
+    },
+    "【视频】理想L8电耗实测：黄金右脚榨出真实续航，结果出乎意料？": {
+      "titleEn": "Li Auto L8 energy-use road test",
+      "featureSummary": "The video tests the L8's real-world electricity consumption; suspension is not the stated subject.",
+      "basis": "headline"
+    },
+    "蔚来ES9试驾视频全解析：天行悬架真有那么神？3个维度说清+FAQ": {
+      "titleEn": "NIO ES9 road test examines Tianxing suspension",
+      "featureSummary": "The test reviews the ES9's Tianxing suspension system and asks how its driving behavior compares with the claims.",
+      "basis": "headline"
+    },
+    "功率相差16倍，48V对比800V主动悬挂，减少侧倾和消灭侧倾": {
+      "titleEn": "48V versus 800V active suspension explained",
+      "featureSummary": "The technical comparison discusses how different active-suspension electrical architectures manage body roll.",
+      "basis": "headline"
+    },
+    "多6颗激光雷达还换主动悬架，新款问界M9这次升级值不值得等？": {
+      "titleEn": "AITO M9 update adds active suspension",
+      "featureSummary": "The update preview asks whether new active suspension and extra LiDAR hardware justify waiting for the revised M9.",
+      "basis": "headline"
     }
   },
   "lidar": {
@@ -289,6 +564,31 @@
     "【视频】丰田铂智7 2026款 700 Max激光雷达版": {
       "titleEn": "Video: 2026 Toyota bZ7 700 Max LiDAR edition",
       "featureSummary": "The video spotlights the LiDAR-equipped 700 Max version of Toyota’s 2026 bZ7."
+    },
+    "标配后轮转向+双腔空悬+激光雷达，23.59万起的D级旗舰来了": {
+      "titleEn": "A D-segment flagship adds LiDAR from ¥235,900",
+      "featureSummary": "The launch presents LiDAR alongside rear-wheel steering and dual-chamber air suspension.",
+      "basis": "headline"
+    },
+    "二代海鸥10月20日上市，激光雷达下放A0级": {
+      "titleEn": "Second-generation BYD Seagull may bring LiDAR to A0 cars",
+      "featureSummary": "The report says the next Seagull is scheduled for 20 October and brings LiDAR into a smaller vehicle class.",
+      "basis": "headline"
+    },
+    "【图】将于近期上市 配备激光雷达/前备厢 2027款极狐阿尔法S5官图发布": {
+      "titleEn": "2027 Arcfox Alpha S5 official images show LiDAR",
+      "featureSummary": "The preview identifies LiDAR and a front trunk on the upcoming Alpha S5.",
+      "basis": "headline"
+    },
+    "比亚迪海鸥实车到店尺寸大涨配激光雷达": {
+      "titleEn": "BYD Seagull arrives with larger dimensions and LiDAR",
+      "featureSummary": "The showroom report describes a larger Seagull and its LiDAR-equipped configuration.",
+      "basis": "headline"
+    },
+    "【视频】标配后轮转向和激光雷达比亚迪大汉重塑旗舰轿车新格局": {
+      "titleEn": "BYD flagship sedan video highlights standard LiDAR",
+      "featureSummary": "The video presents LiDAR and rear-wheel steering as standard features of the large sedan.",
+      "basis": "headline"
     }
   },
   "ota": {
@@ -315,6 +615,31 @@
     "深蓝SL03 极狐阿尔法S 持L3试点牌": {
       "titleEn": "Deepal SL03 and Arcfox Alpha S hold L3 pilot permits",
       "featureSummary": "Deepal and Arcfox models are reported to hold L3 pilot permits."
+    },
+    "汽车出行产业日报(10.13) : 零跑欧洲展产": {
+      "titleEn": "Mobility industry daily briefing for 13 October",
+      "featureSummary": "The industry digest includes Leapmotor's European production plans; the headline does not identify a specific OTA release.",
+      "basis": "headline"
+    },
+    "零跑C系OTA推送城区NAP全国开通，激光雷达车型智驾能力再升级": {
+      "titleEn": "Leapmotor C-series OTA activates city NAP nationwide",
+      "featureSummary": "The update adds nationwide city navigation assistance and enhances LiDAR-equipped C-series vehicles.",
+      "basis": "headline"
+    },
+    "地平线 HSD 2.0 来了！": {
+      "titleEn": "Horizon introduces HSD 2.0",
+      "featureSummary": "The announcement introduces a new version of Horizon's assisted-driving system; an over-the-air rollout is not identified in the headline.",
+      "basis": "headline"
+    },
+    "从单车联网到全域协同：6G 开启下一代汽车互联互通时代": {
+      "titleEn": "6G and next-generation connected vehicles",
+      "featureSummary": "The article discusses a shift from single-vehicle connectivity toward wider vehicle and infrastructure coordination.",
+      "basis": "headline"
+    },
+    "城市领航辅助下放老款车型，零跑C系此次OTA升级值不值？": {
+      "titleEn": "Leapmotor OTA brings city navigation to older C-series cars",
+      "featureSummary": "The article asks whether adding city navigation assistance to older models via OTA is a worthwhile upgrade.",
+      "basis": "headline"
     }
   },
   "sodium_ion": {
@@ -341,6 +666,36 @@
     "“沙戈荒”新能源基地储能难题怎么破？兰大探索新路径": {
       "titleEn": "Lanzhou University explores storage for desert renewable-energy bases",
       "featureSummary": "Lanzhou University explores new storage approaches for renewable-energy bases in arid regions."
+    },
+    "中国科学院研究揭示钠离子电池硬碳负极界面调控新策略": {
+      "titleEn": "Chinese Academy research advances sodium-ion hard-carbon anodes",
+      "featureSummary": "The research report discusses a new strategy for controlling the interface of hard-carbon anodes in sodium-ion cells.",
+      "basis": "headline"
+    },
+    "钠离子电池新突破,木材废料变身电极材料": {
+      "titleEn": "Wood waste becomes sodium-ion electrode material",
+      "featureSummary": "The article describes research that converts discarded wood into battery electrode material.",
+      "basis": "headline"
+    },
+    "UL利用水相工艺将木材工业副产品转化为碳纳米纤维用于钠离子电池_车市动态": {
+      "titleEn": "UL converts wood-industry byproducts into carbon nanofibers",
+      "featureSummary": "The research uses a water-based process to make carbon nanofibers for sodium-ion batteries.",
+      "basis": "headline"
+    },
+    "UL 利用水相工艺将木材工业副产品转化为碳纳米纤维用于钠离子电池": {
+      "titleEn": "UL water-based process creates sodium-ion carbon nanofibers",
+      "featureSummary": "The report again covers converting wood-industry byproducts into sodium-ion battery carbon nanofibers.",
+      "basis": "headline"
+    },
+    "网通社汽车-更新-更全-更权威的全球汽车资讯": {
+      "titleEn": "Auto-news homepage rather than a sodium-ion article",
+      "featureSummary": "This search result points to a general auto-news page and provides no identifiable sodium-ion development.",
+      "basis": "headline"
+    },
+    "永臻股份10月13日回应钠离子电池话题：拟5.97亿元投建年产6万吨成品电池铝箔项目_公司新闻": {
+      "titleEn": "Yongzhen plans a battery aluminum-foil project",
+      "featureSummary": "The company describes a proposed ¥597 million aluminum-foil project while responding to sodium-ion battery questions.",
+      "basis": "headline"
     }
   },
   "robotaxi": {
@@ -367,6 +722,36 @@
     "美国国家公路交通安全管理局已对约1000辆特斯拉Robotaxi开启缺陷调查。针对特斯拉的请愿书称，涉事车辆在学校限速区域处于启用状态时，行驶速度超过了该区域公布的限速。": {
       "titleEn": "US regulator investigates about 1,000 Tesla robotaxis over school-zone speeds",
       "featureSummary": "The NHTSA investigation concerns allegations that Tesla robotaxis exceeded posted limits in active school zones."
+    },
+    "广州部分地区可打到小鹏Robotaxi": {
+      "titleEn": "XPeng robotaxis become available in parts of Guangzhou",
+      "featureSummary": "The article reports that riders can hail XPeng robotaxis in selected Guangzhou areas.",
+      "basis": "headline"
+    },
+    "哈啰Robotaxi发布生成式驾驶世界模型HelloWorld": {
+      "titleEn": "Hello Robotaxi introduces HelloWorld driving world model",
+      "featureSummary": "The company presents a generative driving world model for its robotaxi program.",
+      "basis": "headline"
+    },
+    "Cybercab 定档 9 月 3 日，马斯克押注「去人类化」": {
+      "titleEn": "Tesla Cybercab event slated for 3 September",
+      "featureSummary": "The article frames Tesla's Cybercab around a vehicle designed for operation without a human driver.",
+      "basis": "headline"
+    },
+    "何小鹏重磅官宣：开始对外卖技术_热点推荐": {
+      "titleEn": "XPeng plans to sell vehicle and autonomous-driving technology",
+      "featureSummary": "The report covers XPeng opening its vehicle, assisted-driving and chip technology to external customers.",
+      "basis": "headline"
+    },
+    "小马智行第七代Robotaxi在曼彻斯特测试 欧洲五城超2000辆计划推进": {
+      "titleEn": "Pony.ai tests seventh-generation robotaxi in Manchester",
+      "featureSummary": "The report describes UK testing and a wider European deployment plan for the seventh-generation vehicle.",
+      "basis": "headline"
+    },
+    "小马智行第七代Robotaxi落地英国曼彻斯特并开展车辆测试": {
+      "titleEn": "Pony.ai seventh-generation robotaxi starts Manchester tests",
+      "featureSummary": "The article focuses on vehicle testing in Manchester as part of Pony.ai's UK expansion.",
+      "basis": "headline"
     }
   },
   "v2g": {
@@ -393,6 +778,26 @@
     "充电桩有了智慧“大脑”，“以荷定充”巧解老旧小区充电难题": {
       "titleEn": "Smart chargers adapt charging to capacity in older neighborhoods",
       "featureSummary": "Managed charging is used to fit EV charging within older neighborhoods’ electrical capacity."
+    },
+    "不增容也能多装桩！江苏首个“以荷定充”居住区车网互动项目在苏州投运": {
+      "titleEn": "Suzhou launches load-aware residential EV charging project",
+      "featureSummary": "The project aims to install more chargers without expanding grid capacity by coordinating charging with local load.",
+      "basis": "headline"
+    },
+    "梅赛德斯-奔驰双向充电在德国上线：车网互动付费、11千瓦壁挂式充电盒 - 新闻和统计": {
+      "titleEn": "Mercedes-Benz launches bidirectional charging in Germany",
+      "featureSummary": "The service combines an 11 kW wallbox with paid vehicle-to-grid participation.",
+      "basis": "headline"
+    },
+    "青海：超级充电示范站“刷新”绿色出行新体验": {
+      "titleEn": "Qinghai opens a green supercharging demonstration station",
+      "featureSummary": "The report presents a public supercharging site in Qinghai as a green-mobility project.",
+      "basis": "headline"
+    },
+    "国网青海电力：超级充电示范站“刷新”绿色出行新体验": {
+      "titleEn": "State Grid Qinghai presents a supercharging demonstration station",
+      "featureSummary": "The utility describes a Qinghai supercharging site; the headline does not establish bidirectional power flow.",
+      "basis": "headline"
     }
   },
   "steer_by_wire": {
@@ -419,6 +824,36 @@
     "标致RCZ概念车": {
       "titleEn": "Peugeot RCZ concept car",
       "featureSummary": "The brief headline introduces the Peugeot RCZ concept car."
+    },
+    "蒂森克虏伯汽车技术与联合动力就线控转向达成战略合作": {
+      "titleEn": "Thyssenkrupp and United Power partner on steer-by-wire",
+      "featureSummary": "The companies announce a strategic cooperation agreement to develop steer-by-wire technology.",
+      "basis": "headline"
+    },
+    "2026Cybercab 启示录：线控底盘打开高阶智驾新世界": {
+      "titleEn": "Cybercab highlights steer-by-wire chassis development",
+      "featureSummary": "The analysis discusses how by-wire chassis systems could support higher levels of automated driving.",
+      "basis": "headline"
+    },
+    "蒂森克虏伯汽车技术与联合动力就线控转向达成战略合作_车市动态": {
+      "titleEn": "Thyssenkrupp and United Power sign steer-by-wire agreement",
+      "featureSummary": "A second report covers the companies' strategic cooperation on steer-by-wire.",
+      "basis": "headline"
+    },
+    "特斯拉Cybercab线控制动实锤，取消液压系统": {
+      "titleEn": "Tesla Cybercab reportedly replaces hydraulic braking",
+      "featureSummary": "The report says Cybercab uses brake-by-wire in place of a conventional hydraulic braking system.",
+      "basis": "headline"
+    },
+    "线控底盘，凭什么被称为智能汽车的“身体”？": {
+      "titleEn": "Why is by-wire chassis the smart car's body?",
+      "featureSummary": "The explainer discusses how electronic steering and braking connect automated-driving commands to vehicle motion.",
+      "basis": "headline"
+    },
+    "【视频】星途EX7：EMB线控制动+ 猎鹰700智驾，性能豪华大五座SUV": {
+      "titleEn": "Exeed EX7 pairs EMB brakes with assisted driving",
+      "featureSummary": "The video introduces an EX7 package combining electromechanical brake-by-wire and Falcon 700 assistance.",
+      "basis": "headline"
     }
   },
   "smart_lighting": {
@@ -445,6 +880,31 @@
     "智界V9续航超1250km，华为乾崑智驾+雪鸮增程加持": {
       "titleEn": "Luxeed V9 claims over 1,250 km range with Huawei assistance",
       "featureSummary": "The Luxeed V9 is introduced with long range and Huawei driver assistance."
+    },
+    "把安全课开进电动车门店 江苏徐州交警携手九号电动车普及骑行知识": {
+      "titleEn": "Xuzhou traffic police teach e-bike safety in retail stores",
+      "featureSummary": "The local safety campaign concerns electric two-wheelers and is not about automotive lighting or doors.",
+      "basis": "headline"
+    },
+    "星宇股份车灯业务增收不增利？叠加内部治理问题经营压力凸显": {
+      "titleEn": "Xingyu's automotive-lighting sales rise but margins lag",
+      "featureSummary": "The business analysis discusses revenue growth, profitability pressure and governance concerns at a lighting supplier.",
+      "basis": "headline"
+    },
+    "小鹏G9L亮相巴黎车展！国内23万起，海外约56万，还提供6/7座可选": {
+      "titleEn": "XPeng G9L appears at the Paris motor show",
+      "featureSummary": "The preview focuses on G9L pricing, overseas positioning and seating options; smart lighting is not named.",
+      "basis": "headline"
+    },
+    "【图】小鹏G9L上市 限时售23.18万起 增程版续航1602km 后排零重力座椅": {
+      "titleEn": "XPeng G9L launches with range-extender and zero-gravity seats",
+      "featureSummary": "The launch story highlights price, stated range and rear-seat comfort rather than lighting or doors.",
+      "basis": "headline"
+    },
+    "中大型MPV智界V9将亮相北京车展！车长接近5米4，搭载1.5T增程器": {
+      "titleEn": "Luxeed V9 MPV previewed for Beijing show",
+      "featureSummary": "The preview describes the MPV's dimensions and range-extender powertrain, not a specific exterior feature.",
+      "basis": "headline"
     }
   },
   "central_compute": {
@@ -471,6 +931,36 @@
     "赛力斯刘小飞：汽车架构驶向舱驾融合": {
       "titleEn": "Seres executive says vehicle architecture is moving toward cockpit-driving fusion",
       "featureSummary": "Seres forecasts tighter integration of cockpit and assisted-driving computing."
+    },
+    "晚点独家丨地平线敲定征程7目标算力，舱驾一体产品命名“星空”": {
+      "titleEn": "Horizon sets Journey 7 compute target and names Starry Sky",
+      "featureSummary": "The exclusive report describes a planned compute target and a named cockpit-driving integration product.",
+      "basis": "headline"
+    },
+    "舱驾一体新维度：小鹏G9L与4款智能大五座SUV体验横评": {
+      "titleEn": "XPeng G9L compared with four SUVs on cockpit-driving integration",
+      "featureSummary": "The review compares how five large SUVs combine cabin and driver-assistance systems.",
+      "basis": "headline"
+    },
+    "千亿赛道座次重排！AI原生座舱全面上位，舱驾一体暗战升级": {
+      "titleEn": "AI-native cockpits drive a new integration contest",
+      "featureSummary": "The industry analysis discusses AI-native cabins and competition around unified cockpit and driving compute.",
+      "basis": "headline"
+    },
+    "舱驾一体+AI座舱：小鹏G9L与4款智能大五座SUV横评": {
+      "titleEn": "XPeng G9L and four SUVs compared on AI cockpits",
+      "featureSummary": "The article compares integrated driving and AI cabin features in five large SUVs.",
+      "basis": "headline"
+    },
+    "舱驾一体哪家强？小鹏G9L与智界R7、理想L6智能大五座横评+选购清单": {
+      "titleEn": "G9L, R7 and L6 buying guide for cockpit-driving integration",
+      "featureSummary": "The buying guide compares how three SUVs handle integrated cockpit and assisted-driving experiences.",
+      "basis": "headline"
+    },
+    "舱驾一体才是智能天花板？小鹏G9L与4款大五座SUV智能体验横评": {
+      "titleEn": "Is cockpit-driving integration the smart-SUV benchmark?",
+      "featureSummary": "The review uses the XPeng G9L and four rivals to assess integrated computing and cabin interaction.",
+      "basis": "headline"
     }
   },
   "l3_autonomy": {
@@ -497,6 +987,31 @@
     "智界RX的L3大餐，还需要火候！": {
       "titleEn": "Luxeed RX's L3 offering still needs more work",
       "featureSummary": "The commentary argues that the Luxeed RX’s L3 conditional-automation package still needs refinement."
+    },
+    "SpaceX、AMD财报出炉；大基金三期出手！入股正芯半导体": {
+      "titleEn": "SpaceX and AMD earnings plus Chinese chip-fund investment",
+      "featureSummary": "This market digest covers earnings and a semiconductor investment, not L3 conditional driving.",
+      "basis": "headline"
+    },
+    "尊界V680自动驾驶测试牌照含金量多高？65万起的L3级MPV值不值+FAQ": {
+      "titleEn": "Maextro V680 L3 test permit examined",
+      "featureSummary": "The buying guide examines the significance of an autonomous-driving test permit for a proposed luxury MPV.",
+      "basis": "headline"
+    },
+    "2026 L4 自动驾驶产业拐点：头部企业技术路线与商业化落地全景解析": {
+      "titleEn": "2026 L4 autonomous-driving industry overview",
+      "featureSummary": "The industry analysis surveys leading companies' technical approaches and commercial deployment.",
+      "basis": "headline"
+    },
+    "智界赵长江：我们以后都不发订单数据了，智界RX卖得很不错": {
+      "titleEn": "Luxeed executive comments on RX sales disclosure",
+      "featureSummary": "The article discusses whether the brand will publish order figures; it is not a report on L3 capability.",
+      "basis": "headline"
+    },
+    "L3出了事故算谁的？车企担责有前提，这三种情况你得自己担责任": {
+      "titleEn": "Who is responsible after an L3 crash?",
+      "featureSummary": "The explainer examines when a carmaker may be liable and when driver actions can shift responsibility.",
+      "basis": "headline"
     }
   },
   "adas_chips": {
@@ -523,6 +1038,36 @@
     "理想 CTO 谢炎揭秘马赫 M100 研发史：要像苹果一样造芯片": {
       "titleEn": "Li Auto CTO recounts development of its Mach M100 chip",
       "featureSummary": "Li Auto’s CTO describes the development of its in-house Mach M100 chip and the company’s push to control core computing hardware."
+    },
+    "不再只卖车！小鹏开放整车、智驾、芯片全套技术方案": {
+      "titleEn": "XPeng opens vehicle, assisted-driving and chip technology",
+      "featureSummary": "The company says it will offer its vehicle platform, driving technology and chips to outside partners.",
+      "basis": "headline"
+    },
+    "中国车企自研智驾芯片盘点：比亚迪制程最强，理想算力最高": {
+      "titleEn": "Chinese carmakers' in-house ADAS chips compared",
+      "featureSummary": "The roundup compares chip fabrication and compute claims across Chinese automakers.",
+      "basis": "headline"
+    },
+    "【视频】2026款理想i6全自研芯片，价格会更香吗？": {
+      "titleEn": "2026 Li Auto i6 video examines in-house chips",
+      "featureSummary": "The video asks how self-developed chips affect the i6's pricing and technology package.",
+      "basis": "headline"
+    },
+    "晚点独家丨地平线敲定征程7目标算力，舱驾一体产品命名“星空”": {
+      "titleEn": "Horizon Journey 7 compute target and Starry Sky platform",
+      "featureSummary": "The report covers next-generation compute and an integrated cockpit-driving product.",
+      "basis": "headline"
+    },
+    "智能汽车芯片哪家好：2026年从入门ADAS到高阶智驾的全梯度选型指南": {
+      "titleEn": "2026 automotive-chip selection guide",
+      "featureSummary": "The guide organizes chip options from entry-level ADAS through advanced assisted driving.",
+      "basis": "headline"
+    },
+    "腾势新车明年搭载比亚迪璇玑A3智驾芯片": {
+      "titleEn": "Denza plans a BYD Xuanji A3 ADAS chip next year",
+      "featureSummary": "The product report says a forthcoming Denza model is set to carry BYD's Xuanji A3 driving chip.",
+      "basis": "headline"
     }
   },
   "giga_casting": {
@@ -549,6 +1094,36 @@
     "多概念加持获市场关注 东风科技股价涨停": {
       "titleEn": "Dongfeng Technology shares hit the daily limit amid multiple themes",
       "featureSummary": "The market note discusses a share-price jump for Dongfeng Technology."
+    },
+    "东风汽车一体化压铸技术获国际权威大奖": {
+      "titleEn": "Dongfeng integrated die-casting wins an international award",
+      "featureSummary": "The report says Dongfeng's one-piece die-casting technology received an international industry award.",
+      "basis": "headline"
+    },
+    "Jeep官方透露新项目, 具体车型暂未公布": {
+      "titleEn": "Jeep hints at an unspecified new project",
+      "featureSummary": "The announcement does not name a vehicle or describe die-casting technology.",
+      "basis": "headline"
+    },
+    "丰田“王牌”家轿要变天，新卡罗拉概念车抢先看，这次能翻盘吗？": {
+      "titleEn": "Toyota Corolla concept previews a possible redesign",
+      "featureSummary": "The concept story focuses on the next Corolla's design direction rather than its manufacturing process.",
+      "basis": "headline"
+    },
+    "阿维塔：三方赋能下的中国高端智能电动车新范式": {
+      "titleEn": "Avatr presented as a premium smart-EV collaboration",
+      "featureSummary": "The feature describes Avatr's three-party development model, not a specific casting method.",
+      "basis": "headline"
+    },
+    "【会展区】具身智能从“会动”走向“会干活”": {
+      "titleEn": "Exhibition shows embodied AI moving into practical work",
+      "featureSummary": "At the Shanghai industry expo, robots demonstrate food preparation, component assembly and factory work. ABB shows an AI-assisted inspection system for one-piece cast parts; the article covers inspection, not a new casting process.",
+      "basis": "article"
+    },
+    "异动快报：长源东谷（603950）10月12日14点44分触及跌停板": {
+      "titleEn": "Changyuan Donggu shares hit the daily limit down",
+      "featureSummary": "The market note reports a share-price move, not an integrated die-casting advance.",
+      "basis": "headline"
     }
   }
 }

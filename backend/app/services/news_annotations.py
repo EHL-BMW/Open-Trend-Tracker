@@ -22,19 +22,19 @@ def annotate_topic(topic_id: str) -> dict:
         raise KeyError(topic_id)
 
     headlines = topic["headlines"]
-    if DEMO_NOTES_FILE.exists():
-        demo_notes = json.loads(DEMO_NOTES_FILE.read_text(encoding="utf-8")).get(topic_id, {})
-        if all(item["title"] in demo_notes for item in headlines):
-            return {
-                "topic_id": topic_id,
-                "basis": "headline",
-                "items": [{
-                    "link": item["link"],
-                    "title_en": demo_notes[item["title"]]["titleEn"],
-                    "feature_summary": demo_notes[item["title"]]["featureSummary"],
-                    "basis": demo_notes[item["title"]].get("basis", "headline"),
-                } for item in headlines],
-            }
+    demo_notes = (json.loads(DEMO_NOTES_FILE.read_text(encoding="utf-8")).get(topic_id, {})
+                  if DEMO_NOTES_FILE.exists() else {})
+    if all(item["title"] in demo_notes for item in headlines):
+        return {
+            "topic_id": topic_id,
+            "basis": "headline",
+            "items": [{
+                "link": item["link"],
+                "title_en": demo_notes[item["title"]]["titleEn"],
+                "feature_summary": demo_notes[item["title"]]["featureSummary"],
+                "basis": demo_notes[item["title"]].get("basis", "headline"),
+            } for item in headlines],
+        }
 
     model = get_openai_model()
     fingerprint = hashlib.sha256(json.dumps(
@@ -47,7 +47,16 @@ def annotate_topic(topic_id: str) -> dict:
 
     key = get_openai_api_key()
     if not key:
-        raise RuntimeError("OpenAI API key is not configured; add OPENAI_API_KEY to backend/.env")
+        return {
+            "topic_id": topic_id,
+            "basis": "headline",
+            "items": [{
+                "link": item["link"],
+                "title_en": demo_notes.get(item["title"], {}).get("titleEn", ""),
+                "feature_summary": demo_notes.get(item["title"], {}).get("featureSummary", item["title"]),
+                "basis": demo_notes.get(item["title"], {}).get("basis", "title"),
+            } for item in headlines],
+        }
 
     source_items = [
         {"index": index, "headline": item["title"], "outlet": item["source"]}

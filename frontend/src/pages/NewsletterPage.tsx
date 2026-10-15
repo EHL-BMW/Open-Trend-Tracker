@@ -16,7 +16,7 @@ import styles from "./NewsletterPage.module.css";
 
 interface TopicAnnotations {
   basis: "headline";
-  items: Array<{ link: string; title_en: string; feature_summary: string; basis?: "article" | "headline" }>;
+  items: Array<{ link: string; title_en: string; feature_summary: string; basis?: "article" | "headline" | "title" }>;
 }
 
 function Sparkline({
@@ -471,14 +471,14 @@ export function NewsletterPage() {
                 <div className={styles.topicDetailPanel}>
                   <div>
                     <h3 className={styles.detailHeading}>Latest Chinese headlines</h3>
-                    <p className={styles.headlineHint}>Hover or focus a headline for a feature-focused AI note.</p>
+                    <p className={styles.headlineHint}>Hover over a headline or select ⓘ for a short summary.</p>
                     {annotationErrors[t.id] && <p className={styles.annotationError}>{annotationErrors[t.id]}</p>}
                     {t.headlines.length > 0 ? (
                       <ul className={styles.headlineList}>
                         {t.headlines.map((h, hIdx) => {
                           const annotation = annotationsByTopic[t.id]?.items[hIdx];
                           const note = HEADLINE_NOTES[t.id]?.[h.title];
-                          const translated = annotation?.title_en ?? note?.titleEn ?? HEADLINE_EN[h.title];
+                          const translated = annotation?.title_en || note?.titleEn || HEADLINE_EN[h.title];
                           return (
                             <li key={h.link} className={styles.headlineItem}>
                               <div className={styles.headlineTitleRow}>
@@ -493,14 +493,12 @@ export function NewsletterPage() {
                                 >ⓘ</button>
                               </div>
                               <div className={styles.headlineTranslation}>
-                                EN · {translated ?? (annotationErrors[t.id] ? "Translation unavailable" : "Generating translation…")}
+                                {translated ? `EN · ${translated}` : "Original Chinese headline"}
                               </div>
                               <div className={styles.headlineMeta}>{SOURCE_EN[h.source] ?? h.source} · {h.date}</div>
                               <div id={`summary-${t.id}-${hIdx}`} className={styles.headlineTooltip} role="tooltip">
-                                <b>{annotation?.basis === "article" || note?.basis === "article" ? "Article summary" : "Feature summary · based on headline"}</b>
-                                <p>{annotation?.feature_summary ?? note?.featureSummary ?? (annotationErrors[t.id]
-                                  ? "Summary unavailable until the AI service is configured."
-                                  : "Generating a feature-focused summary…")}</p>
+                                <b>{annotation?.basis === "article" || note?.basis === "article" ? "Article summary" : annotation?.basis === "title" ? "Original headline · summary pending" : "Feature summary · based on headline"}</b>
+                                <p>{annotation?.feature_summary ?? note?.featureSummary ?? h.title}</p>
                               </div>
                             </li>
                           );

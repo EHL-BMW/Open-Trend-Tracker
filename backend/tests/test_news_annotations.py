@@ -27,6 +27,39 @@ def test_demo_annotations_work_without_api_key(tmp_path, monkeypatch):
     assert result["items"][0]["basis"] == "headline"
 
 
+def test_new_headline_keeps_existing_notes_and_uses_clear_fallback(tmp_path, monkeypatch):
+    trends = tmp_path / "trends.json"
+    trends.write_text(json.dumps({"topics": [{
+        "id": "solid_state", "label_en": "Solid-state batteries", "headlines": [
+            {"title": "Reviewed", "source": "Example", "link": "https://example.com/1"},
+            {"title": "新标题", "source": "Example", "link": "https://example.com/2"},
+        ],
+    }]}), encoding="utf-8")
+    notes = tmp_path / "notes.json"
+    notes.write_text(json.dumps({"solid_state": {"Reviewed": {
+        "titleEn": "Reviewed story", "featureSummary": "A reviewed feature summary.",
+    }}}), encoding="utf-8")
+    monkeypatch.setattr(news_annotations, "TRENDS_FILE", trends)
+    monkeypatch.setattr(news_annotations, "DEMO_NOTES_FILE", notes)
+    monkeypatch.setattr(news_annotations, "get_openai_api_key", lambda: None)
+
+    items = news_annotations.annotate_topic("solid_state")["items"]
+
+    assert items[0]["feature_summary"] == "A reviewed feature summary."
+    assert items[1]["feature_summary"] == "新标题"
+    assert items[1]["basis"] == "title"
+
+
+def test_current_news_feed_has_reviewed_notes():
+    trends = json.loads(news_annotations.TRENDS_FILE.read_text(encoding="utf-8"))
+    notes = json.loads(news_annotations.DEMO_NOTES_FILE.read_text(encoding="utf-8"))
+    missing = [(topic["id"], headline["title"])
+               for topic in trends["topics"] for headline in topic["headlines"]
+               if not notes.get(topic["id"], {}).get(headline["title"], {}).get("featureSummary")]
+
+    assert missing == []
+
+
 def test_topic_annotations_are_feature_focused_and_cached(tmp_path, monkeypatch):
     trends = tmp_path / "trends.json"
     trends.write_text(json.dumps({"topics": [{
